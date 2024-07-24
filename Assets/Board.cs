@@ -4,5 +4,7 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    Tile[,] tiles = new Tile[8, 8];
+
 
 }

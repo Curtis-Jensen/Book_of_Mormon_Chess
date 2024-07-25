@@ -66,3 +66,6 @@ UserSettings/EditorUserSettings.asset
 *.settings
 /ProjectSettings/MemorySettings.asset
 /ProjectSettings/ProjectVersion.txt
+*.index
+/ProjectSettings/Physics2DSettings.asset
+*.asset

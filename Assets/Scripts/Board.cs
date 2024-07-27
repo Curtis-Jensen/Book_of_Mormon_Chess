@@ -42,7 +42,6 @@ public class Board : MonoBehaviour
         }
     }
 
-
     public void HilightPossibleTiles(List<Vector2Int> attemptedMoves)
     {
         // 🟩 Get the tile at the attempted move position
@@ -53,5 +52,10 @@ public class Board : MonoBehaviour
         // 🎨 Enable the SpriteRenderer to make it visible
         var spriteRenderer = possibleTile.gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
+    }
+
+    public void MovePiece(Vector2 destinationLocation, Piece selectedPiece)
+    {
+        selectedPiece.transform.position = destinationLocation;
     }
 }

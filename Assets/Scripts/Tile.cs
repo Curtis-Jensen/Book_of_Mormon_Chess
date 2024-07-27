@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
@@ -17,19 +17,21 @@ public class Tile : MonoBehaviour
 
     void FindBoardAndPiece()
     {
+        board = transform.parent.GetComponentInParent<Board>();
+
         // Check if the tile has a piece
         if (transform.childCount <= 0) return;
 
         // Get the child object
         Transform child = transform.GetChild(0);
         piece = child.GetComponent<Piece>();
-        board = gameObject.GetComponentInParent<Board>();
     }
 
     void OnMouseDown()
     {
         if (selected)
         {
+            Debug.Log(board);
             board.MovePiece(transform.position, piece);
         }
         else

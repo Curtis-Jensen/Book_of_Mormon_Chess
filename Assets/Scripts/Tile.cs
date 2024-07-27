@@ -1,9 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    public bool selected;
+
     Board board;
 
     void OnMouseDown()

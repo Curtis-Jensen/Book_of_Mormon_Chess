@@ -69,3 +69,4 @@ UserSettings/EditorUserSettings.asset
 *.index
 /ProjectSettings/Physics2DSettings.asset
 *.asset
+/UserSettings/Layouts/CurrentMaximizeLayout.dwlt

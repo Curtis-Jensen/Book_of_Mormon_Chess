@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -45,11 +45,13 @@ public class Board : MonoBehaviour
 
     public void HilightPossibleTiles(List<Vector2Int> attemptedMoves)
     {
-        var spriteRenderer =    
-            tiles[attemptedMoves[0].x, attemptedMoves[0].y].gameObject
-            .GetComponent<SpriteRenderer>();
+        // 🟩 Get the tile at the attempted move position
+        var possibleTile = tiles[attemptedMoves[0].x, attemptedMoves[0].y];
 
+        possibleTile.selected = true;
+
+        // 🎨 Enable the SpriteRenderer to make it visible
+        var spriteRenderer = possibleTile.gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
-        Debug.Log(attemptedMoves[0]);
     }
 }

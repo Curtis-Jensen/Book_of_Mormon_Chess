@@ -4,13 +4,10 @@ using UnityEngine;
 
 public class Pawn : Piece
 {
-    public bool hasMoved;
-
-    // Override the Move method
-    public override void Move(Vector3 newPosition)
+    public override List<Vector2Int> GetValidMoves()
     {
-        // Pawn-specific move logic
-        base.Move(newPosition);  // Call the base class's move method, if needed
-        hasMoved = true;
+        List<Vector2Int> validMoves = new List<Vector2Int>();
+        // Add pawn-specific move logic
+        return validMoves;
     }
 }

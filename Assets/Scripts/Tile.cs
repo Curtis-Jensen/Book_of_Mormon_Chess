@@ -13,11 +13,9 @@ public class Tile : MonoBehaviour
         Transform child = transform.GetChild(0);
         Piece piece = child.GetComponent<Piece>();
 
-        if (piece != null)
-        {
-            // Access the move data or any other data from the piece script
-            Debug.Log("Tile clicked. Piece is white: " + piece.isWhite);
-        }
+        // Access the move data or any other data from the piece script
+        Debug.Log("Tile clicked. Piece is white: " + piece.isWhite);
+        piece.GetValidMoves();
     }
 }
 

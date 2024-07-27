@@ -11,5 +11,5 @@ public abstract class Piece : MonoBehaviour
     /// Abstract method for movement logic
     /// </summary>
     /// <returns></returns>
-    public abstract List<Vector2Int> GetValidMoves();
+    public abstract List<Vector2Int> GetMoves();
 }

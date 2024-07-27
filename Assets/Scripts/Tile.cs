@@ -4,18 +4,20 @@ using UnityEngine;
 
 public class Tile : MonoBehaviour
 {
+    Board board;
+
     void OnMouseDown()
     {
         // Check if the tile has a piece
         if (transform.childCount <= 0) return;
 
-        // Get the child object (assuming there is only one child)
+        // Get the child object
         Transform child = transform.GetChild(0);
         Piece piece = child.GetComponent<Piece>();
+        board = gameObject.GetComponentInParent<Board>();
 
         // Access the move data or any other data from the piece script
-        Debug.Log("Tile clicked. Piece is white: " + piece.isWhite);
-        piece.GetValidMoves();
+        board.Moving(piece.GetMoves());
     }
 }
 

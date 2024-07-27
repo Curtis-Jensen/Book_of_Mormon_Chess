@@ -17,7 +17,7 @@ public class Tile : MonoBehaviour
         board = gameObject.GetComponentInParent<Board>();
 
         // Access the move data or any other data from the piece script
-        board.Moving(piece.GetMoves());
+        board.HilightPossibleTiles(piece.GetMoves());
     }
 }
 

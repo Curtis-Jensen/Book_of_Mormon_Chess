@@ -32,7 +32,7 @@ public class Tile : MonoBehaviour
         if (selected)
         {
             Debug.Log(board);
-            board.MovePiece(transform.position, piece);
+            board.MovePiece(transform.position);
         }
         else
         {
@@ -43,7 +43,7 @@ public class Tile : MonoBehaviour
     void PreviewPieceMoves()
     {
         // Access the move data or any other data from the piece script
-        board.HilightPossibleTiles(piece.GetMoves());
+        board.HilightPossibleTiles(piece.GetMoves(), piece);
     }
 }
 

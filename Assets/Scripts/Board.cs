@@ -5,6 +5,7 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Tile[,] tiles = new Tile[8, 8];
+    Piece selectedPiece;
 
     void Start()
     {
@@ -42,8 +43,10 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void HilightPossibleTiles(List<Vector2Int> attemptedMoves)
+    public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
     {
+        this.selectedPiece = selectedPiece;
+
         // 🟩 Get the tile at the attempted move position
         var possibleTile = tiles[attemptedMoves[0].x, attemptedMoves[0].y];
 
@@ -54,7 +57,7 @@ public class Board : MonoBehaviour
         spriteRenderer.enabled = true;
     }
 
-    public void MovePiece(Vector2 destinationLocation, Piece selectedPiece)
+    public void MovePiece(Vector2 destinationLocation)
     {
         selectedPiece.transform.position = destinationLocation;
     }

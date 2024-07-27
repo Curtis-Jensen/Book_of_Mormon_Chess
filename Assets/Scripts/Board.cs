@@ -46,7 +46,8 @@ public class Board : MonoBehaviour
     public void HilightPossibleTiles(List<Vector2Int> attemptedMoves)
     {
         var spriteRenderer =    
-            tiles[attemptedMoves[0].x, attemptedMoves[0].y].gameObject.GetComponent<SpriteRenderer>();
+            tiles[attemptedMoves[0].x, attemptedMoves[0].y].gameObject
+            .GetComponent<SpriteRenderer>();
 
         spriteRenderer.enabled = true;
         Debug.Log(attemptedMoves[0]);

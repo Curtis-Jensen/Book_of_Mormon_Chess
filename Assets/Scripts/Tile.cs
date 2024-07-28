@@ -43,6 +43,8 @@ public class Tile : MonoBehaviour
 
     void PreviewPieceMoves()
     {
+        if (piece == null) return;
+        board.MovePiece(transform.position);
         // Access the move data or any other data from the piece script
         board.HilightPossibleTiles(piece.GetMoves(), piece);
     }

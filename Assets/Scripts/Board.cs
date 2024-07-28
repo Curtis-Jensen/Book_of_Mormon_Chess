@@ -83,6 +83,34 @@ public class Board : MonoBehaviour
         DeselectTiles();
     }
 
+
+    /// <summary>
+    /// Check if a tile is empty
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool IsTileEmpty(Vector2Int position)
+    {
+        if (position.x < 0 || position.x >= 8 || position.y < 0 || position.y >= 8) return false;
+
+        Tile tile = tiles[position.x, position.y];
+        return tile.piece == null;
+    }
+
+    /// <summary>
+    /// Check if a tile contains an enemy piece
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="isWhite"></param>
+    /// <returns></returns>
+    public bool IsEnemyPiece(Vector2Int position, bool isWhite)
+    {
+        if (position.x < 0 || position.x >= 8 || position.y < 0 || position.y >= 8) return false;
+
+        Tile tile = tiles[position.x, position.y];
+        return tile.piece != null && tile.piece.isWhite != isWhite;
+    }
+
     /// <summary>
     /// Deselects all currently selected tiles.  
     /// Called when another piece is selected or a piecce moves

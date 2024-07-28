@@ -4,8 +4,6 @@ using UnityEngine;
 
 public class Pawn : Piece
 {
-    public Board board;
-
     public override List<Vector2Int> GetMoves()
     {
         List<Vector2Int> validMoves = new List<Vector2Int>();
@@ -16,7 +14,7 @@ public class Pawn : Piece
         // Check one square forward
         Vector2Int forwardMove = 
             new Vector2Int((int)transform.position.x, (int)transform.position.y + forward);
-        if (board.IsTileEmpty(forwardMove))
+        if (Board.Instance.IsTileEmpty(forwardMove))
         {
             validMoves.Add(forwardMove);
         }
@@ -30,7 +28,7 @@ public class Pawn : Piece
 
         foreach (var move in diagonalMoves)
         {
-            if (board.IsEnemyPiece(move, isWhite))
+            if (Board.Instance.IsEnemyPiece(move, isWhite))
             {
                 validMoves.Add(move);
             }

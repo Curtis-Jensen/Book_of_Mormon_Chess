@@ -4,10 +4,25 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
+    public static Board Instance { get; private set; } // Static instance
+
     public Tile[,] tiles = new Tile[8, 8];
 
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
+
+    void Awake()
+    {
+        // Ensure that there's only one instance of the Board
+        if (Instance == null)
+        {
+            Instance = this;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+    }
 
     void Start()
     {

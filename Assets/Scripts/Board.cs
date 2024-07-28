@@ -70,17 +70,17 @@ public class Board : MonoBehaviour
         // Get the destination tile
         Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
 
+        if (destinationTile.piece != null)
+        {
+            Destroy(destinationTile.piece.gameObject);
+        }
+
         // Set the piece's new parent to the destination tile
         selectedPiece.transform.SetParent(destinationTile.transform);
 
         destinationTile.piece = selectedPiece;
 
         DeselectTiles();
-
-        if (destinationTile.piece != null)
-        {
-            Destroy(destinationTile.piece);
-        }
     }
 
     /// <summary>

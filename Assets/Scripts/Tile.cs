@@ -6,9 +6,9 @@ using UnityEngine;
 public class Tile : MonoBehaviour
 {
     public bool selected;
+    public Piece piece;
 
     Board board;
-    Piece piece;
 
     void Start()
     {
@@ -31,7 +31,6 @@ public class Tile : MonoBehaviour
     {
         if (selected)
         {
-            Debug.Log(board);
             board.MovePiece(transform.position);
         }
         else

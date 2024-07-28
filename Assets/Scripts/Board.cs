@@ -5,6 +5,8 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public Tile[,] tiles = new Tile[8, 8];
+
+    List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
 
     void Start()
@@ -45,6 +47,8 @@ public class Board : MonoBehaviour
 
     public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
     {
+        DeselectTiles();
+
         this.selectedPiece = selectedPiece;
 
         // 🟩 Get the tile at the attempted move position
@@ -55,10 +59,40 @@ public class Board : MonoBehaviour
         // 🎨 Enable the SpriteRenderer to make it visible
         var spriteRenderer = possibleTile.gameObject.GetComponent<SpriteRenderer>();
         spriteRenderer.enabled = true;
+
+        selectedTiles.Add(possibleTile);
     }
 
     public void MovePiece(Vector2 destinationLocation)
     {
         selectedPiece.transform.position = destinationLocation;
+
+        // Get the destination tile
+        Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
+
+        // Set the piece's new parent to the destination tile
+        selectedPiece.transform.SetParent(destinationTile.transform);
+
+        destinationTile.piece = selectedPiece;
+
+        DeselectTiles();
+
+        if (destinationTile.piece != null)
+        {
+            Destroy(destinationTile.piece);
+        }
+    }
+
+    /// <summary>
+    /// Deselects all currently selected tiles.  
+    /// Called when another piece is selected or a piecce moves
+    /// </summary>
+    void DeselectTiles()
+    {
+        foreach (var tile in selectedTiles)
+        {
+            tile.selected = false;
+            tile.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+        }
     }
 }

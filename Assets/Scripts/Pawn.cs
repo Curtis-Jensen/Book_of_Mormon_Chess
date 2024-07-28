@@ -14,6 +14,8 @@ public class Pawn : Piece
         Vector2Int forwardMove = new Vector2Int((int)transform.position.x, (int)transform.position.y + direction);
         validMoves.Add(forwardMove);
 
+        Debug.Log(forwardMove.ToString());
+
         return validMoves;
     }
 }

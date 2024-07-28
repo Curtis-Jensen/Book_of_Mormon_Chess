@@ -107,8 +107,6 @@ public class Board : MonoBehaviour
         DeselectTiles();
     }
 
-
-
     /// <summary>
     /// Check if a tile is empty
     /// </summary>

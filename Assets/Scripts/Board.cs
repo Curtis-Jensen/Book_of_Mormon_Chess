@@ -49,18 +49,21 @@ public class Board : MonoBehaviour
     {
         DeselectTiles();
 
-        this.selectedPiece = selectedPiece;
+        foreach(Vector2Int move in attemptedMoves)
+        {
+            this.selectedPiece = selectedPiece;
 
-        // 🟩 Get the tile at the attempted move position
-        var possibleTile = tiles[attemptedMoves[0].x, attemptedMoves[0].y];
+            // 🟩 Get the tile at the attempted move position
+            var possibleTile = tiles[move.x, move.y];
 
-        possibleTile.selected = true;
+            possibleTile.selected = true;
 
-        // 🎨 Enable the SpriteRenderer to make it visible
-        var spriteRenderer = possibleTile.gameObject.GetComponent<SpriteRenderer>();
-        spriteRenderer.enabled = true;
+            // 🎨 Enable the SpriteRenderer to make it visible
+            var spriteRenderer = possibleTile.gameObject.GetComponent<SpriteRenderer>();
+            spriteRenderer.enabled = true;
 
-        selectedTiles.Add(possibleTile);
+            selectedTiles.Add(possibleTile);
+        }
     }
 
     public void MovePiece(Vector2 destinationLocation)

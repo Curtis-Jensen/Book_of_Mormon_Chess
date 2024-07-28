@@ -132,7 +132,7 @@ public class Board : MonoBehaviour
 
         Tile tile = tiles[position.x, position.y];
 
-        Debug.Log(tile.piece );
+        Debug.Log(tile.piece);
         return tile.piece != null && tile.piece.isWhite != isWhite;
     }
 

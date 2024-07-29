@@ -31,8 +31,6 @@ public class Tile : MonoBehaviour
     {
         if (selected)
         {
-
-            piece = null;
             board.MovePiece(transform.position);
         }
         else
@@ -43,6 +41,9 @@ public class Tile : MonoBehaviour
 
     void PreviewPieceMoves()
     {
+        //If no piece is on the tile, do not attempt this logic
+        if (piece == null) return;
+
         // Access the move data or any other data from the piece script
         board.HilightPossibleTiles(piece.GetMoves(), piece);
     }

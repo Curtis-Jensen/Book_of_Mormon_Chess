@@ -1,6 +1,10 @@
 fileFormatVersion: 2
+<<<<<<<< HEAD:Assets/Scenes/Main Menu.unity.meta
+guid: 7c57f91f92529c34db339fe0ccbec8e7
+========
 guid: f54d1bd14bd3ca042bd867b519fee8cc
 folderAsset: yes
+>>>>>>>> master:Assets/TextMesh Pro.meta
 DefaultImporter:
   externalObjects: {}
   userData: 

@@ -5,8 +5,8 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; } // Static instance
-
     public Tile[,] tiles = new Tile[8, 8];
+    public bool whiteTurn = true;
 
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
@@ -104,6 +104,9 @@ public class Board : MonoBehaviour
 
         // 🚫 Deselect all tiles
         DeselectTiles();
+
+        // Change which player's turn it is
+        whiteTurn = !whiteTurn;
     }
 
     /// <summary>

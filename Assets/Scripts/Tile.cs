@@ -41,8 +41,10 @@ public class Tile : MonoBehaviour
 
     void PreviewPieceMoves()
     {
-        //If no piece is on the tile, do not attempt this logic
+        //If no piece is on the tile
         if (piece == null) return;
+        //If no piece is on the tile, or it's not that piece's turn
+        if (Board.Instance.whiteTurn != piece.isWhite) return;
 
         // Access the move data or any other data from the piece script
         board.HilightPossibleTiles(piece.GetMoves(), piece);

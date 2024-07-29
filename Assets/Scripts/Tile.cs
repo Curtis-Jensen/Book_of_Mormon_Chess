@@ -31,8 +31,6 @@ public class Tile : MonoBehaviour
     {
         if (selected)
         {
-
-            piece = null;
             board.MovePiece(transform.position);
         }
         else

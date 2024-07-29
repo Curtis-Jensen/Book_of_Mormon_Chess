@@ -83,29 +83,24 @@ public class Board : MonoBehaviour
 
     public void MovePiece(Vector2 destinationLocation)
     {
-        //Remove the piece from the previous tile's memory
-        selectedPiece.transform.parent.GetComponent<Tile>().piece = null;
-
-        // 🚀 Physically move the selected piece to the new position
         selectedPiece.transform.position = destinationLocation;
 
-        // 🟩 Get the destination tile
+        // Get the destination tile
         Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
 
-        // 💥 Destroy the piece on the destination tile if there is one
         if (destinationTile.piece != null)
         {
             Destroy(destinationTile.piece.gameObject);
         }
 
-        // 👪 Set the piece's new parent to the destination tile
+        // Set the piece's new parent to the destination tile
         selectedPiece.transform.SetParent(destinationTile.transform);
 
-        // 📌 Assign the selected piece to the destination tile
         destinationTile.piece = selectedPiece;
 
         DeselectTiles();
     }
+
 
     /// <summary>
     /// Check if a tile is empty
@@ -131,8 +126,6 @@ public class Board : MonoBehaviour
         if (position.x < 0 || position.x >= 8 || position.y < 0 || position.y >= 8) return false;
 
         Tile tile = tiles[position.x, position.y];
-
-        Debug.Log(tile.piece );
         return tile.piece != null && tile.piece.isWhite != isWhite;
     }
 

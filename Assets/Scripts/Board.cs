@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
     public static Board Instance { get; private set; } // Static instance
     public Tile[,] tiles = new Tile[8, 8];
     public bool whiteTurn = true;
+    public float moveTime = 0.5f;
 
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
@@ -85,11 +86,8 @@ public class Board : MonoBehaviour
     {
         Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
 
-        //// ➡️ Physically move the selected piece to the new position
-        //selectedPiece.transform.position = destinationLocation;
-
-        // ➡️ Start the coroutine to physically move the piece smoothly
-        StartCoroutine(SmoothlyMovePiece(selectedPiece.gameObject, destinationLocation, 0.5f));
+        // ➡️ Start the coroutine to physically move the piece
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destinationLocation));
 
         RemoveNonEssentials(destinationLocation, destinationTile);
 
@@ -101,15 +99,15 @@ public class Board : MonoBehaviour
         whiteTurn = !whiteTurn;
     }
 
-    IEnumerator SmoothlyMovePiece(GameObject piece, Vector2 destination, float duration)
+    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
     {
         float time = 0;
         Vector3 startPosition = piece.transform.position;
         Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
 
-        while (time < duration)
+        while (time < moveTime)
         {
-            piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / duration);
+            piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / moveTime);
             time += Time.deltaTime;
             yield return null;
         }

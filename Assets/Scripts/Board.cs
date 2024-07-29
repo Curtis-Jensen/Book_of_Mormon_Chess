@@ -83,30 +83,42 @@ public class Board : MonoBehaviour
 
     public void MovePiece(Vector2 destinationLocation)
     {
-        // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
-        var piecePosition = selectedPiece.transform.position;
-        Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
-        startingTile.piece = null;
+        Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
+
+        RemoveNonEssentials(destinationLocation, destinationTile);
 
         // ➡️ Physically move the selected piece to the new position
         selectedPiece.transform.position = destinationLocation;
-
-        // 💥 Destroy the piece on the destination tile if there is one
-        Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
-        if (destinationTile.piece != null)
-        {
-            Destroy(destinationTile.piece.gameObject);
-        }
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
 
-        // 🚫 Deselect all tiles
-        DeselectTiles();
-
         // Change which player's turn it is
         whiteTurn = !whiteTurn;
+    }
+
+    /// <summary>
+    /// (Ask GPT for a better name) 
+    /// Also, this is slightly daisy-chained, maybe it should be called from Tile.cs
+    /// </summary>
+    /// <param name="destinationLocation"></param>
+    /// <param name="destinationTile"></param>
+    void RemoveNonEssentials(Vector2 destinationLocation, Tile destinationTile)
+    {
+        // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
+        var piecePosition = selectedPiece.transform.position;
+        Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
+        startingTile.piece = null;
+
+        // 💥 Destroy the piece on the destination tile if there is one
+        if (destinationTile.piece != null)
+        {
+            Destroy(destinationTile.piece.gameObject);
+        }
+
+        // 🚫 Deselect all tiles
+        DeselectTiles();
     }
 
     /// <summary>

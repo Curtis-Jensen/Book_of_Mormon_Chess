@@ -85,7 +85,7 @@ public class Board : MonoBehaviour
     {
         Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
 
-        RemoveNonEssentials(destinationLocation, destinationTile);
+        ClearAndSetupTile(destinationLocation, destinationTile);
 
         // ➡️ Physically move the selected piece to the new position
         selectedPiece.transform.position = destinationLocation;
@@ -104,7 +104,7 @@ public class Board : MonoBehaviour
     /// </summary>
     /// <param name="destinationLocation"></param>
     /// <param name="destinationTile"></param>
-    void RemoveNonEssentials(Vector2 destinationLocation, Tile destinationTile)
+    void ClearAndSetupTile(Vector2 destinationLocation, Tile destinationTile)
     {
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;

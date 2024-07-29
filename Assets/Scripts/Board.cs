@@ -85,10 +85,13 @@ public class Board : MonoBehaviour
     {
         Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
 
-        ClearAndSetupTile(destinationLocation, destinationTile);
+        //// ➡️ Physically move the selected piece to the new position
+        //selectedPiece.transform.position = destinationLocation;
 
-        // ➡️ Physically move the selected piece to the new position
-        selectedPiece.transform.position = destinationLocation;
+        // ➡️ Start the coroutine to physically move the piece smoothly
+        StartCoroutine(SmoothlyMovePiece(selectedPiece.gameObject, destinationLocation, 0.5f));
+
+        RemoveNonEssentials(destinationLocation, destinationTile);
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);
@@ -98,13 +101,27 @@ public class Board : MonoBehaviour
         whiteTurn = !whiteTurn;
     }
 
+    IEnumerator SmoothlyMovePiece(GameObject piece, Vector2 destination, float duration)
+    {
+        float time = 0;
+        Vector3 startPosition = piece.transform.position;
+        Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
+
+        while (time < duration)
+        {
+            piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / duration);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        piece.transform.position = endPosition;
+    }
+
     /// <summary>
-    /// (Ask GPT for a better name) 
-    /// Also, this is slightly daisy-chained, maybe it should be called from Tile.cs
+    /// Handles the transition of the piece to the new tile by clearing old state and preparing the destination tile
     /// </summary>
     /// <param name="destinationLocation"></param>
     /// <param name="destinationTile"></param>
-    void ClearAndSetupTile(Vector2 destinationLocation, Tile destinationTile)
+    void RemoveNonEssentials(Vector2 destinationLocation, Tile destinationTile)
     {
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;

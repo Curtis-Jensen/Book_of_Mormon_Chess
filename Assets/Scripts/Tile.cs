@@ -8,8 +8,6 @@ public class Tile : MonoBehaviour
     public bool selected;
     public Piece piece;
 
-    Board board;
-
     void Start()
     {
         FindBoardAndPiece();
@@ -17,8 +15,6 @@ public class Tile : MonoBehaviour
 
     void FindBoardAndPiece()
     {
-        board = transform.parent.GetComponentInParent<Board>();
-
         // Check if the tile has a piece
         if (transform.childCount <= 0) return;
 
@@ -31,7 +27,7 @@ public class Tile : MonoBehaviour
     {
         if (selected)
         {
-            board.MovePiece(transform.position);
+            Board.Instance.MovePiece(transform.position);
         }
         else
         {
@@ -47,7 +43,7 @@ public class Tile : MonoBehaviour
         if (Board.Instance.whiteTurn != piece.isWhite) return;
 
         // Access the move data or any other data from the piece script
-        board.HilightPossibleTiles(piece.GetMoves(), piece);
+        Board.Instance.HilightPossibleTiles(piece.GetMoves(), piece);
     }
 }
 

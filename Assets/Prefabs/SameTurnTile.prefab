@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: -6504812330303007388}
   - component: {fileID: 1329807554543808878}
   m_Layer: 0
-  m_Name: Tile
+  m_Name: TurnTakingTile
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

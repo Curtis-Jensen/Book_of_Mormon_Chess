@@ -82,14 +82,14 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void MovePiece(Vector2 destinationLocation)
+    public void MovePiece(Vector2 destination)
     {
-        Tile destinationTile = tiles[(int)destinationLocation.x, (int)destinationLocation.y];
+        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
+
+        DeselectPrevious(destination, destinationTile);
 
         // ➡️ Start the coroutine to physically move the piece
-        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destinationLocation));
-
-        RemoveNonEssentials(destinationLocation, destinationTile);
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);
@@ -117,9 +117,9 @@ public class Board : MonoBehaviour
     /// <summary>
     /// Handles the transition of the piece to the new tile by clearing old state and preparing the destination tile
     /// </summary>
-    /// <param name="destinationLocation"></param>
+    /// <param name="destination"></param>
     /// <param name="destinationTile"></param>
-    void RemoveNonEssentials(Vector2 destinationLocation, Tile destinationTile)
+    void DeselectPrevious(Vector2 destination, Tile destinationTile)
     {
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;

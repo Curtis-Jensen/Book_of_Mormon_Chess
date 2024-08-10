@@ -11,6 +11,7 @@ public class Board : MonoBehaviour
 
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
+    GameObject capturedPiece;
 
     void Awake()
     {
@@ -87,6 +88,7 @@ public class Board : MonoBehaviour
         Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
 
         DeselectPrevious(destination, destinationTile);
+        DeselectTiles();
 
         // ➡️ Start the coroutine to physically move the piece
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
@@ -112,6 +114,8 @@ public class Board : MonoBehaviour
             yield return null;
         }
         piece.transform.position = endPosition;
+
+        DestroyEnemyPiece();
     }
 
     /// <summary>
@@ -129,11 +133,14 @@ public class Board : MonoBehaviour
         // 💥 Destroy the piece on the destination tile if there is one
         if (destinationTile.piece != null)
         {
-            Destroy(destinationTile.piece.gameObject);
+            capturedPiece = destinationTile.piece.gameObject;
         }
 
-        // 🚫 Deselect all tiles
-        DeselectTiles();
+    }
+
+    void DestroyEnemyPiece()
+    {
+        Destroy(capturedPiece);
     }
 
     /// <summary>

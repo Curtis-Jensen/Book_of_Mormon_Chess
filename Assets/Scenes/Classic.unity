@@ -360,6 +360,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  whiteTurn: 1
+  moveTime: 0.5
 --- !u!1001 &79472289
 PrefabInstance:
   m_ObjectHideFlags: 0

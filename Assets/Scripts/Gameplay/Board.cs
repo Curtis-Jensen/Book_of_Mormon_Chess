@@ -80,8 +80,8 @@ public class Board : MonoBehaviour
             possibleTile.selected = true;
 
             // 🎨 Enable the SpriteRenderer to make it visible
-            var spriteRenderer = possibleTile.gameObject.GetComponent<SpriteRenderer>();
-            spriteRenderer.enabled = true;
+            var highlight = possibleTile.gameObject.GetComponent<SpriteRenderer>();
+            highlight.enabled = true;
 
             selectedTiles.Add(possibleTile);
         }

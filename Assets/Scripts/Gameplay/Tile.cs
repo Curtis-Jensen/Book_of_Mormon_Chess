@@ -9,19 +9,17 @@ public class Tile : MonoBehaviour
     public Piece piece;
     public bool AiOpponent = false;
 
+    [HideInInspector]
+    public GameObject highlight;
+
     void Start()
     {
-        FindBoardAndPiece();
+        FindPiece();
     }
 
-    void FindBoardAndPiece()
+    void FindPiece()
     {
-        // Check if the tile has a piece
-        if (transform.childCount <= 0) return;
-
-        // Get the child object
-        Transform child = transform.GetChild(0);
-        piece = child.GetComponent<Piece>();
+        piece = gameObject.GetComponentInChildren<Piece>();
     }
 
     void OnMouseDown()

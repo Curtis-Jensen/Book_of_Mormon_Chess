@@ -15,7 +15,11 @@ public class Board : MonoBehaviour
 
     void Awake()
     {
-        // Ensure that there's only one instance of the Board
+        EnsureOnlyOneBoard();
+    }
+
+    void EnsureOnlyOneBoard()
+    {
         if (Instance == null)
         {
             Instance = this;

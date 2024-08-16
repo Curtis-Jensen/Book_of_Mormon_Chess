@@ -7,6 +7,7 @@ public class Tile : MonoBehaviour
 {
     public bool selected;
     public Piece piece;
+    public bool AiOpponent = false;
 
     void Start()
     {
@@ -28,6 +29,10 @@ public class Tile : MonoBehaviour
         if (selected)
         {
             Board.Instance.MovePiece(transform.position);
+            if (AiOpponent)
+            {
+                PreviewPieceMoves();
+            }
         }
         else
         {

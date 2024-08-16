@@ -3684,6 +3684,7 @@ GameObject:
   - component: {fileID: 1357622838}
   - component: {fileID: 1357622836}
   - component: {fileID: 1357622837}
+  - component: {fileID: 1357622839}
   m_Layer: 0
   m_Name: Managers
   m_TagString: GameController
@@ -3847,6 +3848,27 @@ MonoBehaviour:
     isCopyrighted: 1
   - music: {fileID: 8300000, guid: 3e2a4d3f983d10c4a9d68a49c7a385f6, type: 3}
     isCopyrighted: 1
+--- !u!114 &1357622839
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357622834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684e8bac98f34fd49837db40366b003c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  aiPieces:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
 --- !u!1001 &1408475168
 PrefabInstance:
   m_ObjectHideFlags: 0

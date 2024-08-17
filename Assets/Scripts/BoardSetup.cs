@@ -1,0 +1,74 @@
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+using UnityEngine.Networking;
+
+public class BoardSetup : MonoBehaviour
+{
+    public int boardSize = 8;
+    public GameObject rowPrefab;
+    public GameObject lightTilePrefab;
+    public GameObject darkTilePrefab;
+    public GameObject piecePrefab;
+
+    bool evenBoard;
+    List<GameObject> rowList =   new();
+    List<GameObject> tileList =  new();
+    List<GameObject> pieceList = new();
+
+    void Start()
+    {
+        evenBoard = IsBoardEven();
+        SpawnRows();
+        SpawnTiles();
+        //SpawnPieces();
+        CenterCamera();
+    }
+
+    bool IsBoardEven()
+    {
+        return boardSize % 2 == 0;
+    }
+
+    void SpawnRows()
+    {
+        for (int y = 0; y < boardSize; y++) 
+        {
+            var newRow = Instantiate(rowPrefab, transform);
+
+            newRow.name = "Row" + (y + 1);
+            rowList.Add(newRow);
+        }
+    }
+    
+    void SpawnTiles()
+    {
+        for (int y = 0; y < boardSize; y++)
+        {
+            for (int x = 0; x < boardSize; x++)
+            {
+                Debug.Log(x);
+                var tilePosition = new Vector3Int(x, y, 0);
+
+                var newTile = 
+                    Instantiate(darkTilePrefab, tilePosition, Quaternion.identity, rowList[y].transform);
+
+                newTile.name = "Tile " + (x + 1);
+                tileList.Add(newTile);
+            }
+        }
+    }
+    
+    void SpawnPieces()
+    {
+        Instantiate(piecePrefab);
+    }
+
+    void CenterCamera()
+    {
+        var cam = FindAnyObjectByType<Camera>().gameObject;
+
+        var camPosition = boardSize / 2 - 0.5f;
+        cam.transform.position = new Vector3 (camPosition, camPosition, -10);
+    }
+}

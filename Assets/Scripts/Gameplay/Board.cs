@@ -78,7 +78,7 @@ public class Board : MonoBehaviour
             possibleTile.selected = true;
 
             // 🎨 Enable the SpriteRenderer to make it visible
-            var highlight = possibleTile.gameObject.GetComponent<SpriteRenderer>();
+            var highlight = possibleTile.highlight;
             highlight.enabled = true;
 
             selectedTiles.Add(possibleTile);
@@ -181,7 +181,7 @@ public class Board : MonoBehaviour
         foreach (var tile in selectedTiles)
         {
             tile.selected = false;
-            tile.gameObject.GetComponent<SpriteRenderer>().enabled = false;
+            tile.highlight.enabled = false;
         }
     }
 }

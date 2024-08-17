@@ -9,8 +9,8 @@ public class Tile : MonoBehaviour
     public Piece piece;
     public bool AiOpponent = false;
 
-    [HideInInspector]
-    public GameObject highlight;
+    //[HideInInspector]
+    public SpriteRenderer highlight;
 
     void Start()
     {
@@ -21,7 +21,7 @@ public class Tile : MonoBehaviour
     {
         piece = gameObject.GetComponentInChildren<Piece>();
         
-        highlight = gameObject.GetComponentInChildren<SpriteRenderer>().gameObject;
+        highlight = gameObject.GetComponentsInChildren<SpriteRenderer>()[1];
     }
 
     void OnMouseDown()

@@ -16,12 +16,12 @@ public class BoardSetup : MonoBehaviour
     List<GameObject> tileList =  new();
     List<GameObject> pieceList = new();
 
-    void Start()
+    void Awake()
     {
         evenBoard = IsBoardEven();
         SpawnRows();
         SpawnTiles();
-        //SpawnPieces();
+        SpawnPieces();
         CenterCamera();
     }
 
@@ -36,7 +36,7 @@ public class BoardSetup : MonoBehaviour
         {
             var newRow = Instantiate(rowPrefab, transform);
 
-            newRow.name = "Row" + (y + 1);
+            newRow.name = "Row " + (y + 1);
             rowList.Add(newRow);
         }
     }
@@ -47,11 +47,13 @@ public class BoardSetup : MonoBehaviour
         {
             for (int x = 0; x < boardSize; x++)
             {
-                Debug.Log(x);
+                // Alternate between dark and light tiles
+                GameObject prefabToInstantiate = (x + y) % 2 == 0 ? darkTilePrefab : lightTilePrefab;
+
                 var tilePosition = new Vector3Int(x, y, 0);
 
                 var newTile = 
-                    Instantiate(darkTilePrefab, tilePosition, Quaternion.identity, rowList[y].transform);
+                    Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, rowList[y].transform);
 
                 newTile.name = "Tile " + (x + 1);
                 tileList.Add(newTile);
@@ -61,14 +63,25 @@ public class BoardSetup : MonoBehaviour
     
     void SpawnPieces()
     {
-        Instantiate(piecePrefab);
+        for (int x = 0; x < boardSize; x++)
+        {
+            var newTile =
+                    Instantiate(piecePrefab, tileList[x].transform);
+
+            newTile.name = "Tile " + (x + 1);
+            tileList.Add(newTile);
+        }
     }
 
     void CenterCamera()
     {
         var cam = FindAnyObjectByType<Camera>().gameObject;
 
-        var camPosition = boardSize / 2 - 0.5f;
+        float camPosition = boardSize / 2;
+        if (evenBoard)
+        {
+            camPosition -= 0.5f;
+        }
         cam.transform.position = new Vector3 (camPosition, camPosition, -10);
     }
 }

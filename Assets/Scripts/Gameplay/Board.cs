@@ -46,7 +46,7 @@ public class Board : MonoBehaviour
             GameObject row = transform.GetChild(y).gameObject; // Get the row GameObject
             for (int x = 0; x < boardSize; x++)
             {
-                Tile tile = row.transform.GetChild(x).GetComponent<Tile>(); // Get the Tile component
+                Tile tile = row.transform.GetChild(x).GetComponent<Tile>(); // Get the Tile component 
                 if (tile != null)
                 {
                     tiles[x, y] = tile;

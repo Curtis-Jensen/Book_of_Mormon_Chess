@@ -8,8 +8,9 @@ public class BoardSetup : MonoBehaviour
     public int boardSize = 8;
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
-    public GameObject darkTilePrefab;
-    public GameObject piecePrefab;
+    public GameObject  darkTilePrefab;
+    public GameObject lightPiecePrefab;
+    public GameObject  darkPiecePrefab;
 
     bool evenBoard;
     List<GameObject> rowList =   new();
@@ -63,13 +64,24 @@ public class BoardSetup : MonoBehaviour
     
     void SpawnPieces()
     {
+        var topRightTile = tileList.Count - 1;
+
+        for (int x = topRightTile; x > topRightTile - boardSize; x--)
+        {
+            var newTile =
+                    Instantiate(darkPiecePrefab, tileList[x].transform);
+
+            newTile.name = "Piece " + (x + 1);
+            pieceList.Add(newTile);
+        }
+
         for (int x = 0; x < boardSize; x++)
         {
             var newTile =
-                    Instantiate(piecePrefab, tileList[x].transform);
+                    Instantiate(lightPiecePrefab, tileList[x].transform);
 
-            newTile.name = "Tile " + (x + 1);
-            tileList.Add(newTile);
+            newTile.name = "Piece " + (x + 1);
+            pieceList.Add(newTile);
         }
     }
 

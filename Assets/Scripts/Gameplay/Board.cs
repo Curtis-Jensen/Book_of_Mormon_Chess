@@ -68,8 +68,6 @@ public class Board : MonoBehaviour
 
     public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
     {
-        DeselectTiles();
-
         foreach(Vector2Int move in attemptedMoves)
         {
             this.selectedPiece = selectedPiece;
@@ -178,7 +176,7 @@ public class Board : MonoBehaviour
     /// Deselects all currently selected tiles.  
     /// Called when another piece is selected or a piecce moves
     /// </summary>
-    void DeselectTiles()
+    public void DeselectTiles()
     {
         foreach (var tile in selectedTiles)
         {

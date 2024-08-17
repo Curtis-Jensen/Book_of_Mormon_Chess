@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 3448429820056655405}
   m_Layer: 0
   m_Name: Selection Hilight
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -98,7 +98,7 @@ GameObject:
   - component: {fileID: 1329807554543808878}
   m_Layer: 0
   m_Name: White Tile
-  m_TagString: Untagged
+  m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -179,6 +179,7 @@ MonoBehaviour:
   selected: 0
   piece: {fileID: 0}
   AiOpponent: 0
+  highlight: {fileID: 0}
 --- !u!212 &1329807554543808878
 SpriteRenderer:
   m_ObjectHideFlags: 0

@@ -20,6 +20,8 @@ public class Tile : MonoBehaviour
     void FindPiece()
     {
         piece = gameObject.GetComponentInChildren<Piece>();
+        
+        highlight = gameObject.GetComponentInChildren<SpriteRenderer>().gameObject;
     }
 
     void OnMouseDown()
@@ -29,11 +31,13 @@ public class Tile : MonoBehaviour
             Board.Instance.MovePiece(transform.position);
             if (AiOpponent)
             {
+                Board.Instance.DeselectTiles();
                 PreviewPieceMoves();
             }
         }
         else
         {
+            Board.Instance.DeselectTiles();
             PreviewPieceMoves();
         }
     }

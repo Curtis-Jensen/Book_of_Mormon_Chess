@@ -5,7 +5,8 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; } // Static instance
-    public Tile[,] tiles = new Tile[8, 8];
+    public int boardDimensions = 8;
+    public Tile[,] tiles;
     public bool whiteTurn = true;
     public float moveTime = 0.5f;
 
@@ -15,11 +16,13 @@ public class Board : MonoBehaviour
 
     void Awake()
     {
-        EnsureOnlyOneBoard();
+        InstantiateObjects();
     }
 
-    void EnsureOnlyOneBoard()
+    void InstantiateObjects()
     {
+        tiles = new Tile[boardDimensions, boardDimensions];
+
         if (Instance == null)
         {
             Instance = this;
@@ -38,10 +41,10 @@ public class Board : MonoBehaviour
     void InitializeBoard()
     {
         // Iterate through each child in the hierarchy
-        for (int y = 0; y < 8; y++)
+        for (int y = 0; y < boardDimensions; y++)
         {
             GameObject row = transform.GetChild(y).gameObject; // Get the row GameObject
-            for (int x = 0; x < 8; x++)
+            for (int x = 0; x < boardDimensions; x++)
             {
                 Tile tile = row.transform.GetChild(x).GetComponent<Tile>(); // Get the Tile component
                 if (tile != null)
@@ -166,7 +169,7 @@ public class Board : MonoBehaviour
     /// <returns></returns>
     public bool IsEnemyPiece(Vector2Int position, bool isWhite)
     {
-        if (position.x < 0 || position.x >= 8 || position.y < 0 || position.y >= 8) return false;
+        if (position.x < 0 || position.x >= boardDimensions || position.y < 0 || position.y >= boardDimensions) return false;
 
         Tile tile = tiles[position.x, position.y];
         return tile.piece != null && tile.piece.isWhite != isWhite;

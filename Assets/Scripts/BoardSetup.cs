@@ -6,6 +6,7 @@ using UnityEngine.Networking;
 public class BoardSetup : MonoBehaviour
 {
     public int boardSize = 8;
+    public float cameraPadding;
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
@@ -87,13 +88,17 @@ public class BoardSetup : MonoBehaviour
 
     void CenterCamera()
     {
-        var cam = FindAnyObjectByType<Camera>().gameObject;
+        var cam = FindAnyObjectByType<Camera>();
+
+        cam.orthographicSize = boardSize / 2 + cameraPadding;
+
+        var camTransform = cam.gameObject;
 
         float camPosition = boardSize / 2;
         if (evenBoard)
         {
             camPosition -= 0.5f;
         }
-        cam.transform.position = new Vector3 (camPosition, camPosition, -10);
+        camTransform.transform.position = new Vector3 (camPosition, camPosition, -10);
     }
 }

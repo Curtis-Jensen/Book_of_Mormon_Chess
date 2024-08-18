@@ -1,15 +1,25 @@
-﻿using UnityEngine;
+﻿using TMPro;
+using UnityEngine;
 using UnityEngine.SceneManagement;
+using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    // 🎯 Public variable to set the scene name in the Inspector
     public string sceneName;
+    public TextMeshProUGUI boardSizeText;
 
-    // 🎮 Method to be called when the button is pressed
+    int boardSize;
+
+    public void LoadResizableScene()
+    {
+        Debug.Log(boardSizeText.text);
+        boardSize = int.Parse(boardSizeText.text);
+        Debug.Log(boardSize + boardSize);
+        LoadScene();
+    }
+
     public void LoadScene()
     {
-        // 🔄 Load the scene with the specified name
         SceneManager.LoadScene(sceneName);
     }
 }

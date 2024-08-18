@@ -69,20 +69,20 @@ public class BoardSetup : MonoBehaviour
 
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
-            var newTile =
+            var newPiece =
                     Instantiate(darkPiecePrefab, tiles[x].transform);
 
-            newTile.name = "Piece " + (x + 1);
-            pieces.Add(newTile);
+            newPiece.name = "Piece " + (x + 1);
+            pieces.Add(newPiece);
         }
 
         for (int x = 0; x < boardSize; x++)
         {
-            var newTile =
+            var newPiece =
                     Instantiate(lightPiecePrefab, tiles[x].transform);
 
-            newTile.name = "Piece " + (x + 1);
-            pieces.Add(newTile);
+            newPiece.name = "Piece " + (x + 1);
+            pieces.Add(newPiece);
         }
     }
 

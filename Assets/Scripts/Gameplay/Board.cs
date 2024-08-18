@@ -5,11 +5,11 @@ using UnityEngine;
 public class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; } // Static instance
-    public int boardSize = 8;
     public Tile[,] tiles;
     public bool whiteTurn = true;
     public float moveTime = 0.5f;
 
+    int boardSize = 8;
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
     GameObject capturedPiece;

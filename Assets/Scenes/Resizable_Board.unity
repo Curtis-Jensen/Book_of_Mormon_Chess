@@ -167,7 +167,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardSize: 8
   whiteTurn: 1
   moveTime: 0.5
 --- !u!114 &76764647
@@ -183,6 +182,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boardSize: 8
+  cameraPadding: 1
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}

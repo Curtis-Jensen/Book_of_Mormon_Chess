@@ -14,9 +14,9 @@ public class BoardSetup : MonoBehaviour
     public GameObject  darkPiecePrefab;
 
     bool evenBoard;
-    List<GameObject> rowList =   new();
-    List<GameObject> tileList =  new();
-    List<GameObject> pieceList = new();
+    List<GameObject> rows =   new();
+    List<GameObject> tiles =  new();
+    List<GameObject> pieces = new();
 
     void Awake()
     {
@@ -39,7 +39,7 @@ public class BoardSetup : MonoBehaviour
             var newRow = Instantiate(rowPrefab, transform);
 
             newRow.name = "Row " + (y + 1);
-            rowList.Add(newRow);
+            rows.Add(newRow);
         }
     }
     
@@ -55,34 +55,34 @@ public class BoardSetup : MonoBehaviour
                 var tilePosition = new Vector3Int(x, y, 0);
 
                 var newTile = 
-                    Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, rowList[y].transform);
+                    Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, rows[y].transform);
 
                 newTile.name = "Tile " + (x + 1);
-                tileList.Add(newTile);
+                tiles.Add(newTile);
             }
         }
     }
     
     void SpawnPieces()
     {
-        var topRightTile = tileList.Count - 1;
+        var topRightTile = tiles.Count - 1;
 
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             var newTile =
-                    Instantiate(darkPiecePrefab, tileList[x].transform);
+                    Instantiate(darkPiecePrefab, tiles[x].transform);
 
             newTile.name = "Piece " + (x + 1);
-            pieceList.Add(newTile);
+            pieces.Add(newTile);
         }
 
         for (int x = 0; x < boardSize; x++)
         {
             var newTile =
-                    Instantiate(lightPiecePrefab, tileList[x].transform);
+                    Instantiate(lightPiecePrefab, tiles[x].transform);
 
             newTile.name = "Piece " + (x + 1);
-            pieceList.Add(newTile);
+            pieces.Add(newTile);
         }
     }
 

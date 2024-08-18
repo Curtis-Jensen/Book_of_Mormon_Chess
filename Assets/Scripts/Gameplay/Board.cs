@@ -16,6 +16,7 @@ public class Board : MonoBehaviour
 
     void Awake()
     {
+        boardSize = GetComponent<BoardSetup>().boardSize;
         InstantiateObjects();
     }
 

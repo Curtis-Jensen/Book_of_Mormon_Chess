@@ -661,7 +661,7 @@ GameObject:
   m_Component:
   - component: {fileID: 1357622835}
   - component: {fileID: 1357622839}
-  - component: {fileID: 1357622842}
+  - component: {fileID: 1357622844}
   - component: {fileID: 1357622841}
   - component: {fileID: 1357622843}
   m_Layer: 0
@@ -719,7 +719,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.05
+  m_Volume: 0.25
   m_Pitch: 1
   Loop: 0
   Mute: 0
@@ -803,31 +803,6 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
---- !u!114 &1357622842
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357622834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8eb7b3142fd37ee48bf46207a15caffb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  musicChoices:
-  - music: {fileID: 8300000, guid: 55370ec0f002a1043ad8aa2c768f11af, type: 3}
-    isCopyrighted: 0
-  - music: {fileID: 8300000, guid: f44ceb7516305bd4dbf7e856b81e5673, type: 3}
-    isCopyrighted: 0
-  - music: {fileID: 8300000, guid: 4d493e0743c55c14a9265df933bc0d6d, type: 3}
-    isCopyrighted: 0
-  - music: {fileID: 8300000, guid: e3decfd5d2d7e354db7038732d75d33d, type: 3}
-    isCopyrighted: 0
-  - music: {fileID: 8300000, guid: 3d3eaed1edf3f954d810e60e9f95d0cf, type: 3}
-    isCopyrighted: 0
-  - music: {fileID: 0}
-    isCopyrighted: 0
 --- !u!114 &1357622843
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -840,6 +815,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d4823522fcfbd88428c309d5c42b7eeb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+--- !u!114 &1357622844
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357622834}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8eb7b3142fd37ee48bf46207a15caffb, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  musicChoices:
+  - music: {fileID: 8300000, guid: 8f58b022a7df7ca4fabf02c380255a9f, type: 3}
+    isCopyrighted: 1
 --- !u!1 &1495983631
 GameObject:
   m_ObjectHideFlags: 0

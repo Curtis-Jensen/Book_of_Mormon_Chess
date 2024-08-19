@@ -170,6 +170,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   whiteTurn: 1
   moveTime: 0.5
+  boardSize: 8
 --- !u!114 &76764647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -190,9 +191,11 @@ MonoBehaviour:
   lightPiecePrefabs:
   - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
+  - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
   darkPiecePrefabs:
   - {fileID: 2495819799078742755, guid: 1d423c6fd945c144981846134185d300, type: 3}
   - {fileID: 7342354609708169732, guid: 9ad69e45b5b90614aaaecb9a9809c47e, type: 3}
+  - {fileID: 3831313490529197123, guid: 021f6060dbcb54647b252a7be7204eab, type: 3}
 --- !u!82 &76764648
 AudioSource:
   m_ObjectHideFlags: 0
@@ -716,7 +719,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 0.25
+  m_Volume: 0.05
   m_Pitch: 1
   Loop: 0
   Mute: 0

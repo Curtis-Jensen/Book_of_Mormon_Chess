@@ -5,18 +5,17 @@ using UnityEngine.UI;
 
 public class SceneLoader : MonoBehaviour
 {
-    public string sceneName;
     public TextMeshProUGUI inputText;
 
     [HideInInspector]
     public int boardSize;
 
-    public void LoadResizableScene()
+    public void LoadResizableScene(string sceneName)
     {
         boardSize = GetBoardSize();
 
         DontDestroyOnLoad(gameObject);
-        LoadScene();
+        LoadScene(sceneName);
     }
 
     int GetBoardSize()
@@ -27,7 +26,7 @@ public class SceneLoader : MonoBehaviour
     }
 
 
-    public void LoadScene()
+    public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
     }

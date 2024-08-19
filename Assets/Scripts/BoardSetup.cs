@@ -68,12 +68,27 @@ public class BoardSetup : MonoBehaviour
     void SpawnPieces()
     {
         var topRightTile = tiles.Count - 1;
+        int[] pieceChoice = new int[boardSize];
 
+        for (int i = 0; i < boardSize; i++)
+        {
+             pieceChoice[i] = Random.Range(0, lightPiecePrefabs.Length);
+        }
+
+        SpawnBackRows (topRightTile, pieceChoice);
+        if(boardSize > 2)
+        {
+            SpawnFrontRows(topRightTile, pieceChoice);
+        }
+    }
+
+    void SpawnBackRows(int topRightTile, int[] pieceChoice)
+    {
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
-            var pieceChoice = darkPiecePrefabs[Random.Range(0, darkPiecePrefabs.Length)];
+            int i = topRightTile - x;
             var newPiece =
-                    Instantiate(pieceChoice, tiles[x].transform);
+                    Instantiate(darkPiecePrefabs[pieceChoice[i]], tiles[x].transform);
 
             newPiece.name = "Piece " + (x + 1);
             pieces.Add(newPiece);
@@ -81,9 +96,30 @@ public class BoardSetup : MonoBehaviour
 
         for (int x = 0; x < boardSize; x++)
         {
-            var pieceChoice = lightPiecePrefabs[Random.Range(0, darkPiecePrefabs.Length)];
             var newPiece =
-                    Instantiate(pieceChoice, tiles[x].transform);
+                    Instantiate(lightPiecePrefabs[pieceChoice[x]], tiles[x].transform);
+
+            newPiece.name = "Piece " + (x + 1);
+            pieces.Add(newPiece);
+        }
+    }
+
+    void SpawnFrontRows(int topRightTile, int[] pieceChoice)
+    {
+        for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
+        {
+            int i = topRightTile - x;
+            var newPiece =
+                    Instantiate(darkPiecePrefabs[0], tiles[x].transform);
+
+            newPiece.name = "Piece " + (x + 1);
+            pieces.Add(newPiece);
+        }
+
+        for (int x = boardSize; x < boardSize + boardSize; x++)
+        {
+            var newPiece =
+                    Instantiate(lightPiecePrefabs[0], tiles[x].transform);
 
             newPiece.name = "Piece " + (x + 1);
             pieces.Add(newPiece);

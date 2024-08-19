@@ -17,17 +17,25 @@ public class Rook : Piece
 
         foreach (var moveDirection in moveDirections)
         {
-            Vector2Int newMove =
-                new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
-
-            if (Board.Instance.IsTileEmpty(newMove) || Board.Instance.IsEnemyPiece(newMove, isWhite))
+            for (int distance = 1; distance < Board.Instance.boardSize; distance++)
             {
-                validMoves.Add(newMove);
+                var moveDistance = moveDirection * distance;
+                Vector2Int newMove =
+                    new((int)transform.position.x + moveDistance.x, (int)transform.position.y + moveDistance.y);
+
+                if (Board.Instance.IsTileEmpty(newMove))
+                {
+                    validMoves.Add(newMove);
+                    continue;
+                }
+                else if (Board.Instance.IsEnemyPiece(newMove, isWhite))
+                {
+                    validMoves.Add(newMove);
+                }
+
+                break;
             }
         }
-        //Go in every direction (1,0), (-1,0), (0,1), (0,-1)
-        //Check every square, as large as the board
-        //Cannot go past other pieces
 
         return validMoves;
     }

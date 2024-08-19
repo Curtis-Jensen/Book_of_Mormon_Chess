@@ -13,6 +13,7 @@ public class Board : MonoBehaviour
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
     GameObject capturedPiece;
+    AudioSource audioSource;
 
     public  void Initialize()
     {
@@ -33,6 +34,8 @@ public class Board : MonoBehaviour
         {
             Destroy(gameObject);
         }
+
+        audioSource = GetComponent<AudioSource>();
     }
 
     void InitializeBoard()
@@ -116,6 +119,8 @@ public class Board : MonoBehaviour
             yield return null;
         }
         piece.transform.position = endPosition;
+
+        audioSource.Play();
 
         DestroyEnemyPiece();
     }

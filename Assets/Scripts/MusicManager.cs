@@ -17,7 +17,6 @@ public class MusicManager : MonoBehaviour
                 if (song.isCopyrighted) musicChoices.Remove(song);
 
         source = gameObject.GetComponent<AudioSource>();
-        Debug.Log(source);
         StartCoroutine(PlayMusic());
     }
 

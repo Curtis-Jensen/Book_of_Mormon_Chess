@@ -20,7 +20,7 @@ public class BoardSetup : MonoBehaviour
 
     void Awake()
     {
-        boardSize = FindAnyObjectByType<SceneLoader>().boardSize;
+        boardSize = PlayerPrefs.GetInt("boardSize");
         evenBoard = IsBoardEven();
         SpawnRows();
         SpawnTiles();

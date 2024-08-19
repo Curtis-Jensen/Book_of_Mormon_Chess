@@ -1,19 +1,16 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.ComponentModel;
 using UnityEngine;
 
-public class Rook : Piece
+public class Queen : MonoBehaviour
 {
     //The four cardinal directions, to be multiplied upon
     Vector2Int[] moveDirections =
-        { new Vector2Int( 1,  0), 
-          new Vector2Int(-1,  0),
-          new Vector2Int(0,   1),
-          new Vector2Int(0,  -1),
-          new Vector2Int( 1,  1),
-          new Vector2Int(-1, -1),
-          new Vector2Int(-1,  1),
-          new Vector2Int( 1, -1)};
+        { new Vector2Int( 1, 0),
+          new Vector2Int(-1, 0),
+          new Vector2Int(0,  1),
+          new Vector2Int(0, -1)};
 
     public override List<Vector2Int> GetMoves()
     {

@@ -12,11 +12,9 @@ public class SceneLoader : MonoBehaviour
 
     public void LoadResizableScene(string sceneName)
     {
-        boardSize = GetBoardSize();
+        PlayerPrefs.SetInt("boardSize", GetBoardSize());
 
-        DontDestroyOnLoad(gameObject);
         LoadScene(sceneName);
-        //DestroyOtherSceneLoaders();
     }
 
     int GetBoardSize()
@@ -30,21 +28,5 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
-    }
-
-    /// <summary>
-    /// For some reason this still destroys itself, so it is not being called
-    /// </summary>
-    void DestroyOtherSceneLoaders()
-    {
-        var sceneLoaders = FindObjectsByType(typeof(SceneLoader), FindObjectsSortMode.InstanceID);
-
-        foreach (var sceneLoader in sceneLoaders)
-        {
-            if(sceneLoader != gameObject)
-            {
-                Destroy(sceneLoader);
-            }
-        }
     }
 }

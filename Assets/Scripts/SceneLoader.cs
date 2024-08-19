@@ -16,11 +16,12 @@ public class SceneLoader : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         LoadScene(sceneName);
+        //DestroyOtherSceneLoaders();
     }
 
     int GetBoardSize()
     {
-        var cleanedText = inputText.text.Remove(1, 1);
+        var cleanedText = inputText.text.Remove(inputText.text.Length - 1, 1);
 
         return int.Parse(cleanedText);
     }
@@ -29,5 +30,21 @@ public class SceneLoader : MonoBehaviour
     public void LoadScene(string sceneName)
     {
         SceneManager.LoadScene(sceneName);
+    }
+
+    /// <summary>
+    /// For some reason this still destroys itself, so it is not being called
+    /// </summary>
+    void DestroyOtherSceneLoaders()
+    {
+        var sceneLoaders = FindObjectsByType(typeof(SceneLoader), FindObjectsSortMode.InstanceID);
+
+        foreach (var sceneLoader in sceneLoaders)
+        {
+            if(sceneLoader != gameObject)
+            {
+                Destroy(sceneLoader);
+            }
+        }
     }
 }

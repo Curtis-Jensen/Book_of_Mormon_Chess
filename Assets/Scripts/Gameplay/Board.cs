@@ -14,10 +14,11 @@ public class Board : MonoBehaviour
     Piece selectedPiece;
     GameObject capturedPiece;
 
-    void Awake()
+    public  void Initialize()
     {
         boardSize = GetComponent<BoardSetup>().boardSize;
         InstantiateObjects();
+        InitializeBoard();
     }
 
     void InstantiateObjects()
@@ -32,11 +33,6 @@ public class Board : MonoBehaviour
         {
             Destroy(gameObject);
         }
-    }
-
-    void Start()
-    {
-        InitializeBoard();
     }
 
     void InitializeBoard()

@@ -26,6 +26,7 @@ public class BoardSetup : MonoBehaviour
         SpawnTiles();
         SpawnPieces();
         CenterCamera();
+        GetComponent<Board>().Initialize();
     }
 
     bool IsBoardEven()

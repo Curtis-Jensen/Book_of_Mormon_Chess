@@ -17,7 +17,6 @@ public class SceneLoader : MonoBehaviour
 
         DontDestroyOnLoad(gameObject);
         LoadScene();
-        Debug.Log("I''m alive!" + gameObject.name);
     }
 
     int GetBoardSize()

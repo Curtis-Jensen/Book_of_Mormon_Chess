@@ -5,7 +5,7 @@ using UnityEngine;
 
 public class Bishop : Piece
 {
-    //The four cardinal directions, to be multiplied upon
+    //The four diagonal directions, to be multiplied upon
     Vector2Int[] moveDirections =
         { new Vector2Int( 1,  1),
           new Vector2Int(-1, -1),

@@ -187,8 +187,12 @@ MonoBehaviour:
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
-  lightPiecePrefab: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
-  darkPiecePrefab: {fileID: 2495819799078742755, guid: 1d423c6fd945c144981846134185d300, type: 3}
+  lightPiecePrefabs:
+  - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+  - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
+  darkPiecePrefabs:
+  - {fileID: 2495819799078742755, guid: 1d423c6fd945c144981846134185d300, type: 3}
+  - {fileID: 7342354609708169732, guid: 9ad69e45b5b90614aaaecb9a9809c47e, type: 3}
 --- !u!82 &76764648
 AudioSource:
   m_ObjectHideFlags: 0

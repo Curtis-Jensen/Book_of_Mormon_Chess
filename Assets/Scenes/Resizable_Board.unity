@@ -190,14 +190,14 @@ MonoBehaviour:
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   lightPiecePrefabs:
   - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
-  - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
+  - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   darkPiecePrefabs:
   - {fileID: 2495819799078742755, guid: 1d423c6fd945c144981846134185d300, type: 3}
-  - {fileID: 7342354609708169732, guid: 9ad69e45b5b90614aaaecb9a9809c47e, type: 3}
   - {fileID: 3831313490529197123, guid: 021f6060dbcb54647b252a7be7204eab, type: 3}
   - {fileID: 6663612888667889021, guid: 2ba3c7e3854a3dd48b04da30f3648ee0, type: 3}
+  - {fileID: 7342354609708169732, guid: 9ad69e45b5b90614aaaecb9a9809c47e, type: 3}
 --- !u!82 &76764648
 AudioSource:
   m_ObjectHideFlags: 0
@@ -700,15 +700,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 684e8bac98f34fd49837db40366b003c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  aiPieces:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  aiPieces: []
 --- !u!82 &1357622841
 AudioSource:
   m_ObjectHideFlags: 0

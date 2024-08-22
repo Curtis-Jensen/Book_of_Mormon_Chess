@@ -8,17 +8,30 @@ public class Pawn : Piece
     {
         List<Vector2Int> validMoves = new();
 
-        //If it's white, go up, if it's black, go down
+        //If it's light, go up, if it's dark, go down
         int forward = isWhite ? 1 : -1;
 
+        validMoves = GetForwardMoves (validMoves, forward);
+        validMoves = GetDiagonalMoves(validMoves, forward);
+
+        return validMoves;
+    }
+
+    List<Vector2Int> GetForwardMoves(List<Vector2Int> validMoves, int forward)
+    {
         // Check one square forward
-        Vector2Int forwardMove = 
-            new ((int)transform.position.x, (int)transform.position.y + forward);
+        Vector2Int forwardMove =
+            new((int)transform.position.x, (int)transform.position.y + forward);
         if (Board.Instance.IsTileEmpty(forwardMove))
         {
             validMoves.Add(forwardMove);
         }
 
+        return validMoves;
+    }
+
+    List<Vector2Int> GetDiagonalMoves(List<Vector2Int> validMoves, int forward)
+    {
         // Check diagonal capture moves
         Vector2Int[] diagonalMoves = new Vector2Int[]
         {

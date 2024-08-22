@@ -11,6 +11,11 @@ public class Pawn : Piece
         //If it's light, go up, if it's dark, go down
         int forward = isWhite ? 1 : -1;
 
+        if(!firstTurnTaken)
+        {
+            validMoves = GetForwardMoves(validMoves, forward * 2);
+        }
+
         validMoves = GetForwardMoves (validMoves, forward);
         validMoves = GetDiagonalMoves(validMoves, forward);
 

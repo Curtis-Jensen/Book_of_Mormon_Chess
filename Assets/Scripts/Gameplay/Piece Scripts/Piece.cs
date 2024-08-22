@@ -10,6 +10,9 @@ public abstract class Piece : MonoBehaviour
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
 
+    [HideInInspector]
+    public bool firstTurnTaken = false;
+
     /// <summary>
     /// Abstract method for movement logic
     /// </summary>

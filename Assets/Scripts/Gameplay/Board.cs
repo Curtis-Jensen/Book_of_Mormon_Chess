@@ -102,6 +102,8 @@ public class Board : MonoBehaviour
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
 
+        selectedPiece.firstTurnTaken = true;
+
         // Change which player's turn it is
         whiteTurn = !whiteTurn;
     }

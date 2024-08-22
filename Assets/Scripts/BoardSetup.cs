@@ -76,7 +76,7 @@ public class BoardSetup : MonoBehaviour
         }
 
         SpawnBackRows (topRightTile, pieceChoice);
-        if(boardSize > 2)
+        if(boardSize > 3)
         {
             SpawnFrontRows(topRightTile, pieceChoice);
         }

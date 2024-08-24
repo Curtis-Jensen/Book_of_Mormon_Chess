@@ -11,7 +11,7 @@ public class Board : MonoBehaviour
 
     [HideInInspector]
     public int boardSize = 8;
-    List<Tile> selectedTiles = new List<Tile>();
+    List<Tile> selectedTiles = new();
     Piece selectedPiece;
     GameObject capturedPiece;
     AudioSource audioSource;

@@ -8,8 +8,9 @@ public class Board : MonoBehaviour
     public Tile[,] tiles;
     public bool whiteTurn = true;
     public float moveTime = 0.5f;
-    public int boardSize = 8;
 
+    [HideInInspector]
+    public int boardSize = 8;
     List<Tile> selectedTiles = new List<Tile>();
     Piece selectedPiece;
     GameObject capturedPiece;

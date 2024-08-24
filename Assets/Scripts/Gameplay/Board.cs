@@ -71,7 +71,16 @@ public class Board : MonoBehaviour
 
     public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
     {
-        foreach(Vector2Int move in attemptedMoves)
+        var tileUnderPiece = 
+            tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
+
+        // 🎨 Enable the SpriteRenderer to make it visible
+        var highlight = tileUnderPiece.highlight;
+        highlight.enabled = true;
+
+        selectedTiles.Add(tileUnderPiece);
+
+        foreach (Vector2Int move in attemptedMoves)
         {
             this.selectedPiece = selectedPiece;
 
@@ -81,7 +90,7 @@ public class Board : MonoBehaviour
             possibleTile.selected = true;
 
             // 🎨 Enable the SpriteRenderer to make it visible
-            var highlight = possibleTile.highlight;
+            highlight = possibleTile.highlight;
             highlight.enabled = true;
 
             selectedTiles.Add(possibleTile);

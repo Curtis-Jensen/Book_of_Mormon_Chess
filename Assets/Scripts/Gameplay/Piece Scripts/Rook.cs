@@ -6,10 +6,10 @@ public class Rook : Piece
 {
     //The four cardinal directions, to be multiplied upon
     Vector2Int[] moveDirections =
-        { new Vector2Int( 1,  0), 
-          new Vector2Int(-1,  0),
-          new Vector2Int(0,   1),
-          new Vector2Int(0,  -1)};
+        { new( 1,  0), 
+          new(-1,  0),
+          new(0,   1),
+          new(0,  -1)};
 
     public override List<Vector2Int> GetMoves()
     {

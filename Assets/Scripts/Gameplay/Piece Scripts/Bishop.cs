@@ -7,10 +7,10 @@ public class Bishop : Piece
 {
     //The four diagonal directions, to be multiplied upon
     Vector2Int[] moveDirections =
-        { new Vector2Int( 1,  1),
-          new Vector2Int(-1, -1),
-          new Vector2Int(-1,  1),
-          new Vector2Int( 1, -1)};
+        { new( 1,  1),
+          new(-1, -1),
+          new(-1,  1),
+          new( 1, -1)};
 
     public override List<Vector2Int> GetMoves()
     {

@@ -549,7 +549,7 @@ GameObject:
   - component: {fileID: 631765874}
   - component: {fileID: 631765873}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: MEGAmini Chess
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

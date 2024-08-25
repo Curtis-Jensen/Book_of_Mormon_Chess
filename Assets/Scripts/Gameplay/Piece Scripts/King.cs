@@ -25,12 +25,10 @@ public class King : Piece
             Vector2Int newMove =
                 new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
 
-            if (Board.Instance.IsTileEmpty(newMove))
-            {
-                validMoves.Add(newMove);
-                continue;
-            }
-            else if (Board.Instance.IsEnemyPiece(newMove, isWhite))
+            bool emptyOrEnemy = 
+                Board.Instance.IsTileEmpty(newMove) || Board.Instance.IsEnemyPiece(newMove, isWhite))
+
+            if (emptyOrEnemy)
             {
                 validMoves.Add(newMove);
             }

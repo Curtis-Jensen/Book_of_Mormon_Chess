@@ -30,7 +30,7 @@ public class BoardSetup : MonoBehaviour
         CenterCamera();
         board = GetComponent<Board>();
         board.boardSize = boardSize;
-        board.InitializeBoardReferences();
+        InitializeBoardReferences();
         InitializeBoard();
     }
 
@@ -145,6 +145,22 @@ public class BoardSetup : MonoBehaviour
             camPosition -= 0.5f;
         }
         camTransform.transform.position = new Vector3 (camPosition, camPosition, -10);
+    }
+
+    public void InitializeBoardReferences()
+    {
+        board.tiles = new Tile[boardSize, boardSize];
+
+        if (Board.Instance == null)
+        {
+            Board.Instance = board;
+        }
+        else
+        {
+            Destroy(gameObject);
+        }
+
+        board.audioSource = GetComponent<AudioSource>();
     }
 
     void InitializeBoard()

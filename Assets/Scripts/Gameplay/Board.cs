@@ -4,33 +4,18 @@ using UnityEngine;
 
 public class Board : MonoBehaviour
 {
-    public static Board Instance { get; private set; } // Static instance
+    public static Board Instance { get; set; } // Static instance
     public Tile[,] tiles;
     public bool lightTurn = true;
     public float moveTime = 0.5f;
 
     [HideInInspector]
     public int boardSize = 8;
+    [HideInInspector]
+    public AudioSource audioSource;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
     GameObject capturedPiece;
-    AudioSource audioSource;
-
-    public void InitializeBoardReferences()
-    {
-        tiles = new Tile[boardSize, boardSize];
-
-        if (Instance == null)
-        {
-            Instance = this;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
-
-        audioSource = GetComponent<AudioSource>();
-    }
 
     public void OnTileClicked(Tile clickedTile)
     {

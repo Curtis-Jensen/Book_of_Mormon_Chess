@@ -7,9 +7,8 @@ public class Tile : MonoBehaviour
 {
     public bool selected;
     public Piece piece;
-    public bool AiOpponent = false;
 
-    //[HideInInspector]
+    [HideInInspector]
     public SpriteRenderer highlight;
 
     void Start()
@@ -26,31 +25,7 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        if (selected)
-        {
-            Board.Instance.MovePiece(transform.position);
-            if (AiOpponent)
-            {
-                Board.Instance.DeselectTiles();
-                PreviewPieceMoves();
-            }
-        }
-        else
-        {
-            Board.Instance.DeselectTiles();
-            PreviewPieceMoves();
-        }
-    }
-
-    void PreviewPieceMoves()
-    {
-        //If no piece is on the tile
-        if (piece == null) return;
-        //If no piece is on the tile, or it's not that piece's turn
-        if (Board.Instance.whiteTurn != piece.isWhite) return;
-
-        // Access the move data or any other data from the piece script
-        Board.Instance.HilightPossibleTiles(piece.GetMoves(), piece);
+        Board.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
     }
 }
 

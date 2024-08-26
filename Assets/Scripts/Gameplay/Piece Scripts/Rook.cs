@@ -28,7 +28,7 @@ public class Rook : Piece
                     validMoves.Add(newMove);
                     continue;
                 }
-                else if (Board.Instance.IsEnemyPiece(newMove, isWhite))
+                else if (Board.Instance.IsEnemyPiece(newMove, isLight))
                 {
                     validMoves.Add(newMove);
                 }

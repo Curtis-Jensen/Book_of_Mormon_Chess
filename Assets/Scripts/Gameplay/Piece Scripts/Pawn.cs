@@ -9,7 +9,7 @@ public class Pawn : Piece
         List<Vector2Int> validMoves = new();
 
         //If it's light, go up, if it's dark, go down
-        int forward = isWhite ? 1 : -1;
+        int forward = isLight ? 1 : -1;
 
         if(!firstTurnTaken)
         {
@@ -46,7 +46,7 @@ public class Pawn : Piece
 
         foreach (var move in diagonalMoves)
         {
-            if (Board.Instance.IsEnemyPiece(move, isWhite))
+            if (Board.Instance.IsEnemyPiece(move, isLight))
             {
                 validMoves.Add(move);
             }

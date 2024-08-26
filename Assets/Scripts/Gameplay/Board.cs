@@ -6,7 +6,7 @@ public class Board : MonoBehaviour
 {
     public static Board Instance { get; private set; } // Static instance
     public Tile[,] tiles;
-    public bool whiteTurn = true;
+    public bool lightTurn = true;
     public float moveTime = 0.5f;
 
     [HideInInspector]
@@ -58,7 +58,7 @@ public class Board : MonoBehaviour
                         Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
                         if (piece != null)
                         {
-                            piece.isWhite = y < 2; // Assuming white pawns are on the first two rows
+                            piece.isLight = y < 2; // Assuming white pawns are on the first two rows
                         }
                     }
                 }
@@ -70,33 +70,35 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
+    public void OnTileClickedOLD(Tile clickedTile)
     {
-        var tileUnderPiece = 
-            tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
-
-        // 🎨 Enable the SpriteRenderer to make it visible
-        var highlight = tileUnderPiece.highlight;
-        highlight.enabled = true;
-
-        selectedTiles.Add(tileUnderPiece);
-
-        foreach (Vector2Int move in attemptedMoves)
+        if (lightTurn && clickedTile.piece != null && clickedTile.piece.isLight)
         {
-            this.selectedPiece = selectedPiece;
-
-            // 🟩 Get the tile at the attempted move position
-            var possibleTile = tiles[move.x, move.y];
-
-            possibleTile.selected = true;
-
-            // 🎨 Enable the SpriteRenderer to make it visible
-            highlight = possibleTile.highlight;
-            highlight.enabled = true;
-
-            selectedTiles.Add(possibleTile);
+            DeselectTiles();
+            HilightPossibleTiles(clickedTile.piece.GetMoves(), clickedTile.piece);
+            selectedPiece = clickedTile.piece;
+        }
+        else if (selectedPiece != null)
+        {
+            MovePiece(clickedTile.transform.position);
         }
     }
+
+    public void OnTileClicked(Tile clickedTile)
+    {
+        if (clickedTile.selected)
+        {
+            MovePiece(clickedTile.transform.position);
+        }
+        else
+        {
+            DeselectTiles();
+            PreviewPieceMoves(clickedTile.piece);
+        }
+    }
+
+
+
 
     public void MovePiece(Vector2 destination)
     {
@@ -115,7 +117,7 @@ public class Board : MonoBehaviour
         selectedPiece.firstTurnTaken = true;
 
         // Change which player's turn it is
-        whiteTurn = !whiteTurn;
+        lightTurn = !lightTurn;
     }
 
     IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
@@ -179,14 +181,14 @@ public class Board : MonoBehaviour
     /// Check if a tile contains an enemy piece
     /// </summary>
     /// <param name="position"></param>
-    /// <param name="isWhite"></param>
+    /// <param name="isLight"></param>
     /// <returns></returns>
-    public bool IsEnemyPiece(Vector2Int position, bool isWhite)
+    public bool IsEnemyPiece(Vector2Int position, bool isLight)
     {
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
         Tile tile = tiles[position.x, position.y];
-        return tile.piece != null && tile.piece.isWhite != isWhite;
+        return tile.piece != null && tile.piece.isLight != isLight;
     }
 
     /// <summary>
@@ -199,6 +201,45 @@ public class Board : MonoBehaviour
         {
             tile.selected = false;
             tile.highlight.enabled = false;
+        }
+    }
+
+    void PreviewPieceMoves(Piece piece)
+    {
+        //If no piece is on the tile
+        if (piece == null) return;
+        //If no piece is on the tile, or it's not that piece's turn
+        if (lightTurn != piece.isLight) return;
+
+        // Access the move data or any other data from the piece script
+        HilightPossibleTiles(piece.GetMoves(), piece);
+    }
+
+    public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
+    {
+        var tileUnderPiece =
+            tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
+
+        // 🎨 Enable the SpriteRenderer to make it visible
+        var highlight = tileUnderPiece.highlight;
+        highlight.enabled = true;
+
+        selectedTiles.Add(tileUnderPiece);
+
+        foreach (Vector2Int move in attemptedMoves)
+        {
+            this.selectedPiece = selectedPiece;
+
+            // 🟩 Get the tile at the attempted move position
+            var possibleTile = tiles[move.x, move.y];
+
+            possibleTile.selected = true;
+
+            // 🎨 Enable the SpriteRenderer to make it visible
+            highlight = possibleTile.highlight;
+            highlight.enabled = true;
+
+            selectedTiles.Add(possibleTile);
         }
     }
 }

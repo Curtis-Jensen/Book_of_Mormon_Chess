@@ -97,6 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9cabb82fe3a3e6347a9c26d846e6c8ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWhite: 1
+  isLight: 1
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
   firstTurnTaken: 0

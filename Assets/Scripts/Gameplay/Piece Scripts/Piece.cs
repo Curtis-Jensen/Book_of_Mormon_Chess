@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Piece : MonoBehaviour
 {
     [Tooltip("Variable to keep track of \"black\" player or \"white\" player.")]
-    public bool isWhite;
+    public bool isLight;
 
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;

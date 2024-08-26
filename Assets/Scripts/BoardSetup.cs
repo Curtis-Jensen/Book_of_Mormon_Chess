@@ -17,6 +17,8 @@ public class BoardSetup : MonoBehaviour
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
     List<GameObject> pieces = new();
+    Board board;
+
 
     void Awake()
     {
@@ -26,7 +28,10 @@ public class BoardSetup : MonoBehaviour
         SpawnTiles();
         SpawnPieces();
         CenterCamera();
-        GetComponent<Board>().Initialize();
+        board = GetComponent<Board>();
+        board.boardSize = boardSize;
+        board.InitializeBoardReferences();
+        InitializeBoard();
     }
 
     bool IsBoardEven()
@@ -140,5 +145,34 @@ public class BoardSetup : MonoBehaviour
             camPosition -= 0.5f;
         }
         camTransform.transform.position = new Vector3 (camPosition, camPosition, -10);
+    }
+
+    void InitializeBoard()
+    {
+        // Iterate through each child in the hierarchy
+        for (int y = 0; y < boardSize; y++)
+        {
+            GameObject row = transform.GetChild(y).gameObject; // Get the row GameObject
+            for (int x = 0; x < boardSize; x++)
+            {
+                Tile tile = row.transform.GetChild(x).GetComponent<Tile>(); // Get the Tile component 
+                if (tile == null)
+                {
+                    Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
+                }
+
+                board.tiles[x, y] = tile;
+
+                // If there is a pawn on this tile, initialize it
+                if (tile.transform.childCount > 0)
+                {
+                    Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
+                    if (piece != null)
+                    {
+                        piece.isLight = y < 2; // Assuming white pawns are on the first two rows
+                    }
+                }
+            }
+        }
     }
 }

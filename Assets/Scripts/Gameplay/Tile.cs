@@ -13,10 +13,10 @@ public class Tile : MonoBehaviour
 
     void Start()
     {
-        FindPiece();
+        InitializePiece();
     }
 
-    void FindPiece()
+    void InitializePiece()
     {
         piece = gameObject.GetComponentInChildren<Piece>();
         

@@ -16,14 +16,7 @@ public class Board : MonoBehaviour
     GameObject capturedPiece;
     AudioSource audioSource;
 
-    public  void Initialize()
-    {
-        boardSize = GetComponent<BoardSetup>().boardSize;
-        InstantiateObjects();
-        InitializeBoard();
-    }
-
-    void InstantiateObjects()
+    public void InitializeBoardReferences()
     {
         tiles = new Tile[boardSize, boardSize];
 
@@ -39,51 +32,6 @@ public class Board : MonoBehaviour
         audioSource = GetComponent<AudioSource>();
     }
 
-    void InitializeBoard()
-    {
-        // Iterate through each child in the hierarchy
-        for (int y = 0; y < boardSize; y++)
-        {
-            GameObject row = transform.GetChild(y).gameObject; // Get the row GameObject
-            for (int x = 0; x < boardSize; x++)
-            {
-                Tile tile = row.transform.GetChild(x).GetComponent<Tile>(); // Get the Tile component 
-                if (tile != null)
-                {
-                    tiles[x, y] = tile;
-
-                    // If there is a pawn on this tile, initialize it
-                    if (tile.transform.childCount > 0)
-                    {
-                        Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
-                        if (piece != null)
-                        {
-                            piece.isLight = y < 2; // Assuming white pawns are on the first two rows
-                        }
-                    }
-                }
-                else
-                {
-                    Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
-                }
-            }
-        }
-    }
-
-    public void OnTileClickedOLD(Tile clickedTile)
-    {
-        if (lightTurn && clickedTile.piece != null && clickedTile.piece.isLight)
-        {
-            DeselectTiles();
-            HilightPossibleTiles(clickedTile.piece.GetMoves(), clickedTile.piece);
-            selectedPiece = clickedTile.piece;
-        }
-        else if (selectedPiece != null)
-        {
-            MovePiece(clickedTile.transform.position);
-        }
-    }
-
     public void OnTileClicked(Tile clickedTile)
     {
         if (clickedTile.selected)
@@ -96,9 +44,6 @@ public class Board : MonoBehaviour
             PreviewPieceMoves(clickedTile.piece);
         }
     }
-
-
-
 
     public void MovePiece(Vector2 destination)
     {

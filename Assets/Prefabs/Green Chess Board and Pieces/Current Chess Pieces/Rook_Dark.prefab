@@ -28,7 +28,7 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.6, y: 0.6, z: 0.20000002}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.16666667}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -97,5 +97,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 991b07521608e26438e5808541c1ab64, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isWhite: 0
+  isLight: 0
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 84383057f35a98541820458246cebbaf, type: 3}
+  firstTurnTaken: 0

@@ -168,9 +168,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  whiteTurn: 1
+  lightTurn: 1
   moveTime: 0.5
   boardSize: 8
+  audioSource: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -827,9 +828,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8eb7b3142fd37ee48bf46207a15caffb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  musicChoices:
-  - music: {fileID: 8300000, guid: 8f58b022a7df7ca4fabf02c380255a9f, type: 3}
-    isCopyrighted: 1
+  musicChoices: []
 --- !u!114 &1357622845
 MonoBehaviour:
   m_ObjectHideFlags: 0

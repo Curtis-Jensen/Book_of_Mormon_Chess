@@ -132,6 +132,7 @@ public class Board : MonoBehaviour
             tile.selected = false;
             tile.highlight.enabled = false;
         }
+        selectedTiles.Clear();
     }
 
     void PreviewPieceMoves(Piece piece)

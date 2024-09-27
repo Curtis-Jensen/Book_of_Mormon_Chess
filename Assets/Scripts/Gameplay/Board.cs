@@ -17,6 +17,7 @@ public class Board : MonoBehaviour
     Piece selectedPiece;
     GameObject capturedPiece;
 
+    ///Makes decisions on what to do if the tile is clicked in different states
     public void OnTileClicked(Tile clickedTile)
     {
         //If the tile is selected, that means a piece is selected, so move that piece
@@ -26,7 +27,7 @@ public class Board : MonoBehaviour
             MovePiece(clickedTile.transform.position);
             AiManager.ChoosePiece();
         }
-        //If the tile is not already selected
+        //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
         else
         {
             DeselectTiles();

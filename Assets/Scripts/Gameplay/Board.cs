@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
     public static Board Instance { get; set; } // Static instance
     public Tile[,] tiles;
     public bool lightTurn = true;
+    public bool ai;
     public float moveTime = 0.5f;
 
     [HideInInspector]
@@ -25,7 +26,10 @@ public class Board : MonoBehaviour
         if (clickedTile.selected)
         {
             MovePiece(clickedTile.transform.position);
-            AiManager.ChoosePiece();
+            if(ai)
+            {
+                MovePiece(AiManager.ChoosePiece());
+            }
         }
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
         else

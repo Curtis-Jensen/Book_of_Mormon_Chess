@@ -19,10 +19,14 @@ public class Board : MonoBehaviour
 
     public void OnTileClicked(Tile clickedTile)
     {
+        //If the tile is selected, that means a piece is selected, so move that piece
+        //After the piece has moved, if AI is enabled, have the AI piece move
         if (clickedTile.selected)
         {
             MovePiece(clickedTile.transform.position);
+            AiManager.ChoosePiece();
         }
+        //If the tile is not already selected
         else
         {
             DeselectTiles();

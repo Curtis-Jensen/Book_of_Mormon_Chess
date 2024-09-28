@@ -7,6 +7,7 @@ public class Board : MonoBehaviour
     public static Board Instance { get; set; } // Static instance
     public Tile[,] tiles;
     public bool lightTurn = true;
+    public bool ai;
     public float moveTime = 0.5f;
 
     [HideInInspector]
@@ -17,12 +18,20 @@ public class Board : MonoBehaviour
     Piece selectedPiece;
     GameObject capturedPiece;
 
+    ///Makes decisions on what to do if the tile is clicked in different states
     public void OnTileClicked(Tile clickedTile)
     {
+        //If the tile is selected, that means a piece is selected, so move that piece
+        //After the piece has moved, if AI is enabled, have the AI piece move
         if (clickedTile.selected)
         {
             MovePiece(clickedTile.transform.position);
+            if(ai)
+            {
+                MovePiece(AiManager.ChoosePiece());
+            }
         }
+        //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
         else
         {
             DeselectTiles();

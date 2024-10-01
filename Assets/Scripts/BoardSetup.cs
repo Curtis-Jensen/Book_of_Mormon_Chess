@@ -151,14 +151,7 @@ public class BoardSetup : MonoBehaviour
     {
         board.tiles = new Tile[boardSize, boardSize];
 
-        if (Board.Instance == null)
-        {
-            Board.Instance = board;
-        }
-        else
-        {
-            Destroy(gameObject);
-        }
+        Board.Instance = board;
 
         board.audioSource = GetComponent<AudioSource>();
     }

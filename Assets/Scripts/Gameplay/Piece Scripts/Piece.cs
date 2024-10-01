@@ -23,7 +23,10 @@ public abstract class Piece : MonoBehaviour
     /// Abstract method for movement logic
     /// </summary>
     /// <returns></returns>
-    public abstract List<Vector2Int> GetMovesNew();
+    public virtual List<Vector2Int> GetMovesNew()
+    {
+        return null;
+    }
 
     void OnDestroy()
     {

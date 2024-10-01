@@ -28,7 +28,7 @@ public class Board : MonoBehaviour
             MovePiece(clickedTile.transform.position);
             if(ai)
             {
-                MovePiece(AiManager.ChoosePiece());
+                MovePiece(AiManager.Instance.ChoosePiece());
             }
         }
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece

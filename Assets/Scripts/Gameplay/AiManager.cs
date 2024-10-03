@@ -9,12 +9,12 @@ public class AiManager : MonoBehaviour
     public int maxCycles = 100;
     public List<Piece> aiPieces;
 
-    public static AiManager Instance { get; set; } // Static instance
+    //public static AiManager Instance { get; set; } // Static instance
 
-    private void Start()
-    {
-        Instance = this;
-    }
+    //private void Start()
+    //{
+    //    Instance = this;
+    //}
 
     public Vector2 ChoosePiece()
     {
@@ -33,8 +33,8 @@ public class AiManager : MonoBehaviour
             }
 
             //Try to get the moves for the piece selected
-            var allValidMoves = selectedPiece.GetMovesNew();
-            validMove = allValidMoves[Random.Range(0, allValidMoves.Count)];
+            var allValidMoves = selectedPiece.GetMoves();
+            validMove = allValidMoves[Random.Range(0, allValidMoves.Count - 1)];
 
             //If a valid move has been found, stop searching! :D
             if (validMove != null)

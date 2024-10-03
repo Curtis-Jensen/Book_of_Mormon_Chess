@@ -14,6 +14,8 @@ public class Board : MonoBehaviour
     public int boardSize = 8;
     [HideInInspector]
     public AudioSource audioSource;
+    [HideInInspector]
+    public AiManager aiManager;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
     GameObject capturedPiece;
@@ -28,7 +30,7 @@ public class Board : MonoBehaviour
             MovePiece(clickedTile.transform.position);
             if(ai)
             {
-                MovePiece(AiManager.Instance.ChoosePiece());
+                MovePiece(aiManager.ChoosePiece());
             }
         }
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece

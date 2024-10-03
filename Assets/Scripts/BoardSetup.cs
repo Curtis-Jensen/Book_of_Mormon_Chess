@@ -18,18 +18,21 @@ public class BoardSetup : MonoBehaviour
     List<GameObject> tiles =  new();
     List<GameObject> pieces = new();
     Board board;
+    AiManager aiManager;
 
 
     void Awake()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
         evenBoard = IsBoardEven();
+        board = GetComponent<Board>();
+        board.boardSize = boardSize;
+        aiManager = GetComponent<AiManager>();
+        board.aiManager = aiManager;
+        CenterCamera();
         SpawnRows();
         SpawnTiles();
         SpawnPieces();
-        CenterCamera();
-        board = GetComponent<Board>();
-        board.boardSize = boardSize;
         InitializeBoardReferences();
         InitializeBoard();
     }
@@ -97,6 +100,7 @@ public class BoardSetup : MonoBehaviour
 
             newPiece.name = "Piece " + (x + 1);
             pieces.Add(newPiece);
+            aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
         }
 
         for (int x = 0; x < boardSize; x++)
@@ -119,6 +123,7 @@ public class BoardSetup : MonoBehaviour
 
             newPiece.name = "Piece " + (x + 1);
             pieces.Add(newPiece);
+            aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
         }
 
         for (int x = boardSize; x < boardSize + boardSize; x++)

@@ -27,10 +27,10 @@ public class AiManager : MonoBehaviour
             }
 
             //Try to get the moves for the piece selected
-            var validMove = selectedPiece.GetMoves()[0];
+            var validMoves = selectedPiece.GetMoves();
 
             //If a valid move has been found, stop searching! :D
-            if (validMove != null)
+            if (validMoves.Count > 0)
             {
                 break;
             }

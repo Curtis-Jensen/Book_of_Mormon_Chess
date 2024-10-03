@@ -30,7 +30,12 @@ public class Board : MonoBehaviour
             MovePiece(clickedTile.transform.position);
             if(ai)
             {
-                MovePiece(aiManager.ChoosePiece());
+                //Select a new green piece and a move for it
+                selectedPiece = aiManager.ChoosePiece();
+
+                var aiMoves = selectedPiece.GetMoves();
+
+                MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
             }
         }
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece

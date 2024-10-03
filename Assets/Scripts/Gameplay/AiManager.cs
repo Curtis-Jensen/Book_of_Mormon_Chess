@@ -7,24 +7,18 @@ public class AiManager : MonoBehaviour
 {
     [Tooltip("How many times it will check a random piece to see if it's valid")]
     public int maxCycles = 100;
+    [HideInInspector]
     public List<Piece> aiPieces;
 
-    //public static AiManager Instance { get; set; } // Static instance
-
-    //private void Start()
-    //{
-    //    Instance = this;
-    //}
-
-    public Vector2 ChoosePiece()
+    public Piece ChoosePiece()
     {
-        Vector2 validMove = new Vector2(99,99);
+        Piece selectedPiece = null;
 
         //Checks through each piece to see if one has a valid move
         for (int i = 0; i < maxCycles; i++)
         {
             //Picks a random piece
-            var selectedPiece = aiPieces[Random.Range(0, aiPieces.Count - 1)];
+            selectedPiece = aiPieces[Random.Range(0, aiPieces.Count - 1)];
             //If it selects a piece that does not exist; try again.
             if (selectedPiece == null)
             {
@@ -33,8 +27,7 @@ public class AiManager : MonoBehaviour
             }
 
             //Try to get the moves for the piece selected
-            var allValidMoves = selectedPiece.GetMoves();
-            validMove = allValidMoves[Random.Range(0, allValidMoves.Count - 1)];
+            var validMove = selectedPiece.GetMoves()[0];
 
             //If a valid move has been found, stop searching! :D
             if (validMove != null)
@@ -43,6 +36,6 @@ public class AiManager : MonoBehaviour
             }
         }
 
-        return validMove;
+        return selectedPiece;
     }
 }

@@ -98,7 +98,7 @@ public class BoardSetup : MonoBehaviour
             var newPiece =
                     Instantiate(darkPiecePrefabs[pieceChoice[i]], tiles[x].transform);
 
-            newPiece.name = "Piece " + (x + 1);
+            newPiece.name = "Dark Piece " + (x + 1);
             pieces.Add(newPiece);
             aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
         }
@@ -108,7 +108,7 @@ public class BoardSetup : MonoBehaviour
             var newPiece =
                     Instantiate(lightPiecePrefabs[pieceChoice[x]], tiles[x].transform);
 
-            newPiece.name = "Piece " + (x + 1);
+            newPiece.name = "Light Piece " + (x + 1);
             pieces.Add(newPiece);
         }
     }
@@ -121,7 +121,7 @@ public class BoardSetup : MonoBehaviour
             var newPiece =
                     Instantiate(darkPiecePrefabs[0], tiles[x].transform);
 
-            newPiece.name = "Piece " + (x + 1);
+            newPiece.name = "Dark Piece " + (x + 1);
             pieces.Add(newPiece);
             aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
         }
@@ -131,7 +131,7 @@ public class BoardSetup : MonoBehaviour
             var newPiece =
                     Instantiate(lightPiecePrefabs[0], tiles[x].transform);
 
-            newPiece.name = "Piece " + (x + 1);
+            newPiece.name = "Light Piece " + (x + 1);
             pieces.Add(newPiece);
         }
     }

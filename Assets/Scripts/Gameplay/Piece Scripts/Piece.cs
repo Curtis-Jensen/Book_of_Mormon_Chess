@@ -18,15 +18,6 @@ public abstract class Piece : MonoBehaviour
     /// </summary>
     /// <returns></returns>
     public abstract List<Vector2Int> GetMoves();
-    
-    /// <summary>
-    /// Abstract method for movement logic
-    /// </summary>
-    /// <returns></returns>
-    public virtual List<Vector2Int> GetMovesNew()
-    {
-        return null;
-    }
 
     void OnDestroy()
     {

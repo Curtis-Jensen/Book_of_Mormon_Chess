@@ -107,7 +107,13 @@ public class Board : MonoBehaviour
 
     void DestroyEnemyPiece()
     {
+        if (capturedPiece != null)
+        {
+            Debug.Log("Piece destroyed: " + capturedPiece.name);
+        }
+
         Destroy(capturedPiece);
+        capturedPiece = null;
     }
 
     /// <summary>

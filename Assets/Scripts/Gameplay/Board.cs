@@ -57,8 +57,6 @@ public class Board : MonoBehaviour
         // ➡️ Start the coroutine to physically move the piece
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
 
-        Debug.Log(selectedPiece.name + " finished its move");
-
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
@@ -110,11 +108,6 @@ public class Board : MonoBehaviour
 
     void DestroyEnemyPiece()
     {
-        if (capturedPiece != null)
-        {
-            Debug.Log("Piece destroyed: " + capturedPiece.name);
-        }
-
         Destroy(capturedPiece);
         capturedPiece = null;
     }

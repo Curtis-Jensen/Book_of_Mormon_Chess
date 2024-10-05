@@ -27,6 +27,8 @@ public class BoardSetup : MonoBehaviour
         evenBoard = IsBoardEven();
         board = GetComponent<Board>();
         board.boardSize = boardSize;
+        //If the int comes in as 1 that means true
+        board.ai = PlayerPrefs.GetInt("boolAi") == 1 ? true : false;
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
         CenterCamera();

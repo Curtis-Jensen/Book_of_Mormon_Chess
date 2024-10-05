@@ -7,9 +7,10 @@ public class Board : MonoBehaviour
     public static Board Instance { get; set; } // Static instance
     public Tile[,] tiles;
     public bool lightTurn = true;
-    public bool ai;
     public float moveTime = 0.5f;
 
+    [HideInInspector]
+    public bool ai;
     [HideInInspector]
     public int boardSize = 8;
     [HideInInspector]

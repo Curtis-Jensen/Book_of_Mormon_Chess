@@ -134,6 +134,7 @@ GameObject:
   - component: {fileID: 76764647}
   - component: {fileID: 76764646}
   - component: {fileID: 76764648}
+  - component: {fileID: 76764649}
   m_Layer: 0
   m_Name: Gameplay Board
   m_TagString: Untagged
@@ -173,6 +174,7 @@ MonoBehaviour:
   moveTime: 0.5
   boardSize: 8
   audioSource: {fileID: 0}
+  aiManager: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,6 +300,20 @@ AudioSource:
     m_PreInfinity: 2
     m_PostInfinity: 2
     m_RotationOrder: 4
+--- !u!114 &76764649
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76764644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 684e8bac98f34fd49837db40366b003c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  maxCycles: 100
+  aiPieces: []
 --- !u!1 &502543866
 GameObject:
   m_ObjectHideFlags: 0
@@ -682,7 +698,6 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1357622835}
-  - component: {fileID: 1357622839}
   - component: {fileID: 1357622844}
   - component: {fileID: 1357622841}
   - component: {fileID: 1357622845}
@@ -708,20 +723,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &1357622839
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357622834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 684e8bac98f34fd49837db40366b003c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  maxCycles: 100
-  aiPieces: []
 --- !u!82 &1357622841
 AudioSource:
   m_ObjectHideFlags: 0
@@ -825,7 +826,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1357622834}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 8eb7b3142fd37ee48bf46207a15caffb, type: 3}
   m_Name: 

@@ -28,7 +28,7 @@ public class Board : MonoBehaviour
         if (clickedTile.selected)
         {
             MovePiece(clickedTile.transform.position);
-            if(ai)
+            if (ai)
             {
                 //Select a new green piece and a move for it
                 selectedPiece = aiManager.ChoosePiece();
@@ -50,11 +50,13 @@ public class Board : MonoBehaviour
     {
         Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
 
-        DeselectPrevious(destination, destinationTile);
         DeselectTiles();
+        DeselectPrevious(destination, destinationTile);
 
         // ➡️ Start the coroutine to physically move the piece
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
+
+        Debug.Log(selectedPiece.name + " finished its move");
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);

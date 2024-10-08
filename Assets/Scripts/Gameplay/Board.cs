@@ -29,6 +29,7 @@ public class Board : MonoBehaviour
         if (clickedTile.selected)
         {
             MovePiece(clickedTile.transform.position);
+
             if (ai)
             {
                 //Select a new green piece and a move for it
@@ -52,16 +53,27 @@ public class Board : MonoBehaviour
         Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
 
         DeselectTiles();
-        DeselectPrevious(destination, destinationTile);
+        DeselectPreviousPiece(destination, destinationTile);
 
         // ➡️ Start the coroutine to physically move the piece
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
+
+        // 💥 If a piece is already occupying the tile at the end, mark it for destruction
+        if (destinationTile.piece != null)
+        {
+            capturedPiece = destinationTile.piece.gameObject;
+        }
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
 
         selectedPiece.firstTurnTaken = true;
+
+        if(selectedPiece == null)
+        {
+            Debug.LogError("SelectedPiece is null!");
+        }
 
         // Change which player's turn it is
         lightTurn = !lightTurn;
@@ -91,19 +103,12 @@ public class Board : MonoBehaviour
     /// </summary>
     /// <param name="destination"></param>
     /// <param name="destinationTile"></param>
-    void DeselectPrevious(Vector2 destination, Tile destinationTile)
+    void DeselectPreviousPiece(Vector2 destination, Tile destinationTile)
     {
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
         startingTile.piece = null;
-
-        // 💥 Destroy the piece on the destination tile if there is one
-        if (destinationTile.piece != null)
-        {
-            capturedPiece = destinationTile.piece.gameObject;
-        }
-
     }
 
     void DestroyEnemyPiece()

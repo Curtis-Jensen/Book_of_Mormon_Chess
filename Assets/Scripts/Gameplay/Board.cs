@@ -51,7 +51,8 @@ public class Board : MonoBehaviour
         }
     }
 
-    #region Click non-moving
+    #region🖱️ Tile Interaction: Selection & Movement
+
     /// <summary>
     /// Deselects all currently selected tiles.  
     /// Called when another piece is selected or a piecce moves
@@ -112,32 +113,18 @@ public class Board : MonoBehaviour
 
         DeselectTiles();
         DeselectPreviousPiece(destination, destinationTile);
-
-        // 💥 If a piece is already occupying the tile at the end, mark it for destruction
-        if (destinationTile.piece != null)
-        {
-            capturedPiece = destinationTile.piece.gameObject;
-        }
-
-        // ➡️ Start the coroutine to physically move the piece
+        MarkEnemyForDestruction(destinationTile);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
 
-        selectedPiece.firstTurnTaken = true;
-
-        if(selectedPiece == null)
-        {
-            Debug.LogError("SelectedPiece is null!");
-        }
-
-        // Change which player's turn it is
-        lightTurn = !lightTurn;
+        ChangeTurn();
+        MoveTest();
     }
 
-    #region Moving sub-methods
+    #region ➡Moving sub-methods
     /// <summary>
     /// Handles the transition of the piece to the new tile by clearing old state and preparing the destination tile
     /// </summary>
@@ -149,6 +136,17 @@ public class Board : MonoBehaviour
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
         startingTile.piece = null;
+    }
+
+    /// <summary>
+    /// 💥 If a piece is already occupying the tile at the end, mark it for destruction
+    /// </summary>
+    void MarkEnemyForDestruction(Tile destinationTile)
+    {
+        if (destinationTile.piece != null)
+        {
+            capturedPiece = destinationTile.piece.gameObject;
+        }
     }
 
     IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
@@ -175,9 +173,23 @@ public class Board : MonoBehaviour
         Destroy(capturedPiece);
         capturedPiece = null;
     }
+
+    void ChangeTurn()
+    {
+        selectedPiece.firstTurnTaken = true;
+        lightTurn = !lightTurn;
+    }
+
+    void MoveTest()
+    {
+        if (selectedPiece == null)
+        {
+            Debug.LogError("SelectedPiece is null!");
+        }
+    }
     #endregion
 
-    #region Tile / piece checkers
+    #region 🧩 Tile & Piece Status Checkers
     /// <summary>
     /// Check if a tile is empty
     /// </summary>

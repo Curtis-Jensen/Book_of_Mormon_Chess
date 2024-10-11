@@ -55,14 +55,14 @@ public class Board : MonoBehaviour
         DeselectTiles();
         DeselectPreviousPiece(destination, destinationTile);
 
-        // ➡️ Start the coroutine to physically move the piece
-        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
-
         // 💥 If a piece is already occupying the tile at the end, mark it for destruction
         if (destinationTile.piece != null)
         {
             capturedPiece = destinationTile.piece.gameObject;
         }
+
+        // ➡️ Start the coroutine to physically move the piece
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
 
         // 👪 Set the piece's new parent to the destination tile both in transform and in script
         selectedPiece.transform.SetParent(destinationTile.transform);

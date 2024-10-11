@@ -51,102 +51,7 @@ public class Board : MonoBehaviour
         }
     }
 
-    public void MovePiece(Vector2 destination)
-    {
-        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
-
-        DeselectTiles();
-        DeselectPreviousPiece(destination, destinationTile);
-
-        // 💥 If a piece is already occupying the tile at the end, mark it for destruction
-        if (destinationTile.piece != null)
-        {
-            capturedPiece = destinationTile.piece.gameObject;
-        }
-
-        // ➡️ Start the coroutine to physically move the piece
-        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
-
-        // 👪 Set the piece's new parent to the destination tile both in transform and in script
-        selectedPiece.transform.SetParent(destinationTile.transform);
-        destinationTile.piece = selectedPiece;
-
-        selectedPiece.firstTurnTaken = true;
-
-        if(selectedPiece == null)
-        {
-            Debug.LogError("SelectedPiece is null!");
-        }
-
-        // Change which player's turn it is
-        lightTurn = !lightTurn;
-    }
-
-    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
-    {
-        float time = 0;
-        Vector3 startPosition = piece.transform.position;
-        Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
-
-        while (time < moveTime)
-        {
-            piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / moveTime);
-            time += Time.deltaTime;
-            yield return null;
-        }
-        piece.transform.position = endPosition;
-
-        audioSource.Play();
-
-        DestroyEnemyPiece();
-    }
-
-    /// <summary>
-    /// Handles the transition of the piece to the new tile by clearing old state and preparing the destination tile
-    /// </summary>
-    /// <param name="destination"></param>
-    /// <param name="destinationTile"></param>
-    void DeselectPreviousPiece(Vector2 destination, Tile destinationTile)
-    {
-        // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
-        var piecePosition = selectedPiece.transform.position;
-        Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
-        startingTile.piece = null;
-    }
-
-    void DestroyEnemyPiece()
-    {
-        Destroy(capturedPiece);
-        capturedPiece = null;
-    }
-
-    /// <summary>
-    /// Check if a tile is empty
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-    public bool IsTileEmpty(Vector2Int position)
-    {
-        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
-
-        Tile tile = tiles[position.x, position.y];
-        return tile.piece == null;
-    }
-
-    /// <summary>
-    /// Check if a tile contains an enemy piece
-    /// </summary>
-    /// <param name="position"></param>
-    /// <param name="isLight"></param>
-    /// <returns></returns>
-    public bool IsEnemyPiece(Vector2Int position, bool isLight)
-    {
-        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
-
-        Tile tile = tiles[position.x, position.y];
-        return tile.piece != null && tile.piece.isLight != isLight;
-    }
-
+    #region Click non-moving
     /// <summary>
     /// Deselects all currently selected tiles.  
     /// Called when another piece is selected or a piecce moves
@@ -199,4 +104,105 @@ public class Board : MonoBehaviour
             selectedTiles.Add(possibleTile);
         }
     }
+    #endregion
+
+    public void MovePiece(Vector2 destination)
+    {
+        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
+
+        DeselectTiles();
+        DeselectPreviousPiece(destination, destinationTile);
+
+        // 💥 If a piece is already occupying the tile at the end, mark it for destruction
+        if (destinationTile.piece != null)
+        {
+            capturedPiece = destinationTile.piece.gameObject;
+        }
+
+        // ➡️ Start the coroutine to physically move the piece
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
+
+        // 👪 Set the piece's new parent to the destination tile both in transform and in script
+        selectedPiece.transform.SetParent(destinationTile.transform);
+        destinationTile.piece = selectedPiece;
+
+        selectedPiece.firstTurnTaken = true;
+
+        if(selectedPiece == null)
+        {
+            Debug.LogError("SelectedPiece is null!");
+        }
+
+        // Change which player's turn it is
+        lightTurn = !lightTurn;
+    }
+
+    #region Moving sub-methods
+    /// <summary>
+    /// Handles the transition of the piece to the new tile by clearing old state and preparing the destination tile
+    /// </summary>
+    /// <param name="destination"></param>
+    /// <param name="destinationTile"></param>
+    void DeselectPreviousPiece(Vector2 destination, Tile destinationTile)
+    {
+        // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
+        var piecePosition = selectedPiece.transform.position;
+        Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
+        startingTile.piece = null;
+    }
+
+    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
+    {
+        float time = 0;
+        Vector3 startPosition = piece.transform.position;
+        Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
+
+        while (time < moveTime)
+        {
+            piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / moveTime);
+            time += Time.deltaTime;
+            yield return null;
+        }
+        piece.transform.position = endPosition;
+
+        audioSource.Play();
+
+        DestroyEnemyPiece();
+    }
+
+    void DestroyEnemyPiece()
+    {
+        Destroy(capturedPiece);
+        capturedPiece = null;
+    }
+    #endregion
+
+    #region Tile / piece checkers
+    /// <summary>
+    /// Check if a tile is empty
+    /// </summary>
+    /// <param name="position"></param>
+    /// <returns></returns>
+    public bool IsTileEmpty(Vector2Int position)
+    {
+        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
+
+        Tile tile = tiles[position.x, position.y];
+        return tile.piece == null;
+    }
+
+    /// <summary>
+    /// Check if a tile contains an enemy piece
+    /// </summary>
+    /// <param name="position"></param>
+    /// <param name="isLight"></param>
+    /// <returns></returns>
+    public bool IsEnemyPiece(Vector2Int position, bool isLight)
+    {
+        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
+
+        Tile tile = tiles[position.x, position.y];
+        return tile.piece != null && tile.piece.isLight != isLight;
+    }
+    #endregion
 }

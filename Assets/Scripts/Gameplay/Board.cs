@@ -21,12 +21,21 @@ public class Board : MonoBehaviour
     Piece selectedPiece;
     GameObject capturedPiece;
 
-    ///Makes decisions on what to do if the tile is clicked in different states
+    /// <summary>
+    /// Makes decisions on what to do if the tile is clicked in different states
+    /// </summary>
+    /// <param name="clickedTile"></param>
     public void OnTileClicked(Tile clickedTile)
     {
+        //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
+        if (!clickedTile.selected)
+        {
+            DeselectTiles();
+            PreviewPieceMoves(clickedTile.piece);
+        }
         //If the tile is selected, that means a piece is selected, so move that piece
         //After the piece has moved, if AI is enabled, have the AI piece move
-        if (clickedTile.selected)
+        else
         {
             MovePiece(clickedTile.transform.position);
 
@@ -39,12 +48,6 @@ public class Board : MonoBehaviour
 
                 MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
             }
-        }
-        //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
-        else
-        {
-            DeselectTiles();
-            PreviewPieceMoves(clickedTile.piece);
         }
     }
 

@@ -115,11 +115,7 @@ public class Board : MonoBehaviour
         DeselectPreviousPiece(destination, destinationTile);
         MarkEnemyForDestruction(destinationTile);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
-
-        // 👪 Set the piece's new parent to the destination tile both in transform and in script
-        selectedPiece.transform.SetParent(destinationTile.transform);
-        destinationTile.piece = selectedPiece;
-
+        AssignNewParent(destinationTile);
         ChangeTurn();
         MoveTest();
     }
@@ -172,6 +168,16 @@ public class Board : MonoBehaviour
     {
         Destroy(capturedPiece);
         capturedPiece = null;
+    }
+
+    /// <summary>
+    /// 👪 Set the piece's new parent to the destination tile both in transform and in script
+    /// </summary>
+    /// <param name="destinationTile"></param>
+    void AssignNewParent(Tile destinationTile)
+    {
+        selectedPiece.transform.SetParent(destinationTile.transform);
+        destinationTile.piece = selectedPiece;
     }
 
     void ChangeTurn()

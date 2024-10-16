@@ -19,7 +19,6 @@ public class Board : MonoBehaviour
     public AiManager aiManager;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    GameObject capturedPiece;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -113,8 +112,10 @@ public class Board : MonoBehaviour
 
         DeselectTiles();
         DeselectPreviousPiece(destination, destinationTile);
-        MarkEnemyForDestruction(destinationTile);
+        var capturedPiece = MarkEnemyForDestruction(destinationTile);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
+        audioSource.Play();
+        DestroyEnemyPiece(capturedPiece);
         AssignNewParent(destinationTile);
         ChangeTurn();
         MoveTest();
@@ -137,12 +138,13 @@ public class Board : MonoBehaviour
     /// <summary>
     /// 💥 If a piece is already occupying the tile at the end, mark it for destruction
     /// </summary>
-    void MarkEnemyForDestruction(Tile destinationTile)
+    GameObject MarkEnemyForDestruction(Tile destinationTile)
     {
         if (destinationTile.piece != null)
         {
             capturedPiece = destinationTile.piece.gameObject;
         }
+        return capturedPiece;
     }
 
     IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
@@ -158,10 +160,6 @@ public class Board : MonoBehaviour
             yield return null;
         }
         piece.transform.position = endPosition;
-
-        audioSource.Play();
-
-        DestroyEnemyPiece();
     }
 
     void DestroyEnemyPiece()

@@ -19,7 +19,6 @@ public class Board : MonoBehaviour
     public AiManager aiManager;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    GameObject capturedPiece;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -117,8 +116,8 @@ public class Board : MonoBehaviour
 
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination, destinationTile);
-        capturedPiece = MarkEnemyForDestruction(destinationTile, capturedPiece);
-        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
+        var capturedPiece = MarkEnemyForDestruction(destinationTile);
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, capturedPiece));
         AssignNewParent(destinationTile);
         ChangeTurn();
         MoveTest();
@@ -141,8 +140,9 @@ public class Board : MonoBehaviour
     /// <summary>
     /// 💥 If a piece is already occupying the tile at the end, mark it for destruction
     /// </summary>
-    GameObject MarkEnemyForDestruction(Tile destinationTile, GameObject capturedPiece)
+    GameObject MarkEnemyForDestruction(Tile destinationTile)
     {
+        GameObject capturedPiece = null;
         if (destinationTile.piece != null)
         {
             capturedPiece = destinationTile.piece.gameObject;
@@ -150,7 +150,7 @@ public class Board : MonoBehaviour
         return capturedPiece;
     }
 
-    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
+    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, GameObject capturedPiece)
     {
         float time = 0;
         Vector3 startPosition = piece.transform.position;
@@ -165,14 +165,12 @@ public class Board : MonoBehaviour
         piece.transform.position = endPosition;
 
         audioSource.Play();
-
-        DestroyEnemyPiece();
+        DestroyEnemyPiece(capturedPiece);
     }
 
-    void DestroyEnemyPiece()
+    void DestroyEnemyPiece(GameObject capturedPiece)
     {
         Destroy(capturedPiece);
-        capturedPiece = null;
     }
 
     /// <summary>

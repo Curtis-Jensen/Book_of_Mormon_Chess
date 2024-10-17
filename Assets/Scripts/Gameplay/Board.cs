@@ -30,7 +30,7 @@ public class Board : MonoBehaviour
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
         if (!clickedTile.selected)
         {
-            DeselectTiles();
+            selectedTiles = DeselectTiles(selectedTiles);
             PreviewPieceMoves(clickedTile.piece);
         }
         //If the tile is selected, that means a piece is selected, so move that piece
@@ -57,7 +57,7 @@ public class Board : MonoBehaviour
     /// Deselects all currently selected tiles.  
     /// Called when another piece is selected or a piecce moves
     /// </summary>
-    public void DeselectTiles()
+    public List<Tile> DeselectTiles(List<Tile> selectedTiles)
     {
         foreach (var tile in selectedTiles)
         {
@@ -65,6 +65,8 @@ public class Board : MonoBehaviour
             tile.highlight.enabled = false;
         }
         selectedTiles.Clear();
+
+        return selectedTiles;
     }
 
     void PreviewPieceMoves(Piece piece)
@@ -75,10 +77,10 @@ public class Board : MonoBehaviour
         if (lightTurn != piece.isLight) return;
 
         // Access the move data or any other data from the piece script
-        HilightPossibleTiles(piece.GetMoves(), piece);
+        selectedTiles = HilightPossibleTiles(piece.GetMoves(), piece, selectedTiles);
     }
 
-    public void HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece)
+    public List<Tile> HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece, List<Tile> selectedTiles)
     {
         var tileUnderPiece =
             tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
@@ -104,6 +106,8 @@ public class Board : MonoBehaviour
 
             selectedTiles.Add(possibleTile);
         }
+
+        return selectedTiles;
     }
     #endregion
 
@@ -111,9 +115,9 @@ public class Board : MonoBehaviour
     {
         Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
 
-        DeselectTiles();
+        selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination, destinationTile);
-        MarkEnemyForDestruction(destinationTile);
+        capturedPiece = MarkEnemyForDestruction(destinationTile, capturedPiece);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
         AssignNewParent(destinationTile);
         ChangeTurn();
@@ -137,12 +141,13 @@ public class Board : MonoBehaviour
     /// <summary>
     /// 💥 If a piece is already occupying the tile at the end, mark it for destruction
     /// </summary>
-    void MarkEnemyForDestruction(Tile destinationTile)
+    GameObject MarkEnemyForDestruction(Tile destinationTile, GameObject capturedPiece)
     {
         if (destinationTile.piece != null)
         {
             capturedPiece = destinationTile.piece.gameObject;
         }
+        return capturedPiece;
     }
 
     IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)

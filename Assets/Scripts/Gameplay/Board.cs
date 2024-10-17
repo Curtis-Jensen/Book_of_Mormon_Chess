@@ -8,6 +8,8 @@ public class Board : MonoBehaviour
     public Tile[,] tiles;
     public bool lightTurn = true;
     public float moveTime = 0.5f;
+    [Tooltip("Particle system to play when the piece is destroyed.")]
+    public GameObject destroyParticlesPrefab;
 
     [HideInInspector]
     public bool ai;
@@ -170,6 +172,14 @@ public class Board : MonoBehaviour
 
     void DestroyEnemyPiece(GameObject capturedPiece)
     {
+        if (capturedPiece == null) return;
+
+        //Set the position the particles need to spawn to be visible
+        Vector3 position = 
+            new Vector3(capturedPiece.transform.position.x, capturedPiece.transform.position.y, -5);
+        // Spawn particles
+        GameObject particles = Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
+
         Destroy(capturedPiece);
     }
 

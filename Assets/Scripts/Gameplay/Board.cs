@@ -136,6 +136,14 @@ public class Board : MonoBehaviour
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
+
+        if(startingTile.piece != selectedPiece)
+        {
+            Debug.LogError
+                ($"Expected to deselect {selectedPiece.gameObject.name}" +
+                $" but instead almost deselected {startingTile.piece.gameObject.name}");
+        }
+
         startingTile.piece = null;
     }
 

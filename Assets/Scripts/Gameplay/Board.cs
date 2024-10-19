@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -136,6 +136,10 @@ public class Board : MonoBehaviour
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
+
+        if (startingTile.piece != selectedPiece)
+            Debug.LogError($"Expected to clear starting tile of {selectedPiece.gameObject.name} but instead it would clear it of {startingTile.piece.gameObject.name});
+
         startingTile.piece = null;
     }
 

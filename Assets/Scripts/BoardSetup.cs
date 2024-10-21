@@ -97,17 +97,12 @@ public class BoardSetup : MonoBehaviour
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
-            var newPiece =
-                    Instantiate(darkPiecePrefabs[pieceChoice[i]], tiles[x].transform);
-
-            newPiece.name = "Dark Piece " + (x + 1);
-            pieces.Add(newPiece);
-            aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
+            SpawnPiece(false, pieceChoice[i], x);
         }
 
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(true, pieceChoice[x], x, x);
+            SpawnPiece(true, pieceChoice[x], x);
         }
     }
 
@@ -115,21 +110,16 @@ public class BoardSetup : MonoBehaviour
     {
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
-            int i = topRightTile - x;
-            var newPiece =
-                    Instantiate(darkPiecePrefabs[0], tiles[x].transform);
-
-            newPiece.name = "Dark Piece " + (x + 1);
-            pieces.Add(newPiece);
+            SpawnPiece(false, 0, x);
         }
 
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            SpawnPiece(true, 0, x, x);
+            SpawnPiece(true, 0, x);
         }
     }
 
-    void SpawnPiece(bool isLight, int pieceChoice, int x, int i)
+    void SpawnPiece(bool isLight, int pieceChoice, int x)
     {
         GameObject[] piecePrefabs;
         if(isLight)

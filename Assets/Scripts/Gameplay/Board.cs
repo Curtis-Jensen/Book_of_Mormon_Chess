@@ -112,17 +112,15 @@ public class Board : MonoBehaviour
     }
     #endregion
 
+	
     public void MovePiece(Vector2 destination)
     {
         Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
 
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination, destinationTile);
-        var capturedPiece = MarkEnemyForDestruction(destinationTile);
-        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, capturedPiece));
-        AssignNewParent(destinationTile);
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
         ChangeTurn();
-        MoveTest();
     }
 
     #region ➡Moving sub-methods
@@ -147,24 +145,12 @@ public class Board : MonoBehaviour
         startingTile.piece = null;
     }
 
-    /// <summary>
-    /// 💥 If a piece is already occupying the tile at the end, mark it for destruction
-    /// </summary>
-    GameObject MarkEnemyForDestruction(Tile destinationTile)
-    {
-        GameObject capturedPiece = null;
-        if (destinationTile.piece != null)
-        {
-            capturedPiece = destinationTile.piece.gameObject;
-        }
-        return capturedPiece;
-    }
-
-    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, GameObject capturedPiece)
+    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
     {
         float time = 0;
         Vector3 startPosition = piece.transform.position;
         Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
+		var destinationTile = tiles[destination.x, destination.y]
 
         while (time < moveTime)
         {
@@ -172,14 +158,21 @@ public class Board : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+		
+        DestroyEnemyPiece(destinationTile);
+  
         piece.transform.position = endPosition;
 
+        AssignNewParent(destinationTile);
+
         audioSource.Play();
-        DestroyEnemyPiece(capturedPiece);
     }
 
-    void DestroyEnemyPiece(GameObject capturedPiece)
+    void DestroyEnemyPiece(Tile destinationTile)
     {
+		//Figure out if there's a piece that needs to be destroyed
+		var capturedPiece = destinationTile.piece;
+  
         if (capturedPiece == null) return;
 
         //Set the position the particles need to spawn to be visible

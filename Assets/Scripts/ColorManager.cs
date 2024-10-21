@@ -5,13 +5,12 @@ using UnityEngine.UI;
 
 public class ColorManager : MonoBehaviour
 {
-	public Input input;
+	public InputField input;
 
 	public void SetColor(int playerNum)
 	{
-		//var playerNumString = playerNum.ToString();
-		//PlayerPrefs.SetString($"player{playerNumString}Color", input.Text.text);
-
-		//input.Text.color = input.Text.text;
+		var playerNumString = playerNum.ToString();
+  		Debug.Log(input.text);
+		PlayerPrefs.SetString($"player{playerNumString}Color", input.text);
 	}
 }

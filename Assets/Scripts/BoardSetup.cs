@@ -131,14 +131,20 @@ public class BoardSetup : MonoBehaviour
             piecePrefabs = darkPiecePrefabs;
         }
 
-        var newPiece =
+        var pieceObject =
         Instantiate(piecePrefabs[pieceChoice], tiles[x].transform);
 
-        newPiece.name += (x + 1);
-        pieces.Add(newPiece);
+        pieceObject.name += (x + 1);
+        pieces.Add(pieceObject);
+
+        //pieceObject.GetComponent<SpriteRenderer>().color = PlayerPrefs.GetString();
+
+        var piece = pieceObject.GetComponent<Piece>();
+        piece.isLight = isLight;
+
         if (!isLight)
         {
-            aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
+            aiManager.aiPieces.Add(piece);
         }
     }
 

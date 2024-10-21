@@ -107,11 +107,7 @@ public class BoardSetup : MonoBehaviour
 
         for (int x = 0; x < boardSize; x++)
         {
-            var newPiece =
-                    Instantiate(lightPiecePrefabs[pieceChoice[x]], tiles[x].transform);
-
-            newPiece.name = "Light Piece " + (x + 1);
-            pieces.Add(newPiece);
+            SpawnPiece(true, pieceChoice[x], x);
         }
     }
 
@@ -130,12 +126,17 @@ public class BoardSetup : MonoBehaviour
 
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            var newPiece =
-                    Instantiate(lightPiecePrefabs[0], tiles[x].transform);
-
-            newPiece.name = "Light Piece " + (x + 1);
-            pieces.Add(newPiece);
+            SpawnPiece(true, 0, x);
         }
+    }
+
+    void SpawnPiece(bool isLight, int pieceChoice, int x)
+    {
+        var newPiece =
+        Instantiate(lightPiecePrefabs[pieceChoice], tiles[x].transform);
+
+        newPiece.name = "Light Piece " + (x + 1);
+        pieces.Add(newPiece);
     }
 
     void CenterCamera()

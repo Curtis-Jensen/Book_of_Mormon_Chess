@@ -107,7 +107,7 @@ public class BoardSetup : MonoBehaviour
 
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(true, pieceChoice[x], x);
+            SpawnPiece(true, pieceChoice[x], x, x);
         }
     }
 
@@ -121,22 +121,35 @@ public class BoardSetup : MonoBehaviour
 
             newPiece.name = "Dark Piece " + (x + 1);
             pieces.Add(newPiece);
-            aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
         }
 
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            SpawnPiece(true, 0, x);
+            SpawnPiece(true, 0, x, x);
         }
     }
 
-    void SpawnPiece(bool isLight, int pieceChoice, int x)
+    void SpawnPiece(bool isLight, int pieceChoice, int x, int i)
     {
-        var newPiece =
-        Instantiate(lightPiecePrefabs[pieceChoice], tiles[x].transform);
+        GameObject[] piecePrefabs;
+        if(isLight)
+        {
+            piecePrefabs = lightPiecePrefabs;
+        }
+        else
+        {
+            piecePrefabs = darkPiecePrefabs;
+        }
 
-        newPiece.name = "Light Piece " + (x + 1);
+        var newPiece =
+        Instantiate(piecePrefabs[pieceChoice], tiles[x].transform);
+
+        newPiece.name += (x + 1);
         pieces.Add(newPiece);
+        if (!isLight)
+        {
+            aiManager.aiPieces.Add(newPiece.GetComponent<Piece>());
+        }
     }
 
     void CenterCamera()

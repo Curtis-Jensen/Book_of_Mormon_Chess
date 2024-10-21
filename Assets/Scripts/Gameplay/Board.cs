@@ -119,7 +119,7 @@ public class Board : MonoBehaviour
 
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination, destinationTile);
-        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination));
+        StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
         ChangeTurn();
     }
 
@@ -145,12 +145,12 @@ public class Board : MonoBehaviour
         startingTile.piece = null;
     }
 
-    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination)
+    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, Piece selectedPiece)
     {
         float time = 0;
         Vector3 startPosition = piece.transform.position;
         Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
-		var destinationTile = tiles[destination.x, destination.y]
+        var destinationTile = tiles[(int)destination.x, (int)destination.y];
 
         while (time < moveTime)
         {
@@ -163,7 +163,7 @@ public class Board : MonoBehaviour
   
         piece.transform.position = endPosition;
 
-        AssignNewParent(destinationTile);
+        AssignNewParent(destinationTile, selectedPiece);
 
         audioSource.Play();
     }
@@ -181,14 +181,14 @@ public class Board : MonoBehaviour
         // Spawn particles
         GameObject particles = Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
 
-        Destroy(capturedPiece);
+        Destroy(capturedPiece.gameObject);
     }
 
     /// <summary>
     /// 👪 Set the piece's new parent to the destination tile both in transform and in script
     /// </summary>
     /// <param name="destinationTile"></param>
-    void AssignNewParent(Tile destinationTile)
+    void AssignNewParent(Tile destinationTile, Piece selectedPiece)
     {
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;

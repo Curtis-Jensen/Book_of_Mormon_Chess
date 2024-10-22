@@ -137,6 +137,7 @@ public class BoardSetup : MonoBehaviour
         pieceObject.name += (x + 1);
         pieces.Add(pieceObject);
 
+        Debug.Log(PlayerPrefs.GetString("player1Color"));
         //pieceObject.GetComponent<SpriteRenderer>().color = PlayerPrefs.GetString();
 
         var piece = pieceObject.GetComponent<Piece>();

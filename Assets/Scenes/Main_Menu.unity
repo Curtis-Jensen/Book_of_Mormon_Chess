@@ -1641,8 +1641,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7051cf0a81424a49bb9da73494856a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputText: {fileID: 0}
-  boardSize: 0
+  sizeInput: {fileID: 0}
+  colorInput: {fileID: 0}
 --- !u!1 &1385900068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2200,8 +2200,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7051cf0a81424a49bb9da73494856a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputText: {fileID: 256822691}
-  boardSize: 0
+  sizeInput: {fileID: 256822691}
+  colorInput: {fileID: 914310364}
 --- !u!4 &2089302261
 Transform:
   m_ObjectHideFlags: 0

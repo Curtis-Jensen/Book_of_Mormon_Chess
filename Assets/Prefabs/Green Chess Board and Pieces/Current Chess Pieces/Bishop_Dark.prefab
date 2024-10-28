@@ -98,5 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 0
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 84383057f35a98541820458246cebbaf, type: 3}
   firstTurnTaken: 0

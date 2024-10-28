@@ -12,6 +12,8 @@ public class BoardSetup : MonoBehaviour
     public GameObject  darkTilePrefab;
     public GameObject[] lightPiecePrefabs;
     public GameObject[]  darkPiecePrefabs;
+    public Color lightColor;
+    public Color darkColor;
 
     bool evenBoard;
     List<GameObject> rows =   new();
@@ -138,7 +140,14 @@ public class BoardSetup : MonoBehaviour
         pieces.Add(pieceObject);
 
         Debug.Log(PlayerPrefs.GetString("player1Color"));
-        //pieceObject.GetComponent<SpriteRenderer>().color = PlayerPrefs.GetString();
+        if (isLight)
+        {
+            pieceObject.GetComponent<SpriteRenderer>().color = lightColor;
+        }
+        else
+        {
+            pieceObject.GetComponent<SpriteRenderer>().color = darkColor;
+        }
 
         var piece = pieceObject.GetComponent<Piece>();
         piece.isLight = isLight;

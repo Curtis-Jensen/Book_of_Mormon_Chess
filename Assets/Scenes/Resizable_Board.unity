@@ -205,6 +205,8 @@ MonoBehaviour:
   - {fileID: 3727921298716455416, guid: 0d24ec30002238843a1b47729940fe14, type: 3}
   - {fileID: 6663612888667889021, guid: 2ba3c7e3854a3dd48b04da30f3648ee0, type: 3}
   - {fileID: 7342354609708169732, guid: 9ad69e45b5b90614aaaecb9a9809c47e, type: 3}
+  lightColor: {r: 1, g: 1, b: 1, a: 0}
+  darkColor: {r: 0.654902, g: 0.06335869, b: 0, a: 0}
 --- !u!82 &76764648
 AudioSource:
   m_ObjectHideFlags: 0
@@ -845,8 +847,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7051cf0a81424a49bb9da73494856a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  inputText: {fileID: 0}
-  boardSize: 0
+  sizeInput: {fileID: 0}
+  colorInput: {fileID: 0}
 --- !u!1 &1495983631
 GameObject:
   m_ObjectHideFlags: 0

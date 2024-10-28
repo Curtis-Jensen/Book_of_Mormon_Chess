@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 6588266915599903945}
   - component: {fileID: 6433595122277518734}
   m_Layer: 0
-  m_Name: King_Light
+  m_Name: King
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,5 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
   firstTurnTaken: 0

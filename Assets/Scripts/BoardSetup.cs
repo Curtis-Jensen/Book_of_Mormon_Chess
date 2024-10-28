@@ -125,17 +125,18 @@ public class BoardSetup : MonoBehaviour
         var pieceObject =
         Instantiate(piecePrefabs[pieceChoice], tiles[x].transform);
 
-        pieceObject.name += (x + 1);
         pieces.Add(pieceObject);
 
         Debug.Log(PlayerPrefs.GetString("player1Color"));
         if (isLight)
         {
             pieceObject.GetComponent<SpriteRenderer>().color = lightColor;
+            pieceObject.name += " Light " + (x + 1);
         }
         else
         {
             pieceObject.GetComponent<SpriteRenderer>().color = darkColor;
+            pieceObject.name += " Dark " + (x + 1);
         }
 
         var piece = pieceObject.GetComponent<Piece>();

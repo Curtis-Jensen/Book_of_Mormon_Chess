@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 2144877024889121539}
   - component: {fileID: -4583346353483434651}
   m_Layer: 0
-  m_Name: Bishop_Light
+  m_Name: Bishop
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -98,5 +98,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isLight: 1
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
   firstTurnTaken: 0

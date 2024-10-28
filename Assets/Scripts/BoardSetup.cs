@@ -10,8 +10,7 @@ public class BoardSetup : MonoBehaviour
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
-    public GameObject[] lightPiecePrefabs;
-    public GameObject[]  darkPiecePrefabs;
+    public GameObject[] piecePrefabs;
     public Color lightColor;
     public Color darkColor;
 
@@ -84,7 +83,7 @@ public class BoardSetup : MonoBehaviour
 
         for (int i = 0; i < boardSize; i++)
         {
-             pieceChoice[i] = Random.Range(0, lightPiecePrefabs.Length);
+             pieceChoice[i] = Random.Range(0, piecePrefabs.Length);
         }
 
         SpawnBackRows (topRightTile, pieceChoice);
@@ -123,16 +122,6 @@ public class BoardSetup : MonoBehaviour
 
     void SpawnPiece(bool isLight, int pieceChoice, int x)
     {
-        GameObject[] piecePrefabs;
-        if(isLight)
-        {
-            piecePrefabs = lightPiecePrefabs;
-        }
-        else
-        {
-            piecePrefabs = darkPiecePrefabs;
-        }
-
         var pieceObject =
         Instantiate(piecePrefabs[pieceChoice], tiles[x].transform);
 

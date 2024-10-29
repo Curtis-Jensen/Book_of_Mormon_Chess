@@ -127,7 +127,6 @@ public class BoardSetup : MonoBehaviour
 
         pieces.Add(pieceObject);
 
-        Debug.Log(PlayerPrefs.GetString("player1Color"));
         if (isLight)
         {
             pieceObject.GetComponent<SpriteRenderer>().color = lightColor;

@@ -1086,6 +1086,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   boolVariableName: Ai
+  toggle: {fileID: 994786174}
 --- !u!1 &1011645724
 GameObject:
   m_ObjectHideFlags: 0
@@ -1642,7 +1643,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 0}
-  colorInput: {fileID: 0}
 --- !u!1 &1385900068
 GameObject:
   m_ObjectHideFlags: 0
@@ -2181,6 +2181,7 @@ GameObject:
   m_Component:
   - component: {fileID: 2089302261}
   - component: {fileID: 2089302260}
+  - component: {fileID: 2089302262}
   m_Layer: 0
   m_Name: Coss-Scene Managers
   m_TagString: Untagged
@@ -2201,7 +2202,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 256822691}
-  colorInput: {fileID: 914310364}
 --- !u!4 &2089302261
 Transform:
   m_ObjectHideFlags: 0
@@ -2217,6 +2217,19 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &2089302262
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2089302259}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85bab2322a046dd49a04d845bdd717ff, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  input: {fileID: 2147186222}
 --- !u!1 &2107960872
 GameObject:
   m_ObjectHideFlags: 0

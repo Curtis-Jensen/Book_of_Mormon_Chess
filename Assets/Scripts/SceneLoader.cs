@@ -6,18 +6,19 @@ using UnityEngine.UI;
 public class SceneLoader : MonoBehaviour
 {
     public TextMeshProUGUI sizeInput;
-    public TextMeshProUGUI colorInput;
 
-    public void LoadResizableScene(string sceneName)
+
+    public void SetupNewScene(string sceneName)
     {
-        PlayerPrefs.SetInt("boardSize", GetBoardSize());
+        PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
 
         LoadScene(sceneName);
     }
 
-    int GetBoardSize()
+    int GetInputText(TextMeshProUGUI input)
     {
-        var cleanedText = sizeInput.text.Remove(sizeInput.text.Length - 1, 1);
+        //Clean for spaces I think
+        var cleanedText = sizeInput.text.Remove(input.text.Length - 1, 1);
 
         return int.Parse(cleanedText);
     }

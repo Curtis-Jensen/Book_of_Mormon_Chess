@@ -1,11 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class ColorManager : MonoBehaviour
 {
-	public InputField input;
+	public TextMeshProUGUI input;
 
 	public void SetColor(int playerNum)
 	{

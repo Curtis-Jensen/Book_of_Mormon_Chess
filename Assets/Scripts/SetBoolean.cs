@@ -7,11 +7,10 @@ public class SetBoolean : MonoBehaviour
 {
     public string boolVariableName;
 
-    private Toggle toggle;
+    public Toggle toggle;
 
     private void Awake()
     {
-        toggle = GetComponent<Toggle>();
         toggle.isOn = PlayerPrefs.GetInt("bool" + boolVariableName) == 1 ? true : false;
     }
 

@@ -2,11 +2,14 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
+using UnityEngine.UIElements;
 
 public class BoardSetup : MonoBehaviour
 {
+    [HideInInspector]
     public int boardSize = 8;
     public float cameraPadding;
+    public GameObject background;
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
@@ -160,7 +163,9 @@ public class BoardSetup : MonoBehaviour
         {
             camPosition -= 0.5f;
         }
-        camTransform.transform.position = new Vector3 (camPosition, camPosition, -10);
+        var centeredPosition = new Vector3(camPosition, camPosition, -10);
+        camTransform.transform.position = centeredPosition;
+        background.transform.position = new Vector3(centeredPosition.x, centeredPosition.y, 0);
     }
 
     public void InitializeBoardReferences()

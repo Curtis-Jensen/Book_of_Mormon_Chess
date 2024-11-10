@@ -190,6 +190,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boardSize: 8
   cameraPadding: 1
+  backGroundOffset: {x: -0.07, y: 0, z: 10}
+  background: {fileID: 381365333}
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
@@ -390,8 +392,8 @@ Transform:
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 3, y: 3.5, z: 0}
-  m_LocalScale: {x: 2.881078, y: 2.881078, z: 1}
-  m_ConstrainProportionsScale: 0
+  m_LocalScale: {x: 0.38000003, y: 0.38000003, z: 0.13189508}
+  m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -926,6 +928,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 0}
+  ai: {fileID: 0}
 --- !u!1 &1495983631
 GameObject:
   m_ObjectHideFlags: 0

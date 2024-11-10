@@ -9,6 +9,7 @@ public class BoardSetup : MonoBehaviour
     [HideInInspector]
     public int boardSize = 8;
     public float cameraPadding;
+    public Vector3 backGroundOffset;
     public GameObject background;
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
@@ -158,14 +159,19 @@ public class BoardSetup : MonoBehaviour
 
         var camTransform = cam.gameObject;
 
-        float camPosition = boardSize / 2;
+        float centerLength = boardSize / 2;
         if (evenBoard)
         {
-            camPosition -= 0.5f;
+            centerLength -= 0.5f;
         }
-        var centeredPosition = new Vector3(camPosition, camPosition, -10);
+        var centeredPosition = new Vector3(centerLength, centerLength, -10);
         camTransform.transform.position = centeredPosition;
-        background.transform.position = new Vector3(centeredPosition.x, centeredPosition.y, 0);
+
+        background.transform.position = centeredPosition + (backGroundOffset * boardSize);
+        background.transform.localScale = new Vector3(
+            background.transform.localScale.x * boardSize,  // Width  (x-axis)
+            background.transform.localScale.y * boardSize,  // Height (y-axis)
+            background.transform.localScale.z);
     }
 
     public void InitializeBoardReferences()

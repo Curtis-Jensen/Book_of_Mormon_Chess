@@ -10,7 +10,8 @@ public class BoardSetup : MonoBehaviour
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
-    public GameObject[] piecePrefabs;
+    public Pawn pawn;
+    public GameObject[] otherPiecePrefabs;
     public Color lightColor;
     public Color darkColor;
 
@@ -89,7 +90,7 @@ public class BoardSetup : MonoBehaviour
         SpawnBackRows (topRightTile, pieceChoice);
         if(boardSize > 3)
         {
-            SpawnFrontRows(topRightTile, pieceChoice);
+            SpawnPawns(topRightTile, pieceChoice);
         }
     }
 
@@ -98,32 +99,32 @@ public class BoardSetup : MonoBehaviour
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
-            SpawnPiece(false, pieceChoice[i], x);
+            SpawnPiece(false, piecePrefabs[pieceChoice[i]], x);
         }
 
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(true, pieceChoice[x], x);
+            SpawnPiece(true, piecePrefabs[pieceChoice[x]], x);
         }
     }
 
-    void SpawnFrontRows(int topRightTile, int[] pieceChoice)
+    void SpawnPawns(int topRightTile, int[] pieceChoice)
     {
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
-            SpawnPiece(false, 0, x);
+            SpawnPiece(false, pawn, x);
         }
 
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            SpawnPiece(true, 0, x);
+            SpawnPiece(true, pawn, x);
         }
     }
 
-    void SpawnPiece(bool isLight, int pieceChoice, int x)
+    void SpawnPiece(bool isLight, GameObject piece, int x)
     {
         var pieceObject =
-        Instantiate(piecePrefabs[pieceChoice], tiles[x].transform);
+        Instantiate(piece, tiles[x].transform);
 
         pieces.Add(pieceObject);
 

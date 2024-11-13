@@ -11,7 +11,7 @@ public class BoardSetup : MonoBehaviour
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
     public Pawn pawn;
-    public GameObject[] otherPiecePrefabs;
+    public GameObject[] backPiecePrefabs;
     public Color lightColor;
     public Color darkColor;
 
@@ -36,7 +36,8 @@ public class BoardSetup : MonoBehaviour
         CenterCamera();
         SpawnRows();
         SpawnTiles();
-        SpawnPieces();
+        var pieceChoices = RandomizePieces();
+        SpawnPieces(pieceChoices);
         InitializeBoardReferences();
         InitializeBoard();
     }
@@ -77,38 +78,68 @@ public class BoardSetup : MonoBehaviour
         }
     }
     
-    void SpawnPieces()
-    {
-        var topRightTile = tiles.Count - 1;
-        int[] pieceChoice = new int[boardSize];
+int[] RandomizePieces()
+{
+    int[] pieceChoices = new int[boardSize];
+    List<int> bag = new List<int>();
 
-        for (int i = 0; i < boardSize; i++)
+    int pieceIndex = 0;
+    for (int i = 0; i < boardSize; i++)
+    {
+        // Refill and reshuffle the bag if it's empty
+        if (bag.Count == 0)
         {
-             pieceChoice[i] = Random.Range(0, piecePrefabs.Length);
+            // Fill the bag with indices of backPiecePrefabs
+            for (int j = 0; j < backPiecePrefabs.Length; j++)
+            {
+                bag.Add(j);
+            }
+
+            // Shuffle the bag
+            for (int j = 0; j < bag.Count; j++)
+            {
+                int randomIndex = Random.Range(0, bag.Count);
+                int temp = bag[j];
+                bag[j] = bag[randomIndex];
+                bag[randomIndex] = temp;
+            }
         }
 
-        SpawnBackRows (topRightTile, pieceChoice);
+        // Assign the next piece from the bag to the pieceChoices array
+        pieceChoices[i] = bag[0];
+        bag.RemoveAt(0); // Remove the used piece from the bag
+    }
+
+    return pieceChoices;
+}
+
+    
+    void SpawnPieces(int[] pieceChoices)
+    {
+        var topRightTile = tiles.Count - 1;
+
+        SpawnBackRows (topRightTile, pieceChoices);
         if(boardSize > 3)
         {
-            SpawnPawns(topRightTile, pieceChoice);
+            SpawnPawns(topRightTile);
         }
     }
 
-    void SpawnBackRows(int topRightTile, int[] pieceChoice)
+    void SpawnBackRows(int topRightTile, int[] pieceChoices)
     {
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
-            SpawnPiece(false, piecePrefabs[pieceChoice[i]], x);
+            SpawnPiece(false, backPiecePrefabs[pieceChoices[i]], x);
         }
 
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(true, piecePrefabs[pieceChoice[x]], x);
+            SpawnPiece(true, backPiecePrefabs[pieceChoices[x]], x);
         }
     }
 
-    void SpawnPawns(int topRightTile, int[] pieceChoice)
+    void SpawnPawns(int topRightTile)
     {
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {

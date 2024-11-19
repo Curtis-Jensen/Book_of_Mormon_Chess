@@ -195,8 +195,8 @@ MonoBehaviour:
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
-  piecePrefabs:
-  - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+  pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+  backPiecePrefabs:
   - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
   - {fileID: 6588266915599903942, guid: 3dbcfbaa5c530254b858b96ce686ce2c, type: 3}
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}

@@ -82,40 +82,40 @@ public class BoardSetup : MonoBehaviour
         }
     }
     
-int[] RandomizePieces()
-{
-    int[] pieceChoices = new int[boardSize];
-    List<int> bag = new List<int>();
-
-    int pieceIndex = 0;
-    for (int i = 0; i < boardSize; i++)
+    int[] RandomizePieces()
     {
-        // Refill and reshuffle the bag if it's empty
-        if (bag.Count == 0)
+        int[] pieceChoices = new int[boardSize];
+        List<int> bag = new();
+
+        int pieceIndex = 0;
+        for (int i = 0; i < boardSize; i++)
         {
-            // Fill the bag with indices of backPiecePrefabs
-            for (int j = 0; j < backPiecePrefabs.Length; j++)
+            // Refill and reshuffle the bag if it's empty
+            if (bag.Count == 0)
             {
-                bag.Add(j);
+                // Fill the bag with indices of backPiecePrefabs
+                for (int j = 0; j < backPiecePrefabs.Length; j++)
+                {
+                    bag.Add(j);
+                }
+
+                // Shuffle the bag
+                for (int j = 0; j < bag.Count; j++)
+                {
+                    int randomIndex = Random.Range(0, bag.Count);
+                    int temp = bag[j];
+                    bag[j] = bag[randomIndex];
+                    bag[randomIndex] = temp;
+                }
             }
 
-            // Shuffle the bag
-            for (int j = 0; j < bag.Count; j++)
-            {
-                int randomIndex = Random.Range(0, bag.Count);
-                int temp = bag[j];
-                bag[j] = bag[randomIndex];
-                bag[randomIndex] = temp;
-            }
+            // Assign the next piece from the bag to the pieceChoices array
+            pieceChoices[i] = bag[0];
+            bag.RemoveAt(0); // Remove the used piece from the bag
         }
 
-        // Assign the next piece from the bag to the pieceChoices array
-        pieceChoices[i] = bag[0];
-        bag.RemoveAt(0); // Remove the used piece from the bag
+        return pieceChoices;
     }
-
-    return pieceChoices;
-}
 
     
     void SpawnPieces(int[] pieceChoices)
@@ -158,28 +158,28 @@ int[] RandomizePieces()
 
     void SpawnPiece(bool isLight, GameObject piece, int x)
     {
-        var pieceObject =
+        var pieceInstance =
         Instantiate(piece, tiles[x].transform);
 
-        pieces.Add(pieceObject);
+        pieces.Add(pieceInstance);
 
         if (isLight)
         {
-            pieceObject.GetComponent<SpriteRenderer>().color = lightColor;
-            pieceObject.name += " Light " + (x + 1);
+            pieceInstance.GetComponent<SpriteRenderer>().color = lightColor;
+            pieceInstance.name += " Light " + (x + 1);
         }
         else
         {
-            pieceObject.GetComponent<SpriteRenderer>().color = darkColor;
-            pieceObject.name += " Dark " + (x + 1);
+            pieceInstance.GetComponent<SpriteRenderer>().color = darkColor;
+            pieceInstance.name += " Dark " + (x + 1);
         }
 
-        var piece = pieceObject.GetComponent<Piece>();
-        piece.isLight = isLight;
+        var pieceComponent = pieceInstance.GetComponent<Piece>();
+        pieceComponent.isLight = isLight;
 
         if (!isLight)
         {
-            aiManager.aiPieces.Add(piece);
+            aiManager.aiPieces.Add(pieceComponent);
         }
     }
 

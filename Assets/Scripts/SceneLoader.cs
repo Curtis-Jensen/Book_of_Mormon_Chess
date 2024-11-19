@@ -6,6 +6,7 @@ using UnityEngine.UI;
 public class SceneLoader : MonoBehaviour
 {
     public TextMeshProUGUI sizeInput;
+    public Toggle ai;
 
 
     public void SetupNewScene(string sceneName)
@@ -15,6 +16,7 @@ public class SceneLoader : MonoBehaviour
         LoadScene(sceneName);
     }
 
+    #region Private Methods
     int GetInputText(TextMeshProUGUI input)
     {
         //Clean for spaces I think
@@ -28,4 +30,5 @@ public class SceneLoader : MonoBehaviour
     {
         SceneManager.LoadScene(sceneName);
     }
+    #endregion
 }

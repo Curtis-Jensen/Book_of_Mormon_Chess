@@ -10,7 +10,7 @@ public class BoardSetup : MonoBehaviour
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
-    public Pawn pawn;
+    public GameObject pawn;
     public GameObject[] backPiecePrefabs;
     public Color lightColor;
     public Color darkColor;

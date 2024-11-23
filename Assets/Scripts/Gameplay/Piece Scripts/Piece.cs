@@ -9,6 +9,8 @@ public abstract class Piece : MonoBehaviour
 
     [HideInInspector]
     public bool firstTurnTaken = false;
+    [HideInInspector]
+    public int playerIndex;
 
     /// <summary>
     /// Abstract method for movement logic

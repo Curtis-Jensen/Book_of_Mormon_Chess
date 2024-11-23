@@ -131,35 +131,39 @@ public class BoardSetup : MonoBehaviour
 
     void SpawnBackRows(int topRightTile, int[] pieceChoices)
     {
+        var playerIndex = 2;
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
-            SpawnPiece(false, backPiecePrefabs[pieceChoices[i]], x);
+            SpawnPiece(false, backPiecePrefabs[pieceChoices[i]], x, playerIndex);
         }
 
+        playerIndex = 1;
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(true, backPiecePrefabs[pieceChoices[x]], x);
+            SpawnPiece(true, backPiecePrefabs[pieceChoices[x]], x, playerIndex);
         }
     }
 
     void SpawnPawns(int topRightTile)
     {
+        var playerIndex = 2;
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
-            SpawnPiece(false, pawn, x);
+            SpawnPiece(false, pawn, x, playerIndex);
         }
 
+        playerIndex = 1;
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            SpawnPiece(true, pawn, x);
+            SpawnPiece(true, pawn, x, playerIndex);
         }
     }
 
-    void SpawnPiece(bool isLight, GameObject piece, int x)
+    void SpawnPiece(bool isLight, GameObject piecePrefab, int x, int playerIndex)
     {
         var pieceInstance =
-        Instantiate(piece, tiles[x].transform);
+        Instantiate(piecePrefab, tiles[x].transform);
 
         pieces.Add(pieceInstance);
 
@@ -176,6 +180,7 @@ public class BoardSetup : MonoBehaviour
 
         var pieceComponent = pieceInstance.GetComponent<Piece>();
         pieceComponent.isLight = isLight;
+        pieceComponent.playerIndex = playerIndex;
 
         if (!isLight)
         {

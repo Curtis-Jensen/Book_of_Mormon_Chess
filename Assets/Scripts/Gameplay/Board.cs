@@ -1,12 +1,20 @@
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
+using static UnityEditor.Experimental.GraphView.GraphView;
+
+[System.Serializable]
+public class Player
+{    public bool isLight;
+    //If this is set to null, it is a human player
+    public AiManager aiManager;
+}
 
 public class Board : MonoBehaviour
 {
     public static Board Instance { get; set; } // Static instance
     public Tile[,] tiles;
-    public bool lightTurn = true;
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
@@ -21,6 +29,8 @@ public class Board : MonoBehaviour
     public AiManager aiManager;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
+    private List<Player> players = new();
+    private int playerTurn = 1;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -75,7 +85,7 @@ public class Board : MonoBehaviour
         //If no piece is on the tile
         if (piece == null) return;
         //If no piece is on the tile, or it's not that piece's turn
-        if (lightTurn != piece.isLight) return;
+        if (playerTurn != piece.playerIndex) return;
 
         // Access the move data or any other data from the piece script
         selectedTiles = HilightPossibleTiles(piece.GetMoves(), piece, selectedTiles);
@@ -197,7 +207,9 @@ public class Board : MonoBehaviour
     void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;
-        lightTurn = !lightTurn;
+
+        // Move to next player
+        playerTurn = (playerTurn + 1) % 2;//players.Count;
     }
 
     void MoveTest()

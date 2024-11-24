@@ -29,8 +29,8 @@ public class Board : MonoBehaviour
     public AiManager aiManager;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    private List<Player> players = new();
-    private int playerTurn = 1;
+    List<Player> players = new();
+    int playerTurn = 1;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -49,16 +49,6 @@ public class Board : MonoBehaviour
         else
         {
             MovePiece(clickedTile.transform.position);
-
-            if (ai)
-            {
-                //Select a new green piece and a move for it
-                selectedPiece = aiManager.ChoosePiece();
-
-                var aiMoves = selectedPiece.GetMoves();
-
-                MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
-            }
         }
     }
 
@@ -210,6 +200,16 @@ public class Board : MonoBehaviour
 
         // Move to next player
         playerTurn = (playerTurn + 1) % 2;//players.Count;
+
+        if (ai)
+        {
+            //Select a new green piece and a move for it
+            selectedPiece = aiManager.ChoosePiece();
+
+            var aiMoves = selectedPiece.GetMoves();
+
+            MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
+        }
     }
 
     void MoveTest()

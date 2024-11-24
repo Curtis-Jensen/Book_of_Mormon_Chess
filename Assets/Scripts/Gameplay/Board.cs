@@ -137,7 +137,7 @@ public class Board : MonoBehaviour
 
         if(startingTile.piece != selectedPiece)
         {
-            Debug.Log($"{selectedPiece}");
+            Debug.Log($"selectedPiece is : {selectedPiece} and startingTile.piece is {startingTile.piece}");
             Debug.LogError
                 ($"Expected to deselect {selectedPiece.gameObject.name}" +
                 $" but instead almost deselected {startingTile.piece.gameObject.name}");

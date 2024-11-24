@@ -210,6 +210,16 @@ public class Board : MonoBehaviour
 
         // Move to next player
         playerTurn = (playerTurn + 1) % 2;//players.Count;
+
+        if (ai && playerTurn == 2)
+        {
+            //Select a new green piece and a move for it
+            selectedPiece = aiManager.ChoosePiece();
+
+            var aiMoves = selectedPiece.GetMoves();
+
+            MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
+        }
     }
 
     void MoveTest()

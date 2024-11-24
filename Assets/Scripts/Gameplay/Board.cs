@@ -49,16 +49,6 @@ public class Board : MonoBehaviour
         else
         {
             MovePiece(clickedTile.transform.position);
-
-            if (ai)
-            {
-                //Select a new green piece and a move for it
-                selectedPiece = aiManager.ChoosePiece();
-
-                var aiMoves = selectedPiece.GetMoves();
-
-                MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
-            }
         }
     }
 

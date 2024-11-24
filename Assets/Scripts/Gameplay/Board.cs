@@ -6,9 +6,10 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 [System.Serializable]
 public class Player
-{    public bool isLight;
+{    
+    public bool isLight;
     //If this is set to null, it is a human player
-    public AiManager aiManager;
+    public AiManager ai;
 }
 
 public class Board : MonoBehaviour
@@ -18,6 +19,7 @@ public class Board : MonoBehaviour
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
+    public bool[] players;
 
     [HideInInspector]
     public bool ai;
@@ -29,8 +31,7 @@ public class Board : MonoBehaviour
     public AiManager aiManager;
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    List<Player> players = new();
-    int playerTurn = 1;
+    private int playerTurn = 1;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -45,7 +46,6 @@ public class Board : MonoBehaviour
             PreviewPieceMoves(clickedTile.piece);
         }
         //If the tile is selected, that means a piece is selected, so move that piece
-        //After the piece has moved, if AI is enabled, have the AI piece move
         else
         {
             MovePiece(clickedTile.transform.position);
@@ -137,6 +137,7 @@ public class Board : MonoBehaviour
 
         if(startingTile.piece != selectedPiece)
         {
+            Debug.Log($"{selectedPiece}");
             Debug.LogError
                 ($"Expected to deselect {selectedPiece.gameObject.name}" +
                 $" but instead almost deselected {startingTile.piece.gameObject.name}");
@@ -199,11 +200,15 @@ public class Board : MonoBehaviour
         selectedPiece.firstTurnTaken = true;
 
         // Move to next player
-        playerTurn = (playerTurn + 1) % 2;//players.Count;
-
-        if (ai)
+        playerTurn++;
+        if (playerTurn > players.Length) 
         {
-            //Select a new green piece and a move for it
+            playerTurn = 1;
+        }
+
+        if (players[playerTurn-1])
+        {
+            //Select a new AI piece and a move for it
             selectedPiece = aiManager.ChoosePiece();
 
             var aiMoves = selectedPiece.GetMoves();

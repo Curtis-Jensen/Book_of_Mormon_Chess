@@ -6,10 +6,8 @@ using static UnityEditor.Experimental.GraphView.GraphView;
 
 [System.Serializable]
 public class Player
-{    
-    public bool isLight;
-    //If this is set to null, it is a human player
-    public AiManager ai;
+{
+    public bool ai;
 }
 
 public class Board : MonoBehaviour
@@ -19,7 +17,7 @@ public class Board : MonoBehaviour
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
-    public bool[] players;
+    public Player[] players;
 
     [HideInInspector]
     public bool ai;
@@ -120,7 +118,6 @@ public class Board : MonoBehaviour
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination, destinationTile);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
-        ChangeTurn();
     }
 
     #region ➡Moving sub-methods
@@ -167,6 +164,7 @@ public class Board : MonoBehaviour
         AssignNewParent(destinationTile, selectedPiece);
 
         audioSource.Play();
+        ChangeTurn();
     }
 
     void DestroyEnemyPiece(Tile destinationTile)
@@ -206,7 +204,7 @@ public class Board : MonoBehaviour
             playerTurn = 1;
         }
 
-        if (players[playerTurn-1])
+        if (players[playerTurn-1].ai)
         {
             //Select a new AI piece and a move for it
             selectedPiece = aiManager.ChoosePiece();

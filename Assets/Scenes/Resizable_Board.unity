@@ -171,7 +171,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 0.5
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  players: 0101
+  players:
+  - ai: 0
+  - ai: 1
   ai: 1
   boardSize: 8
   audioSource: {fileID: 0}

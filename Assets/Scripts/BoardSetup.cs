@@ -7,11 +7,15 @@ using UnityEngine.UIElements;
 [System.Serializable]
 public class Player
 {
+    public string name;
+    public Color color;
     public bool ai;
+    public bool teamOne;
 }
 
 public class BoardSetup : MonoBehaviour
 {
+    public Player[] players;
     public float cameraPadding;
     public Vector3 backGroundOffset;
     public GameObject background;
@@ -20,8 +24,6 @@ public class BoardSetup : MonoBehaviour
     public GameObject  darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public Color lightColor;
-    public Color darkColor;
 
     [HideInInspector] public int boardSize = 8;
 
@@ -171,16 +173,8 @@ public class BoardSetup : MonoBehaviour
 
         pieces.Add(pieceInstance);
 
-        if (isLight)
-        {
-            pieceInstance.GetComponent<SpriteRenderer>().color = lightColor;
-            pieceInstance.name += " Light " + (x + 1);
-        }
-        else
-        {
-            pieceInstance.GetComponent<SpriteRenderer>().color = darkColor;
-            pieceInstance.name += " Dark " + (x + 1);
-        }
+        pieceInstance.GetComponent<SpriteRenderer>().color = players[playerIndex].color;
+        pieceInstance.name = $"{pieceInstance.name} {players[playerIndex].color} {x + 1}";
 
         var pieceComponent = pieceInstance.GetComponent<Piece>();
         pieceComponent.isLight = isLight;

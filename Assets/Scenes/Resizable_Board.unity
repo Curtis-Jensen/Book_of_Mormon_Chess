@@ -172,8 +172,14 @@ MonoBehaviour:
   moveTime: 0.5
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
   players:
-  - ai: 0
-  - ai: 1
+  - name: 
+    color: {r: 0, g: 0, b: 0, a: 0}
+    ai: 0
+    teamOne: 0
+  - name: 
+    color: {r: 0, g: 0, b: 0, a: 0}
+    ai: 1
+    teamOne: 0
   ai: 1
   boardSize: 8
   audioSource: {fileID: 0}
@@ -190,7 +196,15 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c83f73e91a7f04ba5628caf2aa870d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boardSize: 8
+  players:
+  - name: Red
+    color: {r: 0.8039216, g: 0, b: 0, a: 1}
+    ai: 1
+    teamOne: 0
+  - name: Blue
+    color: {r: 0.36078432, g: 0.4, b: 1, a: 1}
+    ai: 0
+    teamOne: 1
   cameraPadding: 1
   backGroundOffset: {x: -0.07, y: 0, z: 10}
   background: {fileID: 381365333}
@@ -203,8 +217,7 @@ MonoBehaviour:
   - {fileID: 6588266915599903942, guid: 3dbcfbaa5c530254b858b96ce686ce2c, type: 3}
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
   - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
-  lightColor: {r: 0.36037737, g: 0.40051055, b: 1, a: 1}
-  darkColor: {r: 0.8037735, g: 0.001522447, b: 0, a: 1}
+  boardSize: 8
 --- !u!82 &76764648
 AudioSource:
   m_ObjectHideFlags: 0

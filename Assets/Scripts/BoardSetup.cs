@@ -9,7 +9,7 @@ public class Player
 {
     public string name;
     public Color color;
-    public bool ai;
+    public bool isAi;
     public bool teamOne;
 }
 
@@ -176,13 +176,13 @@ public class BoardSetup : MonoBehaviour
         pieces.Add(pieceInstance);
 
         pieceInstance.GetComponent<SpriteRenderer>().color = player.color;
-        pieceInstance.name = $"{pieceInstance.name} {player.color} {x + 1}";
+        pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";
 
         var pieceComponent = pieceInstance.GetComponent<Piece>();
         pieceComponent.isLight = player.teamOne;
         pieceComponent.playerIndex = playerIndex;
 
-        if (player.ai)
+        if (player.isAi)
         {
             aiManager.aiPieces.Add(pieceComponent);
         }

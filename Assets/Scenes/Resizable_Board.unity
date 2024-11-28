@@ -174,11 +174,11 @@ MonoBehaviour:
   players:
   - name: 
     color: {r: 0, g: 0, b: 0, a: 0}
-    ai: 0
+    isAi: 0
     teamOne: 0
   - name: 
     color: {r: 0, g: 0, b: 0, a: 0}
-    ai: 1
+    isAi: 0
     teamOne: 0
   ai: 1
   boardSize: 8
@@ -199,11 +199,11 @@ MonoBehaviour:
   players:
   - name: Blue
     color: {r: 0.36078432, g: 0.4, b: 1, a: 1}
-    ai: 1
+    isAi: 0
     teamOne: 1
   - name: Red
     color: {r: 0.8039216, g: 0, b: 0, a: 1}
-    ai: 0
+    isAi: 1
     teamOne: 0
   cameraPadding: 1
   backGroundOffset: {x: -0.07, y: 0, z: 10}

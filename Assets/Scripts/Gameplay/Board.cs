@@ -20,7 +20,7 @@ public class Board : MonoBehaviour
 
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    int playerTurn = 1;
+    int playerTurn = 0;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -124,7 +124,7 @@ public class Board : MonoBehaviour
 
         if(startingTile.piece != selectedPiece)
         {
-            Debug.Log($"selectedPiece is : {selectedPiece} and startingTile.piece is {startingTile.piece}");
+            Debug.Log($"selectedPiece is : {selectedPiece.gameObject.name} and startingTile.piece is {startingTile.piece.gameObject.name}");
             Debug.LogError
                 ($"Expected to deselect {selectedPiece.gameObject.name}" +
                 $" but instead almost deselected {startingTile.piece.gameObject.name}");
@@ -189,12 +189,12 @@ public class Board : MonoBehaviour
 
         // Move to next player
         playerTurn++;
-        if (playerTurn > players.Length) 
+        if (playerTurn >= players.Length) 
         {
-            playerTurn = 1;
+            playerTurn = 0;
         }
 
-        if (players[playerTurn-1].ai)
+        if (players[playerTurn].isAi)
         {
             //Select a new AI piece and a move for it
             selectedPiece = aiManager.ChoosePiece();

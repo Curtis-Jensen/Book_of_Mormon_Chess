@@ -4,12 +4,6 @@ using System.Linq;
 using UnityEngine;
 using static UnityEditor.Experimental.GraphView.GraphView;
 
-[System.Serializable]
-public class Player
-{
-    public bool ai;
-}
-
 public class Board : MonoBehaviour
 {
     public static Board Instance { get; set; } // Static instance
@@ -17,19 +11,16 @@ public class Board : MonoBehaviour
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
-    public Player[] players;
 
-    [HideInInspector]
-    public bool ai;
-    [HideInInspector]
-    public int boardSize = 8;
-    [HideInInspector]
-    public AudioSource audioSource;
-    [HideInInspector]
-    public AiManager aiManager;
+    [HideInInspector] public Player[] players;
+    [HideInInspector] public bool ai;
+    [HideInInspector] public int boardSize = 8;
+    [HideInInspector] public AudioSource audioSource;
+    [HideInInspector] public AiManager aiManager;
+
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    private int playerTurn = 1;
+    int playerTurn = 1;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states

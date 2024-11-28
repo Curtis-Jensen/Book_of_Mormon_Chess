@@ -4,10 +4,14 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
+[System.Serializable]
+public class Player
+{
+    public bool ai;
+}
+
 public class BoardSetup : MonoBehaviour
 {
-    [HideInInspector]
-    public int boardSize = 8;
     public float cameraPadding;
     public Vector3 backGroundOffset;
     public GameObject background;
@@ -19,13 +23,14 @@ public class BoardSetup : MonoBehaviour
     public Color lightColor;
     public Color darkColor;
 
+    [HideInInspector] public int boardSize = 8;
+
     bool evenBoard;
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
     List<GameObject> pieces = new();
     Board board;
     AiManager aiManager;
-
 
     void Awake()
     {
@@ -117,7 +122,6 @@ public class BoardSetup : MonoBehaviour
         return pieceChoices;
     }
 
-    
     void SpawnPieces(int[] pieceChoices)
     {
         var topRightTile = tiles.Count - 1;

@@ -100,7 +100,6 @@ public class Board : MonoBehaviour
         return selectedTiles;
     }
     #endregion
-
 	
     public void MovePiece(Vector2 destination)
     {

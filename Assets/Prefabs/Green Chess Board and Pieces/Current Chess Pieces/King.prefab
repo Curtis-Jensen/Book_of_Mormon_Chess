@@ -99,3 +99,4 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLight: 1
   firstTurnTaken: 0
+  playerIndex: 0

@@ -13,7 +13,6 @@ public class Board : MonoBehaviour
     public GameObject destroyParticlesPrefab;
 
     [HideInInspector] public Player[] players;
-    [HideInInspector] public bool ai;
     [HideInInspector] public int boardSize = 8;
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public AiManager aiManager;

@@ -13,11 +13,4 @@ public class SetBoolean : MonoBehaviour
     {
         toggle.isOn = PlayerPrefs.GetInt("bool" + boolVariableName) == 1 ? true : false;
     }
-
-    public void SetBool()
-    {
-        var isOnInt = toggle.isOn ? 1 : 0;
-
-        PlayerPrefs.SetInt("bool" + boolVariableName, isOnInt);
-    }
 }

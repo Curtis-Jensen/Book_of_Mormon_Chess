@@ -45,7 +45,7 @@ public class BoardSetup : MonoBehaviour
         board.aiManager = aiManager;
         board.players = players;
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
-        board.players[1].isAi = PlayerPrefs.GetInt("ai") == 1 ? true : false;
+        board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
         CenterCamera();
         SpawnRows();
         SpawnTiles();

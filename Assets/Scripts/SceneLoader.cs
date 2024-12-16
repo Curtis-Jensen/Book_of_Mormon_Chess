@@ -12,7 +12,7 @@ public class SceneLoader : MonoBehaviour
     public void SetupNewScene(string sceneName)
     {
         PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
-        PlayerPrefs.SetInt("ai", ai.isOn ? 1 : 0);
+        PlayerPrefs.SetInt("isAi", ai.isOn ? 1 : 0);
 
         LoadScene(sceneName);
     }

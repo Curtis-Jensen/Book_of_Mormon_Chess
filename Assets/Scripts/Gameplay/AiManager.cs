@@ -34,6 +34,7 @@ public class AiManager : MonoBehaviour
             {
                 break;
             }
+            //Debug.Log($"Cycle number {i}");
         }
 
         return selectedPiece;

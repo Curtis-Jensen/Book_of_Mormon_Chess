@@ -102,10 +102,8 @@ public class Board : MonoBehaviour
 	
     public void MovePiece(Vector2 destination)
     {
-        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
-
         selectedTiles = DeselectTiles(selectedTiles);
-        DeselectPreviousPiece(destination, destinationTile);
+        DeselectPreviousPiece(destination);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
     }
 
@@ -115,15 +113,15 @@ public class Board : MonoBehaviour
     /// </summary>
     /// <param name="destination"></param>
     /// <param name="destinationTile"></param>
-    void DeselectPreviousPiece(Vector2 destination, Tile destinationTile)
+    void DeselectPreviousPiece(Vector2 destination)
     {
+        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
 
-        if(startingTile.piece != selectedPiece)
+        if (startingTile.piece != selectedPiece)
         {
-            Debug.Log($"selectedPiece is : {selectedPiece.gameObject.name} and startingTile.piece is {startingTile.piece.gameObject.name}");
             Debug.LogError
                 ($"Expected to deselect {selectedPiece.gameObject.name}" +
                 $" but instead almost deselected {startingTile.piece.gameObject.name}");
@@ -169,6 +167,7 @@ public class Board : MonoBehaviour
         // Spawn particles
         GameObject particles = Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
 
+        aiManager.aiPieces.Remove(capturedPiece);
         Destroy(capturedPiece.gameObject);
     }
 
@@ -200,6 +199,7 @@ public class Board : MonoBehaviour
 
             var aiMoves = selectedPiece.GetMoves();
 
+            Debug.Log($"{aiMoves.Count}");
             MovePiece(aiMoves[Random.Range(0, aiMoves.Count - 1)]);
         }
     }

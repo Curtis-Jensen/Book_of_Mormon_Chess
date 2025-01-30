@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Networking;
@@ -9,6 +9,7 @@ public class Player
 {
     public string name;
     public Color color;
+    public Color kingColor;
     public bool isAi;
     public bool teamOne;
 }
@@ -175,11 +176,19 @@ public class BoardSetup : MonoBehaviour
         Instantiate(piecePrefab, tiles[x].transform);
 
         pieces.Add(pieceInstance);
+        var pieceComponent = pieceInstance.GetComponent<Piece>();
 
-        pieceInstance.GetComponent<SpriteRenderer>().color = player.color;
+        if (pieceComponent is King)
+        {
+            pieceInstance.GetComponent<SpriteRenderer>().color = player.kingColor;
+        }
+        else
+        {
+            pieceInstance.GetComponent<SpriteRenderer>().color = player.color;
+        }
+
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";
 
-        var pieceComponent = pieceInstance.GetComponent<Piece>();
         pieceComponent.isLight = player.teamOne;
         pieceComponent.playerIndex = playerIndex;
 

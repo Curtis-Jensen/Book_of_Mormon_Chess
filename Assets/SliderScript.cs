@@ -7,7 +7,6 @@ using UnityEngine.UI;
 public class SliderScript : MonoBehaviour
 {
     public TMP_InputField input;
-    public 
     public Slider slider;
 
     public SliderScript()

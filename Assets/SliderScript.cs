@@ -7,10 +7,14 @@ using UnityEngine.UI;
 public class SliderScript : MonoBehaviour
 {
     public TMP_InputField input;
-    public 
     public Slider slider;
 
-    public SliderScript()
+    private void Start()
+    {
+        slider.value = Random.Range(slider.minValue, slider.maxValue + 1);
+    }
+
+    public void UpdateInput()
     {
         input.text = slider.value.ToString();
     }

@@ -21,7 +21,7 @@ public class SceneLoader : MonoBehaviour
     int GetInputText(TextMeshProUGUI input)
     {
         //Clean for spaces I think
-        var cleanedText = sizeInput.text.Remove(input.text.Length - 1, 1);
+        var cleanedText = input.text.Remove(input.text.Length - 1, 1);
 
         return int.Parse(cleanedText);
     }

@@ -220,6 +220,7 @@ MonoBehaviour:
   - {fileID: 6588266915599903942, guid: 3dbcfbaa5c530254b858b96ce686ce2c, type: 3}
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
   - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
+  - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   boardSize: 8
 --- !u!82 &76764648
 AudioSource:

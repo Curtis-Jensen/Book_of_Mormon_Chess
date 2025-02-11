@@ -36,4 +36,9 @@ public class King : Piece
 
         return validMoves;
     }
+
+    void OnDestroy()
+    {
+        Debug.Log("You Win!!");
+    }
 }

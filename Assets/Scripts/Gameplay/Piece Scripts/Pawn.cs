@@ -10,7 +10,7 @@ public class Pawn : Piece
     {
         //If the end has been reached
         if (|transform.position| % board.size == 0)
-            QueenTransform();
+            QueenUpgrade();
     }
 
     public override List<Vector2Int> GetMoves()
@@ -20,12 +20,13 @@ public class Pawn : Piece
         //If it's light, go up, if it's dark, go down
         int forward = isLight ? 1 : -1;
 
-        if(!firstTurnTaken)
+        validMoves = GetForwardMoves (validMoves, forward);
+
+        if(!firstTurnTaken && validMoves.length != 0)
         {
             validMoves = GetForwardMoves(validMoves, forward * 2);
         }
 
-        validMoves = GetForwardMoves (validMoves, forward);
         validMoves = GetDiagonalMoves(validMoves, forward);
 
         return validMoves;
@@ -64,7 +65,7 @@ public class Pawn : Piece
         return validMoves;
     }
 
-    public QueenTransform()
+    public QueenUpgrade()
     {
         Instantiate(queen);
         gameObject.destroy;

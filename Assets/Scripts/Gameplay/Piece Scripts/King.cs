@@ -6,6 +6,7 @@ using UnityEngine;
 
 public class King : Piece
 {
+    [TextArea]
     public string winStatement;
     //The four cardinal directions, and diagonal moves, to be multiplied upon
     Vector2Int[] moveDirections =
@@ -42,10 +43,10 @@ public class King : Piece
     void OnDestroy()
     {
         var winnerText = GameObject.Find("Winner Text").GetComponent<TMP_Text>();
-        //var color = GetComponent<SpriteRenderer>().color;
+        var color = GetComponent<SpriteRenderer>().color;
 
         winnerText.gameObject.SetActive(true);
         winnerText.text = winStatement;
-        //winnerText.color = color;
+        winnerText.color = color;
     }
 }

@@ -4,6 +4,15 @@ using UnityEngine;
 
 public class Pawn : Piece
 {
+    public Queen queen;
+
+    void Update()
+    {
+        //If the end has been reached
+        if (|transform.position| % board.size == 0)
+            QueenTransform();
+    }
+
     public override List<Vector2Int> GetMoves()
     {
         List<Vector2Int> validMoves = new();
@@ -53,5 +62,11 @@ public class Pawn : Piece
         }
 
         return validMoves;
+    }
+
+    public QueenTransform()
+    {
+        Instantiate(queen);
+        gameObject.destroy;
     }
 }

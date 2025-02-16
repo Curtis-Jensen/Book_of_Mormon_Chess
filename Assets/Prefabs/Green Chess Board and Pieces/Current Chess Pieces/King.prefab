@@ -100,3 +100,4 @@ MonoBehaviour:
   isLight: 1
   firstTurnTaken: 0
   playerIndex: 0
+  winStatement: You Win!!

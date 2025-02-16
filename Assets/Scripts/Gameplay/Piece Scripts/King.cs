@@ -1,10 +1,12 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
+using TMPro;
 using UnityEngine;
 
 public class King : Piece
 {
+    public string winStatement;
     //The four cardinal directions, and diagonal moves, to be multiplied upon
     Vector2Int[] moveDirections =
         { new( 1,  0),
@@ -39,6 +41,11 @@ public class King : Piece
 
     void OnDestroy()
     {
-        Debug.Log("You Win!!");
+        var winnerText = GameObject.Find("Winner Text").GetComponent<TMP_Text>();
+        //var color = GetComponent<SpriteRenderer>().color;
+
+        winnerText.gameObject.SetActive(true);
+        winnerText.text = winStatement;
+        //winnerText.color = color;
     }
 }

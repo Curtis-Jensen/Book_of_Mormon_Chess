@@ -1,15 +1,24 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class Pawn : Piece
 {
     public Queen queen;
 
+    Board board;
+
+    void Start()
+    {
+        board = GameObject.Find("Gameplay Board").GetComponent<Board>();
+    }
+
     void Update()
     {
+        Debug.Log(transform.position.y);
         //If the end has been reached
-        if (|transform.position| % board.size == 0)
+        if (transform.position.y == 0 || transform.position.y == board.boardSize  - 1)
             QueenUpgrade();
     }
 
@@ -22,7 +31,7 @@ public class Pawn : Piece
 
         validMoves = GetForwardMoves (validMoves, forward);
 
-        if(!firstTurnTaken && validMoves.length != 0)
+        if(!firstTurnTaken && validMoves.Count != 0)
         {
             validMoves = GetForwardMoves(validMoves, forward * 2);
         }
@@ -65,9 +74,9 @@ public class Pawn : Piece
         return validMoves;
     }
 
-    public QueenUpgrade()
+    public void QueenUpgrade()
     {
-        Instantiate(queen);
-        gameObject.destroy;
+        Instantiate(queen, transform.parent);
+        Destroy(gameObject);
     }
 }

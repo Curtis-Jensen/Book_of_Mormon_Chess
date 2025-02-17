@@ -99,3 +99,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isLight: 1
   firstTurnTaken: 0
+  playerIndex: 0
+  queen: {fileID: -2288074768081061814, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}

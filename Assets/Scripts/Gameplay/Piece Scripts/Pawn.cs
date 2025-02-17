@@ -14,13 +14,12 @@ public class Pawn : Piece
         board = GameObject.Find("Gameplay Board").GetComponent<Board>();
     }
 
-    void Update()
-    {
-        Debug.Log(transform.position.y);
-        //If the end has been reached
-        if (transform.position.y == 0 || transform.position.y == board.boardSize  - 1)
-            QueenUpgrade();
-    }
+    //void Update()
+    //{
+    //    //If the end has been reached
+    //    if (transform.position.y == 0 || transform.position.y == board.boardSize  - 1)
+    //        QueenUpgrade();
+    //}
 
     public override List<Vector2Int> GetMoves()
     {

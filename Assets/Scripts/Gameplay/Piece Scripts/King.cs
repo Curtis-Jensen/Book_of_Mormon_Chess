@@ -42,7 +42,17 @@ public class King : Piece
 
     void OnDestroy()
     {
-        var winnerText = GameObject.Find("Winner Text").GetComponent<TMP_Text>();
+        TMP_Text winnerText;
+
+        //Yes, this is jenky.  It exists because a king is deleted during the scene closing, and so it throws an error
+        try
+        {
+            winnerText = GameObject.Find("Winner Text").GetComponent<TMP_Text>();
+        }
+        catch
+        {
+            return;
+        }
         var color = GetComponent<SpriteRenderer>().color;
 
         winnerText.gameObject.SetActive(true);

@@ -77,9 +77,7 @@ public class Pawn : Piece
     {
         GameObject queen = Instantiate(queenPrefab, transform.parent);
         queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
-        //var player = players[playerIndex];
-        //var pieceInstance =
-        //Instantiate(piecePrefab, tiles[x].transform);
+        queen.GetComponent<Queen>().isLight = isLight;
 
         //pieces.Add(pieceInstance);
         //var pieceComponent = pieceInstance.GetComponent<Piece>();

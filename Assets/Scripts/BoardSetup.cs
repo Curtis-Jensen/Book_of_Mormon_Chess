@@ -33,7 +33,6 @@ public class BoardSetup : MonoBehaviour
     bool evenBoard;
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
-    List<GameObject> pieces = new();
     Board board;
     AiManager aiManager;
 
@@ -183,7 +182,6 @@ public class BoardSetup : MonoBehaviour
         var pieceInstance =
         Instantiate(piecePrefab, tiles[x].transform);
 
-        pieces.Add(pieceInstance);
         var pieceComponent = pieceInstance.GetComponent<Piece>();
 
         if (pieceComponent is King)

@@ -87,6 +87,12 @@ public class Pawn : Piece
         queenScript.isLight = isLight;
         queenScript.playerIndex = playerIndex;
 
+        //Ai code has started here.  Might need more information to be passed to the pawn
+
+        //if (player.isAi)
+        //{
+        //    FindObjectOfType<AiManager>().aiPieces.Add(queenScript);
+        //}
         transform.parent.GetComponent<Tile>().piece = queenScript;
     }
 }

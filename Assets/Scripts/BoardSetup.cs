@@ -182,9 +182,9 @@ public class BoardSetup : MonoBehaviour
         var pieceInstance =
         Instantiate(piecePrefab, tiles[x].transform);
 
-        var pieceComponent = pieceInstance.GetComponent<Piece>();
+        var pieceScript = pieceInstance.GetComponent<Piece>();
 
-        if (pieceComponent is King)
+        if (pieceScript is King)
         {
             pieceInstance.GetComponent<SpriteRenderer>().color = player.kingColor;
         }
@@ -195,12 +195,12 @@ public class BoardSetup : MonoBehaviour
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";
 
-        pieceComponent.isLight = player.teamOne;
-        pieceComponent.playerIndex = playerIndex;
+        pieceScript.isLight = player.teamOne;
+        pieceScript.playerIndex = playerIndex;
 
         if (player.isAi)
         {
-            aiManager.aiPieces.Add(pieceComponent);
+            aiManager.aiPieces.Add(pieceScript);
         }
     }
 

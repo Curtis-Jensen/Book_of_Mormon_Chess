@@ -14,6 +14,8 @@ public class Player
     public bool teamOne;
 }
 
+[RequireComponent(typeof(AiManager))]
+[RequireComponent(typeof(Board))]
 public class BoardSetup : MonoBehaviour
 {
     public Player[] players;
@@ -37,6 +39,18 @@ public class BoardSetup : MonoBehaviour
 
     void Awake()
     {
+        InitializeVariables();
+        CenterCamera();
+        SpawnRows();
+        SpawnTiles();
+        var pieceChoices = RandomizePieces();
+        ArrangePieces(pieceChoices);
+        InitializeBoardReferences();
+        InitializeBoard();
+    }
+
+    void InitializeVariables()
+    {
         boardSize = PlayerPrefs.GetInt("boardSize");
         evenBoard = IsBoardEven();
         board = GetComponent<Board>();
@@ -47,13 +61,6 @@ public class BoardSetup : MonoBehaviour
         board.players = players;
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
-        CenterCamera();
-        SpawnRows();
-        SpawnTiles();
-        var pieceChoices = RandomizePieces();
-        SpawnPieces(pieceChoices);
-        InitializeBoardReferences();
-        InitializeBoard();
     }
 
     bool IsBoardEven()
@@ -127,18 +134,18 @@ public class BoardSetup : MonoBehaviour
         return pieceChoices;
     }
 
-    void SpawnPieces(int[] pieceChoices)
+    void ArrangePieces(int[] pieceChoices)
     {
         var topRightTile = tiles.Count - 1;
 
-        SpawnBackRows (topRightTile, pieceChoices);
+        ArrangeBackRows (topRightTile, pieceChoices);
         if(boardSize > 3)
         {
-            SpawnPawns(topRightTile);
+            ArrangePawns(topRightTile);
         }
     }
 
-    void SpawnBackRows(int topRightTile, int[] pieceChoices)
+    void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 1;
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
@@ -154,7 +161,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    void SpawnPawns(int topRightTile)
+    void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)

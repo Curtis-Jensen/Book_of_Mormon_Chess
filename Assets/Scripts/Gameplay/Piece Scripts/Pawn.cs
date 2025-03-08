@@ -17,7 +17,10 @@ public class Pawn : Piece
     {
         //If the end has been reached
         if (transform.position.y == 0 || transform.position.y == board.boardSize - 1)
+        {
             QueenPromotion();
+            Destroy(gameObject);
+        }
     }
 
     public override List<Vector2Int> GetMoves()
@@ -76,30 +79,14 @@ public class Pawn : Piece
     public void QueenPromotion()
     {
         GameObject queen = Instantiate(queenPrefab, transform.parent);
+        var queenScript = queen.GetComponent<Queen>();
+
         queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
-        queen.GetComponent<Queen>().isLight = isLight;
+        queen.name = "New Queen";
 
-        //pieces.Add(pieceInstance);
-        //var pieceComponent = pieceInstance.GetComponent<Piece>();
+        queenScript.isLight = isLight;
+        queenScript.playerIndex = playerIndex;
 
-        //if (pieceComponent is King)
-        //{
-        //    pieceInstance.GetComponent<SpriteRenderer>().color = player.kingColor;
-        //}
-        //else
-        //{
-        //    pieceInstance.GetComponent<SpriteRenderer>().color = player.color;
-        //}
-
-        //pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";
-
-        //pieceComponent.isLight = player.teamOne;
-        //pieceComponent.playerIndex = playerIndex;
-
-        //if (player.isAi)
-        //{
-        //    aiManager.aiPieces.Add(pieceComponent);
-        //}
-        Destroy(gameObject);
+        transform.parent.GetComponent<Tile>().piece = queenScript;
     }
 }

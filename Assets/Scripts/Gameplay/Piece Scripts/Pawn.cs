@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class Pawn : Piece
 {
-    public Queen queen;
-
+    public GameObject queenPrefab;
     Board board;
 
     void Start()
@@ -14,12 +13,12 @@ public class Pawn : Piece
         board = GameObject.Find("Gameplay Board").GetComponent<Board>();
     }
 
-    //void Update()
-    //{
-    //    //If the end has been reached
-    //    if (transform.position.y == 0 || transform.position.y == board.boardSize  - 1)
-    //        QueenUpgrade();
-    //}
+    void Update()
+    {
+        //If the end has been reached
+        if (transform.position.y == 0 || transform.position.y == board.boardSize - 1)
+            QueenPromotion();
+    }
 
     public override List<Vector2Int> GetMoves()
     {
@@ -73,9 +72,36 @@ public class Pawn : Piece
         return validMoves;
     }
 
-    public void QueenUpgrade()
+    //Changing things here?  Check BoardSetup.SpawnPiece() too.
+    public void QueenPromotion()
     {
-        Instantiate(queen, transform.parent);
+        GameObject queen = Instantiate(queenPrefab, transform.parent);
+        queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
+        //var player = players[playerIndex];
+        //var pieceInstance =
+        //Instantiate(piecePrefab, tiles[x].transform);
+
+        //pieces.Add(pieceInstance);
+        //var pieceComponent = pieceInstance.GetComponent<Piece>();
+
+        //if (pieceComponent is King)
+        //{
+        //    pieceInstance.GetComponent<SpriteRenderer>().color = player.kingColor;
+        //}
+        //else
+        //{
+        //    pieceInstance.GetComponent<SpriteRenderer>().color = player.color;
+        //}
+
+        //pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";
+
+        //pieceComponent.isLight = player.teamOne;
+        //pieceComponent.playerIndex = playerIndex;
+
+        //if (player.isAi)
+        //{
+        //    aiManager.aiPieces.Add(pieceComponent);
+        //}
         Destroy(gameObject);
     }
 }

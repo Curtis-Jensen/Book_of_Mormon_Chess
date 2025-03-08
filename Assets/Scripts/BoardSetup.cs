@@ -176,6 +176,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
+    //Changing things here?  Check Pawn.QueenPromotion() too.
     void SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
     {
         var player = players[playerIndex];

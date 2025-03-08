@@ -200,12 +200,12 @@ MonoBehaviour:
   players:
   - name: Blue
     color: {r: 0.36078432, g: 0.4, b: 1, a: 1}
-    kingColor: {r: 0.7132075, g: 0.7132075, b: 0.7132075, a: 1}
+    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
     isAi: 0
     teamOne: 1
   - name: Red
     color: {r: 0.8039216, g: 0, b: 0, a: 1}
-    kingColor: {r: 1, g: 0.83157897, b: 0, a: 1}
+    kingColor: {r: 1, g: 0.75398445, b: 0, a: 1}
     isAi: 1
     teamOne: 0
   cameraPadding: 1

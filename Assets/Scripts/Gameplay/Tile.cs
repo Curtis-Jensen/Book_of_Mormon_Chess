@@ -23,6 +23,11 @@ public class Tile : MonoBehaviour
         highlight = gameObject.GetComponentsInChildren<SpriteRenderer>()[1];
     }
 
+    public void Highlight(bool highlighted)
+    {
+        highlight.enabled = highlighted;
+    }
+
     void OnMouseDown()
     {
         Board.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked

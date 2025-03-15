@@ -49,8 +49,8 @@ public class Board : MonoBehaviour
     {
         foreach (var tile in selectedTiles)
         {
-            tile.selected = false;
-            tile.highlight.enabled = false;
+            tile.selected= false;
+            tile.Highlight(false);
         }
         selectedTiles.Clear();
 
@@ -76,6 +76,7 @@ public class Board : MonoBehaviour
         // 🎨 Enable the SpriteRenderer to make it visible
         var highlight = tileUnderPiece.highlight;
         highlight.enabled = true;
+        //tileUnderPiece.Highlight(true);
 
         selectedTiles.Add(tileUnderPiece);
 

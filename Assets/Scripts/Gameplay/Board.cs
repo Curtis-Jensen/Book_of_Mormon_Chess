@@ -73,10 +73,7 @@ public class Board : MonoBehaviour
         var tileUnderPiece =
             tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
 
-        // 🎨 Enable the SpriteRenderer to make it visible
-        var highlight = tileUnderPiece.highlight;
-        highlight.enabled = true;
-        //tileUnderPiece.Highlight(true);
+        tileUnderPiece.Highlight(true);
 
         selectedTiles.Add(tileUnderPiece);
 
@@ -88,10 +85,7 @@ public class Board : MonoBehaviour
             var possibleTile = tiles[move.x, move.y];
 
             possibleTile.selected = true;
-
-            // 🎨 Enable the SpriteRenderer to make it visible
-            highlight = possibleTile.highlight;
-            highlight.enabled = true;
+            possibleTile.Highlight(true);
 
             selectedTiles.Add(possibleTile);
         }

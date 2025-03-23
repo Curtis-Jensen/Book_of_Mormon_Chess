@@ -76,10 +76,10 @@ public class Board : MonoBehaviour
         tileUnderPiece.Highlight(true);
 
         selectedTiles.Add(tileUnderPiece);
+        this.selectedPiece = selectedPiece;
 
         foreach (Vector2Int move in attemptedMoves)
         {
-            this.selectedPiece = selectedPiece;
 
             // 🟩 Get the tile at the attempted move position
             var possibleTile = tiles[move.x, move.y];

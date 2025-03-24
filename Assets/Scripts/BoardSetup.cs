@@ -44,6 +44,7 @@ public class BoardSetup : MonoBehaviour
         SpawnTiles();
         var pieceChoices = RandomizePieces();
         ArrangePieces(pieceChoices);
+        SpawnKings();
         InitializeBoardReferences();
         InitializeBoard();
     }
@@ -174,6 +175,15 @@ public class BoardSetup : MonoBehaviour
             SpawnPiece(pawn, x, playerIndex);
         }
     }
+
+    void SpawnKings()
+    {
+        
+        //Spawn the back row king
+
+        //Spawn the front row king
+    }
+
 
     //Changing things here?  Check Pawn.QueenPromotion() too.
     void SpawnPiece(GameObject piecePrefab, int x, int playerIndex)

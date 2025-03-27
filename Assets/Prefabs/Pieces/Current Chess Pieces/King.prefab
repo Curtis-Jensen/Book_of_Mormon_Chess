@@ -100,6 +100,6 @@ MonoBehaviour:
   isLight: 1
   firstTurnTaken: 0
   playerIndex: 0
-  winStatement: 'A King is Slain!
+  winStatement: 'The King is Slain!
 
     You Win!!'

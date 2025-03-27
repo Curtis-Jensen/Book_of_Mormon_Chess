@@ -25,6 +25,7 @@ public class BoardSetup : MonoBehaviour
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
+    public GameObject king;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
 
@@ -103,22 +104,22 @@ public class BoardSetup : MonoBehaviour
         int[] pieceChoices = new int[boardSize];
         List<int> bag = new();
 
-        int pieceIndex = 0;
         for (int i = 0; i < boardSize; i++)
         {
             // Refill and reshuffle the bag if it's empty
             if (bag.Count == 0)
             {
                 // Fill the bag with indices of backPiecePrefabs
-                for (int j = 0; j < backPiecePrefabs.Length; j++)
+                //We use 1 indexing here because the 0 spot must be the king
+                for (int j = 1; j < backPiecePrefabs.Length; j++)
                 {
                     bag.Add(j);
                 }
 
                 // Shuffle the bag
-                for (int j = 0; j < bag.Count; j++)
+                for (int j = 1; j < bag.Count; j++)
                 {
-                    int randomIndex = Random.Range(0, bag.Count);
+                    int randomIndex = Random.Range(1, bag.Count);
                     int temp = bag[j];
                     bag[j] = bag[randomIndex];
                     bag[randomIndex] = temp;
@@ -129,6 +130,9 @@ public class BoardSetup : MonoBehaviour
             pieceChoices[i] = bag[0];
             bag.RemoveAt(0); // Remove the used piece from the bag
         }
+
+        //We set a random spot to be 0 so 1 king spawns
+        pieceChoices[Random.Range(0, pieceChoices.Length)] = 0;
 
         return pieceChoices;
     }
@@ -159,7 +163,7 @@ public class BoardSetup : MonoBehaviour
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
         }
     }
-
+    
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;

@@ -25,7 +25,6 @@ public class BoardSetup : MonoBehaviour
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject  darkTilePrefab;
-    public GameObject king;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
 

@@ -27,6 +27,7 @@ public class BoardSetup : MonoBehaviour
     public GameObject  darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
+    public SpriteSet spriteSet;
 
     [HideInInspector] public int boardSize = 8;
 
@@ -178,30 +179,50 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    //Changing things here?  Check Pawn.QueenPromotion() too.
+    /// <summary>
+    /// Changing things here?  Check Pawn.QueenPromotion() too.
+    /// 
+    /// 🧑🏻Designate the player for later
+    /// 
+    /// 🎨 Color the piece.  If it's a king, use the special king color
+    /// 
+    /// 🏗️ Instantiate the piece prefab at the specified tile 
+    /// 
+    /// 🔍 Retrieve the Piece component for configuration
+    /// 
+    /// 📛 Assign a descriptive name to the piece GameObject 
+    /// 
+    /// ⚖️ Set piece properties for team and player ownership  
+    /// 
+    /// 🤖 Register the piece with AI manager if player is AI 
+    /// </summary>
+    /// <param name="piecePrefab">The prefab of the chess piece to spawn</param>
+    /// <param name="x">The board position (x-coordinate) to spawn the piece </param>
+    /// <param name="playerIndex">Index of the player owning the piece</param>
     void SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
     {
-        var player = players[playerIndex];
+        var player = players[playerIndex]; //🧑🏻
         var pieceInstance =
-        Instantiate(piecePrefab, tiles[x].transform);
+        Instantiate(piecePrefab, tiles[x].transform); //🏗️
+        var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
+        var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-        var pieceScript = pieceInstance.GetComponent<Piece>();
 
-        if (pieceScript is King)
+        if (pieceScript is King) //🎨
         {
-            pieceInstance.GetComponent<SpriteRenderer>().color = player.kingColor;
+            spriteRenderer.color = player.kingColor;
         }
         else
         {
-            pieceInstance.GetComponent<SpriteRenderer>().color = player.color;
+            spriteRenderer.color = player.color;
         }
 
-        pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";
+        pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛
 
-        pieceScript.isLight = player.teamOne;
+        pieceScript.isLight = player.teamOne;//⚖️
         pieceScript.playerIndex = playerIndex;
 
-        if (player.isAi)
+        if (player.isAi)//🤖
         {
             aiManager.aiPieces.Add(pieceScript);
         }

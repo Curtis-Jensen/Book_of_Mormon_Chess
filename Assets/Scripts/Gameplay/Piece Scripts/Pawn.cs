@@ -6,6 +6,7 @@ using UnityEngine;
 public class Pawn : Piece
 {
     public GameObject queenPrefab;
+    public Sprite queenSprite;
     Board board;
 
     void Start()
@@ -82,6 +83,7 @@ public class Pawn : Piece
         var queenScript = queen.GetComponent<Queen>();
 
         queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
+        queen.GetComponent<SpriteRenderer>().sprite = queenSprite;
         queen.name = "New Queen";
 
         queenScript.isLight = isLight;

@@ -6,5 +6,5 @@ using UnityEngine;
 public class SpriteSet : ScriptableObject
 {
     public string setName; [Tooltip("e.g., 'Classic', 'Modern'")]
-    public Sprite king, queen, rook, bishop, knight, pawn;
+    public Sprite King, Queen, Rook, Bishop, Knight, Pawn;
 }

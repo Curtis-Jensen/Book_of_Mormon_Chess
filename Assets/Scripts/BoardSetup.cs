@@ -169,13 +169,15 @@ public class BoardSetup : MonoBehaviour
         var playerIndex = 1;
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
-            SpawnPiece(pawn, x, playerIndex);
+            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
+            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
 
         playerIndex = 0;
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            SpawnPiece(pawn, x, playerIndex);
+            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
+            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
     }
 
@@ -199,7 +201,7 @@ public class BoardSetup : MonoBehaviour
     /// <param name="piecePrefab">The prefab of the chess piece to spawn</param>
     /// <param name="x">The board position (x-coordinate) to spawn the piece </param>
     /// <param name="playerIndex">Index of the player owning the piece</param>
-    void SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
+    Piece SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
     {
         var player = players[playerIndex]; //🧑🏻
         var pieceInstance =
@@ -207,7 +209,8 @@ public class BoardSetup : MonoBehaviour
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-
+        spriteRenderer.sprite = 
+            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
         if (pieceScript is King) //🎨
         {
             spriteRenderer.color = player.kingColor;
@@ -226,6 +229,8 @@ public class BoardSetup : MonoBehaviour
         {
             aiManager.aiPieces.Add(pieceScript);
         }
+
+        return pieceScript;
     }
 
     void CenterCamera()

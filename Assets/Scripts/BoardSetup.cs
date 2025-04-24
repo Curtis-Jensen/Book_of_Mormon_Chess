@@ -211,8 +211,10 @@ public class BoardSetup : MonoBehaviour
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-        spriteRenderer.sprite = 
+        spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
+        pieceInstance.transform.localScale 
+            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
         if (pieceScript is King) //🎨
         {
             spriteRenderer.color = player.kingColor;

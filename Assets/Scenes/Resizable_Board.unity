@@ -224,6 +224,7 @@ MonoBehaviour:
   spriteSets:
   - {fileID: 11400000, guid: bde732ca24255ae4e92c9c0e09b01556, type: 2}
   - {fileID: 11400000, guid: 3cd1a3ffbb0a3da46bcac8a00583a2e5, type: 2}
+  - {fileID: 11400000, guid: dc0af79bc1169b7469c48ce883ec0f2c, type: 2}
   boardSize: 8
 --- !u!82 &76764648
 AudioSource:

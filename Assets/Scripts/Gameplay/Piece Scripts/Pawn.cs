@@ -84,6 +84,8 @@ public class Pawn : Piece
 
         queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
         queen.GetComponent<SpriteRenderer>().sprite = queenSprite;
+        queen.transform.localScale = gameObject.transform.localScale;
+
         queen.name = "New Queen";
 
         queenScript.isLight = isLight;

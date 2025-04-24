@@ -27,10 +27,11 @@ public class BoardSetup : MonoBehaviour
     public GameObject  darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public SpriteSet spriteSet;
+    public SpriteSet[] spriteSets;
 
     [HideInInspector] public int boardSize = 8;
 
+    SpriteSet spriteSet;
     bool evenBoard;
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
@@ -59,6 +60,7 @@ public class BoardSetup : MonoBehaviour
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
         board.players = players;
+        spriteSet = spriteSets[PlayerPrefs.GetInt("style")];
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }

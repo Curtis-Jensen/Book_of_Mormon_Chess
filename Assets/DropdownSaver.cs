@@ -10,10 +10,7 @@ public class DropdownSaver : MonoBehaviour
     public void Save()
     {
         var dropdown = gameObject.GetComponent<TMP_Dropdown>();
-        string style = dropdown.options[dropdown.value].text;
 
-        Debug.Log(style);
-
-        PlayerPrefs.SetString("style", style);
+        PlayerPrefs.SetInt("style", dropdown.value);
     }
 }

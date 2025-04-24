@@ -7,10 +7,16 @@ using UnityEngine.UI;
 
 public class DropdownSaver : MonoBehaviour
 {
+    TMP_Dropdown dropdown;
+
+    public void Start()
+    {
+        dropdown = gameObject.GetComponent<TMP_Dropdown>();
+        dropdown.value = PlayerPrefs.GetInt("style");
+    }
+
     public void Save()
     {
-        var dropdown = gameObject.GetComponent<TMP_Dropdown>();
-
         PlayerPrefs.SetInt("style", dropdown.value);
     }
 }

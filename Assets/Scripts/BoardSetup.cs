@@ -27,6 +27,7 @@ public class BoardSetup : MonoBehaviour
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
     public SpriteSet[] spriteSets;
+    public ColorSet[] colorSets;
 
     [HideInInspector] public int boardSize = 8;
 
@@ -215,14 +216,14 @@ public class BoardSetup : MonoBehaviour
         pieceInstance.transform.localScale 
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
-        var playerColor = PlayerPrefs.GetString(player.playerColorName);
-        if (pieceScript is King) //🎨
+        var colorSelection = PlayerPrefs.GetInt(player.playerColorName);//🎨
+        if (pieceScript is King) 
         {
-            spriteRenderer.color = playerColor.;
+            spriteRenderer.color = colorSets[colorSelection].kingColor;
         }
         else
         {
-            spriteRenderer.color = player.color;
+            spriteRenderer.color = colorSets[colorSelection].baseColor;
         }
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛

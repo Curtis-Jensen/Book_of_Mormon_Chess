@@ -173,13 +173,11 @@ MonoBehaviour:
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
   players:
   - name: 
-    color: {r: 0, g: 0, b: 0, a: 0}
-    kingColor: {r: 0, g: 0, b: 0, a: 0}
+    playerColorName: 
     isAi: 0
     teamOne: 0
   - name: 
-    color: {r: 0, g: 0, b: 0, a: 0}
-    kingColor: {r: 0, g: 0, b: 0, a: 0}
+    playerColorName: 
     isAi: 0
     teamOne: 0
   boardSize: 8
@@ -199,13 +197,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   players:
   - name: Blue
-    color: {r: 0.36078432, g: 0.4, b: 1, a: 1}
-    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
+    playerColorName: player1color
     isAi: 0
     teamOne: 1
   - name: Red
-    color: {r: 0.8039216, g: 0, b: 0, a: 1}
-    kingColor: {r: 1, g: 0.75398445, b: 0, a: 1}
+    playerColorName: player2color
     isAi: 1
     teamOne: 0
   cameraPadding: 1
@@ -226,6 +222,11 @@ MonoBehaviour:
   - {fileID: 11400000, guid: dc0af79bc1169b7469c48ce883ec0f2c, type: 2}
   - {fileID: 11400000, guid: f212a32bd4c7eb746b9a6ad46c5ce615, type: 2}
   - {fileID: 11400000, guid: 3cd1a3ffbb0a3da46bcac8a00583a2e5, type: 2}
+  colorSets:
+  - baseColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
+    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
+  - baseColor: {r: 0.8039216, g: 0, b: 0, a: 1}
+    kingColor: {r: 1, g: 0.75398445, b: 0, a: 1}
   boardSize: 8
 --- !u!82 &76764648
 AudioSource:

@@ -8,8 +8,7 @@ using UnityEngine.UIElements;
 public class Player
 {
     public string name;
-    public Color color;
-    public Color kingColor;
+    public string playerColorName;
     public bool isAi;
     public bool teamOne;
 }
@@ -215,9 +214,11 @@ public class BoardSetup : MonoBehaviour
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
         pieceInstance.transform.localScale 
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
+
+        var playerColor = PlayerPrefs.GetString(player.playerColorName);
         if (pieceScript is King) //🎨
         {
-            spriteRenderer.color = player.kingColor;
+            spriteRenderer.color = playerColor.;
         }
         else
         {

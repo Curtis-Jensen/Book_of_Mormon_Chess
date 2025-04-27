@@ -196,11 +196,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   players:
-  - name: Blue
+  - name: player1
     playerColorName: player1color
     isAi: 0
     teamOne: 1
-  - name: Red
+  - name: player2
     playerColorName: player2color
     isAi: 1
     teamOne: 0

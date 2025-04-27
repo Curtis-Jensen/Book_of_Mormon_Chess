@@ -8,7 +8,6 @@ using UnityEngine.UIElements;
 public class Player
 {
     public string name;
-    public string playerColorName;
     public bool isAi;
     public bool teamOne;
 }
@@ -153,6 +152,7 @@ public class BoardSetup : MonoBehaviour
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 1;
+        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
@@ -160,6 +160,7 @@ public class BoardSetup : MonoBehaviour
         }
 
         playerIndex = 0;
+        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
@@ -169,6 +170,7 @@ public class BoardSetup : MonoBehaviour
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;
+        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
@@ -176,6 +178,7 @@ public class BoardSetup : MonoBehaviour
         }
 
         playerIndex = 0;
+        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
@@ -216,7 +219,7 @@ public class BoardSetup : MonoBehaviour
         pieceInstance.transform.localScale 
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
-        var colorSelection = PlayerPrefs.GetInt(player.playerColorName);//🎨
+        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
         if (pieceScript is King) 
         {
             spriteRenderer.color = colorSets[colorSelection].kingColor;

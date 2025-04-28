@@ -216,6 +216,7 @@ MonoBehaviour:
   spriteSets:
   - {fileID: 11400000, guid: bde732ca24255ae4e92c9c0e09b01556, type: 2}
   - {fileID: 11400000, guid: dc0af79bc1169b7469c48ce883ec0f2c, type: 2}
+  - {fileID: 11400000, guid: ea2ea57d0ef67124fb860470988977cf, type: 2}
   - {fileID: 11400000, guid: f212a32bd4c7eb746b9a6ad46c5ce615, type: 2}
   - {fileID: 11400000, guid: 3090d625d702cc841acb880617b4bf28, type: 2}
   - {fileID: 11400000, guid: 3cd1a3ffbb0a3da46bcac8a00583a2e5, type: 2}

@@ -2800,6 +2800,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Nephites
       m_Image: {fileID: 0}
+    - m_Text: Lamanites
+      m_Image: {fileID: 0}
     - m_Text: Invisible
       m_Image: {fileID: 0}
   m_OnValueChanged:
@@ -6156,6 +6158,8 @@ MonoBehaviour:
     - m_Text: Pixel Art
       m_Image: {fileID: 0}
     - m_Text: Nephites
+      m_Image: {fileID: 0}
+    - m_Text: Lamanites
       m_Image: {fileID: 0}
     - m_Text: Invisible
       m_Image: {fileID: 0}

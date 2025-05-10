@@ -2800,6 +2800,8 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Christmas
       m_Image: {fileID: 0}
+    - m_Text: Halloween
+      m_Image: {fileID: 0}
     - m_Text: Nephites
       m_Image: {fileID: 0}
     - m_Text: Lamanites
@@ -6170,6 +6172,8 @@ MonoBehaviour:
     - m_Text: Pixel Art
       m_Image: {fileID: 0}
     - m_Text: Christmas
+      m_Image: {fileID: 0}
+    - m_Text: Halloween
       m_Image: {fileID: 0}
     - m_Text: Nephites
       m_Image: {fileID: 0}

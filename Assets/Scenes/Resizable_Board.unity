@@ -221,10 +221,22 @@ MonoBehaviour:
   - {fileID: 11400000, guid: 3090d625d702cc841acb880617b4bf28, type: 2}
   - {fileID: 11400000, guid: 3cd1a3ffbb0a3da46bcac8a00583a2e5, type: 2}
   colorSets:
-  - baseColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
-    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
   - baseColor: {r: 0.8039216, g: 0, b: 0, a: 1}
     kingColor: {r: 1, g: 0.75398445, b: 0, a: 1}
+  - baseColor: {r: 0.9924528, g: 0.64770603, b: 0, a: 1}
+    kingColor: {r: 0.17735851, g: 0.17735851, b: 0.17735851, a: 1}
+  - baseColor: {r: 1, g: 0.9901438, b: 0, a: 1}
+    kingColor: {r: 0.82641506, g: 0.16060515, b: 0.75741935, a: 1}
+  - baseColor: {r: 0, g: 0.4867924, b: 0.011659655, a: 1}
+    kingColor: {r: 0.6586108, g: 1, b: 0, a: 1}
+  - baseColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
+    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
+  - baseColor: {r: 0.6809025, g: 0.047098536, b: 0.9245283, a: 1}
+    kingColor: {r: 1, g: 0.745283, b: 0.8490001, a: 1}
+  - baseColor: {r: 1, g: 1, b: 1, a: 1}
+    kingColor: {r: 1, g: 0.9887639, b: 0.73018867, a: 1}
+  - baseColor: {r: 0.15471691, g: 0.15471691, b: 0.15471691, a: 1}
+    kingColor: {r: 0.3207547, g: 0.30680886, b: 0, a: 1}
   boardSize: 8
 --- !u!82 &76764648
 AudioSource:

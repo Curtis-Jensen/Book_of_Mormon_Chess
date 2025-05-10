@@ -3534,8 +3534,6 @@ MonoBehaviour:
     m_Options:
     - m_Text: Red
       m_Image: {fileID: 0}
-    - m_Text: Orange
-      m_Image: {fileID: 0}
     - m_Text: Yellow
       m_Image: {fileID: 0}
     - m_Text: Green

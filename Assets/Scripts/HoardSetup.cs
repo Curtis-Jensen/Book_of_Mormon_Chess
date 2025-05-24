@@ -23,7 +23,6 @@ public class HoardSetup : MonoBehaviour
     [HideInInspector] public int boardSize = 8;
 
     SpriteSet spriteSet;
-    bool evenBoard;
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
     Board board;
@@ -135,33 +134,17 @@ public class HoardSetup : MonoBehaviour
 
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
-        var playerIndex = 1;
+        var playerIndex = 0;
         spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
-        for (int x = topRightTile; x > topRightTile - boardSize; x--)
+        for (int x = 0; x < boardSize; x++)
         {
-            int i = topRightTile - x;
-            SpawnPiece(backPiecePrefabs[pieceChoices[i]], x, playerIndex);
+            SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
         }
-
-        //playerIndex = 0;
-        //spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
-        //for (int x = 0; x < boardSize; x++)
-        //{
-        //    SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
-        //}
     }
     
     void ArrangePawns(int topRightTile)
     {
-        var playerIndex = 1;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
-        for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
-        {
-            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
-            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
-        }
-
-        playerIndex = 0;
+        var playerIndex = 0;
         spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
@@ -235,6 +218,8 @@ public class HoardSetup : MonoBehaviour
         var camTransform = cam.gameObject;
 
         float centerLength = boardSize / 2;
+
+        bool evenBoard = boardSize % 2 == 0;
         if (evenBoard)
         {
             centerLength -= 0.5f;

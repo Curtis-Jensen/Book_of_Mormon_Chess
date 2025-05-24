@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
+
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(Board))]
 public class ResizableSetup : BoardSetup
@@ -14,7 +15,7 @@ public class ResizableSetup : BoardSetup
     public GameObject background;
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
-    public GameObject  darkTilePrefab;
+    public GameObject darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
     public SpriteSet[] spriteSets;
@@ -23,9 +24,8 @@ public class ResizableSetup : BoardSetup
     [HideInInspector] public int boardSize = 8;
 
     SpriteSet spriteSet;
-    bool evenBoard;
-    List<GameObject> rows =   new();
-    List<GameObject> tiles =  new();
+    List<GameObject> rows = new();
+    List<GameObject> tiles = new();
     Board board;
     AiManager aiManager;
 
@@ -44,7 +44,6 @@ public class ResizableSetup : BoardSetup
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-        evenBoard = IsBoardEven();
         board = GetComponent<Board>();
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
@@ -56,14 +55,9 @@ public class ResizableSetup : BoardSetup
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }
 
-    bool IsBoardEven()
-    {
-        return boardSize % 2 == 0;
-    }
-
     void SpawnRows()
     {
-        for (int y = 0; y < boardSize; y++) 
+        for (int y = 0; y < boardSize; y++)
         {
             var newRow = Instantiate(rowPrefab, transform);
 
@@ -71,7 +65,7 @@ public class ResizableSetup : BoardSetup
             rows.Add(newRow);
         }
     }
-    
+
     void SpawnTiles()
     {
         for (int y = 0; y < boardSize; y++)
@@ -83,7 +77,7 @@ public class ResizableSetup : BoardSetup
 
                 var tilePosition = new Vector3Int(x, y, 0);
 
-                var newTile = 
+                var newTile =
                     Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, rows[y].transform);
 
                 newTile.name = "Tile " + (x + 1);
@@ -91,7 +85,7 @@ public class ResizableSetup : BoardSetup
             }
         }
     }
-    
+
     int[] RandomizePieces()
     {
         int[] pieceChoices = new int[boardSize];
@@ -134,11 +128,9 @@ public class ResizableSetup : BoardSetup
     {
         var topRightTile = tiles.Count - 1;
 
-        ArrangeBackRows (topRightTile, pieceChoices);
-        if(boardSize > 3)
-        {
-            ArrangePawns(topRightTile);
-        }
+        ArrangeBackRows(topRightTile, pieceChoices);
+
+        ArrangePawns(topRightTile);
     }
 
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
@@ -158,7 +150,7 @@ public class ResizableSetup : BoardSetup
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
         }
     }
-    
+
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;
@@ -208,11 +200,11 @@ public class ResizableSetup : BoardSetup
 
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
-        pieceInstance.transform.localScale 
+        pieceInstance.transform.localScale
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-        if (pieceScript is King) 
+        if (pieceScript is King)
         {
             spriteRenderer.color = colorSets[colorSelection].kingColor;
         }
@@ -243,6 +235,8 @@ public class ResizableSetup : BoardSetup
         var camTransform = cam.gameObject;
 
         float centerLength = boardSize / 2;
+
+        bool evenBoard = boardSize % 2 == 0;
         if (evenBoard)
         {
             centerLength -= 0.5f;

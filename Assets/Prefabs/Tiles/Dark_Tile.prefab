@@ -97,7 +97,7 @@ GameObject:
   - component: {fileID: -6504812330303007388}
   - component: {fileID: 1329807554543808878}
   m_Layer: 0
-  m_Name: Green_Tile
+  m_Name: Dark_Tile
   m_TagString: Tile
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

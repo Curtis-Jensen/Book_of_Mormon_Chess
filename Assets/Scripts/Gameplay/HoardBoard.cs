@@ -56,7 +56,7 @@ public class HoardBoard : Board
         var aiIndex = 1;
         var player = players[aiIndex]; //🧑🏻
         var pieceInstance =
-        Instantiate(pawn, tiles[0,7].transform); //🏗️
+        Instantiate(pawn, tiles[1,7].transform); //🏗️
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 

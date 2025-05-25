@@ -340,6 +340,24 @@ MonoBehaviour:
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   spriteSet: {fileID: 11400000, guid: 3090d625d702cc841acb880617b4bf28, type: 2}
   colorSets:
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 1, g: 1, b: 1, a: 1}
+  - baseColor: {r: 1, g: 0.9901438, b: 0, a: 1}
+    kingColor: {r: 1, g: 0.5315467, b: 0, a: 1}
+  - baseColor: {r: 1, g: 0.97744054, b: 0.48113203, a: 1}
+    kingColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+  - baseColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
+    kingColor: {r: 1, g: 0.9901438, b: 0, a: 1}
+  - baseColor: {r: 1, g: 1, b: 1, a: 1}
+    kingColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
+  - baseColor: {r: 1, g: 0.5315467, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 0}
+  - baseColor: {r: 0, g: 0, b: 0, a: 0}
+    kingColor: {r: 0, g: 0, b: 0, a: 0}
+  - baseColor: {r: 0, g: 0, b: 0, a: 0}
+    kingColor: {r: 0, g: 0, b: 0, a: 0}
   - baseColor: {r: 0, g: 0, b: 0, a: 0}
     kingColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &381365333

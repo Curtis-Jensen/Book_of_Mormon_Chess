@@ -19,8 +19,7 @@ public class HoardSetup : MonoBehaviour
     public GameObject[] backPiecePrefabs;
     public SpriteSet[] spriteSets;
     public ColorSet[] colorSets;
-
-    [HideInInspector] public int boardSize = 8;
+    public int boardSize = 10;
 
     SpriteSet spriteSet;
     List<GameObject> rows =   new();
@@ -42,7 +41,6 @@ public class HoardSetup : MonoBehaviour
 
     void InitializeVariables()
     {
-        boardSize = PlayerPrefs.GetInt("boardSize");
         board = GetComponent<Board>();
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
@@ -229,9 +227,9 @@ public class HoardSetup : MonoBehaviour
 
         background.transform.position = centeredPosition + (backGroundOffset * boardSize);
         background.transform.localScale = new Vector3(
-            background.transform.localScale.x * boardSize,  // Width  (x-axis)
-            background.transform.localScale.y * boardSize,  // Height (y-axis)
-            background.transform.localScale.z);
+        background.transform.localScale.x * boardSize,  // Width  (x-axis)
+        background.transform.localScale.y * boardSize,  // Height (y-axis)
+        background.transform.localScale.z);
     }
 
     public void InitializeBoardReferences()

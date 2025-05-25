@@ -132,9 +132,9 @@ GameObject:
   m_Component:
   - component: {fileID: 76764645}
   - component: {fileID: 76764650}
-  - component: {fileID: 76764646}
   - component: {fileID: 76764648}
   - component: {fileID: 76764649}
+  - component: {fileID: 76764651}
   m_Layer: 0
   m_Name: Gameplay Board
   m_TagString: Untagged
@@ -157,30 +157,6 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &76764646
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 76764644}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  moveTime: 0.5
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  players:
-  - name: 
-    isAi: 0
-    teamOne: 0
-  - name: 
-    isAi: 0
-    teamOne: 0
-  boardSize: 8
-  audioSource: {fileID: 0}
-  aiManager: {fileID: 0}
 --- !u!82 &76764648
 AudioSource:
   m_ObjectHideFlags: 0
@@ -343,6 +319,29 @@ MonoBehaviour:
   - baseColor: {r: 0.6809025, g: 0.047098536, b: 0.9245283, a: 1}
     kingColor: {r: 1, g: 0.745283, b: 0.8490001, a: 1}
   boardSize: 8
+--- !u!114 &76764651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76764644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 05102072d377dd0458b5aa478b76d11f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  moveTime: 0.5
+  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
+  players: []
+  boardSize: 8
+  audioSource: {fileID: 0}
+  aiManager: {fileID: 0}
+  pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+  spriteSet: {fileID: 11400000, guid: 3090d625d702cc841acb880617b4bf28, type: 2}
+  colorSets:
+  - baseColor: {r: 0, g: 0, b: 0, a: 0}
+    kingColor: {r: 0, g: 0, b: 0, a: 0}
 --- !u!1 &381365333
 GameObject:
   m_ObjectHideFlags: 0

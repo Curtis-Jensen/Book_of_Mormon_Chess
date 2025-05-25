@@ -129,8 +129,10 @@ public class ResizableSetup : BoardSetup
         var topRightTile = tiles.Count - 1;
 
         ArrangeBackRows(topRightTile, pieceChoices);
-
-        ArrangePawns(topRightTile);
+        if (boardSize > 3)
+        {
+            ArrangePawns(topRightTile);
+        }
     }
 
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)

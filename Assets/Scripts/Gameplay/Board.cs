@@ -124,7 +124,7 @@ public class Board : MonoBehaviour
         startingTile.piece = null;
     }
 
-    IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, Piece selectedPiece)
+    protected virtual IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, Piece selectedPiece)
     {
         float time = 0;
         Vector3 startPosition = piece.transform.position;
@@ -148,7 +148,7 @@ public class Board : MonoBehaviour
         ChangeTurn();
     }
 
-    void DestroyEnemyPiece(Tile destinationTile)
+    protected void DestroyEnemyPiece(Tile destinationTile)
     {
 		//Figure out if there's a piece that needs to be destroyed
 		var capturedPiece = destinationTile.piece;
@@ -169,13 +169,14 @@ public class Board : MonoBehaviour
     /// 👪 Set the piece's new parent to the destination tile both in transform and in script
     /// </summary>
     /// <param name="destinationTile"></param>
-    void AssignNewParent(Tile destinationTile, Piece selectedPiece)
+    protected void AssignNewParent(Tile destinationTile, Piece selectedPiece)
     {
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
     }
 
-    void ChangeTurn()
+
+    protected void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;
 

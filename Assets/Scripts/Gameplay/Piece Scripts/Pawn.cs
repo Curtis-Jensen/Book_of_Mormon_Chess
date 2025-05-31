@@ -16,8 +16,10 @@ public class Pawn : Piece
 
     void Update()
     {
+        var teamOneEnd = transform.position.y == board.boardSize - 1 && teamOne;
+        var teamTwoEnd = transform.position.y == 0 && !teamOne;
         //If the end has been reached
-        if (transform.position.y == 0 || transform.position.y == board.boardSize - 1)
+        if (teamTwoEnd || teamOneEnd)
         {
             QueenPromotion();
             Destroy(gameObject);
@@ -29,7 +31,7 @@ public class Pawn : Piece
         List<Vector2Int> validMoves = new();
 
         //If it's light, go up, if it's dark, go down
-        int forward = isLight ? 1 : -1;
+        int forward = teamOne ? 1 : -1;
 
         validMoves = GetForwardMoves (validMoves, forward);
 
@@ -67,7 +69,7 @@ public class Pawn : Piece
 
         foreach (var move in diagonalMoves)
         {
-            if (Board.Instance.IsEnemyPiece(move, isLight))
+            if (Board.Instance.IsEnemyPiece(move, teamOne))
             {
                 validMoves.Add(move);
             }
@@ -88,7 +90,7 @@ public class Pawn : Piece
 
         queen.name = "New Queen";
 
-        queenScript.isLight = isLight;
+        queenScript.teamOne = teamOne;
         queenScript.playerIndex = playerIndex;
 
         //Ai code has started here.  Might need more information to be passed to the pawn

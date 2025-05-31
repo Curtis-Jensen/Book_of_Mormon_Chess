@@ -196,7 +196,7 @@ public class HoardSetup : MonoBehaviour
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛
 
-        pieceScript.isLight = player.teamOne;//⚖️
+        pieceScript.teamOne = player.teamOne;//⚖️
         pieceScript.playerIndex = playerIndex;
 
         if (player.isAi)//🤖
@@ -263,7 +263,7 @@ public class HoardSetup : MonoBehaviour
                     Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
                     if (piece != null)
                     {
-                        piece.isLight = y < 2; // Assuming white pawns are on the first two rows
+                        piece.teamOne = y < 2; // Assuming white pawns are on the first two rows
                     }
                 }
             }

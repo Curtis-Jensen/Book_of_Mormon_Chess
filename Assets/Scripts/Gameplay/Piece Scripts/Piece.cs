@@ -5,7 +5,7 @@ using UnityEngine;
 public abstract class Piece : MonoBehaviour
 {
     [Tooltip("Variable to keep track of \"black\" player or \"white\" player.")]
-    public bool isLight;
+    public bool teamOne;
 
     [HideInInspector]
     public bool firstTurnTaken = false;

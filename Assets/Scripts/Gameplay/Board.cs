@@ -233,7 +233,7 @@ public class Board : MonoBehaviour
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
         Tile tile = tiles[position.x, position.y];
-        return tile.piece != null && tile.piece.isLight != isLight;
+        return tile.piece != null && tile.piece.teamOne != isLight;
     }
     #endregion
 }

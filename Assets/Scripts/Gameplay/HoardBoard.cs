@@ -73,7 +73,7 @@ public class HoardBoard : Board
 
         pieceInstance.name = $"{pieceInstance.name} {player.name}";//📛
 
-        pieceScript.isLight = player.teamOne;//⚖️
+        pieceScript.teamOne = player.teamOne;//⚖️
         pieceScript.playerIndex = aiIndex;
 
         aiManager.aiPieces.Add(pieceScript);

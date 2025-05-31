@@ -114,6 +114,26 @@ public class Board : MonoBehaviour
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
 
+        if(selectedPiece == null)
+        {
+            Debug.LogError("selectedPiece is null");
+        }
+
+        if(selectedPiece.gameObject == null)
+        {
+            Debug.LogError("selectedPiece.gameObject is null");
+        }
+
+        if (startingTile == null)
+        {
+            Debug.LogError("startingTile is null");
+        }
+
+        if(startingTile.piece == null)
+        {
+            Debug.LogError("startingTile.piece is null");
+        }
+
         if (startingTile.piece != selectedPiece)
         {
             Debug.LogError

@@ -52,7 +52,6 @@ public class HoardBoard : Board
     /// </summary>
     private void SpawnPiece()
     {
-        Debug.Log("We made it!");
         var aiIndex = 1;
         var player = players[aiIndex]; //🧑🏻
         var pieceInstance =
@@ -60,6 +59,7 @@ public class HoardBoard : Board
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Pawn>(); //🔍
         pieceScript.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
+        tiles[1, 7].GetComponent<Tile>().piece = pieceScript;
 
 
         spriteRenderer.sprite =

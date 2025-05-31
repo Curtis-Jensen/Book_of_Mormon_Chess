@@ -58,7 +58,9 @@ public class HoardBoard : Board
         var pieceInstance =
         Instantiate(pawn, tiles[1,7].transform); //🏗️
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
-        var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
+        var pieceScript = pieceInstance.GetComponent<Pawn>(); //🔍
+        pieceScript.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
+
 
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(pawn.name).GetValue(spriteSet) as Sprite;
@@ -74,9 +76,6 @@ public class HoardBoard : Board
         pieceScript.isLight = player.teamOne;//⚖️
         pieceScript.playerIndex = aiIndex;
 
-        if (player.isAi)//🤖
-        {
-            aiManager.aiPieces.Add(pieceScript);
-        }
+        aiManager.aiPieces.Add(pieceScript);
     }
 }

@@ -29,8 +29,18 @@ public class HoardBoard : Board
         AssignNewParent(destinationTile, selectedPiece);
 
         audioSource.Play();
-        SpawnPiece();
+        var spawnPoint = ChooseSpawn();
+        SpawnPiece(spawnPoint);
         ChangeTurn();
+    }
+
+    private Vector2 ChooseSpawn()
+    {
+        // Choose random x
+        return new Vector2(0, boardSize - 1);
+        // Find highest up y
+        // If there are no Ys available, try another x
+        // Find empty tiles on back rank
     }
 
     /// <summary>
@@ -50,12 +60,12 @@ public class HoardBoard : Board
     /// 
     /// 🤖 Register the piece with AI manager if player is AI 
     /// </summary>
-    private void SpawnPiece()
+    private void SpawnPiece(Vector2 spawnPoint)
     {
         var aiIndex = 1;
         var player = players[aiIndex]; //🧑🏻
         var pieceInstance =
-        Instantiate(pawn, tiles[1,7].transform); //🏗️
+        Instantiate(pawn, tiles[(int)spawnPoint.x, (int)spawnPoint.y].transform); //🏗️
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Pawn>(); //🔍
         pieceScript.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;

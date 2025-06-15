@@ -36,11 +36,29 @@ public class HoardBoard : Board
 
     private Vector2 ChooseSpawn()
     {
-        int randomX = Random.Range(0, boardSize - 1);
-        // Choose random x
-        return new Vector2(randomX, boardSize - 1);
-        
-        
+        int backRankY = boardSize - 1; // Get the top row
+        List<int> triedXs = new(); // Initialize list to track tried x-coordinates
+
+        while (triedXs.Count < boardSize) // Loop until all x-coordinates are tried
+        {
+            int randomX = Random.Range(0, boardSize); // Pick a random x
+            while (triedXs.Contains(randomX)) // Ensure x hasn’t been tried
+            {
+                randomX = Random.Range(0, boardSize); // Pick a new random x if already tried
+            }
+            triedXs.Add(randomX); // Add x to tried list
+
+            for (int y = backRankY; y >= 0; y--) // Check from y=9 to y=0 in column x
+            {
+                if (tiles[randomX, y].piece == null) // If tile is empty (no piece)
+                {
+                    return new Vector2(randomX, y); // Return empty tile’s position
+                }
+            }
+        }
+
+        Debug.LogError("No empty tiles available for pawn spawn"); // Log error if board is full
+        return new Vector2(0, backRankY); // Return fallback position (0, 9), may overwrite
     }
 
     /// <summary>

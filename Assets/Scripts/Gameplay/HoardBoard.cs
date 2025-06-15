@@ -36,11 +36,11 @@ public class HoardBoard : Board
 
     private Vector2 ChooseSpawn()
     {
+        int randomX = Random.Range(0, boardSize - 1);
         // Choose random x
-        return new Vector2(0, boardSize - 1);
-        // Find highest up y
-        // If there are no Ys available, try another x
-        // Find empty tiles on back rank
+        return new Vector2(randomX, boardSize - 1);
+        
+        
     }
 
     /// <summary>
@@ -69,7 +69,7 @@ public class HoardBoard : Board
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Pawn>(); //🔍
         pieceScript.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
-        tiles[1, 7].GetComponent<Tile>().piece = pieceScript;
+        tiles[(int)spawnPoint.x, (int)spawnPoint.y].GetComponent<Tile>().piece = pieceScript;
 
 
         spriteRenderer.sprite =
@@ -78,6 +78,7 @@ public class HoardBoard : Board
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
+        Debug.Log(colorSelection);
 
         spriteRenderer.color = colorSets[colorSelection].baseColor;
 

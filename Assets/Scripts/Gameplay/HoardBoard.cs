@@ -36,29 +36,24 @@ public class HoardBoard : Board
 
     private Vector2 ChooseSpawn()
     {
-        int backRankY = boardSize - 1; // Get the top row
-        List<int> triedXs = new(); // Initialize list to track tried x-coordinates
-
-        while (triedXs.Count < boardSize) // Loop until all x-coordinates are tried
+        for (int y = boardSize - 1; y >= 0; y--) // Start at top rank (y=boardSize-1), move down
         {
-            int randomX = Random.Range(0, boardSize); // Pick a random x
-            while (triedXs.Contains(randomX)) // Ensure x hasn’t been tried
-            {
-                randomX = Random.Range(0, boardSize); // Pick a new random x if already tried
-            }
-            triedXs.Add(randomX); // Add x to tried list
-
-            for (int y = backRankY; y >= 0; y--) // Check from y=9 to y=0 in column x
-            {
-                if (tiles[randomX, y].piece == null) // If tile is empty (no piece)
+            List<int> emptyXs = new(); // List to store empty x-coordinates for current y
+            for (int x = 0; x < boardSize; x++) // Check each x in current y
+{
+                if (tiles[x, y].piece == null) // If tile is empty
                 {
-                    return new Vector2(randomX, y); // Return empty tile’s position
+                    emptyXs.Add(x); // Add x to empty list
                 }
             }
+            if (emptyXs.Count > 0) // If empty tiles exist in this y
+            {
+                int randomX = emptyXs[Random.Range(0, emptyXs.Count)]; // Pick random empty x
+                return new Vector2(randomX, y); // Return position (x, y)
+            }
         }
-
         Debug.LogError("No empty tiles available for pawn spawn"); // Log error if board is full
-        return new Vector2(0, backRankY); // Return fallback position (0, 9), may overwrite
+        return new Vector2(0, boardSize - 1); // Fallback to (0, top rank), may overwrite
     }
 
     /// <summary>

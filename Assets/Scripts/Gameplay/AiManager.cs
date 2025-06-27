@@ -14,6 +14,11 @@ public class AiManager : MonoBehaviour
     {
         Piece selectedPiece = null;
 
+        if (aiPieces.Count == 0)
+        {
+            Debug.LogError("Ai group is empty but the AiManager is looking for pieces.");
+        }
+
         //Checks through each piece to see if one has a valid move
         for (int i = 0; i < maxCycles; i++)
         {

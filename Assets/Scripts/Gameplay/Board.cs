@@ -157,7 +157,6 @@ public class Board : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-		
         DestroyEnemyPiece(destinationTile);
   
         piece.transform.position = endPosition;
@@ -165,8 +164,12 @@ public class Board : MonoBehaviour
         AssignNewParent(destinationTile, selectedPiece);
 
         audioSource.Play();
+
+        FinishTurn();
         ChangeTurn();
     }
+
+    protected virtual void FinishTurn() { }
 
     protected void DestroyEnemyPiece(Tile destinationTile)
     {

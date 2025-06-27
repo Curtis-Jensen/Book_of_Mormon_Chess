@@ -1,5 +1,6 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 
 public class HoardBoard : Board
@@ -7,31 +8,17 @@ public class HoardBoard : Board
     public GameObject pawn;
     public SpriteSet spriteSet;
     public ColorSet[] colorSets;
+    public TMP_Text spawnDisplay;
+    public string displayPrefix;
 
-    protected override IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, Piece selectedPiece)
+    private int spawnCount;
+
+    protected override void FinishTurn()
     {
-        float time = 0;
-        Vector3 startPosition = piece.transform.position;
-        Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
-        var destinationTile = tiles[(int)destination.x, (int)destination.y];
-
-        while (time < moveTime)
-        {
-            piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / moveTime);
-            time += Time.deltaTime;
-            yield return null;
-        }
-
-        DestroyEnemyPiece(destinationTile);
-
-        piece.transform.position = endPosition;
-
-        AssignNewParent(destinationTile, selectedPiece);
-
-        audioSource.Play();
+        // Spawn pawn after move
         var spawnPoint = ChooseSpawn();
         SpawnPiece(spawnPoint);
-        ChangeTurn();
+        DisplaySpawnCount();
     }
 
     private Vector2 ChooseSpawn()
@@ -101,5 +88,11 @@ public class HoardBoard : Board
         pieceScript.playerIndex = aiIndex;
 
         aiManager.aiPieces.Add(pieceScript);
+    }
+
+    private void DisplaySpawnCount()
+    {
+        spawnCount++;
+        spawnDisplay.text = displayPrefix + spawnCount.ToString();
     }
 }

@@ -78,7 +78,6 @@ public class HoardBoard : Board
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-        Debug.Log(colorSelection);
 
         spriteRenderer.color = colorSets[colorSelection].baseColor;
 

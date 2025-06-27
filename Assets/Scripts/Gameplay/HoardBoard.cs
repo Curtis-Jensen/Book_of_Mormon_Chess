@@ -10,43 +10,67 @@ public class HoardBoard : Board
     public ColorSet[] colorSets;
     public TMP_Text spawnDisplay;
     public string displayPrefix;
+    [Tooltip("How many turns need to go by before spawning")]
+    public int spawnWaits = 1;
 
     private int spawnCount;
+    private int turnCount;
+
+    private void Start()
+    {
+        //Spawn one pawn to start
+        FinishTurn();
+    }
 
     protected override void FinishTurn()
     {
+        turnCount++;
+        if (turnCount % spawnWaits != 0) return;
+
         // Spawn pawn after move
         var spawnPoint = ChooseSpawn();
         SpawnPiece(spawnPoint);
         DisplaySpawnCount();
     }
 
+    /// <summary>
+    /// Chooses a random empty tile for AI pawn spawning, starting at top rank.
+    /// 🆙 Start at top rank (y=boardSize-1), move down
+    /// 📋 Create list for empty x-coordinates in current y
+    /// 🔲 Check each x for empty tiles
+    /// ✅ Add x to list if tile is empty
+    /// 🎲 Pick random x from empty list if available
+    /// 📍 Return position (x, y) of chosen tile
+    /// ⚠️ Log error if no empty tiles found
+    /// 🔙 Fallback to (0, top rank) if board is full
+    /// </summary>
+    /// <returns>Vector2 position of the spawn tile</returns>
     private Vector2 ChooseSpawn()
     {
-        for (int y = boardSize - 1; y >= 0; y--) // Start at top rank (y=boardSize-1), move down
+        for (int y = boardSize - 1; y >= 0; y--) // 🆙
         {
-            List<int> emptyXs = new(); // List to store empty x-coordinates for current y
-            for (int x = 0; x < boardSize; x++) // Check each x in current y
-{
-                if (tiles[x, y].piece == null) // If tile is empty
+            List<int> emptyXs = new(); // 📋
+            for (int x = 0; x < boardSize; x++) // 🔲
+            {
+                if (tiles[x, y].piece == null || tiles[x, y].piece.teamOne) // ✅
                 {
-                    emptyXs.Add(x); // Add x to empty list
+                    emptyXs.Add(x); // ✅
                 }
             }
-            if (emptyXs.Count > 0) // If empty tiles exist in this y
+            if (emptyXs.Count > 0) // 🎲
             {
-                int randomX = emptyXs[Random.Range(0, emptyXs.Count)]; // Pick random empty x
-                return new Vector2(randomX, y); // Return position (x, y)
+                int randomX = emptyXs[Random.Range(0, emptyXs.Count)]; // 🎲
+                return new Vector2(randomX, y); // 📍
             }
         }
-        Debug.LogError("No empty tiles available for pawn spawn"); // Log error if board is full
-        return new Vector2(0, boardSize - 1); // Fallback to (0, top rank), may overwrite
+        Debug.LogError("No empty tiles available for pawn spawn"); // ⚠️
+        return new Vector2(0, boardSize - 1); // 🔙
     }
 
     /// <summary>
     /// Changing things here?  Check Pawn.QueenPromotion() too.
     /// 
-    /// 🧑🏻Designate the player for later
+    /// 🧑🏻 Designate the player for later
     /// 
     /// 🎨 Color the piece.  If it's a king, use the special king color
     /// 

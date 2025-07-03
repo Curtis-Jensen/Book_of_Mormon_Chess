@@ -19,6 +19,7 @@ public class HoardBoard : Board
     private void Start()
     {
         //Spawn one pawn to start
+        turnCount = spawnCount - 1;
         FinishTurn();
     }
 
@@ -52,7 +53,7 @@ public class HoardBoard : Board
             List<int> emptyXs = new(); // 📋
             for (int x = 0; x < boardSize; x++) // 🔲
             {
-                if (tiles[x, y].piece == null || tiles[x, y].piece.teamOne) // ✅
+                if (tiles[x, y].piece == null) // ✅
                 {
                     emptyXs.Add(x); // ✅
                 }

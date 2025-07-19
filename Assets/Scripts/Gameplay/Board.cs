@@ -165,11 +165,10 @@ public class Board : MonoBehaviour
 
         audioSource.Play();
 
-        FinishTurn();
         ChangeTurn();
     }
 
-    protected virtual void FinishTurn() { }
+    protected virtual void NewWave() { }
 
     protected void DestroyEnemyPiece(Tile destinationTile)
     {
@@ -199,7 +198,7 @@ public class Board : MonoBehaviour
     }
 
 
-    protected void ChangeTurn()
+    protected virtual void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;
 

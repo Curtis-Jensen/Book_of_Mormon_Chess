@@ -18,17 +18,11 @@ public class HoardBoard : Board
 
     private void Start()
     {
-        //Spawn one pawn to start
-        turnCount = spawnCount - 1;
-        FinishTurn();
+        NewWave();
     }
 
-    protected override void FinishTurn()
+    protected override void NewWave()
     {
-        turnCount++;
-        if (turnCount % spawnWaits != 0) return;
-
-        // Spawn pawn after move
         var spawnPoint = ChooseSpawn();
         SpawnPiece(spawnPoint);
         DisplaySpawnCount();
@@ -118,5 +112,15 @@ public class HoardBoard : Board
     {
         spawnCount++;
         spawnDisplay.text = displayPrefix + spawnCount.ToString();
+    }
+
+    protected override void ChangeTurn()
+    {
+        if(!aiManager.PiecesExist())
+        {
+            NewWave();
+        }
+
+        base.ChangeTurn();
     }
 }

@@ -10,6 +10,12 @@ public class AiManager : MonoBehaviour
     [HideInInspector]
     public List<Piece> aiPieces;
 
+    public bool PiecesExist() 
+    { 
+        if(aiPieces.Count == 0) return false;
+        else return true;
+    }
+
     public Piece ChoosePiece()
     {
         Piece selectedPiece = null;

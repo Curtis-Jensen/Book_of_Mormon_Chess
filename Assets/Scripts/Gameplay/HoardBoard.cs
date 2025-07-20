@@ -10,10 +10,8 @@ public class HoardBoard : Board
     public ColorSet[] colorSets;
     public TMP_Text spawnDisplay;
     public string displayPrefix;
-    [Tooltip("How many turns need to go by before spawning")]
-    public int spawnWaits = 1;
 
-    private int waveNumber;
+    public int waveNumber;
 
     private void Start()
     {
@@ -119,7 +117,7 @@ public class HoardBoard : Board
 
     protected override void ChangeTurn()
     {
-        if(!aiManager.PiecesExist())
+        if(aiManager.ChoosePiece().GetMoves().Count == 0)
         {
             NewWave();
         }

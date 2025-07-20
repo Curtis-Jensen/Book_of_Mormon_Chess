@@ -318,7 +318,7 @@ MonoBehaviour:
     kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
   - baseColor: {r: 0.6809025, g: 0.047098536, b: 0.9245283, a: 1}
     kingColor: {r: 1, g: 0.745283, b: 0.8490001, a: 1}
-  boardSize: 5
+  boardSize: 8
 --- !u!114 &76764651
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -357,6 +357,7 @@ MonoBehaviour:
   spawnDisplay: {fileID: 1704381419}
   displayPrefix: 
   spawnWaits: 4
+  waveNumber: 7
 --- !u!1 &381365333
 GameObject:
   m_ObjectHideFlags: 0

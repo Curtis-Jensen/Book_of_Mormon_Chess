@@ -217,7 +217,14 @@ public class Board : MonoBehaviour
             var aiMoves = selectedPiece.GetMoves();
 
             var moveChoice = Random.Range(0, aiMoves.Count - 1);
-            MovePiece(aiMoves[moveChoice]);
+            try
+            {
+                MovePiece(aiMoves[moveChoice]);
+            }
+            catch
+            {
+                Debug.Log("aiMoves.Count is: " + aiMoves.Count);
+            }
         }
     }
 

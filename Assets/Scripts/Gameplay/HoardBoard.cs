@@ -13,8 +13,7 @@ public class HoardBoard : Board
     [Tooltip("How many turns need to go by before spawning")]
     public int spawnWaits = 1;
 
-    private int spawnCount;
-    private int turnCount;
+    private int waveNumber;
 
     private void Start()
     {
@@ -23,9 +22,14 @@ public class HoardBoard : Board
 
     protected override void NewWave()
     {
-        var spawnPoint = ChooseSpawn();
-        SpawnPiece(spawnPoint);
-        DisplaySpawnCount();
+        waveNumber++;
+        for (int i = 0; i < waveNumber; i++)
+        {
+
+            var spawnPoint = ChooseSpawn();
+            SpawnPiece(spawnPoint);
+            DisplaySpawnCount();
+        }
     }
 
     /// <summary>
@@ -110,8 +114,7 @@ public class HoardBoard : Board
 
     private void DisplaySpawnCount()
     {
-        spawnCount++;
-        spawnDisplay.text = displayPrefix + spawnCount.ToString();
+        spawnDisplay.text = displayPrefix + waveNumber.ToString();
     }
 
     protected override void ChangeTurn()

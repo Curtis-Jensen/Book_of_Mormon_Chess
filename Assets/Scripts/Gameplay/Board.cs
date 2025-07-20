@@ -168,8 +168,6 @@ public class Board : MonoBehaviour
         ChangeTurn();
     }
 
-    protected virtual void NewWave() { }
-
     protected void DestroyEnemyPiece(Tile destinationTile)
     {
 		//Figure out if there's a piece that needs to be destroyed

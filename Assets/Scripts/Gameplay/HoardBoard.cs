@@ -18,12 +18,11 @@ public class HoardBoard : Board
         NewWave();
     }
 
-    protected override void NewWave()
+    private void NewWave()
     {
         waveNumber++;
         for (int i = 0; i < waveNumber; i++)
         {
-
             var spawnPoint = ChooseSpawn();
             SpawnPiece(spawnPoint);
             DisplaySpawnCount();

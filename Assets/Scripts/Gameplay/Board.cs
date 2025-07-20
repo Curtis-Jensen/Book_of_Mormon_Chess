@@ -80,7 +80,6 @@ public class Board : MonoBehaviour
 
         foreach (Vector2Int move in attemptedMoves)
         {
-
             // 🟩 Get the tile at the attempted move position
             var possibleTile = tiles[move.x, move.y];
 

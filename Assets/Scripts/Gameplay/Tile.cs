@@ -7,6 +7,8 @@ public class Tile : MonoBehaviour
 {
     public bool selected;
     public Piece piece;
+    public Color hilightColor;
+    public Color enemyHilightColor;
 
     [HideInInspector]
     public SpriteRenderer highlight;
@@ -26,6 +28,7 @@ public class Tile : MonoBehaviour
     public void Highlight(bool highlighted)
     {
         highlight.enabled = highlighted;
+        highlight.color = hilightColor;
     }
 
     void OnMouseDown()

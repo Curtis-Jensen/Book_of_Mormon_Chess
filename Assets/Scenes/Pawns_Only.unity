@@ -201,7 +201,7 @@ MonoBehaviour:
     isAi: 1
     teamOne: 0
   cameraPadding: 1
-  backGroundOffset: {x: 0.007, y: -0.02, z: 10}
+  backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
   background: {fileID: 381365333}
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
@@ -418,8 +418,8 @@ Transform:
   m_GameObject: {fileID: 381365333}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 3, y: 3.5, z: 0}
-  m_LocalScale: {x: 0.16, y: 0.16, z: 0.05553476}
+  m_LocalPosition: {x: -0.00056, y: -0.018, z: 0}
+  m_LocalScale: {x: 0.16600558, y: 0.1697739, z: 0.057619255}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -594,7 +594,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.40784317, g: 0.2392157, b: 0.08235294, a: 0}
+  m_BackGroundColor: {r: 0.23529412, g: 0.24705882, b: 0.105882354, a: 1}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

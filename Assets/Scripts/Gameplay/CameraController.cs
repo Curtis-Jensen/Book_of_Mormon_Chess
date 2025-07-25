@@ -7,10 +7,12 @@ public class CameraController : MonoBehaviour
     public float minZoom = 1f; // Minimum zoom level
 
     Camera cam;
+    float maxZoom;
 
     void Start()
     {
         cam = GetComponent<Camera>();
+        maxZoom = cam.orthographicSize * 1.5f;
     }
 
     void Update()
@@ -25,6 +27,6 @@ public class CameraController : MonoBehaviour
         // Handle camera zooming
         float scroll = Input.GetAxis("Mouse ScrollWheel");
         float newSize = Camera.main.orthographicSize - scroll * zoomSpeed;
-        cam.orthographicSize = Mathf.Clamp(newSize, minZoom, int.MaxValue);
+        cam.orthographicSize = Mathf.Clamp(newSize, minZoom, maxZoom);
     }
 }

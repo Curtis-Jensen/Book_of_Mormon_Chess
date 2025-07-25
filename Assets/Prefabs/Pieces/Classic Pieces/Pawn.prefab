@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3349445644490841759}
   - component: {fileID: 3349445644490841758}
-  - component: {fileID: 6061837926925121025}
+  - component: {fileID: 4842046188763103717}
   m_Layer: 0
   m_Name: Pawn
   m_TagString: Untagged
@@ -85,7 +85,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 0
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &6061837926925121025
+--- !u!114 &4842046188763103717
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -97,7 +97,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 61302680fc058c34b9601eb903dacddb, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLight: 1
+  teamOne: 0
   firstTurnTaken: 0
   playerIndex: 0
   queenPrefab: {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
+  queenSprite: {fileID: 0}

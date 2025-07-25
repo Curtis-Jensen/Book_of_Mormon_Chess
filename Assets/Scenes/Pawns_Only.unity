@@ -201,18 +201,15 @@ MonoBehaviour:
     isAi: 1
     teamOne: 0
   cameraPadding: 1
-  backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
+  backGroundOffset: {x: 0.007, y: -0.02, z: 10}
   background: {fileID: 381365333}
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   backPiecePrefabs:
-  - {fileID: 6588266915599903942, guid: 3dbcfbaa5c530254b858b96ce686ce2c, type: 3}
-  - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
-  - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
-  - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
-  - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
+  - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+  - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   spriteSets:
   - {fileID: 11400000, guid: f212a32bd4c7eb746b9a6ad46c5ce615, type: 2}
   - {fileID: 11400000, guid: 3090d625d702cc841acb880617b4bf28, type: 2}
@@ -421,8 +418,8 @@ Transform:
   m_GameObject: {fileID: 381365333}
   serializedVersion: 2
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0.00056, y: -0.018, z: 0}
-  m_LocalScale: {x: 0.16600558, y: 0.1697739, z: 0.057619255}
+  m_LocalPosition: {x: 3, y: 3.5, z: 0}
+  m_LocalScale: {x: 0.16, y: 0.16, z: 0.05553476}
   m_ConstrainProportionsScale: 1
   m_Children: []
   m_Father: {fileID: 0}
@@ -597,7 +594,7 @@ Camera:
   m_Enabled: 1
   serializedVersion: 2
   m_ClearFlags: 1
-  m_BackGroundColor: {r: 0.23529413, g: 0.24705884, b: 0.10588236, a: 1}
+  m_BackGroundColor: {r: 0.40784317, g: 0.2392157, b: 0.08235294, a: 0}
   m_projectionMatrixMode: 1
   m_GateFitMode: 2
   m_FOVAxisMode: 0

@@ -179,6 +179,7 @@ MonoBehaviour:
   selected: 0
   piece: {fileID: 0}
   hilightColor: {r: 1, g: 1, b: 0, a: 0.23529412}
+  enemyHilightColor: {r: 1, g: 0.0652769, b: 0, a: 0.23529412}
   highlight: {fileID: 0}
 --- !u!212 &1329807554543808878
 SpriteRenderer:

@@ -171,6 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 0.5
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
+  corpse: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
   players:
   - name: 
     isAi: 0
@@ -396,7 +397,7 @@ SpriteRenderer:
   m_AutoUVMaxAngle: 89
   m_LightmapParameters: {fileID: 0}
   m_SortingLayerID: -1180179293
-  m_SortingLayer: -3
+  m_SortingLayer: -4
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: c879aa22eedb38447801a7bab3785a31, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}

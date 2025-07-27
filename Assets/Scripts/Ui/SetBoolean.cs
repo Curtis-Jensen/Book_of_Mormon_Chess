@@ -11,6 +11,6 @@ public class SetBoolean : MonoBehaviour
 
     private void Awake()
     {
-        toggle.isOn = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
+        toggle.isOn = PlayerPrefs.GetInt("isAi", 1) == 1 ? true : false;
     }
 }

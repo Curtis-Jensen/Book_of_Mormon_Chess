@@ -7,14 +7,14 @@ public class SceneLoader : MonoBehaviour
 {
     public TextMeshProUGUI sizeInput;
     public Toggle ai;
+    public string sceneName;
 
-
-    public void SetupNewScene(string sceneName)
+    public void SetupNewScene()
     {
         PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
         PlayerPrefs.SetInt("isAi", ai.isOn ? 1 : 0);
 
-        LoadScene(sceneName);
+        LoadScene();
     }
 
     #region Private Methods
@@ -26,8 +26,7 @@ public class SceneLoader : MonoBehaviour
         return int.Parse(cleanedText);
     }
 
-
-    void LoadScene(string sceneName)
+    public void LoadScene()
     {
         SceneManager.LoadScene(sceneName);
     }

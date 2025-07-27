@@ -513,7 +513,7 @@ MonoBehaviour:
       - m_Target: {fileID: 1357622845}
         m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
         m_MethodName: LoadScene
-        m_Mode: 5
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -959,6 +959,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 0}
   ai: {fileID: 0}
+  sceneName: Main_Menu
 --- !u!1 &1495983631
 GameObject:
   m_ObjectHideFlags: 0
@@ -1366,8 +1367,8 @@ SceneRoots:
   m_ObjectHideFlags: 0
   m_Roots:
   - {fileID: 519420032}
-  - {fileID: 1357622835}
   - {fileID: 76764645}
+  - {fileID: 1357622835}
   - {fileID: 1664833172}
   - {fileID: 1495983634}
   - {fileID: 381365335}

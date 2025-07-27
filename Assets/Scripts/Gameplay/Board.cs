@@ -10,6 +10,7 @@ public class Board : MonoBehaviour
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
+    public GameObject corpse;
 
     [HideInInspector] public Player[] players;
     [HideInInspector] public int boardSize = 8;
@@ -178,7 +179,10 @@ public class Board : MonoBehaviour
         Vector3 position = 
             new Vector3(capturedPiece.transform.position.x, capturedPiece.transform.position.y, -5);
         // Spawn particles
-        GameObject particles = Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
+        Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
+
+        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        Instantiate(corpse, position, randomRotation);
 
         aiManager.aiPieces.Remove(capturedPiece);
         Destroy(capturedPiece.gameObject);

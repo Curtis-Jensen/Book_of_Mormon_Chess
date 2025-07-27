@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 public class Board : MonoBehaviour
 {
@@ -178,14 +179,30 @@ public class Board : MonoBehaviour
         //Set the position the particles need to spawn to be visible
         Vector3 position = 
             new Vector3(capturedPiece.transform.position.x, capturedPiece.transform.position.y, -5);
-        // Spawn particles
-        Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
 
-        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-        Instantiate(corpse, position, randomRotation);
+        InstantiateDeathEffects(capturedPiece, position);
 
         aiManager.aiPieces.Remove(capturedPiece);
         Destroy(capturedPiece.gameObject);
+    }
+
+    void InstantiateDeathEffects(Piece capturedPiece, Vector3 position)
+    {
+        // Spawn particles
+        Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
+
+        //Spawn corpse
+        corpse.GetComponent<SpriteRenderer>().sprite = 
+ capturedPiece.GetComponent<SpriteRenderer>().sprite;
+
+        var capturedPieceColor = capturedPiece.GetComponent<SpriteRenderer>().color;
+
+        corpse.GetComponent<SpriteRenderer>().color = new Color(capturedPieceColor.r,
+            capturedPieceColor.g, capturedPieceColor.b, 0.25f);
+
+
+        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        Instantiate(corpse, position, randomRotation);
     }
 
     /// <summary>

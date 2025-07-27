@@ -45,6 +45,9 @@ TagManager:
   - name: Board
     uniqueID: 3310561249
     locked: 0
+  - name: Corpses
+    uniqueID: 2889148349
+    locked: 0
   - name: Pieces
     uniqueID: 854591153
     locked: 0

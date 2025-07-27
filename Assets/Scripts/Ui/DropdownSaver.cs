@@ -11,7 +11,7 @@ public class DropdownSaver : MonoBehaviour
     public string toSave;
     public int defaultValue;
 
-    public void Start()
+    public void Awake()
     {
         dropdown = gameObject.GetComponent<TMP_Dropdown>();
         dropdown.value = PlayerPrefs.GetInt(toSave, defaultValue);

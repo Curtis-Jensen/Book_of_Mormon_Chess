@@ -10,7 +10,6 @@ GameObject:
   m_Component:
   - component: {fileID: 8362622229335152870}
   - component: {fileID: 9081756827176281266}
-  - component: {fileID: 1215088184877907729}
   m_Layer: 0
   m_Name: Corpse
   m_TagString: Untagged
@@ -75,7 +74,7 @@ SpriteRenderer:
   m_SortingLayer: -2
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 2f842e5f180975541ad1496de871a322, type: 3}
-  m_Color: {r: 0.36078432, g: 0.4, b: 1, a: 0.39215687}
+  m_Color: {r: 0.8039216, g: 0, b: 0, a: 0.25}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -85,20 +84,3 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &1215088184877907729
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2513802554474072766}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 61302680fc058c34b9601eb903dacddb, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  teamOne: 1
-  firstTurnTaken: 0
-  playerIndex: 0
-  queenPrefab: {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
-  queenSprite: {fileID: 21300000, guid: 2ea96757ed2670746b565fcfd28281af, type: 3}

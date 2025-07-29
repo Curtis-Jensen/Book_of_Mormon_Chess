@@ -4105,7 +4105,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a931999e465095c469750af33ca49f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toSave: player2skin
+  toSave: gameMode
   defaultValue: 0
 --- !u!114 &892288558
 MonoBehaviour:
@@ -10052,6 +10052,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 256822691}
+  modeDropdown: {fileID: 892288558}
   ai: {fileID: 994786174}
   sceneName: Nephites_Last_Stand
 --- !u!4 &2089302261

@@ -229,14 +229,11 @@ public class Board : MonoBehaviour
 
         if (players[playerTurn].isAi)
         {
-            //Select a new AI piece and a move for it
-            selectedPiece = aiManager.ChoosePiece();
+            var aiChoice = aiManager.ChooseMove();
 
-            var aiMoves = selectedPiece.GetMoves();
+            selectedPiece = aiChoice.chosenPiece;
 
-            var moveChoice = Random.Range(0, aiMoves.Count - 1);
-
-            MovePiece(aiMoves[moveChoice]);
+            MovePiece(aiChoice.moveTo);
         }
     }
 

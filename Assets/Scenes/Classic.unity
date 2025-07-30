@@ -171,7 +171,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   moveTime: 0.5
   destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  corpse: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
+  ghost: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
   players:
   - name: 
     isAi: 0

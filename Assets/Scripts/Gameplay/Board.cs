@@ -11,7 +11,7 @@ public class Board : MonoBehaviour
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]
     public GameObject destroyParticlesPrefab;
-    public GameObject corpse;
+    public GameObject ghost;
 
     [HideInInspector] public Player[] players;
     [HideInInspector] public int boardSize = 8;
@@ -191,18 +191,17 @@ public class Board : MonoBehaviour
         // Spawn particles
         Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
 
-        //Spawn corpse
-        corpse.GetComponent<SpriteRenderer>().sprite = 
- capturedPiece.GetComponent<SpriteRenderer>().sprite;
+        //Spawn ghost
+        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        var ghostInstance = Instantiate(ghost, position, randomRotation);
+
+        ghostInstance.GetComponent<SpriteRenderer>().sprite = 
+        capturedPiece.GetComponent<SpriteRenderer>().sprite;
 
         var capturedPieceColor = capturedPiece.GetComponent<SpriteRenderer>().color;
 
-        corpse.GetComponent<SpriteRenderer>().color = new Color(capturedPieceColor.r,
+        ghostInstance.GetComponent<SpriteRenderer>().color = new Color(capturedPieceColor.r,
             capturedPieceColor.g, capturedPieceColor.b, 0.25f);
-
-
-        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-        Instantiate(corpse, position, randomRotation);
     }
 
     /// <summary>

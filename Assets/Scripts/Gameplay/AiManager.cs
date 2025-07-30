@@ -20,6 +20,48 @@ public class AiManager : MonoBehaviour
 
     public AiChoice ChooseMove()
     {
+        var killingMove = ChooseKillingMove();
+
+        if(killingMove == null)
+        {
+            return ChooseRandomMove();
+        }
+        else
+        {
+            return killingMove;
+        }
+
+    }
+
+    public AiChoice ChooseKillingMove()
+    {
+        var killingMoves = new List<AiChoice>();
+
+        foreach (var piece in aiPieces)
+        {
+            var moves = piece.GetMoves();
+            foreach (var move in moves)
+            {
+                if (Board.Instance.IsEnemyPiece(new Vector2Int((int)move.x, (int)move.y), piece.teamOne))
+                {
+                    killingMoves.Add(new AiChoice
+                    {
+                        chosenPiece = piece,
+                        moveTo = move
+                    });
+                }
+            }
+        }
+
+        if (killingMoves.Count > 0)
+        {
+            return killingMoves[Random.Range(0, killingMoves.Count)];
+        }
+        return null;
+    }
+
+    public AiChoice ChooseRandomMove()
+    {
         AiChoice aiChoice = new();
         aiChoice.moveTo = new Vector2(-100, 100);
 
@@ -42,21 +84,11 @@ public class AiManager : MonoBehaviour
 
         var possibleMoves = aiChoice.chosenPiece.GetMoves();
 
-        if(possibleMoves.Count == 0) return aiChoice;
+        if (possibleMoves.Count == 0) return aiChoice;
 
         aiChoice.moveTo = possibleMoves[Random.Range(0, possibleMoves.Count - 1)];
 
         return aiChoice;
-    }
-
-    public AiChoice ChooseKillingMove()
-    {
-
-    }
-
-    public AiChoice ChooseRandomMove()
-    {
-
     }
 }
 

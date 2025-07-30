@@ -19,7 +19,8 @@ public class HoardSetup : MonoBehaviour
     public GameObject[] backPiecePrefabs;
     public SpriteSet[] spriteSets;
     public ColorSet[] colorSets;
-    public int boardSize = 10;
+
+    [HideInInspector] public int boardSize = 10;
 
     SpriteSet spriteSet;
     List<GameObject> rows =   new();
@@ -42,6 +43,7 @@ public class HoardSetup : MonoBehaviour
     void InitializeVariables()
     {
         board = GetComponent<Board>();
+        boardSize = PlayerPrefs.GetInt("boardSize");
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();

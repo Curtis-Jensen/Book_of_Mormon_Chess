@@ -9,12 +9,14 @@ public class AiManager : MonoBehaviour
     public int maxCycles = 100;
     [HideInInspector]
     public List<Piece> aiPieces;
-    
+  
     public bool PiecesExist() 
     { 
         if(aiPieces.Count == 0) return false;
         else return true;
     }
+
+
 
     public AiChoice ChooseMove()
     {
@@ -29,20 +31,13 @@ public class AiManager : MonoBehaviour
             //Picks a random piece
             aiChoice.chosenPiece = aiPieces[Random.Range(0, aiPieces.Count - 1)];
             //If it selects a piece that does not exist; try again.
-            if (aiChoice.chosenPiece == null)
-            {
-                //TODO Remove the piece if the performance starts chugging with AI
-                continue;
-            }
+            if (aiChoice.chosenPiece == null) continue;
 
             //Try to get the moves for the piece selected
             var validMoves = aiChoice.chosenPiece.GetMoves();
 
             //If a valid move has been found, stop searching! :D
-            if (validMoves.Count > 0)
-            {
-                break;
-            }
+            if (validMoves.Count > 0) break;
         }
 
         var possibleMoves = aiChoice.chosenPiece.GetMoves();
@@ -52,6 +47,16 @@ public class AiManager : MonoBehaviour
         aiChoice.moveTo = possibleMoves[Random.Range(0, possibleMoves.Count - 1)];
 
         return aiChoice;
+    }
+
+    public AiChoice ChooseKillingMove()
+    {
+
+    }
+
+    public AiChoice ChooseRandomMove()
+    {
+
     }
 }
 

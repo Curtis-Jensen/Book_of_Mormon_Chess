@@ -116,7 +116,7 @@ public class HoardBoard : Board
 
     protected override void ChangeTurn()
     {
-        if(aiManager.ChooseMove() == null)
+        if(aiManager.ChooseMove().moveTo.x == -100)
         {
             NewWave();
         }

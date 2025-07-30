@@ -19,6 +19,9 @@ public class AiManager : MonoBehaviour
     public AiChoice ChooseMove()
     {
         AiChoice aiChoice = new();
+        aiChoice.moveTo = new Vector2(-100, 100);
+
+        if (aiPieces.Count == 0) return aiChoice;
 
         //Checks through each piece to see if one has a valid move
         for (int i = 0; i < maxCycles; i++)
@@ -43,6 +46,8 @@ public class AiManager : MonoBehaviour
         }
 
         var possibleMoves = aiChoice.chosenPiece.GetMoves();
+
+        if(possibleMoves.Count == 0) return aiChoice;
 
         aiChoice.moveTo = possibleMoves[Random.Range(0, possibleMoves.Count - 1)];
 

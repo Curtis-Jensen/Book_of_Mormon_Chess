@@ -24,7 +24,7 @@ public class WaveDefenseTileHolder : TileHolder
         for (int i = 0; i < waveNumber; i++)
         {
             var spawnPoint = ChooseSpawn();
-            SpawnPiece(spawnPoint);
+            PieceSpawner.Instance.SpawnPiece(pawn, spawnPoint, 1, true);
             DisplaySpawnCount();
         }
     }
@@ -61,52 +61,6 @@ public class WaveDefenseTileHolder : TileHolder
         }
         Debug.LogError("No empty tiles available for pawn spawn"); // ⚠️
         return new Vector2(0, boardSize - 1); // 🔙
-    }
-
-    /// <summary>
-    /// Changing things here?  Check Pawn.QueenPromotion() too.
-    /// 
-    /// 🧑🏻 Designate the player for later
-    /// 
-    /// 🎨 Color the piece.  If it's a king, use the special king color
-    /// 
-    /// 🏗️ Instantiate the piece prefab at the specified tile 
-    /// 
-    /// 🔍 Retrieve the Piece component for configuration
-    /// 
-    /// 📛 Assign a descriptive name to the piece GameObject 
-    /// 
-    /// ⚖️ Set piece properties for team and player ownership  
-    /// 
-    /// 🤖 Register the piece with AI manager if player is AI 
-    /// </summary>
-    private void SpawnPiece(Vector2 spawnPoint)
-    {
-        var aiIndex = 1;
-        var player = players[aiIndex]; //🧑🏻
-        var pieceInstance =
-        Instantiate(pawn, tiles[(int)spawnPoint.x, (int)spawnPoint.y].transform); //🏗️
-        var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
-        var pieceScript = pieceInstance.GetComponent<Pawn>(); //🔍
-        pieceScript.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
-        tiles[(int)spawnPoint.x, (int)spawnPoint.y].GetComponent<Tile>().piece = pieceScript;
-
-
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(pawn.name).GetValue(spriteSet) as Sprite;
-        pieceInstance.transform.localScale
-            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
-
-        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-
-        spriteRenderer.color = colorSets[colorSelection].baseColor;
-
-        pieceInstance.name = $"{pieceInstance.name} {player.name}";//📛
-
-        pieceScript.teamOne = player.teamOne;//⚖️
-        pieceScript.playerIndex = aiIndex;
-
-        aiManager.aiPieces.Add(pieceScript);
     }
 
     private void DisplaySpawnCount()

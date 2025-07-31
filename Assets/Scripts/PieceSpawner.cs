@@ -17,9 +17,9 @@ public class PieceSpawner : MonoBehaviour
     /// <summary>
     /// Spawns a piece at the given position, assigns it to the tile, and registers with AI if needed.
     /// </summary>
-    public Piece SpawnPiece(GameObject piecePrefab, Vector2Int position, int playerIndex, bool isAi)
+    public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex, bool isAi)
     {
-        var tile = TileHolder.Instance.tiles[position.x, position.y];
+        var tile = TileHolder.Instance.tiles[(int)position.x, (int)position.y];
         var pieceObj = Instantiate(piecePrefab, tile.transform.position, Quaternion.identity);
         var piece = pieceObj.GetComponent<Piece>();
         var spriteRenderer = piece.GetComponent<SpriteRenderer>();

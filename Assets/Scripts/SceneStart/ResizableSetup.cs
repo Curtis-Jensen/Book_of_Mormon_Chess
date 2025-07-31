@@ -50,7 +50,6 @@ public class ResizableSetup : BoardSetup
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
         board.players = players;
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt("style")];
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }

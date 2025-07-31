@@ -17,7 +17,7 @@ public class WaveDefenseSetup : MonoBehaviour
     public GameObject  darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public SpriteSet[] spriteSets;
+    public SpriteSets spriteSets;
     public ColorSet[] colorSets;
 
     [HideInInspector] public int boardSize = 10;
@@ -49,7 +49,6 @@ public class WaveDefenseSetup : MonoBehaviour
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
         board.players = players;
-        spriteSet = spriteSets[PlayerPrefs.GetInt("style")];
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }
@@ -135,7 +134,7 @@ public class WaveDefenseSetup : MonoBehaviour
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 0;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
@@ -145,7 +144,7 @@ public class WaveDefenseSetup : MonoBehaviour
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 0;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);

@@ -12,8 +12,6 @@ public class PieceSpawner : MonoBehaviour
     private void Awake()
     {
         Instance = this;
-
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt("style")];
     }
 
     /// <summary>

@@ -70,6 +70,7 @@ public class WaveDefenseTileHolder : TileHolder
 
     protected override void ChangeTurn()
     {
+        //Really, if there's no move available
         if(aiManager.ChooseMove().moveTo.x == -100)
         {
             NewWave();

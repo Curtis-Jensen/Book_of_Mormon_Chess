@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 4447613189553065209}
   - component: {fileID: 6469158589802330192}
   m_Layer: 0
-  m_Name: White Piece Debris
+  m_Name: Piece Debris
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

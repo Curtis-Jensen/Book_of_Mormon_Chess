@@ -158,7 +158,8 @@ public class TileHolder : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
-        DestroyEnemyPiece(destinationTile);
+        var capturedPiece = destinationTile.piece;
+        if (capturedPiece != null) capturedPiece.Die();
   
         piece.transform.position = endPosition;
 
@@ -167,41 +168,6 @@ public class TileHolder : MonoBehaviour
         audioSource.Play();
 
         ChangeTurn();
-    }
-
-    protected void DestroyEnemyPiece(Tile destinationTile)
-    {
-		//Figure out if there's a piece that needs to be destroyed
-		var capturedPiece = destinationTile.piece;
-  
-        if (capturedPiece == null) return;
-
-        //Set the position the particles need to spawn to be visible
-        Vector3 position = 
-            new Vector3(capturedPiece.transform.position.x, capturedPiece.transform.position.y, -5);
-
-        InstantiateDeathEffects(capturedPiece, position);
-
-        aiManager.aiPieces.Remove(capturedPiece);
-        Destroy(capturedPiece.gameObject);
-    }
-
-    void InstantiateDeathEffects(Piece capturedPiece, Vector3 position)
-    {
-        // Spawn particles
-        Instantiate(destroyParticlesPrefab, position, Quaternion.identity);
-
-        //Spawn ghost
-        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
-        var ghostInstance = Instantiate(ghost, position, randomRotation);
-
-        ghostInstance.GetComponent<SpriteRenderer>().sprite = 
-        capturedPiece.GetComponent<SpriteRenderer>().sprite;
-
-        var capturedPieceColor = capturedPiece.GetComponent<SpriteRenderer>().color;
-
-        ghostInstance.GetComponent<SpriteRenderer>().color = new Color(capturedPieceColor.r,
-            capturedPieceColor.g, capturedPieceColor.b, 0.25f);
     }
 
     /// <summary>

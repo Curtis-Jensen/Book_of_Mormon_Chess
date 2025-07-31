@@ -30,7 +30,7 @@ public class PieceSpawner : MonoBehaviour
         piece.teamOne = playerIndex == 0; // Adjust as needed
 
         spriteRenderer.sprite =
-    spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
+            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
         piece.transform.localScale
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 

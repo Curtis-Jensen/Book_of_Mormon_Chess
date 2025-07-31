@@ -11,7 +11,14 @@ public class InputScript : MonoBehaviour
 
     public void UpdateSlider()
     {
-        slider.value = GetInputText(sizeInput);
+        var size = GetInputText(sizeInput);
+
+        if (size > slider.maxValue)
+        {
+            slider.maxValue = size;
+            slider.value = size;
+        }
+        else slider.value = size;
     }
 
     int GetInputText(TextMeshProUGUI input)

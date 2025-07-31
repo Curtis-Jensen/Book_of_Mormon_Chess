@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -91,7 +92,7 @@ public class TileHolder : MonoBehaviour
         return selectedTiles;
     }
     #endregion
-	
+    
     public void MovePiece(Vector2 destination)
     {
         selectedTiles = DeselectTiles(selectedTiles);
@@ -155,6 +156,7 @@ public class TileHolder : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
         var capturedPiece = destinationTile.piece;
         if (capturedPiece != null) capturedPiece.Die();
   
@@ -180,6 +182,8 @@ public class TileHolder : MonoBehaviour
 
     protected virtual void ChangeTurn()
     {
+        CheckForTeamWipeout();
+
         selectedPiece.firstTurnTaken = true;
 
         // Move to next player
@@ -235,5 +239,33 @@ public class TileHolder : MonoBehaviour
         Tile tile = tiles[position.x, position.y];
         return tile.piece != null && tile.piece.teamOne != isLight;
     }
+
+   /// <summary>
+   /// Checks if either team has been wiped out and triggers end game logic if so.
+   /// </summary>
+   void CheckForTeamWipeout()
+   {
+       bool teamOneExists = false;
+       bool teamTwoExists = false;
+       for (int x = 0; x < boardSize; x++)
+       {
+           for (int y = 0; y < boardSize; y++)
+           {
+               var piece = tiles[x, y].piece;
+               if (piece != null)
+               {
+                   if (piece.teamOne) teamOneExists = true;
+                   else teamTwoExists = true;
+               }
+           }
+       }
+       if (!teamOneExists || !teamTwoExists)
+       {
+           string winner = teamOneExists ? "Team One" : "Team Two";
+
+           var winnerText = GameObject.Find("Winner Text").GetComponent<TMP_Text>();
+           winnerText.text = $"{winner} stands victorious!";
+       }
+   }
     #endregion
 }

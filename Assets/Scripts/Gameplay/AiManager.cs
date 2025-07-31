@@ -5,18 +5,23 @@ using UnityEngine;
 
 public class AiManager : MonoBehaviour
 {
+    public static AiManager Instance { get; private set; } // Static instance
+
     [Tooltip("How many times it will check a random piece to see if it's valid")]
     public int maxCycles = 100;
     [HideInInspector]
     public List<Piece> aiPieces;
-  
+
+    void Awake()
+    {
+        Instance = this;
+    }
+
     public bool PiecesExist() 
     { 
         if(aiPieces.Count == 0) return false;
         else return true;
     }
-
-
 
     public AiChoice ChooseMove()
     {

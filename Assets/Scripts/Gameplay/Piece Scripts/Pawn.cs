@@ -7,16 +7,10 @@ public class Pawn : Piece
 {
     public GameObject queenPrefab;
     public Sprite queenSprite;
-    TileHolder board;
-
-    void Start()
-    {
-        board = GameObject.Find("Gameplay Board").GetComponent<TileHolder>();
-    }
 
     void Update()
     {
-        var teamOneEnd = transform.position.y == board.boardSize - 1 && teamOne;
+        var teamOneEnd = transform.position.y == TileHolder.Instance.boardSize - 1 && teamOne;
         var teamTwoEnd = transform.position.y == 0 && !teamOne;
         //If the end has been reached
         if (teamTwoEnd || teamOneEnd)
@@ -78,27 +72,25 @@ public class Pawn : Piece
         return validMoves;
     }
 
-    //Changing things here?  Check BoardSetup.SpawnPiece() too.
     public void QueenPromotion()
     {
-        GameObject queen = Instantiate(queenPrefab, transform.parent);
-        var queenScript = queen.GetComponent<Queen>();
+        // Get the tile position of this pawn
+        Vector2Int position = new((int)transform.position.x, (int)transform.position.y);
 
-        queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
-        queen.GetComponent<SpriteRenderer>().sprite = queenSprite;
-        queen.transform.localScale = gameObject.transform.localScale;
+        // Remove pawn from AI manager if present
+        AiManager.Instance.aiPieces.Remove(this);
 
-        queen.name = "New Queen";
+        // Destroy the pawn GameObject
+        Destroy(gameObject);
 
-        queenScript.teamOne = teamOne;
-        queenScript.playerIndex = playerIndex;
-
-        //Ai code has started here.  Might need more information to be passed to the pawn
-
-        //if (player.isAi)
-        //{
-        //    FindObjectOfType<AiManager>().aiPieces.Add(queenScript);
-        //}
-        transform.parent.GetComponent<Tile>().piece = queenScript;
+        // Spawn the queen using the Spawner
+        Piece queen = PieceSpawner.Instance.SpawnPiece(
+            queenPrefab,
+            position,
+            playerIndex,
+            AiManager.Instance.PiecesExist() && teamOne == AiManager.Instance.aiPieces[0].teamOne,
+            queenSprite,
+            queenColor
+        );
     }
 }

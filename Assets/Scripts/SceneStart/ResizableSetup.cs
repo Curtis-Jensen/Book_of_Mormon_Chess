@@ -18,7 +18,7 @@ public class ResizableSetup : BoardSetup
     public GameObject darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public SpriteSet[] spriteSets;
+    public SpriteSets spriteSets;
     public ColorSet[] colorSets;
 
     [HideInInspector] public int boardSize = 8;
@@ -50,7 +50,7 @@ public class ResizableSetup : BoardSetup
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
         board.players = players;
-        spriteSet = spriteSets[PlayerPrefs.GetInt("style")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt("style")];
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }
@@ -138,7 +138,7 @@ public class ResizableSetup : BoardSetup
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 1;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
@@ -146,7 +146,7 @@ public class ResizableSetup : BoardSetup
         }
 
         playerIndex = 0;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
@@ -156,7 +156,7 @@ public class ResizableSetup : BoardSetup
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
@@ -164,7 +164,7 @@ public class ResizableSetup : BoardSetup
         }
 
         playerIndex = 0;
-        spriteSet = spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);

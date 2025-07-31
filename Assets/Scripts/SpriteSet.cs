@@ -4,8 +4,9 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
-public class SpriteSet : ScriptableObject
+public class SpriteSet
 {
+    public string name;
     public float transformScale;
     public Sprite King, Queen, Rook, Bishop, Knight, Pawn;
 }

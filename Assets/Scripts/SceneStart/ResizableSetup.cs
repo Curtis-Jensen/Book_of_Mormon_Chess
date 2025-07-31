@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 
 [RequireComponent(typeof(AiManager))]
-[RequireComponent(typeof(Board))]
+[RequireComponent(typeof(TileHolder))]
 public class ResizableSetup : BoardSetup
 {
     public Player[] players;
@@ -26,7 +26,7 @@ public class ResizableSetup : BoardSetup
     SpriteSet spriteSet;
     List<GameObject> rows = new();
     List<GameObject> tiles = new();
-    Board board;
+    TileHolder board;
     AiManager aiManager;
 
     void Awake()
@@ -44,7 +44,7 @@ public class ResizableSetup : BoardSetup
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-        board = GetComponent<Board>();
+        board = GetComponent<TileHolder>();
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
@@ -257,7 +257,7 @@ public class ResizableSetup : BoardSetup
     {
         board.tiles = new Tile[boardSize, boardSize];
 
-        Board.Instance = board;
+        TileHolder.Instance = board;
 
         board.audioSource = GetComponent<AudioSource>();
     }

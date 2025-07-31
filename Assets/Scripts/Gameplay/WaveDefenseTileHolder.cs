@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HoardBoard : Board
+public class WaveDefenseTileHolder : TileHolder
 {
     public GameObject pawn;
     public SpriteSet spriteSet;

@@ -33,7 +33,7 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        Board.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
+        TileHolder.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
     }
 }
 

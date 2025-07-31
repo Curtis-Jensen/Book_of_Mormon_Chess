@@ -5,8 +5,8 @@ using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(AiManager))]
-[RequireComponent(typeof(Board))]
-public class HoardSetup : MonoBehaviour
+[RequireComponent(typeof(TileHolder))]
+public class WaveDefenseSetup : MonoBehaviour
 {
     public Player[] players;
     public float cameraPadding;
@@ -25,7 +25,7 @@ public class HoardSetup : MonoBehaviour
     SpriteSet spriteSet;
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
-    Board board;
+    TileHolder board;
     AiManager aiManager;
 
     void Awake()
@@ -42,7 +42,7 @@ public class HoardSetup : MonoBehaviour
 
     void InitializeVariables()
     {
-        board = GetComponent<Board>();
+        board = GetComponent<TileHolder>();
         boardSize = PlayerPrefs.GetInt("boardSize");
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
@@ -238,7 +238,7 @@ public class HoardSetup : MonoBehaviour
     {
         board.tiles = new Tile[boardSize, boardSize];
 
-        Board.Instance = board;
+        TileHolder.Instance = board;
 
         board.audioSource = GetComponent<AudioSource>();
     }

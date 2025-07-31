@@ -80,17 +80,15 @@ public class Pawn : Piece
         // Remove pawn from AI manager if present
         AiManager.Instance.aiPieces.Remove(this);
 
-        // Destroy the pawn GameObject
-        Destroy(gameObject);
-
         // Spawn the queen using the Spawner
-        Piece queen = PieceSpawner.Instance.SpawnPiece(
+        PieceSpawner.Instance.SpawnPiece(
             queenPrefab,
             position,
             playerIndex,
-            AiManager.Instance.PiecesExist() && teamOne == AiManager.Instance.aiPieces[0].teamOne,
-            queenSprite,
-            queenColor
+            AiManager.Instance.PiecesExist() && teamOne == AiManager.Instance.aiPieces[0].teamOne
         );
+
+        // Destroy the pawn GameObject
+        Destroy(gameObject);
     }
 }

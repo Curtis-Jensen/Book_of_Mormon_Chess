@@ -4,16 +4,22 @@ using UnityEngine;
 public class PieceSpawner : MonoBehaviour
 {
     public static PieceSpawner Instance { get; private set; }
+    public PieceColors pieceColors; // Reference to the PieceColors ScriptableObject
+    public SpriteSets spriteSets;
+
+    SpriteSet spriteSet;
 
     private void Awake()
     {
         Instance = this;
+
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt("style")];
     }
 
     /// <summary>
     /// Spawns a piece at the given position, assigns it to the tile, and registers with AI if needed.
     /// </summary>
-    public Piece SpawnPiece(GameObject piecePrefab, Vector2Int position, int playerIndex, bool isAi, Sprite sprite)
+    public Piece SpawnPiece(GameObject piecePrefab, Vector2Int position, int playerIndex, bool isAi)
     {
         var tile = TileHolder.Instance.tiles[position.x, position.y];
         var pieceObj = Instantiate(piecePrefab, tile.transform.position, Quaternion.identity);
@@ -23,14 +29,25 @@ public class PieceSpawner : MonoBehaviour
         piece.playerIndex = playerIndex;
         piece.teamOne = playerIndex == 0; // Adjust as needed
 
-        var colorSelection = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "color");//🎨
+        spriteRenderer.sprite =
+    spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
+        piece.transform.localScale
+            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
+
+        // Get color selection index for this player
+        var colorSelection = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "color");
+
+        // Get the correct ColorSet from the PieceColors ScriptableObject
+        var colorSet = pieceColors.colors[colorSelection];
+
+        // Assign color based on piece type
         if (piece is King)
         {
-            spriteRenderer.color = colorSets[colorSelection].kingColor;
+            spriteRenderer.color = colorSet.kingColor;
         }
         else
         {
-            spriteRenderer.color = colorSets[colorSelection].baseColor;
+            spriteRenderer.color = colorSet.baseColor;
         }
 
         tile.piece = piece;

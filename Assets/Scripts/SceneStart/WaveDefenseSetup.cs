@@ -239,7 +239,6 @@ public class WaveDefenseSetup : MonoBehaviour
         board.tiles = new Tile[boardSize, boardSize];
 
         TileHolder.Instance = board;
-
         board.audioSource = GetComponent<AudioSource>();
     }
 

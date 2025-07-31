@@ -29,6 +29,8 @@ public class PieceSpawner : MonoBehaviour
         piece.playerIndex = playerIndex;
         piece.teamOne = playerIndex == 0; // Adjust as needed
 
+
+        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin")];
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
         piece.transform.localScale

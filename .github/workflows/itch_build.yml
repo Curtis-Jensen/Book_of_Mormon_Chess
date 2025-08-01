@@ -5,4 +5,4 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Print Greetings
-      - run: echo "First test succeeded!"
+        run: echo "First test succeeded!"

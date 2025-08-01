@@ -46,6 +46,7 @@ public class TileHolder : MonoBehaviour
 
     // --- Undo/History ---
     private Stack<MoveState> moveHistory = new();
+    private bool isUndoingMove = false;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -124,10 +125,12 @@ public class TileHolder : MonoBehaviour
     {
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination);
-        // Save state before move (for now, only selectedPiece and destination tile's piece)
         Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
         Piece capturedPiece = destinationTile.piece;
-        SaveMoveState(selectedPiece, capturedPiece);
+        if (!isUndoingMove)
+        {
+            SaveMoveState(selectedPiece, capturedPiece);
+        }
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
     }
 
@@ -217,8 +220,6 @@ public class TileHolder : MonoBehaviour
         destinationTile.piece = selectedPiece;
     }
 
-
-
     protected virtual void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;
@@ -270,13 +271,36 @@ public class TileHolder : MonoBehaviour
     }
 
     /// <summary>
-    /// Undo the last move (basic: just logs and pops for now)
+    /// Undo the last move (now uses MovePiece for smooth movement)
     /// </summary>
     public void UndoLastMove()
     {
+        if (moveHistory.Count == 0)
+        {
+            Debug.Log("[Undo] No moves to undo.");
+            return;
+        }
         var lastMove = moveHistory.Pop();
-        Debug.Log($"[Undo] Would undo: {lastMove}");
-        // TODO: Actually revert the board state here
+        //Debug.Log($"[Undo] Undoing: {lastMove}");
+
+        // Find the piece by name (could be improved for robustness)
+        Piece pieceToMove = FindObjectsOfType<Piece>().FirstOrDefault(p => p.name == lastMove.selectedPiece);
+        if (pieceToMove == null)
+        {
+            Debug.LogError($"[Undo] Could not find piece: {lastMove.selectedPiece}");
+            return;
+        }
+
+        // Set selectedPiece so MovePiece uses the correct one
+        selectedPiece = pieceToMove;
+        //playerTurn = lastMove.playerTurn;
+
+        // Use MovePiece, but prevent saving to history
+        isUndoingMove = true;
+        MovePiece(lastMove.piecePosition);
+        isUndoingMove = false;
+        // Optionally, deselect all tiles
+        selectedTiles = DeselectTiles(selectedTiles);
     }
     #endregion
 }

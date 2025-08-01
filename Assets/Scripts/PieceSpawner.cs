@@ -8,6 +8,7 @@ public class PieceSpawner : MonoBehaviour
     public SpriteSets spriteSets;
 
     SpriteSet spriteSet;
+    int pieceNumber = 0; // Counter for piece names
 
     private void Awake()
     {
@@ -27,6 +28,7 @@ public class PieceSpawner : MonoBehaviour
         piece.playerIndex = playerIndex;
         piece.teamOne = playerIndex == 0; // Adjust as needed
 
+        pieceObj.name = $"{pieceObj.name} player{playerIndex} {pieceNumber++}";//📛
 
         spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin")];
         spriteRenderer.sprite =

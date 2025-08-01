@@ -102,6 +102,4 @@ MonoBehaviour:
   ghost: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
   firstTurnTaken: 0
   playerIndex: 0
-  winStatement: 'The King is Slain!
-
-    You Win!!'
+  winStatement: The King is Slain

@@ -10,6 +10,7 @@ public class WaveDefenseTileHolder : TileHolder
     public ColorSet[] colorSets;
     public TMP_Text spawnDisplay;
     public string displayPrefix;
+    public GameObject panel;
 
     public int waveNumber;
 
@@ -70,12 +71,28 @@ public class WaveDefenseTileHolder : TileHolder
 
     protected override void ChangeTurn()
     {
-        //Really, if there's no move available
+        //If there's no real move available for the AI
         if(aiManager.ChooseMove().moveTo.x == -100)
         {
             NewWave();
         }
 
+        if (CheckNephiteExtinction()) panel.SetActive(true);
+
         base.ChangeTurn();
+    }
+
+    bool CheckNephiteExtinction()
+    {
+        for (int x = 0; x < boardSize; x++)
+        {
+            for (int y = 0; y < boardSize; y++)
+            {
+                var piece = tiles[x, y].piece;
+                if (piece == null) continue;
+                if (piece.teamOne == true) return false;
+            }
+        }
+        return true;
     }
 }

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -193,6 +194,7 @@ public class TileHolder : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
         var capturedPiece = destinationTile.piece;
         if (capturedPiece != null) capturedPiece.Die();
   

@@ -65,7 +65,6 @@ UserSettings/EditorUserSettings.asset
 /Packages/packages-lock.json
 *.settings
 /ProjectSettings/MemorySettings.asset
-/ProjectSettings/ProjectVersion.txt
 *.index
 /ProjectSettings/Physics2DSettings.asset
 *.asset

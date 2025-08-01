@@ -45,6 +45,7 @@ public class TileHolder : MonoBehaviour
 
     // --- Undo/History ---
     private Stack<MoveState> moveHistory = new();
+
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
     /// </summary>
@@ -176,7 +177,7 @@ public class TileHolder : MonoBehaviour
     {
         var state = new MoveState(playerTurn, piece, capturedPiece);
         moveHistory.Push(state);
-        Debug.Log($"[History] Saved: {state}");
+        //Debug.Log($"[History] Saved: {state}");
     }
 
     protected virtual IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, Piece selectedPiece)
@@ -238,7 +239,7 @@ public class TileHolder : MonoBehaviour
     }
     #endregion
 
-    #region 🧩 Tile & Piece Status Checkers
+    #region 🧩 Other Methods
     /// <summary>
     /// Check if a tile is empty
     /// </summary>
@@ -264,6 +265,16 @@ public class TileHolder : MonoBehaviour
 
         Tile tile = tiles[position.x, position.y];
         return tile.piece != null && tile.piece.teamOne != isLight;
+    }
+
+    /// <summary>
+    /// Undo the last move (basic: just logs and pops for now)
+    /// </summary>
+    public void UndoLastMove()
+    {
+        var lastMove = moveHistory.Pop();
+        Debug.Log($"[Undo] Would undo: {lastMove}");
+        // TODO: Actually revert the board state here
     }
     #endregion
 }

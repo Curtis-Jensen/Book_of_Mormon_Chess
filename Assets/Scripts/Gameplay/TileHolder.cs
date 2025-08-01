@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
@@ -91,7 +92,7 @@ public class TileHolder : MonoBehaviour
         return selectedTiles;
     }
     #endregion
-	
+    
     public void MovePiece(Vector2 destination)
     {
         selectedTiles = DeselectTiles(selectedTiles);
@@ -155,6 +156,7 @@ public class TileHolder : MonoBehaviour
             time += Time.deltaTime;
             yield return null;
         }
+
         var capturedPiece = destinationTile.piece;
         if (capturedPiece != null) capturedPiece.Die();
   

@@ -299,8 +299,6 @@ public class TileHolder : MonoBehaviour
         isUndoingMove = true;
         MovePiece(lastMove.piecePosition);
         isUndoingMove = false;
-        // Optionally, deselect all tiles
-        selectedTiles = DeselectTiles(selectedTiles);
     }
     #endregion
 }

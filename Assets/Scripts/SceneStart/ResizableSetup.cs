@@ -26,7 +26,7 @@ public class ResizableSetup : BoardSetup
     SpriteSet spriteSet;
     List<GameObject> rows = new();
     List<GameObject> tiles = new();
-    TileHolder board;
+    TileHolder tileHolder;
     AiManager aiManager;
 
     void Awake()
@@ -44,14 +44,14 @@ public class ResizableSetup : BoardSetup
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-        board = GetComponent<TileHolder>();
-        board.boardSize = boardSize;
+        tileHolder = GetComponent<TileHolder>();
+        tileHolder.boardSize = boardSize;
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
-        board.aiManager = aiManager;
-        board.players = players;
+        tileHolder.aiManager = aiManager;
+        tileHolder.players = players;
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
-        board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
+        tileHolder.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }
 
     void SpawnRows()
@@ -254,11 +254,11 @@ public class ResizableSetup : BoardSetup
 
     public void InitializeBoardReferences()
     {
-        board.tiles = new Tile[boardSize, boardSize];
+        tileHolder.tiles = new Tile[boardSize, boardSize];
 
-        TileHolder.Instance = board;
+        TileHolder.Instance = tileHolder;
 
-        board.audioSource = GetComponent<AudioSource>();
+        tileHolder.audioSource = GetComponent<AudioSource>();
     }
 
     void InitializeBoard()
@@ -275,7 +275,7 @@ public class ResizableSetup : BoardSetup
                     Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
                 }
 
-                board.tiles[x, y] = tile;
+                tileHolder.tiles[x, y] = tile;
 
                 // If there is a pawn on this tile, initialize it
                 if (tile.transform.childCount > 0)

@@ -330,8 +330,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.5
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  ghost: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
   players: []
   boardSize: 8
   audioSource: {fileID: 0}
@@ -760,7 +758,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: <- Main Menu
+  m_text: < Main Menu
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

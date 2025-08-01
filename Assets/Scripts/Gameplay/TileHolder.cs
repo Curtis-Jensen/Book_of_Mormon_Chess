@@ -4,6 +4,30 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// Simple move state for debugging (expand as needed)
+[System.Serializable]
+public class MoveState
+{
+    public int playerTurn;
+    public string selectedPiece;
+    public Vector2 piecePosition;
+    public string capturedPieceName;
+    public Vector2? capturedPiecePosition;
+    public MoveState(int playerTurn, Piece piece, Piece capturedPiece)
+    {
+        this.playerTurn = playerTurn;
+        this.selectedPiece = piece != null ? piece.name : "null";
+        this.piecePosition = piece != null ? piece.transform.position : Vector2.zero;
+        this.capturedPieceName = capturedPiece != null ? capturedPiece.name : null;
+        this.capturedPiecePosition = capturedPiece != null ? capturedPiece.transform.position : (Vector3?)null;
+    }
+
+    public override string ToString()
+    {
+        return $"Player: {playerTurn}, Piece: {selectedPiece} at {piecePosition}, Captured: {capturedPieceName} at {capturedPiecePosition}";
+    }
+}
+
 public class TileHolder : MonoBehaviour
 {
     public static TileHolder Instance { get; set; } // Static instance
@@ -19,6 +43,8 @@ public class TileHolder : MonoBehaviour
     Piece selectedPiece;
     int playerTurn = 0;
 
+    // --- Undo/History ---
+    private Stack<MoveState> moveHistory = new();
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
     /// </summary>
@@ -91,11 +117,15 @@ public class TileHolder : MonoBehaviour
         return selectedTiles;
     }
     #endregion
-	
+    
     public void MovePiece(Vector2 destination)
     {
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece(destination);
+        // Save state before move (for now, only selectedPiece and destination tile's piece)
+        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
+        Piece capturedPiece = destinationTile.piece;
+        SaveMoveState(selectedPiece, capturedPiece);
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
     }
 
@@ -142,6 +172,13 @@ public class TileHolder : MonoBehaviour
         startingTile.piece = null;
     }
 
+    void SaveMoveState(Piece piece, Piece capturedPiece)
+    {
+        var state = new MoveState(playerTurn, piece, capturedPiece);
+        moveHistory.Push(state);
+        Debug.Log($"[History] Saved: {state}");
+    }
+
     protected virtual IEnumerator PhysicallyMovePiece(GameObject piece, Vector2 destination, Piece selectedPiece)
     {
         float time = 0;
@@ -178,6 +215,7 @@ public class TileHolder : MonoBehaviour
     }
 
 
+
     protected virtual void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;
@@ -196,14 +234,6 @@ public class TileHolder : MonoBehaviour
             selectedPiece = aiChoice.chosenPiece;
 
             MovePiece(aiChoice.moveTo);
-        }
-    }
-
-    void MoveTest()
-    {
-        if (selectedPiece == null)
-        {
-            Debug.LogError("SelectedPiece is null!");
         }
     }
     #endregion

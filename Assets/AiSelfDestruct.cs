@@ -7,6 +7,6 @@ public class AiSelfDestruct : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        if(TileHolder.)
+        if(PlayerPrefs.GetInt("isAi") == 1) Destroy(gameObject);
     }
 }

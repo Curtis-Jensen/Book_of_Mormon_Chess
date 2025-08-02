@@ -50,7 +50,7 @@ MonoBehaviour:
     King: {fileID: 21300000, guid: 135aeac685457c140898414108f2a2e5, type: 3}
     Queen: {fileID: 21300000, guid: 2ea96757ed2670746b565fcfd28281af, type: 3}
     Rook: {fileID: 21300000, guid: 8303860ad407488418c8c52167fabdf5, type: 3}
-    Bishop: {fileID: 21300000, guid: fab550018fd65374283604d7f2f0c18c, type: 3}
+    Bishop: {fileID: 21300000, guid: 2eafb849322a861428422bb824b55df2, type: 3}
     Knight: {fileID: 21300000, guid: 37283c2603355c242b88a44bcc8d2cd9, type: 3}
     Pawn: {fileID: 21300000, guid: 2f842e5f180975541ad1496de871a322, type: 3}
   - name: Lamanites

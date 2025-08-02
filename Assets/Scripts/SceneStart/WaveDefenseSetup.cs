@@ -124,50 +124,29 @@ public class WaveDefenseSetup : MonoBehaviour
 
     void ArrangePieces(int[] pieceChoices)
     {
-        var topRightTile = tiles.Count - 1;
+        ArrangeBackRows(pieceChoices);
 
-        ArrangeBackRows (topRightTile, pieceChoices);
-
-        ArrangePawns(topRightTile);
+        ArrangePawns();
     }
 
-    void ArrangeBackRows(int topRightTile, int[] pieceChoices)
+    void ArrangeBackRows(int[] pieceChoices)
     {
         var playerIndex = 0;
         spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
-            if (backPiecePrefabs == null)
-                Debug.LogError($"backPiecePrefabs is null at x={x}");
-            if (pieceChoices == null)
-                Debug.LogError($"pieceChoices is null at x={x}");
-            if (tiles == null)
-                Debug.LogError($"tiles is null at x={x}");
-            if (tiles.Count <= x)
-                Debug.LogError($"tiles.Count ({tiles.Count}) <= x ({x})");
-            if (backPiecePrefabs.Length <= pieceChoices[x])
-                Debug.LogError($"backPiecePrefabs.Length ({backPiecePrefabs.Length}) <= pieceChoices[x] ({pieceChoices[x]}) at x={x}");
-            if (tiles[x] == null)
-                Debug.LogError($"tiles[{x}] is null");
-            if (backPiecePrefabs[pieceChoices[x]] == null)
-                Debug.LogError($"backPiecePrefabs[{pieceChoices[x]}] is null at x={x}");
-            if (PieceSpawner.Instance == null)
-                Debug.LogError($"PieceSpawner.Instance is null at x={x}");
-
-
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
             //PieceSpawner.Instance.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, false);
         }
     }
     
-    void ArrangePawns(int topRightTile)
+    void ArrangePawns()
     {
         var playerIndex = 0;
         spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
-            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
     }
 

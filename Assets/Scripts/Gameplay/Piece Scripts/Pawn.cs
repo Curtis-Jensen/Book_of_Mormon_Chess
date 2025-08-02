@@ -6,7 +6,6 @@ using UnityEngine;
 public class Pawn : Piece
 {
     public GameObject queenPrefab;
-    public Sprite queenSprite;
 
     void Update()
     {
@@ -80,12 +79,16 @@ public class Pawn : Piece
         // Remove pawn from AI manager if present
         AiManager.Instance.aiPieces.Remove(this);
 
+        var isAi = AiManager.Instance.PiecesExist() && teamOne == AiManager.Instance.aiPieces[0].teamOne;
+
+        if(PieceSpawner.Instance == null) Debug.LogError("PieceSpawner.Instance is null! Make sure PieceSpawner is initialized before Pawn promotion.");
+
         // Spawn the queen using the Spawner
         PieceSpawner.Instance.SpawnPiece(
             queenPrefab,
             position,
             playerIndex,
-            AiManager.Instance.PiecesExist() && teamOne == AiManager.Instance.aiPieces[0].teamOne
+            isAi
         );
 
         // Destroy the pawn GameObject

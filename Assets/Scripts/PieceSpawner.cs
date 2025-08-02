@@ -3,13 +3,12 @@ using UnityEngine;
 
 public class PieceSpawner : MonoBehaviour
 {
-    public static PieceSpawner Instance { get; private set; }
+    public static PieceSpawner Instance { get; set; }
     public PieceSets pieceSets;
 
-    SpriteSet spriteSet;
     int pieceNumber = 0; // Counter for piece names
 
-    private void Awake()
+    void Awake()
     {
         Instance = this;
     }
@@ -29,7 +28,9 @@ public class PieceSpawner : MonoBehaviour
 
         pieceObj.name = $"{pieceObj.name} player{playerIndex} {pieceNumber++}";//📛
 
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin")];
+        var spriteNum = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin");
+        var spriteSet = pieceSets.spriteSets[spriteNum];
+        Debug.Log($"Using sprite set: {spriteSet.name} for player {playerIndex}");
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
         piece.transform.localScale
@@ -58,6 +59,8 @@ public class PieceSpawner : MonoBehaviour
         {
             AiManager.Instance.aiPieces.Add(piece);
         }
+
+        Debug.Log($"Spawning piece: {piecePrefab.name} at position: {position} for player: {playerIndex}, AI: {isAi}");
 
         return piece;
     }

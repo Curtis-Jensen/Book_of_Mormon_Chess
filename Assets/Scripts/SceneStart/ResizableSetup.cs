@@ -158,7 +158,6 @@ public class ResizableSetup : BoardSetup
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
-            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
 
         playerIndex = 0;
@@ -166,7 +165,6 @@ public class ResizableSetup : BoardSetup
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
-            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
     }
 

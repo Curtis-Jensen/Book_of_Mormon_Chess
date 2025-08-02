@@ -4,8 +4,7 @@ using UnityEngine;
 public class PieceSpawner : MonoBehaviour
 {
     public static PieceSpawner Instance { get; private set; }
-    public PieceColors pieceColors; // Reference to the PieceColors ScriptableObject
-    public SpriteSets spriteSets;
+    public PieceSets pieceSets;
 
     SpriteSet spriteSet;
     int pieceNumber = 0; // Counter for piece names
@@ -30,7 +29,7 @@ public class PieceSpawner : MonoBehaviour
 
         pieceObj.name = $"{pieceObj.name} player{playerIndex} {pieceNumber++}";//📛
 
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin")];
+        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin")];
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
         piece.transform.localScale
@@ -40,7 +39,7 @@ public class PieceSpawner : MonoBehaviour
         var colorSelection = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "color");
 
         // Get the correct ColorSet from the PieceColors ScriptableObject
-        var colorSet = pieceColors.colors[colorSelection];
+        var colorSet = pieceSets.colorSets[colorSelection];
 
         // Assign color based on piece type
         if (piece is King)

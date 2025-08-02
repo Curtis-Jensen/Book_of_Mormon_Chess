@@ -18,8 +18,7 @@ public class ResizableSetup : BoardSetup
     public GameObject darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public SpriteSets spriteSets;
-    public PieceColors colorSets;
+    public PieceSets pieceSets;
 
     [HideInInspector] public int boardSize = 8;
 
@@ -137,7 +136,7 @@ public class ResizableSetup : BoardSetup
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 1;
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
@@ -145,7 +144,7 @@ public class ResizableSetup : BoardSetup
         }
 
         playerIndex = 0;
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
@@ -155,7 +154,7 @@ public class ResizableSetup : BoardSetup
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
@@ -163,7 +162,7 @@ public class ResizableSetup : BoardSetup
         }
 
         playerIndex = 0;
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
@@ -207,11 +206,11 @@ public class ResizableSetup : BoardSetup
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
         if (pieceScript is King)
         {
-            spriteRenderer.color = colorSets.colors[colorSelection].kingColor;
+            spriteRenderer.color = pieceSets.colorSets[colorSelection].kingColor;
         }
         else
         {
-            spriteRenderer.color = colorSets.colors[colorSelection].baseColor;
+            spriteRenderer.color = pieceSets.colorSets[colorSelection].baseColor;
         }
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛

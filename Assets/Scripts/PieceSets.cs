@@ -11,8 +11,16 @@ public struct SpriteSet
     public Sprite King, Queen, Rook, Bishop, Knight, Pawn;
 }
 
-[CreateAssetMenu(fileName = "SpriteSets", menuName = "Custom/SpriteSets")]
-public class SpriteSets : ScriptableObject
+[System.Serializable]
+public struct ColorSet
+{
+    public Color baseColor;
+    public Color kingColor;
+}
+
+//[CreateAssetMenu(fileName = "SpriteSets", menuName = "Custom/SpriteSets")]
+public class PieceSets : MonoBehaviour
 {
     public SpriteSet[] spriteSets;
+    public ColorSet[] colorSets;
 }

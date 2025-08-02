@@ -17,7 +17,7 @@ public class WaveDefenseSetup : MonoBehaviour
     public GameObject  darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public SpriteSets spriteSets;
+    public PieceSets spriteSets;
     public PieceColors pieceColors;
 
     [HideInInspector] public int boardSize = 10;

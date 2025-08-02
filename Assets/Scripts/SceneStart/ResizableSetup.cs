@@ -19,7 +19,7 @@ public class ResizableSetup : BoardSetup
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
     public SpriteSets spriteSets;
-    public ColorSet[] colorSets;
+    public PieceColors colorSets;
 
     [HideInInspector] public int boardSize = 8;
 
@@ -207,11 +207,11 @@ public class ResizableSetup : BoardSetup
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
         if (pieceScript is King)
         {
-            spriteRenderer.color = colorSets[colorSelection].kingColor;
+            spriteRenderer.color = colorSets.colors[colorSelection].kingColor;
         }
         else
         {
-            spriteRenderer.color = colorSets[colorSelection].baseColor;
+            spriteRenderer.color = colorSets.colors[colorSelection].baseColor;
         }
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛

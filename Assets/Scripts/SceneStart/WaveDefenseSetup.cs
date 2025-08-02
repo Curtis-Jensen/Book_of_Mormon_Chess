@@ -156,7 +156,7 @@ public class WaveDefenseSetup : MonoBehaviour
 
 
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
-            PieceSpawner.Instance.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, false);
+            //PieceSpawner.Instance.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, false);
         }
     }
     

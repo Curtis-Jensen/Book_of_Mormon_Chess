@@ -27,6 +27,7 @@ public class WaveDefenseSetup : MonoBehaviour
     List<GameObject> tiles =  new();
     TileHolder board;
     AiManager aiManager;
+    PieceSpawner pieceSpawner;
 
     void Start()
     {
@@ -47,6 +48,7 @@ public class WaveDefenseSetup : MonoBehaviour
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
+        pieceSpawner = FindAnyObjectByType<PieceSpawner>();
         board.aiManager = aiManager;
         board.players = players;
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
@@ -132,11 +134,9 @@ public class WaveDefenseSetup : MonoBehaviour
     void ArrangeBackRows(int[] pieceChoices)
     {
         var playerIndex = 0;
-        spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
-            //PieceSpawner.Instance.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, false);
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, false);
         }
     }
     

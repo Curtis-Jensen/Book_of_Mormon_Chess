@@ -7,7 +7,7 @@ using UnityEngine.UIElements;
 
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TileHolder))]
-public class ResizableSetup : BoardSetup
+public class TileHolderSetup : BoardSetup
 {
     public Player[] players;
     public float cameraPadding;
@@ -135,19 +135,17 @@ public class ResizableSetup : BoardSetup
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 1;
-        //var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
             pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[i]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi);
-            //SpawnPiece(backPiecePrefabs[pieceChoices[i]], x, playerIndex);
         }
 
         playerIndex = 0;
         var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi);
         }
     }
 

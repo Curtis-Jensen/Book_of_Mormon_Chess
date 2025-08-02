@@ -24,13 +24,9 @@ public class PieceSpawner : MonoBehaviour
     TileHolder tileHolder; // Reference to TileHolder instance
     int pieceNumber = 0; // Counter for piece names
 
-    void Start()
+    void Awake()
     {
         tileHolder = FindAnyObjectByType<TileHolder>(); // Get the TileHolder instance
-        for (int i = 0; i < spriteSets.Length; i++)
-        {
-            Debug.Log($"[PieceSpawner] spriteSet[{i}]: {spriteSets[i]?.name}");
-        }
     }
 
     /// <summary>
@@ -39,6 +35,10 @@ public class PieceSpawner : MonoBehaviour
     public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex, bool isAi)
     {
         tileHolder = FindAnyObjectByType<TileHolder>();
+
+        if (tileHolder == null)  Debug.LogError("TileHolder instance not found!");
+        if (tileHolder.tiles == null)  Debug.LogError("The tile object is null!");
+
         var tile = tileHolder.tiles[(int)position.x, (int)position.y];
         var pieceObj = Instantiate(piecePrefab, tile.transform.position, Quaternion.identity);
         var piece = pieceObj.GetComponent<Piece>();
@@ -50,6 +50,8 @@ public class PieceSpawner : MonoBehaviour
         pieceObj.name = $"{pieceObj.name} player{playerIndex} {pieceNumber++}";//📛
 
         var spriteNum = PlayerPrefs.GetInt(tileHolder.players[playerIndex].name + "skin");
+
+        if(spriteSets.Length == 0) Debug.LogError("No sprite sets available!?");
 
         var spriteSet = spriteSets[spriteNum];
         Debug.Log($"Using sprite set: {spriteSet.name} for player {playerIndex}");
@@ -79,7 +81,8 @@ public class PieceSpawner : MonoBehaviour
 
         if (isAi)
         {
-            AiManager.Instance.aiPieces.Add(piece);
+            var aiManager = FindAnyObjectByType<AiManager>();
+            aiManager.aiPieces.Add(piece);
         }
 
         Debug.Log($"Spawning piece: {piecePrefab.name} at position: {position} for player: {playerIndex}, AI: {isAi}");

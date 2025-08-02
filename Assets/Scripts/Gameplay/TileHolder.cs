@@ -40,13 +40,15 @@ public class TileHolder : MonoBehaviour
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public AiManager aiManager;
 
+    protected PieceSpawner pieceSpawner;
+
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
     int playerTurn = 0;
 
     // --- Undo/History ---
-    private Stack<MoveState> moveHistory = new();
-    private bool isUndoingMove = false;
+    Stack<MoveState> moveHistory = new();
+    bool isUndoingMove = false;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states

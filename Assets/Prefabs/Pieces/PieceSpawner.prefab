@@ -9,9 +9,9 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 607079919349922688}
-  - component: {fileID: 3050448934068370519}
+  - component: {fileID: 5799476200552547340}
   m_Layer: 0
-  m_Name: PieceSets
+  m_Name: PieceSpawner
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -32,7 +32,7 @@ Transform:
   m_Children: []
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &3050448934068370519
+--- !u!114 &5799476200552547340
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -41,7 +41,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 4357559022220586109}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 194acb2f61872cd44b5a541026db38f7, type: 3}
+  m_Script: {fileID: 11500000, guid: be99a6897dc074c429f4ebb36d169af1, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   spriteSets:

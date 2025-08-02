@@ -81,10 +81,10 @@ public class Pawn : Piece
 
         var isAi = AiManager.Instance.PiecesExist() && teamOne == AiManager.Instance.aiPieces[0].teamOne;
 
-        if(PieceSpawner.Instance == null) Debug.LogError("PieceSpawner.Instance is null! Make sure PieceSpawner is initialized before Pawn promotion.");
+        var pieceSpawner = FindAnyObjectByType<PieceSpawner>();
 
         // Spawn the queen using the Spawner
-        PieceSpawner.Instance.SpawnPiece(
+        pieceSpawner.SpawnPiece(
             queenPrefab,
             position,
             playerIndex,

@@ -1,17 +1,27 @@
 ﻿using System.Collections.Generic;
 using UnityEngine;
 
+[System.Serializable]
+public class SpriteSet
+{
+    public string name;
+    public float transformScale;
+    public Sprite King, Queen, Rook, Bishop, Knight, Pawn;
+}
+
+[System.Serializable]
+public class ColorSet
+{
+    public Color baseColor;
+    public Color kingColor;
+}
+
 public class PieceSpawner : MonoBehaviour
 {
-    public static PieceSpawner Instance { get; set; }
-    public PieceSets pieceSets;
+    public SpriteSet[] spriteSets;
+    public ColorSet[] colorSets;
 
     int pieceNumber = 0; // Counter for piece names
-
-    void Awake()
-    {
-        Instance = this;
-    }
 
     /// <summary>
     /// Spawns a piece at the given position, assigns it to the tile, and registers with AI if needed.
@@ -29,7 +39,7 @@ public class PieceSpawner : MonoBehaviour
         pieceObj.name = $"{pieceObj.name} player{playerIndex} {pieceNumber++}";//📛
 
         var spriteNum = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin");
-        var spriteSet = pieceSets.spriteSets[spriteNum];
+        var spriteSet = spriteSets[spriteNum];
         Debug.Log($"Using sprite set: {spriteSet.name} for player {playerIndex}");
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
@@ -40,7 +50,7 @@ public class PieceSpawner : MonoBehaviour
         var colorSelection = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "color");
 
         // Get the correct ColorSet from the PieceColors ScriptableObject
-        var colorSet = pieceSets.colorSets[colorSelection];
+        var colorSet = colorSets[colorSelection];
 
         // Assign color based on piece type
         if (piece is King)

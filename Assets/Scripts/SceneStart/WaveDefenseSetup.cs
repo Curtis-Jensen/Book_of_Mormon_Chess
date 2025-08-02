@@ -18,7 +18,7 @@ public class WaveDefenseSetup : MonoBehaviour
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
     public SpriteSets spriteSets;
-    public ColorSet[] colorSets;
+    public PieceColors pieceColors;
 
     [HideInInspector] public int boardSize = 10;
 
@@ -28,7 +28,7 @@ public class WaveDefenseSetup : MonoBehaviour
     TileHolder board;
     AiManager aiManager;
 
-    void Awake()
+    void Start()
     {
         InitializeVariables();
         CenterCamera();
@@ -137,7 +137,26 @@ public class WaveDefenseSetup : MonoBehaviour
         spriteSet = spriteSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
+            if (backPiecePrefabs == null)
+                Debug.LogError($"backPiecePrefabs is null at x={x}");
+            if (pieceChoices == null)
+                Debug.LogError($"pieceChoices is null at x={x}");
+            if (tiles == null)
+                Debug.LogError($"tiles is null at x={x}");
+            if (tiles.Count <= x)
+                Debug.LogError($"tiles.Count ({tiles.Count}) <= x ({x})");
+            if (backPiecePrefabs.Length <= pieceChoices[x])
+                Debug.LogError($"backPiecePrefabs.Length ({backPiecePrefabs.Length}) <= pieceChoices[x] ({pieceChoices[x]}) at x={x}");
+            if (tiles[x] == null)
+                Debug.LogError($"tiles[{x}] is null");
+            if (backPiecePrefabs[pieceChoices[x]] == null)
+                Debug.LogError($"backPiecePrefabs[{pieceChoices[x]}] is null at x={x}");
+            if (PieceSpawner.Instance == null)
+                Debug.LogError($"PieceSpawner.Instance is null at x={x}");
+
+
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
+            PieceSpawner.Instance.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, false);
         }
     }
     
@@ -188,11 +207,11 @@ public class WaveDefenseSetup : MonoBehaviour
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
         if (pieceScript is King) 
         {
-            spriteRenderer.color = colorSets[colorSelection].kingColor;
+            spriteRenderer.color = pieceColors.colors[colorSelection].kingColor;
         }
         else
         {
-            spriteRenderer.color = colorSets[colorSelection].baseColor;
+            spriteRenderer.color = pieceColors.colors[colorSelection].baseColor;
         }
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛

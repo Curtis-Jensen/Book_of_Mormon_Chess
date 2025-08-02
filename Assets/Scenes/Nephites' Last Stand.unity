@@ -301,14 +301,7 @@ MonoBehaviour:
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
   - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   spriteSets: {fileID: 11400000, guid: 36a6f1b1d5c16a345ba4574502be3f01, type: 2}
-  colorSets:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  pieceColors: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   boardSize: 5
 --- !u!114 &76764651
 MonoBehaviour:

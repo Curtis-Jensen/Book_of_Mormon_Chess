@@ -187,22 +187,22 @@ MonoBehaviour:
   backPiecePrefabs:
   - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
-  spriteSets: {fileID: 11400000, guid: 90fb7d297a4757e4a974224c2c6c75ba, type: 2}
+  spriteSets: {fileID: 11400000, guid: 36a6f1b1d5c16a345ba4574502be3f01, type: 2}
   colorSets:
-  - baseColor: {r: 0.8039216, g: 0, b: 0, a: 1}
-    kingColor: {r: 1, g: 0.53333336, b: 0, a: 1}
-  - baseColor: {r: 1, g: 0.9901438, b: 0, a: 1}
-    kingColor: {r: 1, g: 0.53333336, b: 0, a: 1}
-  - baseColor: {r: 0, g: 0.4867924, b: 0.011659655, a: 1}
-    kingColor: {r: 0.6586108, g: 1, b: 0, a: 1}
-  - baseColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
-    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
-  - baseColor: {r: 0.6809025, g: 0.047098536, b: 0.9245283, a: 1}
-    kingColor: {r: 1, g: 0.745283, b: 0.8490001, a: 1}
-  - baseColor: {r: 1, g: 1, b: 1, a: 1}
-    kingColor: {r: 1, g: 0.97744054, b: 0.48113203, a: 1}
-  - baseColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
-    kingColor: {r: 1, g: 0.5315467, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0, g: 0, b: 0, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
+  - baseColor: {r: 0.3962264, g: 0.21456033, b: 0.21456033, a: 1}
+    kingColor: {r: 0, g: 0, b: 0, a: 1}
   boardSize: 1
 --- !u!82 &76764648
 AudioSource:
@@ -327,8 +327,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.5
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  ghost: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
   players: []
   boardSize: 8
   audioSource: {fileID: 0}

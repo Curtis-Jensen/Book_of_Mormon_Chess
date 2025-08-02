@@ -4,7 +4,7 @@ using System.IO;
 using UnityEngine;
 
 [System.Serializable]
-public class SpriteSet
+public struct SpriteSet
 {
     public string name;
     public float transformScale;

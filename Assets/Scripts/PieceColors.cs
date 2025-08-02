@@ -5,7 +5,7 @@ using UnityEngine;
 
 
 [System.Serializable]
-public class ColorSet : MonoBehaviour
+public struct ColorSet
 {
     public Color baseColor;
     public Color kingColor;

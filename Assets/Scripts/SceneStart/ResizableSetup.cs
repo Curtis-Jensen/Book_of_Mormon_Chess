@@ -34,9 +34,9 @@ public class ResizableSetup : BoardSetup
         SpawnRows();
         SpawnTiles();
         var pieceChoices = RandomizePieces();
-        ArrangePieces(pieceChoices);
         InitializeBoardReferences();
         InitializeBoard();
+        ArrangePieces(pieceChoices);
     }
 
     void InitializeVariables()
@@ -45,7 +45,6 @@ public class ResizableSetup : BoardSetup
         boardSize = PlayerPrefs.GetInt("boardSize");
         tileHolder = GetComponent<TileHolder>();
         tileHolder.boardSize = boardSize;
-        //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
         tileHolder.aiManager = aiManager;
         tileHolder.players = players;
@@ -136,15 +135,16 @@ public class ResizableSetup : BoardSetup
     void ArrangeBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 1;
-        var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        //var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
-            SpawnPiece(backPiecePrefabs[pieceChoices[i]], x, playerIndex);
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[i]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi);
+            //SpawnPiece(backPiecePrefabs[pieceChoices[i]], x, playerIndex);
         }
 
         playerIndex = 0;
-        spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
+        var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
             SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);

@@ -21,14 +21,25 @@ public class PieceSpawner : MonoBehaviour
     public SpriteSet[] spriteSets;
     public ColorSet[] colorSets;
 
+    TileHolder tileHolder; // Reference to TileHolder instance
     int pieceNumber = 0; // Counter for piece names
+
+    void Start()
+    {
+        tileHolder = FindAnyObjectByType<TileHolder>(); // Get the TileHolder instance
+        for (int i = 0; i < spriteSets.Length; i++)
+        {
+            Debug.Log($"[PieceSpawner] spriteSet[{i}]: {spriteSets[i]?.name}");
+        }
+    }
 
     /// <summary>
     /// Spawns a piece at the given position, assigns it to the tile, and registers with AI if needed.
     /// </summary>
     public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex, bool isAi)
     {
-        var tile = TileHolder.Instance.tiles[(int)position.x, (int)position.y];
+        tileHolder = FindAnyObjectByType<TileHolder>();
+        var tile = tileHolder.tiles[(int)position.x, (int)position.y];
         var pieceObj = Instantiate(piecePrefab, tile.transform.position, Quaternion.identity);
         var piece = pieceObj.GetComponent<Piece>();
         var spriteRenderer = piece.GetComponent<SpriteRenderer>();
@@ -38,7 +49,8 @@ public class PieceSpawner : MonoBehaviour
 
         pieceObj.name = $"{pieceObj.name} player{playerIndex} {pieceNumber++}";//📛
 
-        var spriteNum = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "skin");
+        var spriteNum = PlayerPrefs.GetInt(tileHolder.players[playerIndex].name + "skin");
+
         var spriteSet = spriteSets[spriteNum];
         Debug.Log($"Using sprite set: {spriteSet.name} for player {playerIndex}");
         spriteRenderer.sprite =
@@ -47,7 +59,7 @@ public class PieceSpawner : MonoBehaviour
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
         // Get color selection index for this player
-        var colorSelection = PlayerPrefs.GetInt(TileHolder.Instance.players[playerIndex].name + "color");
+        var colorSelection = PlayerPrefs.GetInt(tileHolder.players[playerIndex].name + "color");
 
         // Get the correct ColorSet from the PieceColors ScriptableObject
         var colorSet = colorSets[colorSelection];

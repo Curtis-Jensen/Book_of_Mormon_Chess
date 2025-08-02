@@ -4,8 +4,8 @@ using UnityEngine;
 
 public class SpawnTester : MonoBehaviour
 {
-    public PieceSpawner pieceSpawner;
     public GameObject piece;
+    PieceSpawner pieceSpawner;
 
     //void Awake()
     //{
@@ -13,11 +13,12 @@ public class SpawnTester : MonoBehaviour
     //    Debug.Log("Start worked!");
     //}
 
-    //void Start()
-    //{
-    //    TestSpawn();
-    //    Debug.Log("Awake worked!");
-    //}
+    void Start()
+    {
+        pieceSpawner = GetComponent<PieceSpawner>();
+        //TestSpawn();
+        //Debug.Log("Awake worked!");
+    }
 
     public void TestSpawn()
     {

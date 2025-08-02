@@ -84,12 +84,12 @@ public class Pawn : Piece
         var pieceSpawner = FindAnyObjectByType<PieceSpawner>();
 
         // Spawn the queen using the Spawner
-        pieceSpawner.SpawnPiece(
+        StartCoroutine(pieceSpawner.SpawnPiece(
             queenPrefab,
             position,
             playerIndex,
             isAi
-        );
+        ));
 
         // Destroy the pawn GameObject
         Destroy(gameObject);

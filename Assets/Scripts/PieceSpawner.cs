@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.Collections;
+using System.Collections.Generic;
 using UnityEngine;
 
 [System.Serializable]
@@ -20,19 +21,15 @@ public class PieceSpawner : MonoBehaviour
 {
     public SpriteSet[] spriteSets;
     public ColorSet[] colorSets;
+    public float spawnWaitTime = 0.1f; // Time to wait between spawns
 
     TileHolder tileHolder; // Reference to TileHolder instance
     int pieceNumber = 0; // Counter for piece names
 
-    void Awake()
-    {
-        tileHolder = FindAnyObjectByType<TileHolder>(); // Get the TileHolder instance
-    }
-
     /// <summary>
     /// Spawns a piece at the given position, assigns it to the tile, and registers with AI if needed.
     /// </summary>
-    public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex, bool isAi)
+    public IEnumerator SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex, bool isAi)
     {
         tileHolder = FindAnyObjectByType<TileHolder>();
 
@@ -51,7 +48,11 @@ public class PieceSpawner : MonoBehaviour
 
         var spriteNum = PlayerPrefs.GetInt(tileHolder.players[playerIndex].name + "skin");
 
-        if(spriteSets.Length == 0) Debug.LogError("No sprite sets available!?");
+        if(spriteSets.Length == 0)
+        {
+            Debug.LogError("No sprite sets available!?");
+            yield return new WaitForSeconds(spawnWaitTime);
+        }
 
         var spriteSet = spriteSets[spriteNum];
         Debug.Log($"Using sprite set: {spriteSet.name} for player {playerIndex}");
@@ -87,6 +88,6 @@ public class PieceSpawner : MonoBehaviour
 
         Debug.Log($"Spawning piece: {piecePrefab.name} at position: {position} for player: {playerIndex}, AI: {isAi}");
 
-        return piece;
+        yield return new WaitForSeconds(spawnWaitTime);
     }
 }

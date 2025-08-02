@@ -25,7 +25,7 @@ public class WaveDefenseTileHolder : TileHolder
         for (int i = 0; i < waveNumber; i++)
         {
             var spawnPoint = ChooseSpawn();
-            pieceSpawner.SpawnPiece(pawn, spawnPoint, 1, true);
+            StartCoroutine(pieceSpawner.SpawnPiece(pawn, spawnPoint, 1, true));
             DisplaySpawnCount();
         }
     }

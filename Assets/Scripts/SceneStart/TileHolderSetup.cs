@@ -27,15 +27,15 @@ public class TileHolderSetup : BoardSetup
     AiManager aiManager;
     PieceSpawner pieceSpawner;
 
-    void Awake()
+    void Start()
     {
         InitializeVariables();
         CenterCamera();
         SpawnRows();
         SpawnTiles();
-        var pieceChoices = RandomizePieces();
         InitializeBoardReferences();
         InitializeBoard();
+        var pieceChoices = RandomizePieces();
         ArrangePieces(pieceChoices);
     }
 
@@ -138,89 +138,29 @@ public class TileHolderSetup : BoardSetup
         for (int x = topRightTile; x > topRightTile - boardSize; x--)
         {
             int i = topRightTile - x;
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[i]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi);
+            StartCoroutine(pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[i]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi));
         }
 
         playerIndex = 0;
-        var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi);
+            StartCoroutine(pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], tiles[x].transform.position, playerIndex, players[playerIndex].isAi));
         }
     }
 
     void ArrangePawns(int topRightTile)
     {
         var playerIndex = 1;
-        var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
         {
-            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
+            StartCoroutine(pieceSpawner.SpawnPiece(pawn, tiles[x].transform.position, playerIndex, players[playerIndex].isAi));
         }
 
         playerIndex = 0;
-        spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = boardSize; x < boardSize + boardSize; x++)
         {
-            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
+            StartCoroutine(pieceSpawner.SpawnPiece(pawn, tiles[x].transform.position, playerIndex, players[playerIndex].isAi));
         }
-    }
-
-    /// <summary>
-    /// Changing things here?  Check Pawn.QueenPromotion() too.
-    /// 
-    /// 🧑🏻Designate the player for later
-    /// 
-    /// 🎨 Color the piece.  If it's a king, use the special king color
-    /// 
-    /// 🏗️ Instantiate the piece prefab at the specified tile 
-    /// 
-    /// 🔍 Retrieve the Piece component for configuration
-    /// 
-    /// 📛 Assign a descriptive name to the piece GameObject 
-    /// 
-    /// ⚖️ Set piece properties for team and player ownership  
-    /// 
-    /// 🤖 Register the piece with AI manager if player is AI 
-    /// </summary>
-    /// <param name="piecePrefab">The prefab of the chess piece to spawn</param>
-    /// <param name="x">The board position (x-coordinate) to spawn the piece </param>
-    /// <param name="playerIndex">Index of the player owning the piece</param>
-    Piece SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
-    {
-        var player = players[playerIndex]; //🧑🏻
-        var pieceInstance =
-        Instantiate(piecePrefab, tiles[x].transform); //🏗️
-        var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
-        var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
-
-        var spriteSet = pieceSpawner.spriteSets[PlayerPrefs.GetInt(player.name + "skin")];
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
-        pieceInstance.transform.localScale
-            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
-
-        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-        if (pieceScript is King)
-        {
-            spriteRenderer.color = pieceSpawner.colorSets[colorSelection].kingColor;
-        }
-        else
-        {
-            spriteRenderer.color = pieceSpawner.colorSets[colorSelection].kingColor;
-        }
-
-        pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛
-
-        pieceScript.teamOne = player.teamOne;//⚖️
-        pieceScript.playerIndex = playerIndex;
-
-        if (player.isAi)//🤖
-        {
-            aiManager.aiPieces.Add(pieceScript);
-        }
-
-        return pieceScript;
     }
 
     void CenterCamera()

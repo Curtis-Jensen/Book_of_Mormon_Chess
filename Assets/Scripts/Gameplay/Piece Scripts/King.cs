@@ -53,10 +53,8 @@ public class King : Piece
         {
             return;
         }
-        var color = GetComponent<SpriteRenderer>().color;
 
         winnerText.gameObject.SetActive(true);
         winnerText.text = winStatement;
-        winnerText.color = color;
     }
 }

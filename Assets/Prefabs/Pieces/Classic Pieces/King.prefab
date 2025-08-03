@@ -97,9 +97,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 212007d6c7947cf4c981b5e46a84e74e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  isLight: 1
+  teamOne: 0
   firstTurnTaken: 0
   playerIndex: 0
-  winStatement: 'The King is Slain!
-
-    You Win!!'
+  winStatement: A King is Slain

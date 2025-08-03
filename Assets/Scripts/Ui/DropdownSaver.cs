@@ -15,8 +15,7 @@ public class DropdownSaver : MonoBehaviour
     {
         dropdown = gameObject.GetComponent<TMP_Dropdown>();
         dropdown.value = PlayerPrefs.GetInt(toSave, defaultValue);
-        //We have to save to to make sure they don't both start with the 0 color
-        PlayerPrefs.SetInt(toSave, dropdown.value);
+        Save();
     }
 
     public void Save()

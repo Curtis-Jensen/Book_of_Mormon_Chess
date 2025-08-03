@@ -11,7 +11,8 @@ public class InputScript : MonoBehaviour
 
     public void UpdateSlider()
     {
-        slider.value = GetInputText(sizeInput);
+        var inputValue = GetInputText(sizeInput);
+        slider.value = inputValue;
     }
 
     int GetInputText(TextMeshProUGUI input)
@@ -19,11 +20,18 @@ public class InputScript : MonoBehaviour
         //Clean for spaces I think
         var cleanedText = sizeInput.text.ToString().Remove(input.text.Length - 1, 1);
 
-        if (cleanedText.Length < 1) 
+        var inputValue = int.Parse(cleanedText);
+
+        if(inputValue < 1)
         {
-            cleanedText = "1";
+            inputValue = 1;
+        }
+        else if (inputValue > slider.maxValue)
+        {
+            slider.maxValue = inputValue;
+            slider.value    = inputValue;
         }
 
-        return int.Parse(cleanedText);
+        return inputValue;
     }
 }

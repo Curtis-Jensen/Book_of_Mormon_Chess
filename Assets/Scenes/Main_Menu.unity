@@ -3168,8 +3168,6 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Lamanites
       m_Image: {fileID: 0}
-    - m_Text: Hidden
-      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -4157,11 +4155,11 @@ MonoBehaviour:
   m_Value: 0
   m_Options:
     m_Options:
-    - m_Text: Classic
-      m_Image: {fileID: 0}
     - m_Text: Nephites' Last Stand
       m_Image: {fileID: 0}
     - m_Text: Pawns Only
+      m_Image: {fileID: 0}
+    - m_Text: Classic
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -5525,8 +5523,8 @@ MonoBehaviour:
   m_FillRect: {fileID: 1949072}
   m_HandleRect: {fileID: 1605506464}
   m_Direction: 0
-  m_MinValue: 2
-  m_MaxValue: 7
+  m_MinValue: 4
+  m_MaxValue: 8
   m_WholeNumbers: 1
   m_Value: 6
   m_OnValueChanged:
@@ -6527,8 +6525,6 @@ MonoBehaviour:
     - m_Text: Nephites
       m_Image: {fileID: 0}
     - m_Text: Lamanites
-      m_Image: {fileID: 0}
-    - m_Text: Hidden
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
@@ -8655,7 +8651,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Classic
+  m_text: Nephites' Last Stand
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

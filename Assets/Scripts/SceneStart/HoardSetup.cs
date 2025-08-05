@@ -18,7 +18,7 @@ public class HoardSetup : MonoBehaviour
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
     public SpriteSet[] spriteSets;
-    public ColorSet[] colorSets;
+    public PieceColors pieceColors;
 
     [HideInInspector] public int boardSize = 10;
 
@@ -189,11 +189,11 @@ public class HoardSetup : MonoBehaviour
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
         if (pieceScript is King) 
         {
-            spriteRenderer.color = colorSets[colorSelection].kingColor;
+            spriteRenderer.color = pieceColors.colors[colorSelection].kingColor;
         }
         else
         {
-            spriteRenderer.color = colorSets[colorSelection].baseColor;
+            spriteRenderer.color = pieceColors.colors[colorSelection].baseColor;
         }
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛

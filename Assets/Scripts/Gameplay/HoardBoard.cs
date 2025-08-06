@@ -6,15 +6,17 @@ using UnityEngine;
 public class HoardBoard : Board
 {
     public GameObject pawn;
-    public SpriteSet spriteSet;
-    public ColorSet[] colorSets;
+    public PieceSets pieceSets;
     public TMP_Text spawnDisplay;
     public string displayPrefix;
 
+    SpriteSet spriteSet;
     public int waveNumber;
 
-    private void Start()
+    void Start()
     {
+        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt("style")];
+
         NewWave();
     }
 
@@ -99,7 +101,7 @@ public class HoardBoard : Board
 
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
 
-        spriteRenderer.color = colorSets[colorSelection].baseColor;
+        spriteRenderer.color = pieceSets.colorSets[colorSelection].baseColor;
 
         pieceInstance.name = $"{pieceInstance.name} {player.name}";//📛
 

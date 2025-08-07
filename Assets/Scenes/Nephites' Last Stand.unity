@@ -321,36 +321,7 @@ MonoBehaviour:
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
-  spriteSet:
-    transformScale: 0
-    King: {fileID: 0}
-    Queen: {fileID: 0}
-    Rook: {fileID: 0}
-    Bishop: {fileID: 0}
-    Knight: {fileID: 0}
-    Pawn: {fileID: 0}
-  colorSets:
-  - name: 
-    baseColor: {r: 0.8039216, g: 0, b: 0, a: 1}
-    kingColor: {r: 1, g: 0.53333336, b: 0, a: 1}
-  - name: 
-    baseColor: {r: 1, g: 0.9901438, b: 0, a: 1}
-    kingColor: {r: 1, g: 0.53333336, b: 0, a: 1}
-  - name: 
-    baseColor: {r: 0, g: 0.4867924, b: 0.011659655, a: 1}
-    kingColor: {r: 0.6586108, g: 1, b: 0, a: 1}
-  - name: 
-    baseColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
-    kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
-  - name: 
-    baseColor: {r: 0.6809025, g: 0.047098536, b: 0.9245283, a: 1}
-    kingColor: {r: 1, g: 0.745283, b: 0.8490001, a: 1}
-  - name: 
-    baseColor: {r: 1, g: 1, b: 1, a: 1}
-    kingColor: {r: 1, g: 0.97744054, b: 0.48113203, a: 1}
-  - name: 
-    baseColor: {r: 0.24528301, g: 0.24528301, b: 0.24528301, a: 1}
-    kingColor: {r: 1, g: 0.5315467, b: 0, a: 1}
+  pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   spawnDisplay: {fileID: 1704381419}
   displayPrefix: 
   waveNumber: 4

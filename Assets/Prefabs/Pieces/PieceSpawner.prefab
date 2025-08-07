@@ -62,14 +62,6 @@ MonoBehaviour:
     Bishop: {fileID: 21300000, guid: 3acd8e31623a4c34dbe2d9a7a007047c, type: 3}
     Knight: {fileID: 21300000, guid: 25a0f3881c5c64843a501c02a5bc0575, type: 3}
     Pawn: {fileID: 21300000, guid: d35cf06e017178844ac3690a062e9dec, type: 3}
-  - name: Hidden
-    transformScale: 0
-    King: {fileID: 0}
-    Queen: {fileID: 0}
-    Rook: {fileID: 0}
-    Bishop: {fileID: 0}
-    Knight: {fileID: 0}
-    Pawn: {fileID: 0}
   colorSets:
   - baseColor: {r: 0.8039216, g: 0, b: 0, a: 1}
     kingColor: {r: 1, g: 0.5315467, b: 0, a: 1}

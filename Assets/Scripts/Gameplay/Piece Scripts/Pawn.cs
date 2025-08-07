@@ -80,8 +80,9 @@ public class Pawn : Piece
         // Remove pawn from AI manager if present
         AiManager.Instance.aiPieces.Remove(this);
 
+        var pieceSpawner = FindAnyObjectByType<PieceSpawner>();
         // Spawn the queen using the Spawner
-        PieceSpawner.Instance.SpawnPiece(
+        pieceSpawner.SpawnPiece(
             queenPrefab,
             position,
             playerIndex,

@@ -4,15 +4,7 @@ using UnityEngine;
 
 public class PieceSpawner : MonoBehaviour
 {
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
+    public PieceSets pieceSets;
 
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+
 }

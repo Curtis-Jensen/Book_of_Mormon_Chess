@@ -5,7 +5,7 @@ using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
 [RequireComponent(typeof(AiManager))]
-[RequireComponent(typeof(Board))]
+[RequireComponent(typeof(TileHoler))]
 public class HoardSetup : MonoBehaviour
 {
     public Player[] players;
@@ -24,7 +24,7 @@ public class HoardSetup : MonoBehaviour
     SpriteSet spriteSet;
     List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
-    Board board;
+    TileHoler board;
     AiManager aiManager;
 
     void Awake()
@@ -41,7 +41,7 @@ public class HoardSetup : MonoBehaviour
 
     void InitializeVariables()
     {
-        board = GetComponent<Board>();
+        board = GetComponent<TileHoler>();
         boardSize = PlayerPrefs.GetInt("boardSize");
         board.boardSize = boardSize;
         //If the int comes in as 1 that means true
@@ -237,7 +237,7 @@ public class HoardSetup : MonoBehaviour
     {
         board.tiles = new Tile[boardSize, boardSize];
 
-        Board.Instance = board;
+        TileHoler.Instance = board;
 
         board.audioSource = GetComponent<AudioSource>();
     }

@@ -29,7 +29,7 @@ public class King : Piece
                 new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
 
             bool emptyOrEnemy =
-                Board.Instance.IsTileEmpty(newMove) || Board.Instance.IsEnemyPiece(newMove, teamOne);
+                TileHoler.Instance.IsTileEmpty(newMove) || TileHoler.Instance.IsEnemyPiece(newMove, teamOne);
 
             if (emptyOrEnemy)
             {

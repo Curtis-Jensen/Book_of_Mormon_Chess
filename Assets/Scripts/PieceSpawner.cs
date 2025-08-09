@@ -16,6 +16,24 @@ public class PieceSpawner : MonoBehaviour
         aiManager = GetComponent<AiManager>();
     }
 
+    /// <summary>
+    /// 🧑🏻Designate the player for later
+    /// 
+    /// 🎨 Color the piece.  If it's a king, use the special king color
+    /// 
+    /// 🏗️ Instantiate the piece prefab at the specified tile 
+    /// 
+    /// 🔍 Retrieve the Piece component for configuration
+    /// 
+    /// 📛 Assign a descriptive name to the piece GameObject 
+    /// 
+    /// ⚖️ Set piece properties for team and player ownership  
+    /// 
+    /// 🤖 Register the piece with AI manager if player is AI 
+    /// </summary>
+    /// <param name="piecePrefab">The prefab of the chess piece to spawn</param>
+    /// <param name="x">The board position (x-coordinate) to spawn the piece </param>
+    /// <param name="playerIndex">Index of the player owning the piece</param>
     public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex)
     {
         var player = players[playerIndex]; //🧑🏻

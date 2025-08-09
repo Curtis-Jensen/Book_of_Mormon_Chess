@@ -202,7 +202,7 @@ MonoBehaviour:
   - name: player2
     isAi: 1
     teamOne: 0
-  cameraPadding: 1
+  cameraPadding: 0.5
   backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
   background: {fileID: 381365333}
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}

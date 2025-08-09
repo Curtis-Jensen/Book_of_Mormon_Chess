@@ -10,7 +10,7 @@ public class PieceSpawner : MonoBehaviour
     TileHoler tileHolder;
     AiManager aiManager;
 
-    void Start()
+    void Awake()
     {
         tileHolder = GetComponent<TileHoler>();
         aiManager = GetComponent<AiManager>();
@@ -42,7 +42,8 @@ public class PieceSpawner : MonoBehaviour
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-        var spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(player.name + "style")]; //🎨
+        var styleChoice = PlayerPrefs.GetInt(player.name + "style"); //🎨
+        var spriteSet = pieceSets.spriteSets[styleChoice]; //🎨
 
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;

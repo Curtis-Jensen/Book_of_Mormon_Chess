@@ -3234,7 +3234,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a931999e465095c469750af33ca49f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toSave: player1skin
+  toSave: player1style
   defaultValue: 0
 --- !u!1 &801564668
 GameObject:
@@ -5728,7 +5728,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1172850867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6470,7 +6470,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a931999e465095c469750af33ca49f4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  toSave: player2skin
+  toSave: player2style
   defaultValue: 1
 --- !u!114 &1369261903
 MonoBehaviour:

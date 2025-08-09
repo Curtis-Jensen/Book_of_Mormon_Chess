@@ -24,20 +24,21 @@ public class ResizableSetup : BoardSetup
 
     SpriteSet spriteSet;
     List<GameObject> rows = new();
-    List<GameObject> tiles = new();
+    GameObject[,] tiles;
     TileHoler board;
     AiManager aiManager;
+    PieceSpawner pieceSpawner;
 
-    void Awake()
+    void Start()
     {
         InitializeVariables();
         CenterCamera();
         SpawnRows();
         SpawnTiles();
-        var pieceChoices = RandomizePieces();
-        ArrangePieces(pieceChoices);
         InitializeBoardReferences();
         InitializeBoard();
+        var pieceChoices = RandomizePieces();
+        ArrangePieces(pieceChoices);
     }
 
     void InitializeVariables()
@@ -45,6 +46,7 @@ public class ResizableSetup : BoardSetup
         boardSize = PlayerPrefs.GetInt("boardSize");
         board = GetComponent<TileHoler>();
         board.boardSize = boardSize;
+        pieceSpawner = GetComponent<PieceSpawner>();
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
@@ -67,6 +69,8 @@ public class ResizableSetup : BoardSetup
 
     void SpawnTiles()
     {
+        tiles = new GameObject[boardSize, boardSize];
+
         for (int y = 0; y < boardSize; y++)
         {
             for (int x = 0; x < boardSize; x++)
@@ -80,7 +84,7 @@ public class ResizableSetup : BoardSetup
                     Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, rows[y].transform);
 
                 newTile.name = "Tile " + (x + 1);
-                tiles.Add(newTile);
+                tiles[x,y] = newTile;
             }
         }
     }
@@ -125,106 +129,43 @@ public class ResizableSetup : BoardSetup
 
     void ArrangePieces(int[] pieceChoices)
     {
-        var topRightTile = tiles.Count - 1;
-
-        ArrangeBackRows(topRightTile, pieceChoices);
+        ArrangeBackRows(pieceChoices);
         if (boardSize > 3)
         {
-            ArrangePawns(topRightTile);
+            ArrangePawns();
         }
     }
 
-    void ArrangeBackRows(int topRightTile, int[] pieceChoices)
+    void ArrangeBackRows(int[] pieceChoices)
     {
         var playerIndex = 1;
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
-        for (int x = topRightTile; x > topRightTile - boardSize; x--)
-        {
-            int i = topRightTile - x;
-            SpawnPiece(backPiecePrefabs[pieceChoices[i]], x, playerIndex);
-        }
-
-        playerIndex = 0;
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
         for (int x = 0; x < boardSize; x++)
         {
-            SpawnPiece(backPiecePrefabs[pieceChoices[x]], x, playerIndex);
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, boardSize - 1), playerIndex);
+        }
+
+        playerIndex = 0;
+        for (int x = 0; x < boardSize; x++)
+        {
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, 0), playerIndex);
         }
     }
 
-    void ArrangePawns(int topRightTile)
+    void ArrangePawns()
     {
         var playerIndex = 1;
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
-        for (int x = topRightTile - boardSize; x > topRightTile - boardSize - boardSize; x--)
+        for (int x = 0; x < boardSize; x++)
         {
-            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
+            Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, boardSize - 2), playerIndex);
             pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
 
         playerIndex = 0;
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
-        for (int x = boardSize; x < boardSize + boardSize; x++)
+        for (int x = 0; x < boardSize; x++)
         {
-            Pawn pawnInstance = (Pawn)SpawnPiece(pawn, x, playerIndex);
+            Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, 1), playerIndex);
             pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
-    }
-
-    /// <summary>
-    /// Changing things here?  Check Pawn.QueenPromotion() too.
-    /// 
-    /// 🧑🏻Designate the player for later
-    /// 
-    /// 🎨 Color the piece.  If it's a king, use the special king color
-    /// 
-    /// 🏗️ Instantiate the piece prefab at the specified tile 
-    /// 
-    /// 🔍 Retrieve the Piece component for configuration
-    /// 
-    /// 📛 Assign a descriptive name to the piece GameObject 
-    /// 
-    /// ⚖️ Set piece properties for team and player ownership  
-    /// 
-    /// 🤖 Register the piece with AI manager if player is AI 
-    /// </summary>
-    /// <param name="piecePrefab">The prefab of the chess piece to spawn</param>
-    /// <param name="x">The board position (x-coordinate) to spawn the piece </param>
-    /// <param name="playerIndex">Index of the player owning the piece</param>
-    Piece SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
-    {
-        var player = players[playerIndex]; //🧑🏻
-        var pieceInstance =
-        Instantiate(piecePrefab, tiles[x].transform); //🏗️
-        var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
-        var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
-
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
-        pieceInstance.transform.localScale
-            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
-
-        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-        if (pieceScript is King)
-        {
-            spriteRenderer.color = pieceSets.colorSets[colorSelection].kingColor;
-        }
-        else
-        {
-            spriteRenderer.color = pieceSets.colorSets[colorSelection].baseColor;
-        }
-
-        pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛
-
-        pieceScript.teamOne = player.teamOne;//⚖️
-        pieceScript.playerIndex = playerIndex;
-
-        if (player.isAi)//🤖
-        {
-            aiManager.aiPieces.Add(pieceScript);
-        }
-
-        return pieceScript;
     }
 
     void CenterCamera()

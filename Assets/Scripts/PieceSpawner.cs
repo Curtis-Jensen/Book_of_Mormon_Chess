@@ -8,13 +8,15 @@ public class PieceSpawner : MonoBehaviour
     public Player[] players;
 
     TileHoler tileHolder;
+    AiManager aiManager;
 
     void Start()
     {
         tileHolder = GetComponent<TileHoler>();
+        aiManager = GetComponent<AiManager>();
     }
 
-    Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex)
+    public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex)
     {
         var player = players[playerIndex]; //🧑🏻
         var pieceInstance =
@@ -22,7 +24,7 @@ public class PieceSpawner : MonoBehaviour
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-
+        var spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(player.name + "style")]; //🎨
 
         spriteRenderer.sprite =
             spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
@@ -39,7 +41,7 @@ public class PieceSpawner : MonoBehaviour
             spriteRenderer.color = pieceSets.colorSets[colorSelection].baseColor;
         }
 
-        pieceInstance.name = $"{pieceInstance.name} {player.name} {x + 1}";//📛
+        pieceInstance.name = $"{pieceInstance.name} {player.name} {position.x + 1}";//📛
 
         pieceScript.teamOne = player.teamOne;//⚖️
         pieceScript.playerIndex = playerIndex;

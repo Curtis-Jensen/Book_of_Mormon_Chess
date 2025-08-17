@@ -68,7 +68,6 @@ UserSettings/EditorUserSettings.asset
 /ProjectSettings/ProjectVersion.txt
 *.index
 /ProjectSettings/Physics2DSettings.asset
-*.asset
 /UserSettings/Layouts/CurrentMaximizeLayout.dwlt
 /UserSettings/Layouts/default-2022.dwlt
 /ProjectSettings/EditorBuildSettings.asset

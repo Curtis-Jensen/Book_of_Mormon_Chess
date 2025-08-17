@@ -78,27 +78,14 @@ public class Pawn : Piece
         return validMoves;
     }
 
-    //Changing things here?  Check BoardSetup.SpawnPiece() too.
     public void QueenPromotion()
     {
-        GameObject queen = Instantiate(queenPrefab, transform.parent);
-        var queenScript = queen.GetComponent<Queen>();
+        var pieceSpawner = FindObjectOfType<PieceSpawner>();
+        var queen = pieceSpawner.SpawnPiece(queenPrefab, transform.position, playerIndex);   
 
-        queen.GetComponent<SpriteRenderer>().color = gameObject.GetComponent<SpriteRenderer>().color;
-        queen.GetComponent<SpriteRenderer>().sprite = queenSprite;
-        queen.transform.localScale = gameObject.transform.localScale;
+        var AI = FindObjectOfType<AiManager>();
+        AI.aiPieces.Remove(this);
 
-        queen.name = "New Queen";
-
-        queenScript.teamOne = teamOne;
-        queenScript.playerIndex = playerIndex;
-
-        //Ai code has started here.  Might need more information to be passed to the pawn
-
-        //if (player.isAi)
-        //{
-        //    FindObjectOfType<AiManager>().aiPieces.Add(queenScript);
-        //}
-        transform.parent.GetComponent<Tile>().piece = queenScript;
+        transform.parent.GetComponent<Tile>().piece = queen.GetComponent<Piece>();
     }
 }

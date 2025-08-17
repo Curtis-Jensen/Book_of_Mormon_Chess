@@ -339,7 +339,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
-  players: []
+  players:
+  - name: player1
+    isAi: 0
+    teamOne: 1
+  - name: player2
+    isAi: 1
+    teamOne: 0
 --- !u!1 &381365333
 GameObject:
   m_ObjectHideFlags: 0

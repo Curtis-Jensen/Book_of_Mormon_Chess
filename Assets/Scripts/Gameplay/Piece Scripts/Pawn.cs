@@ -80,6 +80,8 @@ public class Pawn : Piece
 
     public void QueenPromotion()
     {
+        Debug.LogWarning("The position of the tile where queening happened: " + transform.parent.position);
+
         var pieceSpawner = FindObjectOfType<PieceSpawner>();
         var queen = pieceSpawner.SpawnPiece(queenPrefab, transform.position, playerIndex);   
 

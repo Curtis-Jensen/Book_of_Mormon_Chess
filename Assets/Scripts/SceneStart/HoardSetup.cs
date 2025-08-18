@@ -6,27 +6,10 @@ using UnityEngine.UIElements;
 
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TileHoler))]
-public class HoardSetup : MonoBehaviour
+public class HoardSetup : ResizableSetup
 {
-    public Player[] players;
-    public float cameraPadding;
-    public Vector3 backGroundOffset;
-    public GameObject background;
-    public GameObject rowPrefab;
-    public GameObject lightTilePrefab;
-    public GameObject  darkTilePrefab;
-    public GameObject pawn;
-    public GameObject[] backPiecePrefabs;
-    public PieceSets pieceSets;
-
-    [HideInInspector] public int boardSize = 10;
-
-    SpriteSet spriteSet;
-    List<GameObject> rows =   new();
     List<GameObject> tiles =  new();
-    TileHoler board;
-    AiManager aiManager;
-
+    
     void Awake()
     {
         InitializeVariables();

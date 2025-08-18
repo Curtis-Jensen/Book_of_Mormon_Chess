@@ -22,12 +22,12 @@ public class ResizableSetup : BoardSetup
 
     [HideInInspector] public int boardSize = 8;
 
-    SpriteSet spriteSet;
-    List<GameObject> rows = new();
-    GameObject[,] tiles;
-    TileHoler board;
-    AiManager aiManager;
-    PieceSpawner pieceSpawner;
+    protected SpriteSet spriteSet;
+    protected List<GameObject> rows = new();
+    protected GameObject[,] tiles;
+    protected TileHoler board;
+    protected AiManager aiManager;
+    protected PieceSpawner pieceSpawner;
 
     void Start()
     {

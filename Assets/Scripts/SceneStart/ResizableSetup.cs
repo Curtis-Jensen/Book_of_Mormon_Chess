@@ -127,7 +127,7 @@ public class ResizableSetup : BoardSetup
         return pieceChoices;
     }
 
-    void ArrangePieces(int[] pieceChoices)
+    virtual protected void ArrangePieces(int[] pieceChoices)
     {
         ArrangeBackRows(pieceChoices);
         if (boardSize > 3)
@@ -136,7 +136,7 @@ public class ResizableSetup : BoardSetup
         }
     }
 
-    void ArrangeBackRows(int[] pieceChoices)
+    virtual protected void ArrangeBackRows(int[] pieceChoices)
     {
         var playerIndex = 1;
         for (int x = 0; x < boardSize; x++)
@@ -151,7 +151,7 @@ public class ResizableSetup : BoardSetup
         }
     }
 
-    void ArrangePawns()
+    virtual protected void ArrangePawns()
     {
         var playerIndex = 1;
         for (int x = 0; x < boardSize; x++)
@@ -193,7 +193,7 @@ public class ResizableSetup : BoardSetup
             background.transform.localScale.z);
     }
 
-    public void InitializeBoardReferences()
+    void InitializeBoardReferences()
     {
         board.tiles = new Tile[boardSize, boardSize];
 

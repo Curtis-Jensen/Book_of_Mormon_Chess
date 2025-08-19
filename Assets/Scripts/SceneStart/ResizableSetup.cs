@@ -129,41 +129,29 @@ public class ResizableSetup : BoardSetup
 
     virtual protected void OrderPieces(int[] pieceChoices)
     {
-        OrderBackRows(pieceChoices);
+        OrderBackRows(pieceChoices, 0, 0);
+        OrderBackRows(pieceChoices, 1, boardSize - 1);
+
         if (boardSize > 3)
         {
-            OrderPawns();
+            OrderPawns(0, 1);
+            OrderPawns(1, boardSize - 2);
         }
     }
 
-    virtual protected void OrderBackRows(int[] pieceChoices)
+    virtual protected void OrderBackRows(int[] pieceChoices, int playerIndex, int pieceRow)
     {
-        var playerIndex = 1;
         for (int x = 0; x < boardSize; x++)
         {
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, boardSize - 1), playerIndex);
-        }
-
-        playerIndex = 0;
-        for (int x = 0; x < boardSize; x++)
-        {
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, 0), playerIndex);
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, pieceRow), playerIndex);
         }
     }
 
-    virtual protected void OrderPawns()
+    virtual protected void OrderPawns(int playerIndex, int pawnRow)
     {
-        var playerIndex = 1;
         for (int x = 0; x < boardSize; x++)
         {
-            Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, boardSize - 2), playerIndex);
-            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
-        }
-
-        playerIndex = 0;
-        for (int x = 0; x < boardSize; x++)
-        {
-            Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, 1), playerIndex);
+            Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
             pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
     }

@@ -8,7 +8,7 @@ public class HoardSetup : ResizableSetup
 {
     List<GameObject> tiles =  new();
     
-    void OrderPieces(int[] pieceChoices)
+    override void OrderPieces(int[] pieceChoices)
     {
         var topRightTile = tiles.Count - 1;
 

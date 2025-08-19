@@ -8,16 +8,16 @@ public class HoardSetup : ResizableSetup
 {
     List<GameObject> tiles =  new();
     
-    void ArrangePieces(int[] pieceChoices)
+    void OrderPieces(int[] pieceChoices)
     {
         var topRightTile = tiles.Count - 1;
 
-        ArrangeBackRows (topRightTile, pieceChoices);
+        OrderBackRows (topRightTile, pieceChoices);
 
-        ArrangePawns(topRightTile);
+        OrderPawns(topRightTile);
     }
 
-    void ArrangeBackRows(int topRightTile, int[] pieceChoices)
+    void OrderBackRows(int topRightTile, int[] pieceChoices)
     {
         var playerIndex = 0;
         spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
@@ -27,7 +27,7 @@ public class HoardSetup : ResizableSetup
         }
     }
     
-    void ArrangePawns(int topRightTile)
+    void OrderPawns(int topRightTile)
     {
         var playerIndex = 0;
         spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt(players[playerIndex].name + "skin")];
@@ -58,7 +58,7 @@ public class HoardSetup : ResizableSetup
     /// <param name="piecePrefab">The prefab of the chess piece to spawn</param>
     /// <param name="x">The board position (x-coordinate) to spawn the piece </param>
     /// <param name="playerIndex">Index of the player owning the piece</param>
-    virtual Piece SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
+    Piece SpawnPiece(GameObject piecePrefab, int x, int playerIndex)
     {
         var player = players[playerIndex]; //🧑🏻
         var pieceInstance =

@@ -38,7 +38,7 @@ public class ResizableSetup : BoardSetup
         InitializeBoardReferences();
         InitializeBoard();
         var pieceChoices = RandomizePieces();
-        ArrangePieces(pieceChoices);
+        OrderPieces(pieceChoices);
     }
 
     void InitializeVariables()
@@ -127,16 +127,16 @@ public class ResizableSetup : BoardSetup
         return pieceChoices;
     }
 
-    virtual protected void ArrangePieces(int[] pieceChoices)
+    virtual protected void OrderPieces(int[] pieceChoices)
     {
-        ArrangeBackRows(pieceChoices);
+        OrderBackRows(pieceChoices);
         if (boardSize > 3)
         {
-            ArrangePawns();
+            OrderPawns();
         }
     }
 
-    virtual protected void ArrangeBackRows(int[] pieceChoices)
+    virtual protected void OrderBackRows(int[] pieceChoices)
     {
         var playerIndex = 1;
         for (int x = 0; x < boardSize; x++)
@@ -151,7 +151,7 @@ public class ResizableSetup : BoardSetup
         }
     }
 
-    virtual protected void ArrangePawns()
+    virtual protected void OrderPawns()
     {
         var playerIndex = 1;
         for (int x = 0; x < boardSize; x++)

@@ -4,10 +4,17 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
+[System.Serializable]
+public class Player
+{
+    public string name;
+    public bool isAi;
+    public bool teamOne;
+}
 
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TileHoler))]
-public class ResizableSetup : BoardSetup
+public class ResizableSetup : MonoBehaviour
 {
     public Player[] players;
     public float cameraPadding;

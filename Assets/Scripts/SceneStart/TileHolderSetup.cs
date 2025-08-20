@@ -155,8 +155,7 @@ public class TileHolderSetup : MonoBehaviour
     {
         for (int x = 0; x < boardSize; x++)
         {
-            Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
-            //pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
+            pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
         }
     }
 

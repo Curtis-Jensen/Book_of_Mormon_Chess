@@ -30,7 +30,7 @@ public class TileHolderSetup : MonoBehaviour
 
     protected List<GameObject> rows = new();
     protected GameObject[,] tiles;
-    protected TileHoler board;
+    protected TileHoler tileHolder;
     protected AiManager aiManager;
     protected PieceSpawner pieceSpawner;
 
@@ -40,8 +40,8 @@ public class TileHolderSetup : MonoBehaviour
         CenterCamera();
         SpawnRows();
         SpawnTiles();
-        InitializeBoardReferences();
-        InitializeBoard();
+        InitializetileHolderReferences();
+        InitializetileHolder();
         var pieceChoices = RandomizePieces();
         OrderPieces(pieceChoices);
     }
@@ -49,15 +49,15 @@ public class TileHolderSetup : MonoBehaviour
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-        board = GetComponent<TileHoler>();
-        board.boardSize = boardSize;
+        tileHolder = GetComponent<TileHoler>();
+        tileHolder.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
-        board.aiManager = aiManager;
-        board.players = players;
+        tileHolder.aiManager = aiManager;
+        tileHolder.players = players;
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
-        board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
+        tileHolder.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }
 
     void SpawnRows()
@@ -169,8 +169,8 @@ public class TileHolderSetup : MonoBehaviour
 
         float centerLength = boardSize / 2;
 
-        bool evenBoard = boardSize % 2 == 0;
-        if (evenBoard)
+        bool eventileHolder = boardSize % 2 == 0;
+        if (eventileHolder)
         {
             centerLength -= 0.5f;
         }
@@ -184,16 +184,16 @@ public class TileHolderSetup : MonoBehaviour
             background.transform.localScale.z);
     }
 
-    void InitializeBoardReferences()
+    void InitializetileHolderReferences()
     {
-        board.tiles = new Tile[boardSize, boardSize];
+        tileHolder.tiles = new Tile[boardSize, boardSize];
 
-        TileHoler.Instance = board;
+        TileHoler.Instance = tileHolder;
 
-        board.audioSource = GetComponent<AudioSource>();
+        tileHolder.audioSource = GetComponent<AudioSource>();
     }
 
-    void InitializeBoard()
+    void InitializetileHolder()
     {
         // Iterate through each child in the hierarchy
         for (int y = 0; y < boardSize; y++)
@@ -207,7 +207,7 @@ public class TileHolderSetup : MonoBehaviour
                     Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
                 }
 
-                board.tiles[x, y] = tile;
+                tileHolder.tiles[x, y] = tile;
 
                 // If there is a pawn on this tile, initialize it
                 if (tile.transform.childCount > 0)

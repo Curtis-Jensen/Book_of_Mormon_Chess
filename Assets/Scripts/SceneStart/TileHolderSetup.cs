@@ -25,11 +25,9 @@ public class TileHolderSetup : MonoBehaviour
     public GameObject darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
-    public PieceSets pieceSets;
 
     [HideInInspector] public int boardSize = 8;
 
-    protected SpriteSet spriteSet;
     protected List<GameObject> rows = new();
     protected GameObject[,] tiles;
     protected TileHoler board;
@@ -58,7 +56,6 @@ public class TileHolderSetup : MonoBehaviour
         aiManager = GetComponent<AiManager>();
         board.aiManager = aiManager;
         board.players = players;
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt("style")];
         //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
         board.players[1].isAi = PlayerPrefs.GetInt("isAi") == 1 ? true : false;
     }
@@ -159,7 +156,7 @@ public class TileHolderSetup : MonoBehaviour
         for (int x = 0; x < boardSize; x++)
         {
             Pawn pawnInstance = (Pawn)pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
-            pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
+            //pawnInstance.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
         }
     }
 

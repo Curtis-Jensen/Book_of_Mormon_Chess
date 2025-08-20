@@ -14,7 +14,7 @@ public class Player
 
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TileHoler))]
-public class ResizableSetup : MonoBehaviour
+public class TileHolderSetup : MonoBehaviour
 {
     public Player[] players;
     public float cameraPadding;

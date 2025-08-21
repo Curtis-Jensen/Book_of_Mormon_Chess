@@ -15,13 +15,6 @@ public class Tile : MonoBehaviour
 
     void Start()
     {
-        InitializePiece();
-    }
-
-    void InitializePiece()
-    {
-        piece = gameObject.GetComponentInChildren<Piece>();
-        
         highlight = gameObject.GetComponentsInChildren<SpriteRenderer>()[1];
     }
 

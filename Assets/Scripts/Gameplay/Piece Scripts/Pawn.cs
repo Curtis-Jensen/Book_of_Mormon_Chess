@@ -85,8 +85,6 @@ public class Pawn : Piece
 
         var AI = FindObjectOfType<AiManager>();
         AI.aiPieces.Remove(this);
-
-        transform.parent.GetComponent<Tile>().piece = queen.GetComponent<Piece>();
         
         Debug.LogWarning($"{queen.name} spawned at: {transform.parent.position}");
     }

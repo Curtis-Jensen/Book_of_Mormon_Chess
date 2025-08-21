@@ -9,14 +9,14 @@ public class HoardBoard : TileHoler
     public PieceSets pieceSets;
     public TMP_Text spawnDisplay;
     public string displayPrefix;
-
-    SpriteSet spriteSet;
     public int waveNumber;
+
+    PieceSpawner pieceSpawner;
+    List<Vector2> spawnPoints = new();
 
     void Start()
     {
-        spriteSet = pieceSets.spriteSets[PlayerPrefs.GetInt("style")];
-
+        pieceSpawner = FindAnyObjectByType<PieceSpawner>();
         NewWave();
     }
 
@@ -26,7 +26,7 @@ public class HoardBoard : TileHoler
         for (int i = 0; i < waveNumber; i++)
         {
             var spawnPoint = ChooseSpawn();
-            SpawnPiece(spawnPoint);
+            pieceSpawner.SpawnPiece(pawn, spawnPoint, 1);
             DisplaySpawnCount();
         }
     }
@@ -35,7 +35,7 @@ public class HoardBoard : TileHoler
     /// Chooses a random empty tile for AI pawn spawning, starting at top rank.
     /// 🆙 Start at top rank (y=boardSize-1), move down
     /// 📋 Create list for empty x-coordinates in current y
-    /// 🔲 Check each x for empty tiles
+    /// 🔲 For each x
     /// ✅ Add x to list if tile is empty
     /// 🎲 Pick random x from empty list if available
     /// 📍 Return position (x, y) of chosen tile
@@ -63,52 +63,6 @@ public class HoardBoard : TileHoler
         }
         Debug.LogError("No empty tiles available for pawn spawn"); // ⚠️
         return new Vector2(0, boardSize - 1); // 🔙
-    }
-
-    /// <summary>
-    /// Changing things here?  Check Pawn.QueenPromotion() too.
-    /// 
-    /// 🧑🏻 Designate the player for later
-    /// 
-    /// 🎨 Color the piece.  If it's a king, use the special king color
-    /// 
-    /// 🏗️ Instantiate the piece prefab at the specified tile 
-    /// 
-    /// 🔍 Retrieve the Piece component for configuration
-    /// 
-    /// 📛 Assign a descriptive name to the piece GameObject 
-    /// 
-    /// ⚖️ Set piece properties for team and player ownership  
-    /// 
-    /// 🤖 Register the piece with AI manager if player is AI 
-    /// </summary>
-    private void SpawnPiece(Vector2 spawnPoint)
-    {
-        var aiIndex = 1;
-        var player = players[aiIndex]; //🧑🏻
-        var pieceInstance =
-        Instantiate(pawn, tiles[(int)spawnPoint.x, (int)spawnPoint.y].transform); //🏗️
-        var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
-        var pieceScript = pieceInstance.GetComponent<Pawn>(); //🔍
-        pieceScript.queenSprite = spriteSet.GetType().GetField("Queen").GetValue(spriteSet) as Sprite;
-        tiles[(int)spawnPoint.x, (int)spawnPoint.y].GetComponent<Tile>().piece = pieceScript;
-
-
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(pawn.name).GetValue(spriteSet) as Sprite;
-        pieceInstance.transform.localScale
-            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
-
-        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-
-        spriteRenderer.color = pieceSets.colorSets[colorSelection].baseColor;
-
-        pieceInstance.name = $"{pieceInstance.name} {player.name}";//📛
-
-        pieceScript.teamOne = player.teamOne;//⚖️
-        pieceScript.playerIndex = aiIndex;
-
-        aiManager.aiPieces.Add(pieceScript);
     }
 
     private void DisplaySpawnCount()

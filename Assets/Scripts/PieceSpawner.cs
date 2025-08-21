@@ -70,6 +70,8 @@ public class PieceSpawner : MonoBehaviour
             aiManager.aiPieces.Add(pieceScript);
         }
 
+        tileHolder.tiles[(int)position.x, (int)position.y].piece = pieceScript;
+
         return pieceScript;
     }
 }

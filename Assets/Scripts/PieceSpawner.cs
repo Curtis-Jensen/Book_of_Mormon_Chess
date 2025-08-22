@@ -42,7 +42,7 @@ public class PieceSpawner : MonoBehaviour
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-
+        SetSprite(pieceInstance, piecePrefab, player, spriteRenderer); //🎨
 
         spriteRenderer.color = SetColor(player, pieceScript); //🎨
 
@@ -74,7 +74,7 @@ public class PieceSpawner : MonoBehaviour
         }
     }
 
-    Sprite SetSprite(GameObject pieceInstance, GameObject piecePrefab, Player player)
+    void SetSprite(GameObject pieceInstance, GameObject piecePrefab, Player player, SpriteRenderer spriteRenderer)
     {
         var styleChoice = PlayerPrefs.GetInt(player.name + "style"); //🎨
         var spriteSet = pieceSets.spriteSets[styleChoice]; //🎨

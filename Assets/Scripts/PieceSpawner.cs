@@ -42,23 +42,9 @@ public class PieceSpawner : MonoBehaviour
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
-        var styleChoice = PlayerPrefs.GetInt(player.name + "style"); //🎨
-        var spriteSet = pieceSets.spriteSets[styleChoice]; //🎨
 
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
-        pieceInstance.transform.localScale
-            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
 
-        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-        if (pieceScript is King)
-        {
-            spriteRenderer.color = pieceSets.colorSets[colorSelection].kingColor;
-        }
-        else
-        {
-            spriteRenderer.color = pieceSets.colorSets[colorSelection].baseColor;
-        }
+        spriteRenderer.color = SetColor(player, pieceScript); //🎨
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {position.x + 1}";//📛
 
@@ -74,4 +60,29 @@ public class PieceSpawner : MonoBehaviour
 
         return pieceScript;
     }
+
+    Color SetColor(Player player, Piece pieceScript)
+    {
+        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
+        if (pieceScript is King)
+        {
+            return pieceSets.colorSets[colorSelection].kingColor;
+        }
+        else
+        {
+            return pieceSets.colorSets[colorSelection].baseColor;
+        }
+    }
+
+    Sprite SetSprite(GameObject pieceInstance, GameObject piecePrefab, Player player)
+    {
+        var styleChoice = PlayerPrefs.GetInt(player.name + "style"); //🎨
+        var spriteSet = pieceSets.spriteSets[styleChoice]; //🎨
+
+        spriteRenderer.sprite =
+            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
+
+        pieceInstance.transform.localScale
+            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
+    }   
 }

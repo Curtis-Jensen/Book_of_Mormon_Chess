@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TileHoler : MonoBehaviour
+public class TileHolder : MonoBehaviour
 {
-    public static TileHoler Instance { get; set; } // Static instance
+    public static TileHolder Instance { get; set; } // Static instance
     public Tile[,] tiles;
     public float moveTime = 0.5f;
     [Tooltip("Particle system to play when the piece is destroyed.")]

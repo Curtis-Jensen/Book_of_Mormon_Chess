@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HoardBoard : TileHoler
+public class HoardBoard : TileHolder
 {
     public GameObject pawn;
     public PieceSets pieceSets;

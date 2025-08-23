@@ -13,7 +13,7 @@ public class Player
 }
 
 [RequireComponent(typeof(AiManager))]
-[RequireComponent(typeof(TileHoler))]
+[RequireComponent(typeof(TileHolder))]
 public class TileHolderSetup : MonoBehaviour
 {
     public Player[] players;
@@ -27,7 +27,7 @@ public class TileHolderSetup : MonoBehaviour
 
     protected List<GameObject> rows = new();
     protected GameObject[,] tiles;
-    protected TileHoler tileHolder;
+    protected TileHolder tileHolder;
     protected AiManager aiManager;
     protected PieceSpawner pieceSpawner;
 
@@ -45,7 +45,7 @@ public class TileHolderSetup : MonoBehaviour
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-        tileHolder = GetComponent<TileHoler>();
+        tileHolder = GetComponent<TileHolder>();
         tileHolder.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
         //If the int comes in as 1 that means true
@@ -161,7 +161,7 @@ public class TileHolderSetup : MonoBehaviour
     {
         tileHolder.tiles = new Tile[boardSize, boardSize];
 
-        TileHoler.Instance = tileHolder;
+        TileHolder.Instance = tileHolder;
 
         tileHolder.audioSource = GetComponent<AudioSource>();
     }

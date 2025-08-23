@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        TileHoler.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
+        TileHolder.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
     }
 }
 

@@ -22,18 +22,18 @@ public class Queen : Piece
 
         foreach (var moveDirection in moveDirections)
         {
-            for (int distance = 1; distance < TileHoler.Instance.boardSize; distance++)
+            for (int distance = 1; distance < TileHolder.Instance.boardSize; distance++)
             {
                 var moveDistance = moveDirection * distance;
                 Vector2Int newMove =
                     new((int)transform.position.x + moveDistance.x, (int)transform.position.y + moveDistance.y);
 
-                if (TileHoler.Instance.IsTileEmpty(newMove))
+                if (TileHolder.Instance.IsTileEmpty(newMove))
                 {
                     validMoves.Add(newMove);
                     continue;
                 }
-                else if (TileHoler.Instance.IsEnemyPiece(newMove, teamOne))
+                else if (TileHolder.Instance.IsEnemyPiece(newMove, teamOne))
                 {
                     validMoves.Add(newMove);
                 }

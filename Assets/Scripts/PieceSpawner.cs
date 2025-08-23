@@ -7,12 +7,12 @@ public class PieceSpawner : MonoBehaviour
     public PieceSets pieceSets;
     public Player[] players;
 
-    TileHoler tileHolder;
+    TileHolder tileHolder;
     AiManager aiManager;
 
     void Awake()
     {
-        tileHolder = GetComponent<TileHoler>();
+        tileHolder = GetComponent<TileHolder>();
         aiManager = GetComponent<AiManager>();
     }
 

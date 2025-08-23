@@ -1007,7 +1007,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AI Lamanites
+  m_Text: AI Nephites
 --- !u!222 &201435306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -4939,6 +4939,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolVariableName: 2isAI
   toggle: {fileID: 994786174}
+  defaultValue: 1
 --- !u!1 &1009876755
 GameObject:
   m_ObjectHideFlags: 0
@@ -5884,7 +5885,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1172850867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -9470,7 +9471,7 @@ GameObject:
   - component: {fileID: 1962866847}
   - component: {fileID: 1962866846}
   m_Layer: 5
-  m_Name: 2isAI (1)
+  m_Name: 1isAI
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -9509,8 +9510,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b45b9a61021c2a45aca330ec7187001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolVariableName: 2isAI
+  boolVariableName: 1isAI
   toggle: {fileID: 1962866847}
+  defaultValue: 0
 --- !u!114 &1962866847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9570,7 +9572,7 @@ MonoBehaviour:
           m_StringArgument: Ai
           m_BoolArgument: 0
         m_CallState: 1
-  m_IsOn: 1
+  m_IsOn: 0
 --- !u!1 &2012639637
 GameObject:
   m_ObjectHideFlags: 0
@@ -10393,7 +10395,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 256822691}
   modeDropdown: {fileID: 892288558}
-  ai: {fileID: 994786174}
   sceneName: Nephites_Last_Stand
 --- !u!4 &2089302261
 Transform:

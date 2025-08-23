@@ -7,13 +7,11 @@ public class SceneLoader : MonoBehaviour
 {
     public TextMeshProUGUI sizeInput;
     public TMP_Dropdown modeDropdown;
-    public Toggle ai;
     public string sceneName;
 
     public void SetupNewScene()
     {
         PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
-        PlayerPrefs.SetInt("2isAI", ai.isOn ? 1 : 0);
 
         sceneName = modeDropdown.options[modeDropdown.value].text;
 

@@ -52,8 +52,10 @@ public class TileHolderSetup : MonoBehaviour
         aiManager = GetComponent<AiManager>();
         tileHolder.aiManager = aiManager;
         tileHolder.players = players;
-        //Hardcoded to make the red / dark player AI, even though parts of the code support 2 AI
-        tileHolder.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1 ? true : false;
+        tileHolder.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
+        Debug.Log(tileHolder.players[0].isAi);
+        tileHolder.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
+        Debug.Log(tileHolder.players[1].isAi);
     }
 
     void SpawnRows()

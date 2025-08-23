@@ -14,6 +14,9 @@ public class PieceSpawner : MonoBehaviour
     {
         tileHolder = GetComponent<TileHolder>();
         aiManager = GetComponent<AiManager>();
+
+        players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
+        players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
     }
 
     /// <summary>

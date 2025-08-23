@@ -170,9 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.1
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  ghost: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
+  moveTime: 0.5
   players:
   - name: 
     isAi: 0

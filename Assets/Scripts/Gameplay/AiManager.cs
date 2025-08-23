@@ -71,7 +71,7 @@ public class AiManager : MonoBehaviour
         for (int i = 0; i < maxCycles; i++)
         {
             //Picks a random piece
-            aiChoice.chosenPiece = aiPieces[Random.Range(0, aiPieces.Count - 1)];
+            aiChoice.chosenPiece = aiPieces[Random.Range(0, aiPieces.Count)];
             //If it selects a piece that does not exist; try again.
             if (aiChoice.chosenPiece == null) continue;
 

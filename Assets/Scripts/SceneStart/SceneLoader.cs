@@ -13,7 +13,7 @@ public class SceneLoader : MonoBehaviour
     public void SetupNewScene()
     {
         PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
-        PlayerPrefs.SetInt("isAi", ai.isOn ? 1 : 0);
+        PlayerPrefs.SetInt("2isAI", ai.isOn ? 1 : 0);
 
         sceneName = modeDropdown.options[modeDropdown.value].text;
 

@@ -9,8 +9,15 @@ public class SetBoolean : MonoBehaviour
 
     public Toggle toggle;
 
+    public int defaultValue;
+
     private void Awake()
     {
-        toggle.isOn = PlayerPrefs.GetInt("isAi", 1) == 1 ? true : false;
+        toggle.isOn = PlayerPrefs.GetInt(boolVariableName, defaultValue) == 1;
+    }
+
+    public void SetBool()
+    {
+        PlayerPrefs.SetInt(boolVariableName, toggle.isOn ? 1 : 0);
     }
 }

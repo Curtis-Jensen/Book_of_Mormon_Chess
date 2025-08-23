@@ -215,7 +215,6 @@ MonoBehaviour:
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
   - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
-  pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   boardSize: 1
 --- !u!82 &76764648
 AudioSource:
@@ -576,6 +575,7 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
+  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -672,6 +672,21 @@ MonoBehaviour:
   moveSpeed: 5
   zoomSpeed: 10
   minZoom: 1
+--- !u!114 &519420034
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 519420028}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 20b081f620df64fbfb3f487e07472e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  cameraPadding: 0.5
+  backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
+  background: {fileID: 381365333}
 --- !u!1 &631765871
 GameObject:
   m_ObjectHideFlags: 0

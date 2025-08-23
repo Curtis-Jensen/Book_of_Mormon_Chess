@@ -17,9 +17,6 @@ public class Player
 public class TileHolderSetup : MonoBehaviour
 {
     public Player[] players;
-    public float cameraPadding;
-    public Vector3 backGroundOffset;
-    public GameObject background;
     public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject darkTilePrefab;
@@ -37,7 +34,6 @@ public class TileHolderSetup : MonoBehaviour
     void Start()
     {
         InitializeVariables();
-        CenterCamera();
         SpawnRows();
         SpawnTiles();
         InitializetileHolderReferences();
@@ -157,31 +153,6 @@ public class TileHolderSetup : MonoBehaviour
         {
             pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
         }
-    }
-
-    void CenterCamera()
-    {
-        var cam = FindAnyObjectByType<Camera>();
-
-        cam.orthographicSize = boardSize / 2 + cameraPadding;
-
-        var camTransform = cam.gameObject;
-
-        float centerLength = boardSize / 2;
-
-        bool eventileHolder = boardSize % 2 == 0;
-        if (eventileHolder)
-        {
-            centerLength -= 0.5f;
-        }
-        var centeredPosition = new Vector3(centerLength, centerLength, -10);
-        camTransform.transform.position = centeredPosition;
-
-        background.transform.position = centeredPosition + (backGroundOffset * boardSize);
-        background.transform.localScale = new Vector3(
-            background.transform.localScale.x * boardSize,  // Width  (x-axis)
-            background.transform.localScale.y * boardSize,  // Height (y-axis)
-            background.transform.localScale.z);
     }
 
     void InitializetileHolderReferences()

@@ -180,7 +180,6 @@ public class TileHolder : MonoBehaviour
         destinationTile.piece = selectedPiece;
     }
 
-
     protected virtual void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;

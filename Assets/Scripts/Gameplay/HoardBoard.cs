@@ -24,6 +24,7 @@ public class HoardBoard : TileHolder
     {
         waveNumber++;
         Debug.Log("Triggering wave " + waveNumber);
+
         for (int i = 0; i < waveNumber; i++)
         {
             var spawnPoint = ChooseSpawn();
@@ -78,6 +79,7 @@ public class HoardBoard : TileHolder
         if (aiManager.ChooseMove(1) == null)
         {
             NewWave();
+            playerTurn = 1; //We change the playerTurn here so that it is always the players turn after a wave spawns
         }
 
         base.ChangeTurn();

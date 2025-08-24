@@ -194,12 +194,17 @@ public class TileHolder : MonoBehaviour
 
         if (players[playerTurn].isAi)
         {
-            var aiChoice = aiManager.ChooseMove(playerTurn);
-
-            selectedPiece = aiChoice.chosenPiece;
-
-            MovePiece(aiChoice.moveTo);
+            AiTurn();
         }
+    }
+
+    void AiTurn()
+    {
+        var aiChoice = aiManager.ChooseMove(playerTurn);
+
+        selectedPiece = aiChoice.chosenPiece;
+
+        MovePiece(aiChoice.moveTo);
     }
 
     void MoveTest()

@@ -267,7 +267,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCycles: 100
-  aiPieces: []
 --- !u!114 &76764650
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -287,9 +286,6 @@ MonoBehaviour:
   - name: player2
     isAi: 1
     teamOne: 0
-  cameraPadding: 0.5
-  backGroundOffset: {x: -0.0002, y: 0.024, z: 10}
-  background: {fileID: 381365333}
   rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
@@ -314,8 +310,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.5
-  destroyParticlesPrefab: {fileID: 5012879353020241386, guid: 70ff391c85507b945a555c009e2f0f12, type: 3}
-  ghost: {fileID: 2513802554474072766, guid: 4e7d2ec48a407884baacb756f759cb0f, type: 3}
   players: []
   boardSize: 8
   audioSource: {fileID: 0}
@@ -977,7 +971,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 0}
   modeDropdown: {fileID: 0}
-  ai: {fileID: 0}
   sceneName: Main_Menu
 --- !u!1 &1495983631
 GameObject:

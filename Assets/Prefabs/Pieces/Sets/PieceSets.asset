@@ -26,8 +26,8 @@ MonoBehaviour:
     baseColor: {r: 0.36078432, g: 0.4, b: 1, a: 1}
     kingColor: {r: 0.3226415, g: 0.9657872, b: 1, a: 1}
   - name: Purple
-    baseColor: {r: 0, g: 0, b: 0, a: 1}
-    kingColor: {r: 0, g: 0, b: 0, a: 1}
+    baseColor: {r: 0.754717, g: 0, b: 0.7530389, a: 1}
+    kingColor: {r: 1, g: 0.6084906, b: 0.9537526, a: 1}
   - name: White
     baseColor: {r: 1, g: 1, b: 1, a: 1}
     kingColor: {r: 1, g: 0.97744054, b: 0.48113203, a: 1}

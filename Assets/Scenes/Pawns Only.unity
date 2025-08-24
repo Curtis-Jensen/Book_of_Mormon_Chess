@@ -170,7 +170,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.5
+  moveTime: 0.2
   players:
   - name: 
     isAi: 0
@@ -317,7 +317,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   maxCycles: 100
-  aiPieces: []
 --- !u!114 &76764650
 MonoBehaviour:
   m_ObjectHideFlags: 0

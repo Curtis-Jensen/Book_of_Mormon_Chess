@@ -309,7 +309,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 05102072d377dd0458b5aa478b76d11f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  moveTime: 0.5
+  moveTime: 0.2
   players: []
   boardSize: 8
   audioSource: {fileID: 0}
@@ -338,7 +338,6 @@ MonoBehaviour:
   - name: player2
     isAi: 1
     teamOne: 0
-  spawnDelay: 0.5
 --- !u!1 &381365333
 GameObject:
   m_ObjectHideFlags: 0

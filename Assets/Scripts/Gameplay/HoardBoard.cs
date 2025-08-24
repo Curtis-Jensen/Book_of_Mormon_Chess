@@ -9,13 +9,14 @@ public class HoardBoard : TileHolder
     public PieceSets pieceSets;
     public TMP_Text spawnDisplay;
     public string displayPrefix;
-    public int waveNumber;
 
+    int waveNumber;
     PieceSpawner pieceSpawner;
 
     void Start()
     {
         pieceSpawner = FindAnyObjectByType<PieceSpawner>();
+        waveNumber = PlayerPrefs.GetInt("boardSize") - 1;
         NewWave();
     }
 

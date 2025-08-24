@@ -22,10 +22,6 @@ public abstract class Piece : MonoBehaviour
 
     public void Die()
     {
-        //Set the position the particles need to spawn to be visible
-        Vector3 position = 
-            new Vector3(transform.position.x, transform.position.y, -5);
-
         InstantiateDeathEffects();
 
         FindAnyObjectByType<AiManager>().aiPieces[playerIndex].Remove(this);

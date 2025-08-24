@@ -12,7 +12,6 @@ public class HoardBoard : TileHolder
     public int waveNumber;
 
     PieceSpawner pieceSpawner;
-    List<Vector2> spawnPoints = new();
 
     void Start()
     {
@@ -72,7 +71,8 @@ public class HoardBoard : TileHolder
 
     protected override void ChangeTurn()
     {
-        if(aiManager.ChooseMove().moveTo.x == -100)
+        Debug.Log(aiManager.ChooseMove(playerTurn).moveTo.x);
+        if (aiManager.ChooseMove(playerTurn).moveTo.x == -100)
         {
             NewWave();
         }

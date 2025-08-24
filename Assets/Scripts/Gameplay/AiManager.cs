@@ -8,36 +8,34 @@ public class AiManager : MonoBehaviour
     [Tooltip("How many times it will check a random piece to see if it's valid")]
     public int maxCycles = 100;
     [HideInInspector]
-    public List<Piece> aiPieces;
-  
-    public bool PiecesExist() 
-    { 
-        if(aiPieces.Count == 0) return false;
-        else return true;
+    public List<Piece>[] aiPieces;
+
+    void Awake()
+    {
+        aiPieces = new List<Piece>[2];
+        aiPieces[0] = new List<Piece>();
+        aiPieces[1] = new List<Piece>();
     }
 
-
-
-    public AiChoice ChooseMove()
+    public AiChoice ChooseMove(int playerIndex)
     {
-        var killingMove = ChooseKillingMove();
+        var killingMove = ChooseKillingMove(playerIndex);
 
-        if(killingMove == null)
+        if (killingMove == null)
         {
-            return ChooseRandomMove();
+            return ChooseRandomMove(playerIndex);
         }
         else
         {
             return killingMove;
         }
-
     }
 
-    public AiChoice ChooseKillingMove()
+    public AiChoice ChooseKillingMove(int playerIndex)
     {
         var killingMoves = new List<AiChoice>();
 
-        foreach (var piece in aiPieces)
+        foreach (var piece in aiPieces[playerIndex])
         {
             var moves = piece.GetMoves();
             foreach (var move in moves)
@@ -60,18 +58,21 @@ public class AiManager : MonoBehaviour
         return null;
     }
 
-    public AiChoice ChooseRandomMove()
+    public AiChoice ChooseRandomMove(int playerIndex)
     {
-        AiChoice aiChoice = new();
-        aiChoice.moveTo = new Vector2(-100, 100);
+        AiChoice aiChoice = new()
+        {
+            moveTo = new Vector2(-100, 100)
+        };
 
-        if (aiPieces.Count == 0) return aiChoice;
+        if (aiPieces[playerIndex].Count == 0) return aiChoice;
 
         //Checks through each piece to see if one has a valid move
         for (int i = 0; i < maxCycles; i++)
         {
+            var numberOfPieces = aiPieces[playerIndex].Count;
             //Picks a random piece
-            aiChoice.chosenPiece = aiPieces[Random.Range(0, aiPieces.Count)];
+            aiChoice.chosenPiece = aiPieces[playerIndex][Random.Range(0, numberOfPieces)];
             //If it selects a piece that does not exist; try again.
             if (aiChoice.chosenPiece == null) continue;
 

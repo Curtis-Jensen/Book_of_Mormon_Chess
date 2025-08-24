@@ -84,7 +84,7 @@ public class Pawn : Piece
         var queen = pieceSpawner.SpawnPiece(queenPrefab, transform.position, playerIndex);
 
         var AI = FindObjectOfType<AiManager>();
-        AI.aiPieces.Remove(this);
+        AI.aiPieces[playerIndex].Remove(this);
         
         Debug.LogWarning($"{queen.name} spawned at: {transform.parent.position}");
     }

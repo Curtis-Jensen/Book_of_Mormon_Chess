@@ -15,9 +15,10 @@ public class TileHolder : MonoBehaviour
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public AiManager aiManager;
 
+    protected int playerTurn = 0;
+
     List<Tile> selectedTiles = new();
     Piece selectedPiece;
-    int playerTurn = 0;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
@@ -95,7 +96,7 @@ public class TileHolder : MonoBehaviour
     public void MovePiece(Vector2 destination)
     {
         selectedTiles = DeselectTiles(selectedTiles);
-        DeselectPreviousPiece(destination);
+        DeselectPreviousPiece();
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
     }
 
@@ -105,9 +106,8 @@ public class TileHolder : MonoBehaviour
     /// </summary>
     /// <param name="destination"></param>
     /// <param name="destinationTile"></param>
-    void DeselectPreviousPiece(Vector2 destination)
+    void DeselectPreviousPiece()
     {
-        Tile destinationTile = tiles[(int)destination.x, (int)destination.y];
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
         Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
@@ -193,7 +193,7 @@ public class TileHolder : MonoBehaviour
 
         if (players[playerTurn].isAi)
         {
-            var aiChoice = aiManager.ChooseMove();
+            var aiChoice = aiManager.ChooseMove(playerTurn);
 
             selectedPiece = aiChoice.chosenPiece;
 

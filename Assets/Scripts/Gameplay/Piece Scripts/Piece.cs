@@ -28,7 +28,7 @@ public abstract class Piece : MonoBehaviour
 
         InstantiateDeathEffects();
 
-        FindAnyObjectByType<AiManager>().aiPieces.Remove(this);
+        FindAnyObjectByType<AiManager>().aiPieces[playerIndex].Remove(this);
         Destroy(gameObject);
     }
 

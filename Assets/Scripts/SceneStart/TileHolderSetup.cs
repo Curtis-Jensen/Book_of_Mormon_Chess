@@ -53,9 +53,7 @@ public class TileHolderSetup : MonoBehaviour
         tileHolder.aiManager = aiManager;
         tileHolder.players = players;
         tileHolder.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
-        Debug.Log(tileHolder.players[0].isAi);
         tileHolder.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
-        Debug.Log(tileHolder.players[1].isAi);
     }
 
     void SpawnRows()

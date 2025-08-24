@@ -56,7 +56,7 @@ public class PieceSpawner : MonoBehaviour
 
         if (player.isAi)//🤖
         {
-            aiManager.aiPieces.Add(pieceScript);
+            aiManager.aiPieces[playerIndex].Add(pieceScript);
         }
 
         tileHolder.tiles[(int)position.x, (int)position.y].piece = pieceScript;

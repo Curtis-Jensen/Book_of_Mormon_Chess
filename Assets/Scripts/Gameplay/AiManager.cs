@@ -60,12 +60,9 @@ public class AiManager : MonoBehaviour
 
     public AiChoice ChooseRandomMove(int playerIndex)
     {
-        AiChoice aiChoice = new()
-        {
-            moveTo = new Vector2(-100, 100)
-        };
+        AiChoice aiChoice = new();
 
-        if (aiPieces[playerIndex].Count == 0) return aiChoice;
+        if (aiPieces[playerIndex].Count == 0) return null;
 
         //Checks through each piece to see if one has a valid move
         for (int i = 0; i < maxCycles; i++)
@@ -85,7 +82,7 @@ public class AiManager : MonoBehaviour
 
         var possibleMoves = aiChoice.chosenPiece.GetMoves();
 
-        if (possibleMoves.Count == 0) return aiChoice;
+        if (possibleMoves.Count == 0) return null;
 
         aiChoice.moveTo = possibleMoves[Random.Range(0, possibleMoves.Count - 1)];
 

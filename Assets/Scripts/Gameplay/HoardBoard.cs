@@ -22,6 +22,7 @@ public class HoardBoard : TileHolder
     private void NewWave()
     {
         waveNumber++;
+        Debug.Log("Triggering wave " + waveNumber);
         for (int i = 0; i < waveNumber; i++)
         {
             var spawnPoint = ChooseSpawn();
@@ -71,8 +72,9 @@ public class HoardBoard : TileHolder
 
     protected override void ChangeTurn()
     {
-        Debug.Log(aiManager.ChooseMove(playerTurn).moveTo.x);
-        if (aiManager.ChooseMove(playerTurn).moveTo.x == -100)
+        //var aiChoiceX = aiManager.ChooseMove(playerTurn).moveTo.x;
+        //Debug.Log($"{selectedPiece.name} x move is: {aiChoiceX}");
+        if (aiManager.ChooseMove(1) == null)
         {
             NewWave();
         }

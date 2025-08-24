@@ -17,8 +17,9 @@ public class TileHolder : MonoBehaviour
 
     protected int playerTurn = 0;
 
+    protected Piece selectedPiece;
+
     List<Tile> selectedTiles = new();
-    Piece selectedPiece;
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states

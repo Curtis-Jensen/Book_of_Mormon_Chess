@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(SpriteRenderer))]
 public abstract class Piece : MonoBehaviour
 {
     [Tooltip("Variable to keep track of \"black\" player or \"white\" player.")]

@@ -31,6 +31,11 @@ public class InputScript : MonoBehaviour
             slider.maxValue = inputValue;
             slider.value    = inputValue;
         }
+        else if (inputValue < slider.minValue)
+        {
+            slider.minValue = inputValue;
+            slider.value    = inputValue;
+        }
 
         return inputValue;
     }

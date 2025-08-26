@@ -86,6 +86,8 @@ public class Pawn : Piece
 
         var AI = FindObjectOfType<AiManager>();
         AI.aiPieces[playerIndex].Remove(this);
+
+        endingManager.ReportDeath(playerIndex, materialValue);
         
         Debug.LogWarning($"{queen.name} spawned at: {transform.parent.position}");
     }

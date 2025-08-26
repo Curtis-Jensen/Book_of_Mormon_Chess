@@ -21,21 +21,21 @@ public class EndingManager : MonoBehaviour
     {
         teamCounts[playerIndex] += materialValue;
 
-        // if (playerIndex == 0)
-        // {
-        //     Debug.Log($"🙂 New material value: {teamCounts[playerIndex]}");
-        // }
+        if (playerIndex == 0)
+        {
+            Debug.Log($"🙂 New material value: {teamCounts[playerIndex]}");
+        }
     }
 
     public void ReportDeath(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] -= materialValue;
 
-        // if (playerIndex == 0)
-        // {
-        //     Debug.Log($"💀Remaining material value: {teamCounts[playerIndex]}");
-        // }
-        if (teamCounts[playerIndex] <= 0)
+        if (playerIndex == 0)
+        {
+            Debug.Log($"💀Remaining material value: {teamCounts[playerIndex]}");
+        }
+        if (teamCounts[playerIndex] <= 0 && playerIndex == 0)
         {
             Debug.Log($"Player {playerIndex} has lost all their pieces and thus lost the game!");
             winScreen.SetActive(true);

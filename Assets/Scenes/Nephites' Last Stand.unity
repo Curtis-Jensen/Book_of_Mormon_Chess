@@ -900,6 +900,7 @@ GameObject:
   - component: {fileID: 1262357307}
   - component: {fileID: 1262357309}
   - component: {fileID: 1262357308}
+  - component: {fileID: 1262357310}
   m_Layer: 5
   m_Name: Text (TMP)
   m_TagString: Untagged
@@ -1025,6 +1026,42 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1262357306}
   m_CullTransparentMesh: 1
+--- !u!114 &1262357310
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1262357306}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 99a4b330d6bbc418483972cc50d98ee8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  verses:
+  - 
+  - "The Nephites were destroyed, all but those who fled or joined the Lamanites.
+    But Mormon's son Moroni buried their record\u2014the Book of Mormon\u2014so it
+    could be found over 1600 years later. (Intro to the book of Mormon) "
+  - 'Even after the Nephites were gone, the Lamanites kept fighting each other. Many
+    of their descendants live today among the Native Americans. '
+  - "If you read these words and want to know if they\u2019re true, ask God in faith.
+    He will tell you by the power of the Holy Ghost. "
+  - "Mormon wept for his people and cried, \u201CO ye fair ones, why did you turn
+    from Christ?\u201D He mourned their fall, but knew that one day they would rise
+    again and stand before Jesus to be judged. "
+  - "Mormon saw families\u2014mothers, fathers, children\u2014lost in battle. He
+    wished they had repented before the destruction came, but he trusted that God
+    knew their souls and would judge them with mercy. "
+  - 'To those who remain: You are of the house of Israel. Repent, stop fighting,
+    and believe in Jesus Christ, the Son of God. He died and rose again so death
+    could be swallowed up in victory. '
+  - "After the great battle at Cumorah, Moroni\u2019s father was killed, and Moroni
+    was left alone. He had no friends and nowhere to go\u2014but he finished the
+    record and hid it in the earth, just as he was commanded. "
+  - 'Mormon told his son that the people would not repent, and were filled with anger
+    and hate. But even then, he encouraged Moroni: Keep working. We must fight the
+    enemy of all righteousness and rest our souls with God. '
 --- !u!1 &1357622834
 GameObject:
   m_ObjectHideFlags: 0

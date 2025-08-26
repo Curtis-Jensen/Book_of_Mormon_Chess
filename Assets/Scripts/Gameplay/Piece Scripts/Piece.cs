@@ -12,10 +12,10 @@ public abstract class Piece : MonoBehaviour
     public GameObject destroyParticlesPrefab;
     public GameObject ghost;
 
+    public int playerIndex;
+
     [HideInInspector]
     public bool firstTurnTaken = false;
-    [HideInInspector]
-    public int playerIndex;
 
     protected EndingManager endingManager;
 

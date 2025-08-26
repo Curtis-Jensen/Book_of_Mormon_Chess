@@ -7,14 +7,24 @@ public abstract class Piece : MonoBehaviour
 {
     [Tooltip("Variable to keep track of \"black\" player or \"white\" player.")]
     public bool teamOne;
+    [Tooltip("Represents how valuable this piece is")]
+    public int materialValue;
+    public GameObject destroyParticlesPrefab;
+    public GameObject ghost;
 
     [HideInInspector]
     public bool firstTurnTaken = false;
     [HideInInspector]
     public int playerIndex;
-    public GameObject destroyParticlesPrefab;
-    public GameObject ghost;
 
+    EndingManager endingManager;
+
+    void Start()
+    {
+        endingManager = FindAnyObjectByType<EndingManager>();
+
+        endingManager.ReportSpawn(playerIndex, materialValue);
+    }
     /// <summary>
     /// Abstract method for movement logic
     /// </summary>
@@ -26,6 +36,9 @@ public abstract class Piece : MonoBehaviour
         InstantiateDeathEffects();
 
         FindAnyObjectByType<AiManager>().aiPieces[playerIndex].Remove(this);
+
+        endingManager.ReportDeath(playerIndex, materialValue);
+
         Destroy(gameObject);
     }
 

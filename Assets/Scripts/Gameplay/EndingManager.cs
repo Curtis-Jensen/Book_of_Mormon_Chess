@@ -4,11 +4,17 @@ using UnityEngine;
 
 public class EndingManager : MonoBehaviour
 {
+    public GameObject winScreen;
+
     int[] teamCounts;
 
     void Awake()
     {
         teamCounts = new int[2];
+        for (int i = 0; i < teamCounts.Length; i++)
+        {
+            teamCounts[i] = 0;
+        }
     }
 
     public void ReportSpawn(int playerIndex, int materialValue)
@@ -17,7 +23,7 @@ public class EndingManager : MonoBehaviour
 
         // if (playerIndex == 0)
         // {
-        //     Debug.Log($"Gained a piece worth {materialValue}. New material value: {teamCounts[playerIndex]}");
+        //     Debug.Log($"🙂 New material value: {teamCounts[playerIndex]}");
         // }
     }
 
@@ -27,11 +33,12 @@ public class EndingManager : MonoBehaviour
 
         // if (playerIndex == 0)
         // {
-        //     Debug.Log($"Lost a piece worth {materialValue}. Remaining material value: {teamCounts[playerIndex]}");
+        //     Debug.Log($"💀Remaining material value: {teamCounts[playerIndex]}");
         // }
         if (teamCounts[playerIndex] <= 0)
         {
             Debug.Log($"Player {playerIndex} has lost all their pieces and thus lost the game!");
+            winScreen.SetActive(true);
         }
     }
 }

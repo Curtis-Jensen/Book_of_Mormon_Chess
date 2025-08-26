@@ -22,7 +22,10 @@ public abstract class Piece : MonoBehaviour
     protected virtual void Start()
     {
         endingManager = FindAnyObjectByType<EndingManager>();
-
+        if (playerIndex == 0)
+        {
+            Debug.Log($"👶🏻 Spawning {gameObject.name}. Material value is {materialValue}");
+        }
         endingManager.ReportSpawn(playerIndex, materialValue);
     }
     /// <summary>

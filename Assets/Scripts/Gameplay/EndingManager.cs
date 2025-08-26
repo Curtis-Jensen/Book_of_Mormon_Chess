@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+// Hard coded for The Nephites’ Last Stand at the moment
 public class EndingManager : MonoBehaviour
 {
     public GameObject winScreen;
@@ -20,24 +21,15 @@ public class EndingManager : MonoBehaviour
     public void ReportSpawn(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] += materialValue;
-
-        if (playerIndex == 0)
-        {
-            Debug.Log($"🙂 New material value: {teamCounts[playerIndex]}");
-        }
     }
 
     public void ReportDeath(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] -= materialValue;
 
-        if (playerIndex == 0)
-        {
-            Debug.Log($"💀Remaining material value: {teamCounts[playerIndex]}");
-        }
         if (teamCounts[playerIndex] <= 0 && playerIndex == 0)
         {
-            Debug.Log($"Player {playerIndex} has lost all their pieces and thus lost the game!");
+            Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");
             winScreen.SetActive(true);
         }
     }

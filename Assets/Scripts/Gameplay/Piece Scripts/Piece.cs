@@ -17,9 +17,9 @@ public abstract class Piece : MonoBehaviour
     [HideInInspector]
     public int playerIndex;
 
-    EndingManager endingManager;
+    protected EndingManager endingManager;
 
-    void Start()
+    protected virtual void Start()
     {
         endingManager = FindAnyObjectByType<EndingManager>();
 

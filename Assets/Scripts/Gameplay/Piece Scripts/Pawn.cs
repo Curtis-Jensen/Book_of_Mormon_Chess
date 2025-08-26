@@ -9,9 +9,10 @@ public class Pawn : Piece
     public Sprite queenSprite;
     TileHolder board;
 
-    void Start()
+    override protected void Start()
     {
         board = GameObject.Find("Gameplay Board").GetComponent<TileHolder>();
+        base.Start();
     }
 
     void Update()

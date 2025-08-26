@@ -14,6 +14,7 @@ public class SetBoolean : MonoBehaviour
     private void Awake()
     {
         toggle.isOn = PlayerPrefs.GetInt(boolVariableName, defaultValue) == 1;
+        SetBool();
     }
 
     public void SetBool()

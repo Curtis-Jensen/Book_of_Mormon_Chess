@@ -1,6 +1,9 @@
 name: Build_Project
 
-on: [push]
+on:
+  push:
+    branches:
+      - Mac_Editing
 
 jobs:
   buildForAllSupportedPlatforms:

@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
-public class HoardSetup : BoardSetup
+public class HoardTurnManagerSetup : BoardSetup
 {
     protected override void OrderPieces(int[] pieceChoices)
     {

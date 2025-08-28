@@ -19,8 +19,8 @@ public class CameraSetup : MonoBehaviour
 
         float centerLength = boardWidth / 2;
 
-        bool eventileHolder = boardWidth % 2 == 0;
-        if (eventileHolder)
+        bool evenTurnManager = boardWidth % 2 == 0;
+        if (evenTurnManager)
         {
             centerLength -= 0.5f;
         }

@@ -40,7 +40,7 @@ public class AiManager : MonoBehaviour
             var moves = piece.GetMoves();
             foreach (var move in moves)
             {
-                if (TileHolder.Instance.IsEnemyPiece(new Vector2Int((int)move.x, (int)move.y), piece.teamOne))
+                if (TurnManager.Instance.IsEnemyPiece(new Vector2Int((int)move.x, (int)move.y), piece.teamOne))
                 {
                     killingMoves.Add(new AiChoice
                     {

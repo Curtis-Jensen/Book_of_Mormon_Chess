@@ -13,8 +13,8 @@ public class Player
 }
 
 [RequireComponent(typeof(AiManager))]
-[RequireComponent(typeof(TileHolder))]
-public class TileHolderSetup : MonoBehaviour
+[RequireComponent(typeof(TurnManager))]
+public class BoardSetup : MonoBehaviour
 {
     public Player[] players;
     public GameObject rowPrefab;
@@ -27,7 +27,7 @@ public class TileHolderSetup : MonoBehaviour
 
     protected List<GameObject> rows = new();
     protected GameObject[,] tiles;
-    protected TileHolder tileHolder;
+    protected TurnManager TurnManager;
     protected AiManager aiManager;
     protected PieceSpawner pieceSpawner;
 
@@ -36,8 +36,8 @@ public class TileHolderSetup : MonoBehaviour
         InitializeVariables();
         SpawnRows();
         SpawnTiles();
-        InitializetileHolderReferences();
-        InitializetileHolder();
+        InitializeTurnManagerReferences();
+        InitializeTurnManager();
         var pieceChoices = RandomizePieces();
         OrderPieces(pieceChoices);
     }
@@ -45,15 +45,15 @@ public class TileHolderSetup : MonoBehaviour
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-        tileHolder = GetComponent<TileHolder>();
-        tileHolder.boardSize = boardSize;
+        TurnManager = GetComponent<TurnManager>();
+        TurnManager.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
-        tileHolder.aiManager = aiManager;
-        tileHolder.players = players;
-        tileHolder.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
-        tileHolder.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
+        TurnManager.aiManager = aiManager;
+        TurnManager.players = players;
+        TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
+        TurnManager.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
     }
 
     void SpawnRows()
@@ -155,16 +155,16 @@ public class TileHolderSetup : MonoBehaviour
         }
     }
 
-    void InitializetileHolderReferences()
+    void InitializeTurnManagerReferences()
     {
-        tileHolder.tiles = new Tile[boardSize, boardSize];
+        TurnManager.tiles = new Tile[boardSize, boardSize];
 
-        TileHolder.Instance = tileHolder;
+        TurnManager.Instance = TurnManager;
 
-        tileHolder.audioSource = GetComponent<AudioSource>();
+        TurnManager.audioSource = GetComponent<AudioSource>();
     }
 
-    void InitializetileHolder()
+    void InitializeTurnManager()
     {
         // Iterate through each child in the hierarchy
         for (int y = 0; y < boardSize; y++)
@@ -178,7 +178,7 @@ public class TileHolderSetup : MonoBehaviour
                     Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
                 }
 
-                tileHolder.tiles[x, y] = tile;
+                TurnManager.tiles[x, y] = tile;
 
                 // If there is a pawn on this tile, initialize it
                 if (tile.transform.childCount > 0)

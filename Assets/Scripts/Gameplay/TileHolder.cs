@@ -4,9 +4,9 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-public class TileHolder : MonoBehaviour
+public class TurnManager : MonoBehaviour
 {
-    public static TileHolder Instance { get; set; } // Static instance
+    public static TurnManager Instance { get; set; } // Static instance
     public Tile[,] tiles;
     public float moveTime = 0.5f;
 

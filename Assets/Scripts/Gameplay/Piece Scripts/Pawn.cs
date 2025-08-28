@@ -7,11 +7,11 @@ public class Pawn : Piece
 {
     public GameObject queenPrefab;
     public Sprite queenSprite;
-    TileHolder board;
+    TurnManager board;
 
     override protected void Start()
     {
-        board = GameObject.Find("Gameplay Board").GetComponent<TileHolder>();
+        board = GameObject.Find("Gameplay Board").GetComponent<TurnManager>();
         base.Start();
     }
 
@@ -51,7 +51,7 @@ public class Pawn : Piece
         // Check one square forward
         Vector2Int forwardMove =
             new((int)transform.position.x, (int)transform.position.y + forward);
-        if (TileHolder.Instance.IsTileEmpty(forwardMove))
+        if (TurnManager.Instance.IsTileEmpty(forwardMove))
         {
             validMoves.Add(forwardMove);
         }
@@ -70,7 +70,7 @@ public class Pawn : Piece
 
         foreach (var move in diagonalMoves)
         {
-            if (TileHolder.Instance.IsEnemyPiece(move, teamOne))
+            if (TurnManager.Instance.IsEnemyPiece(move, teamOne))
             {
                 validMoves.Add(move);
             }

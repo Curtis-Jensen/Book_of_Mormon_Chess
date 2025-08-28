@@ -17,18 +17,18 @@ public class Rook : Piece
 
         foreach (var moveDirection in moveDirections)
         {
-            for (int distance = 1; distance < TileHolder.Instance.boardSize; distance++)
+            for (int distance = 1; distance < TurnManager.Instance.boardSize; distance++)
             {
                 var moveDistance = moveDirection * distance;
                 Vector2Int newMove =
                     new((int)transform.position.x + moveDistance.x, (int)transform.position.y + moveDistance.y);
 
-                if (TileHolder.Instance.IsTileEmpty(newMove))
+                if (TurnManager.Instance.IsTileEmpty(newMove))
                 {
                     validMoves.Add(newMove);
                     continue;
                 }
-                else if (TileHolder.Instance.IsEnemyPiece(newMove, teamOne))
+                else if (TurnManager.Instance.IsEnemyPiece(newMove, teamOne))
                 {
                     validMoves.Add(newMove);
                 }

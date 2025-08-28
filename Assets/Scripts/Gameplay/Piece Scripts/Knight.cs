@@ -26,7 +26,7 @@ public class Knight : Piece
                 new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
 
             bool emptyOrEnemy =
-                TileHolder.Instance.IsTileEmpty(newMove) || TileHolder.Instance.IsEnemyPiece(newMove, teamOne);
+                TurnManager.Instance.IsTileEmpty(newMove) || TurnManager.Instance.IsEnemyPiece(newMove, teamOne);
 
             if (emptyOrEnemy)
             {

@@ -7,12 +7,12 @@ public class PieceSpawner : MonoBehaviour
     public PieceSets pieceSets;
     public Player[] players;
 
-    TileHolder tileHolder;
+    TurnManager TurnManager;
     AiManager aiManager;
 
     void Awake()
     {
-        tileHolder = GetComponent<TileHolder>();
+        TurnManager = GetComponent<TurnManager>();
         aiManager = GetComponent<AiManager>();
 
         players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
@@ -41,7 +41,7 @@ public class PieceSpawner : MonoBehaviour
     {
         var player = players[playerIndex]; //🧑🏻
         var pieceInstance =
-        Instantiate(piecePrefab, tileHolder.tiles[(int)position.x, (int)position.y].transform); //🏗️
+        Instantiate(piecePrefab, TurnManager.tiles[(int)position.x, (int)position.y].transform); //🏗️
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
@@ -59,7 +59,7 @@ public class PieceSpawner : MonoBehaviour
             aiManager.aiPieces[playerIndex].Add(pieceScript);
         }
 
-        tileHolder.tiles[(int)position.x, (int)position.y].piece = pieceScript;
+        TurnManager.tiles[(int)position.x, (int)position.y].piece = pieceScript;
 
         return pieceScript;
     }

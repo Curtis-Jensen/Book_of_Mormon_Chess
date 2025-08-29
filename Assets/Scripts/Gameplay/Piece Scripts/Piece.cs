@@ -48,7 +48,11 @@ public abstract class Piece : MonoBehaviour
     void InstantiateDeathEffects()
     {
         // Spawn particles
-        Instantiate(destroyParticlesPrefab, transform.position, Quaternion.identity);
+        var deathParticles = Instantiate(destroyParticlesPrefab, transform.position, Quaternion.identity);
+        var main = deathParticles.GetComponent<ParticleSystem>().main;
+        var capturedPieceColor = GetComponent<SpriteRenderer>().color;
+        main.startColor = new ParticleSystem.MinMaxGradient(new Color(capturedPieceColor.r,
+            capturedPieceColor.g, capturedPieceColor.b, 1f));
 
         //Spawn ghost
         Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
@@ -56,8 +60,6 @@ public abstract class Piece : MonoBehaviour
 
         ghostInstance.GetComponent<SpriteRenderer>().sprite = 
         GetComponent<SpriteRenderer>().sprite;
-
-        var capturedPieceColor = GetComponent<SpriteRenderer>().color;
 
         ghostInstance.GetComponent<SpriteRenderer>().color = new Color(capturedPieceColor.r,
             capturedPieceColor.g, capturedPieceColor.b, 0.25f);

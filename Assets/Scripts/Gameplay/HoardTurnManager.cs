@@ -15,17 +15,18 @@ public class HoardTurnManager : TurnManager
 
     void Start()
     {
+        boardSize = PlayerPrefs.GetInt("boardSize");
         pieceSpawner = FindAnyObjectByType<PieceSpawner>();
-        waveNumber = PlayerPrefs.GetInt("boardSize") - 1;
         NewWave();
     }
 
     private void NewWave()
     {
         waveNumber++;
-        Debug.Log("Triggering wave " + waveNumber);
+        Debug.Log("⚔️Triggering wave " + waveNumber);
 
-        for (int i = 0; i < waveNumber; i++)
+        //We want the first wave to cover the whole top row, and the -1 is to counteract the first increment.  Starting at 0 looks weird
+        for (int i = 0; i < waveNumber + boardSize - 1; i++)
         {
             var spawnPoint = ChooseSpawn();
             pieceSpawner.SpawnPiece(pawn, spawnPoint, 1);

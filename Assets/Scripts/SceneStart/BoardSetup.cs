@@ -80,6 +80,10 @@ public class BoardSetup : MonoBehaviour
                 var newTile =
                     Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, transform);
 
+                var tileSpriteRenderer = newTile.GetComponent<SpriteRenderer>();
+                tileSpriteRenderer.flipX = Random.value > 0.5f;
+                tileSpriteRenderer.flipY = Random.value > 0.5f;
+
                 newTile.name = "Tile " + (x + 1);
                 tiles[x,y] = newTile;
             }

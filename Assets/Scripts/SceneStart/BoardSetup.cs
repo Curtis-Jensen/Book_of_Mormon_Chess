@@ -110,6 +110,7 @@ public class BoardSetup : MonoBehaviour
             // Refill and reshuffle the bag if it's empty
             if (bag.Count == 0)
             {
+                bag.Clear();
                 // Fill the bag with indices of backPiecePrefabs
                 //We use 1 indexing here because the 0 spot must be the king
                 for (int j = 1; j < backPiecePrefabs.Length; j++)
@@ -117,10 +118,10 @@ public class BoardSetup : MonoBehaviour
                     bag.Add(j);
                 }
 
-                // Shuffle the bag
-                for (int j = 1; j < bag.Count; j++)
+                // Modified Fisher-Yates shuffle starting from index 1
+                for (int j = bag.Count - 1; j > 0; j--)
                 {
-                    int randomIndex = Random.Range(1, bag.Count);
+                    int randomIndex = Random.Range(1, j + 1); // Start from 1 to preserve piece type indexing
                     int temp = bag[j];
                     bag[j] = bag[randomIndex];
                     bag[randomIndex] = temp;

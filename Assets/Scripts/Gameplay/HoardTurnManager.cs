@@ -76,7 +76,6 @@ public class HoardTurnManager : TurnManager
     {
         //var aiChoiceX = aiManager.ChooseMove(playerTurn).moveTo.x;
         //Debug.Log($"{selectedPiece.name} x move is: {aiChoiceX}");
-        Debug.Log($"➡️ The move the AI could have chosen for this turn is: {aiManager.ChooseMove(1)}");
         if (aiManager.ChooseMove(1) == null)
         {
             NewWave();

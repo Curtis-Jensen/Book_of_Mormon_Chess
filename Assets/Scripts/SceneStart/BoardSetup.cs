@@ -17,7 +17,6 @@ public class Player
 public class BoardSetup : MonoBehaviour
 {
     public Player[] players;
-    public GameObject rowPrefab;
     public GameObject lightTilePrefab;
     public GameObject darkTilePrefab;
     public GameObject pawn;
@@ -25,7 +24,6 @@ public class BoardSetup : MonoBehaviour
 
     [HideInInspector] public int boardSize = 8;
 
-    protected List<GameObject> rows = new();
     protected GameObject[,] tiles;
     protected TurnManager TurnManager;
     protected AiManager aiManager;
@@ -40,7 +38,6 @@ public class BoardSetup : MonoBehaviour
     void StartBoard()
     {
         InitializeVariables();
-        SpawnRows();
         SpawnTiles();
         InitializeTurnManagerReferences();
         InitializeTurnManager();
@@ -67,17 +64,6 @@ public class BoardSetup : MonoBehaviour
         TurnManager.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
     }
 
-    void SpawnRows()
-    {
-        for (int y = 0; y < boardSize; y++)
-        {
-            var newRow = Instantiate(rowPrefab, transform);
-
-            newRow.name = "Row " + (y + 1);
-            rows.Add(newRow);
-        }
-    }
-
     void SpawnTiles()
     {
         tiles = new GameObject[boardSize, boardSize];
@@ -92,7 +78,7 @@ public class BoardSetup : MonoBehaviour
                 var tilePosition = new Vector3Int(x, y, 0);
 
                 var newTile =
-                    Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, rows[y].transform);
+                    Instantiate(prefabToInstantiate, tilePosition, Quaternion.identity, transform);
 
                 newTile.name = "Tile " + (x + 1);
                 tiles[x,y] = newTile;
@@ -186,10 +172,11 @@ public class BoardSetup : MonoBehaviour
         // Iterate through each child in the hierarchy
         for (int y = 0; y < boardSize; y++)
         {
-            GameObject row = transform.GetChild(y).gameObject; // Get the row GameObject
             for (int x = 0; x < boardSize; x++)
             {
-                Tile tile = row.transform.GetChild(x).GetComponent<Tile>(); // Get the Tile component 
+                var tilePosition = boardSize * y + x;
+
+                Tile tile = transform.GetChild(tilePosition).GetComponent<Tile>(); // Get the Tile component 
                 if (tile == null)
                 {
                     Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");

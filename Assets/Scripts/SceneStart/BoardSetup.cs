@@ -33,12 +33,23 @@ public class BoardSetup : MonoBehaviour
 
     void Start()
     {
+        StartBoard();
+        StartPieces();
+    }
+
+    void StartBoard()
+    {
         InitializeVariables();
         SpawnRows();
         SpawnTiles();
         InitializeTurnManagerReferences();
         InitializeTurnManager();
+    }
+
+    protected virtual void StartPieces()
+    {
         var pieceChoices = RandomizePieces();
+        pieceChoices = PlaceKing(pieceChoices);    
         OrderPieces(pieceChoices);
     }
 
@@ -89,7 +100,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    int[] RandomizePieces()
+    protected int[] RandomizePieces()
     {
         int[] pieceChoices = new int[boardSize];
         List<int> bag = new();
@@ -121,6 +132,11 @@ public class BoardSetup : MonoBehaviour
             bag.RemoveAt(0); // Remove the used piece from the bag
         }
 
+        return pieceChoices;
+    }
+
+    int[] PlaceKing(int[] pieceChoices)
+    {
         //We set a random spot to be 0 so 1 king spawns
         pieceChoices[Random.Range(0, pieceChoices.Length)] = 0;
 
@@ -139,7 +155,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    virtual protected void OrderBackRows(int[] pieceChoices, int playerIndex, int pieceRow)
+    protected void OrderBackRows(int[] pieceChoices, int playerIndex, int pieceRow)
     {
         for (int x = 0; x < boardSize; x++)
         {
@@ -147,7 +163,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    virtual protected void OrderPawns(int playerIndex, int pawnRow)
+    protected void OrderPawns(int playerIndex, int pawnRow)
     {
         for (int x = 0; x < boardSize; x++)
         {

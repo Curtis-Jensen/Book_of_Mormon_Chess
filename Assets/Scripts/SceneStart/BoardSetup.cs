@@ -84,7 +84,7 @@ public class BoardSetup : MonoBehaviour
                 tileSpriteRenderer.flipX = Random.value > 0.5f;
                 tileSpriteRenderer.flipY = Random.value > 0.5f;
 
-                newTile.name = "Tile " + (x + 1);
+                newTile.name = $"Tile ({x + 1}, {y + 1})";
                 tiles[x,y] = newTile;
             }
         }

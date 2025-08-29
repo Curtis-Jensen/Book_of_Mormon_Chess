@@ -286,7 +286,6 @@ MonoBehaviour:
   - name: player2
     isAi: 1
     teamOne: 0
-  rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
@@ -373,7 +372,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.5299072, y: -7.2671814}
+  m_AnchoredPosition: {x: -3.5299072, y: -7.267212}
   m_SizeDelta: {x: -152.94, y: -114.6737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167566678
@@ -1592,9 +1591,9 @@ MonoBehaviour:
   m_fontSize: 20
   m_fontSizeBase: 20
   m_fontWeight: 400
-  m_enableAutoSizing: 0
+  m_enableAutoSizing: 1
   m_fontSizeMin: 18
-  m_fontSizeMax: 72
+  m_fontSizeMax: 9999
   m_fontStyle: 0
   m_HorizontalAlignment: 4
   m_VerticalAlignment: 256
@@ -1671,10 +1670,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1664833172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 1, y: 1}
+  m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -114, y: -44}
-  m_SizeDelta: {x: 200, y: 50}
+  m_AnchoredPosition: {x: 286, y: 262.5}
+  m_SizeDelta: {x: -600, y: -563}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1855521222
 MonoBehaviour:

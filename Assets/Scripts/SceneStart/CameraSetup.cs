@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[RequireComponent(typeof(Camera))]
 public class CameraSetup : MonoBehaviour
 {
     public float cameraPadding;
@@ -11,21 +12,24 @@ public class CameraSetup : MonoBehaviour
     void Start()
     {
         var boardWidth = PlayerPrefs.GetInt("boardSize");
-        var cam = FindAnyObjectByType<Camera>();
+        var cam = GetComponent<Camera>();
 
         cam.orthographicSize = boardWidth / 2 + cameraPadding;
 
-        var camTransform = cam.gameObject;
+        CenterBoard(boardWidth);
+    }
 
+    void CenterBoard(int boardWidth)
+    {
         float centerLength = boardWidth / 2;
 
-        bool evenTurnManager = boardWidth % 2 == 0;
-        if (evenTurnManager)
+        bool evenBoard = boardWidth % 2 == 0;
+        if (evenBoard)
         {
             centerLength -= 0.5f;
         }
         var centeredPosition = new Vector3(centerLength, centerLength, -10);
-        camTransform.transform.position = centeredPosition;
+        transform.position = centeredPosition;
 
         background.transform.position = centeredPosition + (backGroundOffset * boardWidth);
         background.transform.localScale = new Vector3(

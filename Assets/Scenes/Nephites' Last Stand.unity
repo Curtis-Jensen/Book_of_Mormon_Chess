@@ -373,7 +373,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -3.5299072, y: -7.267212}
+  m_AnchoredPosition: {x: -3.5299072, y: -7.2671814}
   m_SizeDelta: {x: -152.94, y: -114.6737}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &167566678
@@ -1050,7 +1050,7 @@ MonoBehaviour:
     departed from the ways of The Lord!\u201D He mourned their fall, but knew that
     one day they would rise again and stand before Jesus to be judged. (Mormon 6:16\u201318,
     21)"
-  - "Mormon aand Moroni saw families\u2014mothers, fathers, children\u2014lost in
+  - "Mormon and Moroni saw families\u2014mothers, fathers, children\u2014lost in
     battle. He wished they had repented before the destruction came, but he trusted
     that God knew their souls and would judge them with mercy. (Mormon 6:16, 19\u201320,
     22)"

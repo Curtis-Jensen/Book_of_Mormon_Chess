@@ -3,11 +3,21 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+[Serializable]
+public class Passage
+{
+    public string name;
+    [TextArea(2, 10)]
+    public string verse;
+    public string referenceLink = "https://www.churchofjesuschrist.org/study/scriptures/bofm/bofm-title?lang=eng";
+}
+
 [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
 public class VerseRandomizer : MonoBehaviour
 {
     [TextArea(2,5)]
-    public String[] verses;
+    public string[] verses;
+    public Passage[] passages;
 
     void Start()
     {

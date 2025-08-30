@@ -739,7 +739,6 @@ MonoBehaviour:
   moveSpeed: 5
   zoomSpeed: 10
   minZoom: 1
-  cameraPadding: 0
   backGroundOffset: {x: 0, y: 0, z: 10}
   background: {fileID: 381365333}
 --- !u!114 &519420034
@@ -1062,6 +1061,45 @@ MonoBehaviour:
   - "Mormon told his son that the people would not repent, and were filled with anger
     and hate. But even then, he encouraged Moroni: Keep working. We must fight the
     enemy of all righteousness and rest our souls with God. (Moroni 8:1 & 9:3\u20136)"
+  passages:
+  - name: Title Page
+    verse: "The Nephites were destroyed, all but those who fled or joined the Lamanites.
+      But Mormon's son Moroni buried their record\u2014the Book of Mormon\u2014so
+      it could be found over 1600 years later. (Intro to the book of Mormon) "
+    referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/bofm-title?lang=eng
+  - name: Reference Missing
+    verse: 'Even after the Nephites were gone, the Lamanites kept fighting each other.
+      Many of their descendants live today among the Native Americans. '
+    referenceLink: 
+  - name: 'Moroni 10: 1-4'
+    verse: "If you read these words and want to know if they\u2019re true, ask God
+      in faith. He will tell you by the power of the Holy Ghost.  (Moroni 10:4)"
+    referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/moro/10?lang=eng&id=p1-p4#p1
+  - name: "Mormon 6: 16\u201318, 21"
+    verse: "Moroni wept for his people and cried, \u201CO ye fair ones, how could
+      ye have departed from the ways of The Lord!\u201D He mourned their fall, but
+      knew that one day they would rise again and stand before Jesus to be judged. "
+    referenceLink: 
+  - name: "Mormon 6: 16, 19\u201320, 22"
+    verse: "Mormon and Moroni saw families\u2014mothers, fathers, children\u2014lost
+      in battle. He wished they had repented before the destruction came, but he
+      trusted that God knew their souls and would judge them with mercy."
+    referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/morm/6?lang=eng
+  - name: "Mormon 7: 1\u20135"
+    verse: 'To those who remain: You are of the house of Israel. Repent, stop fighting,
+      and believe in Jesus Christ, the Son of God. He died and rose again so death
+      could be swallowed up in victory. '
+    referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/morm/7?lang=eng&id=p1-p5#p1
+  - name: "Mormon 8: 1\u20135"
+    verse: "After the great battle at Cumorah, Moroni\u2019s father was killed, and
+      Moroni was left alone. He had no family, friends, nor anywhere to go\u2014but
+      he finished the record and hid it in the earth, just as he was commanded. "
+    referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/morm/8?lang=eng&id=p1-p5#p1
+  - name: "Moroni 8:1 & 9: 3\u20136"
+    verse: 'Mormon told his son that the people would not repent, and were filled
+      with anger and hate. But even then, he encouraged Moroni: Keep working. We
+      must fight the enemy of all righteousness and rest our souls with God.'
+    referenceLink: 
 --- !u!1 &1357622834
 GameObject:
   m_ObjectHideFlags: 0

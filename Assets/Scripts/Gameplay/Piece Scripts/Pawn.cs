@@ -7,24 +7,29 @@ public class Pawn : Piece
 {
     public GameObject queenPrefab;
     public Sprite queenSprite;
-    TurnManager board;
+
+    int endRow;
 
     override protected void Start()
     {
-        board = GameObject.Find("Gameplay Board").GetComponent<TurnManager>();
+        if (teamOne)
+        {
+            endRow = PlayerPrefs.GetInt("boardSize") - 1;
+        }
+        else
+        {
+            endRow = 0;
+        }
+
         base.Start();
     }
 
     void Update()
     {
-        var teamOneEnd = transform.position.y == board.boardSize - 1 && teamOne;
-        var teamTwoEnd = transform.position.y == 0 && !teamOne;
-        //If the end has been reached
-        if (teamTwoEnd || teamOneEnd)
-        {
-            QueenPromotion();
-            Destroy(gameObject);
-        }
+        if (transform.position.y != endRow) return;
+
+        QueenPromotion();
+        Destroy(gameObject);
     }
 
     public override List<Vector2Int> GetMoves()

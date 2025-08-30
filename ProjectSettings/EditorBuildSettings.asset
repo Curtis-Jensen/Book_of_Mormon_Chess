@@ -15,6 +15,6 @@ EditorBuildSettings:
     path: Assets/Scenes/Nephites' Last Stand.unity
     guid: 29618698a80a2154dbb85fe80eb4b69d
   - enabled: 1
-    path: Assets/Scenes/Pawns Only.unity
+    path: Assets/Scenes/Not Implemented Game Modes/Pawns Only.unity
     guid: 6d8062c1c6f12564ebacc9813bb66277
   m_configObjects: {}

@@ -147,7 +147,7 @@ public class TurnManager : MonoBehaviour
     {
         float time = 0;
         Vector3 startPosition = piece.transform.position;
-        Vector3 endPosition = new Vector3(destination.x, destination.y, startPosition.z); // Preserve z-axis position
+        Vector3 endPosition = new(destination.x, destination.y, startPosition.z); // Preserve z-axis position
         var destinationTile = tiles[(int)destination.x, (int)destination.y];
 
         while (time < moveTime)
@@ -165,6 +165,8 @@ public class TurnManager : MonoBehaviour
         piece.transform.position = endPosition;
 
         AssignNewParent(destinationTile, selectedPiece);
+
+        selectedPiece.MoveEnd();
 
         audioSource.Play();
 

@@ -23,7 +23,7 @@ public class Pawn : Piece
         base.Start();
     }
 
-    void Update()
+    public override void MoveEnd()
     {
         if (transform.position.y != endRow) return;
 

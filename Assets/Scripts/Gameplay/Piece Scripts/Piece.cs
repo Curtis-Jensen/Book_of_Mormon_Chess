@@ -24,12 +24,17 @@ public abstract class Piece : MonoBehaviour
         endingManager = FindAnyObjectByType<EndingManager>();
         endingManager.ReportSpawn(playerIndex, materialValue);
     }
-    
+
     /// <summary>
     /// Abstract method for movement logic
     /// </summary>
     /// <returns></returns>
     public abstract List<Vector2Int> GetMoves();
+
+    public virtual void MoveEnd()
+    {
+        //Mostly exists for pawn promotion override
+    }
 
     public void Die()
     {

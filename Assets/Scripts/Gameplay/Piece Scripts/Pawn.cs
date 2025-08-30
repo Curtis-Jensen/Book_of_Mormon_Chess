@@ -28,7 +28,6 @@ public class Pawn : Piece
         if (transform.position.y != endRow) return;
 
         QueenPromotion();
-        Destroy(gameObject);
     }
 
     public override List<Vector2Int> GetMoves()
@@ -86,13 +85,13 @@ public class Pawn : Piece
     public void QueenPromotion()
     {
         var pieceSpawner = FindObjectOfType<PieceSpawner>();
-        var queen = pieceSpawner.SpawnPiece(queenPrefab, transform.position, playerIndex);
+        pieceSpawner.SpawnPiece(queenPrefab, transform.position, playerIndex);
+
+        Debug.LogWarning($"{name} spawned at: {transform.position}");
 
         var AI = FindObjectOfType<AiManager>();
         AI.aiPieces[playerIndex].Remove(this);
-
         endingManager.ReportDeath(playerIndex, materialValue);
-        
-        Debug.LogWarning($"{queen.name} spawned at: {transform.parent.position}");
+        Destroy(gameObject);        
     }
 }

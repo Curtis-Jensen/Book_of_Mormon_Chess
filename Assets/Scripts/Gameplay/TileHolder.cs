@@ -157,21 +157,10 @@ public class TurnManager : MonoBehaviour
             yield return null;
         }
 
-        if (destinationTile.piece != null)
-        {
-            destinationTile.piece.Die();
-        }
-  
         //If this is not here the piece will end up slightly off the tile.  Probably due to the lerp above.
         piece.transform.position = endPosition;
 
-        AssignNewParent(destinationTile, selectedPiece);
-
-        selectedPiece.MoveEnd();
-
-        audioSource.Play();
-
-        ChangeTurn();
+        MoveEnd(destinationTile);
     }
 
     /// <summary>
@@ -184,13 +173,29 @@ public class TurnManager : MonoBehaviour
         destinationTile.piece = selectedPiece;
     }
 
+    void MoveEnd(Tile destinationTile)
+    {
+        if (destinationTile.piece != null)
+        {
+            destinationTile.piece.Die();
+        }
+
+        AssignNewParent(destinationTile, selectedPiece);
+
+        audioSource.Play();
+
+        selectedPiece.MoveEnd();
+
+        ChangeTurn();
+    }
+
     protected virtual void ChangeTurn()
     {
         selectedPiece.firstTurnTaken = true;
 
         // Move to next player
         playerTurn++;
-        if (playerTurn >= players.Length) 
+        if (playerTurn >= players.Length)
         {
             playerTurn = 0;
         }

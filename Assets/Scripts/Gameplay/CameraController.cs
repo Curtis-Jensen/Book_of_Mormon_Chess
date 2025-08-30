@@ -16,31 +16,17 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        maxZoom = cam.orthographicSize * 1.5f;
 
         var boardWidth = PlayerPrefs.GetInt("boardSize");
 
         cam.orthographicSize = boardWidth / 2 + cameraPadding;
+        maxZoom = cam.orthographicSize * 1.5f;
 
         CenterBoard(boardWidth);
     }
 
-    void Update()
+    void CenterBoard(int boardWidth)
     {
-        // Handle camera movement
-        float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right Arrow
-        float vertical = Input.GetAxis("Vertical"); // W/S or Up/Down Arrow
-
-        Vector3 direction = new(horizontal, vertical, 0f);
-        transform.position += direction * moveSpeed * Time.deltaTime;
-
-        // Handle camera zooming
-        float scroll = Input.GetAxis("Mouse ScrollWheel");
-        float newSize = Camera.main.orthographicSize - scroll * zoomSpeed;
-        cam.orthographicSize = Mathf.Clamp(newSize, minZoom, maxZoom);
-    }
-
-    void CenterBoard(int boardWidth) {
         float centerLength = boardWidth / 2;
 
         bool evenBoard = boardWidth % 2 == 0;
@@ -58,4 +44,18 @@ public class CameraController : MonoBehaviour
             background.transform.localScale.z);
     }
 
+    void Update()
+    {
+        // Handle camera movement
+        float horizontal = Input.GetAxis("Horizontal"); // A/D or Left/Right Arrow
+        float vertical = Input.GetAxis("Vertical"); // W/S or Up/Down Arrow
+
+        Vector3 direction = new(horizontal, vertical, 0f);
+        transform.position += moveSpeed * Time.deltaTime * direction;
+
+        // Handle camera zooming
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        float newSize = Camera.main.orthographicSize - scroll * zoomSpeed;
+        cam.orthographicSize = Mathf.Clamp(newSize, minZoom, maxZoom);
+    }
 }

@@ -739,6 +739,9 @@ MonoBehaviour:
   moveSpeed: 5
   zoomSpeed: 10
   minZoom: 1
+  cameraPadding: 0
+  backGroundOffset: {x: 0, y: 0, z: 10}
+  background: {fileID: 381365333}
 --- !u!114 &519420034
 MonoBehaviour:
   m_ObjectHideFlags: 0

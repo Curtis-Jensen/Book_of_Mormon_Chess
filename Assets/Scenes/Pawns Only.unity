@@ -200,7 +200,6 @@ MonoBehaviour:
   - name: player2
     isAi: 1
     teamOne: 0
-  rowPrefab: {fileID: 3625278055670855378, guid: 0cdefbc3a07a2ed4a92921753dc30d38, type: 3}
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
@@ -566,7 +565,6 @@ GameObject:
   - component: {fileID: 519420031}
   - component: {fileID: 519420029}
   - component: {fileID: 519420033}
-  - component: {fileID: 519420034}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -663,20 +661,8 @@ MonoBehaviour:
   moveSpeed: 5
   zoomSpeed: 10
   minZoom: 1
---- !u!114 &519420034
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 519420028}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 20b081f620df64fbfb3f487e07472e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  cameraPadding: 0.5
-  backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
+  cameraPadding: 0
+  backGroundOffset: {x: 0, y: 0, z: 10}
   background: {fileID: 381365333}
 --- !u!1 &631765871
 GameObject:

@@ -6,7 +6,6 @@ public class CameraController : MonoBehaviour
     public float moveSpeed = 5f; // Speed of camera movement
     public float zoomSpeed = 10f; // Speed of camera zooming
     public float minZoom = 1f; // Minimum zoom level
-    public float cameraPadding;
     public Vector3 backGroundOffset;
     public GameObject background;
 
@@ -19,7 +18,7 @@ public class CameraController : MonoBehaviour
 
         var boardWidth = PlayerPrefs.GetInt("boardSize");
 
-        cam.orthographicSize = boardWidth / 2 + cameraPadding;
+        cam.orthographicSize = (float)boardWidth / 2;
         maxZoom = cam.orthographicSize * 1.5f;
 
         CenterBoard(boardWidth);

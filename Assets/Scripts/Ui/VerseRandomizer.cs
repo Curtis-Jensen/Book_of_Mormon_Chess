@@ -9,7 +9,8 @@ public class Passage
     public string name;
     [TextArea(2, 10)]
     public string verse;
-    public string referenceLink = "https://www.churchofjesuschrist.org/study/scriptures/bofm/bofm-title?lang=eng";
+    public string referenceLink =
+    "https://www.churchofjesuschrist.org/study/scriptures/bofm/bofm-title?lang=eng";
 }
 
 [RequireComponent(typeof(TMPro.TextMeshProUGUI))]

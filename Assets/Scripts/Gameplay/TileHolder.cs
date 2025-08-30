@@ -162,6 +162,7 @@ public class TurnManager : MonoBehaviour
             destinationTile.piece.Die();
         }
   
+        //If this is not here the piece will end up slightly off the tile.  Probably due to the lerp above.
         piece.transform.position = endPosition;
 
         AssignNewParent(destinationTile, selectedPiece);

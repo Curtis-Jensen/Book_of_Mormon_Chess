@@ -6,7 +6,6 @@ using UnityEngine;
 public class Pawn : Piece
 {
     public GameObject queenPrefab;
-    public Sprite queenSprite;
 
     int endRow;
 

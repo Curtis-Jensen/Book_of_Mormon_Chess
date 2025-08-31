@@ -18,11 +18,14 @@ public abstract class Piece : MonoBehaviour
     public bool firstTurnTaken = false;
 
     protected EndingManager endingManager;
+    protected TurnManager turnManager;
 
     protected virtual void Start()
     {
         endingManager = FindAnyObjectByType<EndingManager>();
         endingManager.ReportSpawn(playerIndex, materialValue);
+
+        turnManager = FindAnyObjectByType<TurnManager>();
     }
 
     /// <summary>
@@ -33,7 +36,18 @@ public abstract class Piece : MonoBehaviour
 
     public virtual void MoveEnd()
     {
-        //Mostly exists for pawn promotion override
+        TargetTiles();
+    }
+
+    void TargetTiles()
+    {
+        var parentTile = turnManager.tiles[(int)transform.position.x, (int)transform.position.y];
+
+        
+        foreach (var move in GetMoves())
+        {
+            parentTile.targetedBy.Add(move);
+        }
     }
 
     public void Die()

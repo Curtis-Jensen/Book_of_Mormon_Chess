@@ -9,6 +9,7 @@ public class Tile : MonoBehaviour
     public Piece piece;
     public Color hilightColor;
     public Color enemyHilightColor;
+    public List<Vector2Int> targetedBy = new();
 
     [HideInInspector]
     public SpriteRenderer highlight;
@@ -18,15 +19,28 @@ public class Tile : MonoBehaviour
         highlight = gameObject.GetComponentsInChildren<SpriteRenderer>()[1];
     }
 
+    void OnMouseDown()
+    {
+        TurnManager.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
+    }
+
     public void Highlight(bool highlighted)
     {
         highlight.enabled = highlighted;
         highlight.color = hilightColor;
     }
 
-    void OnMouseDown()
+    void OnMouseEnter()
     {
-        TurnManager.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
+        foreach (var tile in targetedBy)
+        {
+            TurnManager.Instance.tiles[tile.x, tile.y].Highlight(true);
+        }
+    }
+
+    void OnMouseExit()
+    {
+        //Highlight(false);
     }
 }
 

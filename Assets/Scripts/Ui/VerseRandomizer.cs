@@ -16,13 +16,15 @@ public class Passage
 [RequireComponent(typeof(TMPro.TextMeshProUGUI))]
 public class VerseRandomizer : MonoBehaviour
 {
-    [TextArea(2,5)]
-    public string[] verses;
     public Passage[] passages;
+    public GameObject button;
 
     void Start()
     {
-        int index = UnityEngine.Random.Range(0, verses.Length);
-        GetComponent<TMPro.TextMeshProUGUI>().text = verses[index];
+        int index = UnityEngine.Random.Range(0, passages.Length);
+        GetComponent<TMPro.TextMeshProUGUI>().text = $"{passages[index].verse}";
+
+        button.GetComponent<WebButton>().url = passages[index].referenceLink;
+        button.GetComponentInChildren<TMPro.TextMeshProUGUI>().text = $"({passages[index].name})";
     }
 }

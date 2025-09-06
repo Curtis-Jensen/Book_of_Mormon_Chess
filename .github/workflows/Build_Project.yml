@@ -7,25 +7,34 @@ on:
 
 jobs:
   buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+    name: Build for ${{ matrix.targetPlatform }} - ${{ steps.get_version.outputs.version }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform:
-          - WebGL # WebGL.
+          - WebGL
     steps:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
           lfs: true
+
+      - name: Get Unity Version
+        id: get_version
+        run: |
+          VERSION=$(grep 'm_EditorVersion' ProjectSettings/ProjectVersion.txt | cut -d' ' -f2)
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
+
       - uses: actions/cache@v3
         with:
           path: Library
           key: Library-${{ matrix.targetPlatform }}
           restore-keys: Library-
+
       - if: matrix.targetPlatform == 'Android'
         uses: jlumbroso/free-disk-space@v1.3.1
+
       - uses: game-ci/unity-builder@v4
         env:
           UNITY_LICENSE: ${{ secrets.UNITY_LICENSE }}
@@ -33,7 +42,8 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+
       - uses: actions/upload-artifact@v4
         with:
-          name: Build-${{ matrix.targetPlatform }}
+          name: BOM_Chess ${{ matrix.targetPlatform }}-${{ steps.get_version.outputs.version }}
           path: build/${{ matrix.targetPlatform }}

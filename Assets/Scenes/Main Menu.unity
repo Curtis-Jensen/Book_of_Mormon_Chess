@@ -10398,16 +10398,23 @@ MonoBehaviour:
   sceneConfigs:
   - dropDownOptionName: Nephites' Last Stand
     sceneName: Nephites' Last Stand
-    frontRowPrefab: {fileID: 0}
-    backRowPrefabs: []
+    backRowPrefabs:
+    - {fileID: 6588266915599903942, guid: 3dbcfbaa5c530254b858b96ce686ce2c, type: 3}
+    - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
+    - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
+    - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   - dropDownOptionName: Pawns Only
     sceneName: Pawns Only
-    frontRowPrefab: {fileID: 0}
-    backRowPrefabs: []
+    backRowPrefabs:
+    - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+    - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   - dropDownOptionName: Classic
     sceneName: Classic
-    frontRowPrefab: {fileID: 0}
-    backRowPrefabs: []
+    backRowPrefabs:
+    - {fileID: 6588266915599903942, guid: 3dbcfbaa5c530254b858b96ce686ce2c, type: 3}
+    - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
+    - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
+    - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
 --- !u!4 &2089302261
 Transform:
   m_ObjectHideFlags: 0

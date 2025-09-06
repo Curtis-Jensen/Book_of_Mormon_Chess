@@ -53,6 +53,20 @@ public class BoardSetup : MonoBehaviour
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
+        
+        // Load back row prefabs from PlayerPrefs
+        int backRowCount = PlayerPrefs.GetInt("backRowCount");
+        backPiecePrefabs = new GameObject[backRowCount];
+        for (int i = 0; i < backRowCount; i++)
+        {
+            string prefabName = PlayerPrefs.GetString($"backRowPrefab_{i}");
+            backPiecePrefabs[i] = Resources.Load<GameObject>($"Prefabs/{prefabName}");
+            if (backPiecePrefabs[i] == null)
+            {
+                Debug.LogError($"Failed to load prefab: {prefabName}");
+            }
+        }
+
         TurnManager = GetComponent<TurnManager>();
         TurnManager.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();

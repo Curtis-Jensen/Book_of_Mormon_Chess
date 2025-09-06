@@ -23,23 +23,21 @@ public class SceneLoader : MonoBehaviour
     {
         PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
 
-        string sceneName = modeDropdown.options[modeDropdown.value].text;
+        string dropDownOption = modeDropdown.options[modeDropdown.value].text;
         
         // Find matching config and save prefab configuration
-        SceneConfig selectedConfig = Array.Find(sceneConfigs, config => config.dropDownOptionName == sceneName);
-        if (selectedConfig != null)
+        SceneConfig selectedConfig = Array.Find(sceneConfigs, config => config.dropDownOptionName == dropDownOption);
+        
+        // Store number of prefabs
+        PlayerPrefs.SetInt("backRowCount", selectedConfig.backRowPrefabs.Length);
+
+        // Store prefab names in order
+        for (int i = 0; i < selectedConfig.backRowPrefabs.Length; i++)
         {
-            // Store number of prefabs
-            PlayerPrefs.SetInt("backRowCount", selectedConfig.backRowPrefabs.Length);
-            
-            // Store prefab names in order
-            for (int i = 0; i < selectedConfig.backRowPrefabs.Length; i++)
-            {
-                PlayerPrefs.SetString($"backRowPrefab_{i}", selectedConfig.backRowPrefabs[i].name);
-            }
+            PlayerPrefs.SetString($"backRowPrefab_{i}", selectedConfig.backRowPrefabs[i].name);
         }
 
-        LoadScene(sceneName);
+        LoadScene(selectedConfig.sceneName);
     }
 
     #region Private Methods

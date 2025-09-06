@@ -7,13 +7,13 @@ on:
 
 jobs:
   buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }}
+    name: Book_of_Mormon_Chess_${{ matrix.targetPlatform }}  # Can't use version here!
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform:
-          - WebGL # Add other platforms if needed
+          - WebGL
     steps:
       - uses: actions/checkout@v4
         with:
@@ -23,7 +23,7 @@ jobs:
       - name: Get Unity Version
         id: get_version
         run: |
-          VERSION=$(grep 'm_EditorVersion' ProjectSettings/ProjectVersion.txt | cut -d' ' -f2)
+          VERSION=$(grep 'm_EditorVersion:' ProjectSettings/ProjectVersion.txt | awk '{print $2}')
           echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - uses: actions/cache@v3
@@ -43,7 +43,8 @@ jobs:
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
 
-      - uses: actions/upload-artifact@v4
+      - name: Upload Build Artifact
+        uses: actions/upload-artifact@v4
         with:
-          name: Bom_Chess_${{ matrix.targetPlatform }}-${{ steps.get_version.outputs.version }}
+          name: Book_of_Mormon_Chess_${{ matrix.targetPlatform }}-${{ steps.get_version.outputs.version }}
           path: build/${{ matrix.targetPlatform }}

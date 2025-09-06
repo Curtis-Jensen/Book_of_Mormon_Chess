@@ -7,13 +7,13 @@ on:
 
 jobs:
   buildForAllSupportedPlatforms:
-    name: Build for ${{ matrix.targetPlatform }} - ${{ steps.get_version.outputs.version }}
+    name: Build for ${{ matrix.targetPlatform }}
     runs-on: ubuntu-latest
     strategy:
       fail-fast: false
       matrix:
         targetPlatform:
-          - WebGL
+          - WebGL # Add other platforms if needed
     steps:
       - uses: actions/checkout@v4
         with:
@@ -45,5 +45,5 @@ jobs:
 
       - uses: actions/upload-artifact@v4
         with:
-          name: Build-${{ matrix.targetPlatform }}-${{ steps.get_version.outputs.version }}
+          name: Bom_Chess_${{ matrix.targetPlatform }}-${{ steps.get_version.outputs.version }}
           path: build/${{ matrix.targetPlatform }}

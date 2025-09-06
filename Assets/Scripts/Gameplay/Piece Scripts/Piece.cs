@@ -40,7 +40,7 @@ public abstract class Piece : MonoBehaviour
     {
         InstantiateDeathEffects();
 
-        FindAnyObjectByType<AiManager>().aiPieces[playerIndex].Remove(this);
+        FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
 
         endingManager.ReportDeath(playerIndex, materialValue);
 

@@ -89,8 +89,7 @@ public class Pawn : Piece
 
         Debug.LogWarning($"{name} spawned at: {transform.position}");
 
-        var AI = FindObjectOfType<AiManager>();
-        AI.aiPieces[playerIndex].Remove(this);
+        FindObjectOfType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
         endingManager.ReportDeath(playerIndex, materialValue);
         Destroy(gameObject);        
     }

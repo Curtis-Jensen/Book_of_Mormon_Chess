@@ -54,10 +54,7 @@ public class PieceSpawner : MonoBehaviour
         pieceScript.teamOne = player.teamOne;//⚖️
         pieceScript.playerIndex = playerIndex;
 
-        if (player.isAi)//🤖
-        {
-            aiManager.aiPieces[playerIndex].Add(pieceScript);
-        }
+        player.pieces.Add(pieceScript);//⚖️
 
         TurnManager.tiles[(int)position.x, (int)position.y].piece = pieceScript;
 

@@ -7,14 +7,12 @@ public class AiManager : MonoBehaviour
 {
     [Tooltip("How many times it will check a random piece to see if it's valid")]
     public int maxCycles = 100;
-    [HideInInspector]
-    public List<Piece>[] aiPieces;
+
+    Player[] players;
 
     void Awake()
     {
-        aiPieces = new List<Piece>[2];
-        aiPieces[0] = new List<Piece>();
-        aiPieces[1] = new List<Piece>();
+        players = FindObjectOfType<PieceSpawner>().players;
     }
 
     public AiChoice ChooseMove(int playerIndex)
@@ -35,7 +33,7 @@ public class AiManager : MonoBehaviour
     {
         var killingMoves = new List<AiChoice>();
 
-        foreach (var piece in aiPieces[playerIndex])
+        foreach (var piece in players[playerIndex].pieces)
         {
             var moves = piece.GetMoves();
             foreach (var move in moves)
@@ -62,14 +60,14 @@ public class AiManager : MonoBehaviour
     {
         AiChoice aiChoice = new();
 
-        if (aiPieces[playerIndex].Count == 0) return null;
+        if (players[playerIndex].pieces.Count == 0) return null;
 
         //Checks through each piece to see if one has a valid move
         for (int i = 0; i < maxCycles; i++)
         {
-            var numberOfPieces = aiPieces[playerIndex].Count;
+            var numberOfPieces = players[playerIndex].pieces.Count;
             //Picks a random piece
-            aiChoice.chosenPiece = aiPieces[playerIndex][Random.Range(0, numberOfPieces)];
+            aiChoice.chosenPiece = players[playerIndex].pieces [Random.Range(0, numberOfPieces)];
             //If it selects a piece that does not exist; try again.
             if (aiChoice.chosenPiece == null) continue;
 

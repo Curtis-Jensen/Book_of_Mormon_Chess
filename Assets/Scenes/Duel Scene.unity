@@ -136,6 +136,7 @@ GameObject:
   - component: {fileID: 76764648}
   - component: {fileID: 76764649}
   - component: {fileID: 76764650}
+  - component: {fileID: 76764651}
   m_Layer: 0
   m_Name: Gameplay Board
   m_TagString: Untagged
@@ -175,12 +176,15 @@ MonoBehaviour:
   - name: 
     isAi: 0
     teamOne: 0
+    pieces: []
   - name: 
     isAi: 0
     teamOne: 0
+    pieces: []
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
+  endingManager: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -197,9 +201,11 @@ MonoBehaviour:
   - name: player1
     isAi: 0
     teamOne: 1
+    pieces: []
   - name: player2
     isAi: 1
     teamOne: 0
+    pieces: []
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
@@ -336,9 +342,24 @@ MonoBehaviour:
   - name: player1
     isAi: 0
     teamOne: 1
+    pieces: []
   - name: player2
     isAi: 1
     teamOne: 0
+    pieces: []
+--- !u!114 &76764651
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76764644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a101a1c5a6390481dbb83c2923793ab4, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  winScreen: {fileID: 76764644}
 --- !u!1 &381365333
 GameObject:
   m_ObjectHideFlags: 0
@@ -974,6 +995,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 0}
   modeDropdown: {fileID: 0}
+  sceneConfigs: []
 --- !u!114 &1357622846
 MonoBehaviour:
   m_ObjectHideFlags: 0

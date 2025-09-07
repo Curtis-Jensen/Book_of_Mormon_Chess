@@ -17,12 +17,12 @@ public abstract class Piece : MonoBehaviour
     [HideInInspector]
     public bool firstTurnTaken = false;
 
-    protected EndingManager endingManager;
+    protected HoardEndingManager HoardEndingManager;
 
     protected virtual void Start()
     {
-        endingManager = FindAnyObjectByType<EndingManager>();
-        endingManager.ReportSpawn(playerIndex, materialValue);
+        HoardEndingManager = FindAnyObjectByType<HoardEndingManager>();
+        HoardEndingManager.ReportSpawn(playerIndex, materialValue);
     }
 
     /// <summary>
@@ -42,7 +42,7 @@ public abstract class Piece : MonoBehaviour
 
         FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
 
-        endingManager.ReportDeath(playerIndex, materialValue);
+        HoardEndingManager.ReportDeath(playerIndex, materialValue);
 
         Destroy(gameObject);
     }

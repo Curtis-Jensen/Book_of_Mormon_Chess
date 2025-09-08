@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 // Hard coded for The Nephites’ Last Stand at the moment
-public class HoardEndingManager : MonoBehaviour
+public class EndingManager : MonoBehaviour
 {
     public GameObject winScreen;
 
@@ -26,40 +26,11 @@ public class HoardEndingManager : MonoBehaviour
     public void ReportDeath(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] -= materialValue;
-    }
 
-    public void CheckEnd()
-    {
-        var pieceSpawner = FindAnyObjectByType<PieceSpawner>();
-        
-        // Check if either player has any legal moves
-        bool player1HasMoves = false;
-
-        // Check player 1's pieces
-        foreach (var piece in pieceSpawner.players[0].pieces)
-        {
-            if (piece.GetMoves().Count > 0)
-            {
-                player1HasMoves = true;
-                break;
-            }
-        }
-        // If either player has no legal moves, it's a stalemate
-        if (!player1HasMoves)
-        {
-            Debug.Log("Stalemate detected - one player has no legal moves!");
-        }
-
-        //Check if all pieces are gone
-        if (teamCounts[0] <= 0)
+        if (teamCounts[playerIndex] <= 0 && playerIndex == 0)
         {
             Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");
-            EndGame();
+            winScreen.SetActive(true);
         }
-    }
-
-    public void EndGame()
-    {
-        winScreen.SetActive(true);
     }
 }

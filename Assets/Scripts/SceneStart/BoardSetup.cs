@@ -6,8 +6,6 @@ using UnityEngine.UIElements;
 
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TurnManager))]
-[RequireComponent(typeof(HoardEndingManager))]
-[RequireComponent(typeof(PieceSpawner))]
 public class BoardSetup : MonoBehaviour
 {
     public Player[] players;
@@ -47,7 +45,7 @@ public class BoardSetup : MonoBehaviour
     void InitializeVariables()
     {
         boardSize = PlayerPrefs.GetInt("boardSize");
-
+        
         // Load back row prefabs from PlayerPrefs
         int backRowCount = PlayerPrefs.GetInt("backRowCount");
         backPiecePrefabs = new GameObject[backRowCount];
@@ -64,8 +62,8 @@ public class BoardSetup : MonoBehaviour
         TurnManager = GetComponent<TurnManager>();
         TurnManager.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
+        //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
-        TurnManager.HoardEndingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
         TurnManager.players = players;
         TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;

@@ -3,12 +3,6 @@ using System.Collections.Generic;
 using System.Net;
 using UnityEngine;
 
-public class AiChoice
-{
-    public Piece chosenPiece;
-    public Vector2 moveTo;
-}
-
 public class AiManager : MonoBehaviour
 {
     [Tooltip("How many times it will check a random piece to see if it's valid")]
@@ -73,7 +67,7 @@ public class AiManager : MonoBehaviour
         {
             var numberOfPieces = players[playerIndex].pieces.Count;
             //Picks a random piece
-            aiChoice.chosenPiece = players[playerIndex].pieces[Random.Range(0, numberOfPieces)];
+            aiChoice.chosenPiece = players[playerIndex].pieces [Random.Range(0, numberOfPieces)];
             //If it selects a piece that does not exist; try again.
             if (aiChoice.chosenPiece == null) continue;
 
@@ -92,4 +86,10 @@ public class AiManager : MonoBehaviour
 
         return aiChoice;
     }
+}
+
+public class AiChoice
+{
+    public Piece chosenPiece;
+    public Vector2 moveTo;
 }

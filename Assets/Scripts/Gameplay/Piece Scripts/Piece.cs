@@ -41,7 +41,7 @@ public abstract class Piece : MonoBehaviour
         InstantiateDeathEffects();
 
         FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
-
+        
         HoardEndingManager.ReportDeath(playerIndex, materialValue);
 
         Destroy(gameObject);

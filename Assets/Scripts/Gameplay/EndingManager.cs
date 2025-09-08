@@ -27,11 +27,11 @@ public class HoardEndingManager : MonoBehaviour
     {
         teamCounts[playerIndex] -= materialValue;
     }
-
+    
     public void CheckEnd()
     {
         var pieceSpawner = FindAnyObjectByType<PieceSpawner>();
-        
+
         // Check if either player has any legal moves
         bool player1HasMoves = false;
 
@@ -48,10 +48,11 @@ public class HoardEndingManager : MonoBehaviour
         if (!player1HasMoves)
         {
             Debug.Log("Stalemate detected - one player has no legal moves!");
+            EndGame();
         }
 
         //Check if all pieces are gone
-        if (teamCounts[0] <= 0)
+        if (pieceSpawner.players[0].pieces.Count <= 0)
         {
             Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");
             EndGame();

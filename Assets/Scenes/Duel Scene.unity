@@ -184,7 +184,7 @@ MonoBehaviour:
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
-  HoardEndingManager: {fileID: 0}
+  endingManager: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -359,7 +359,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a101a1c5a6390481dbb83c2923793ab4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  winScreen: {fileID: 1855521220}
+  winScreen: {fileID: 76764644}
 --- !u!1 &381365333
 GameObject:
   m_ObjectHideFlags: 0
@@ -700,6 +700,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b081f620df64fbfb3f487e07472e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  cameraPadding: 0.5
+  backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
+  background: {fileID: 381365333}
 --- !u!1 &631765871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1291,7 +1294,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1855521221
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1306,10 +1309,10 @@ RectTransform:
   m_Children: []
   m_Father: {fileID: 1664833172}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 288, y: -55}
-  m_SizeDelta: {x: -600, y: 50}
+  m_AnchorMin: {x: 0.5, y: 0.5}
+  m_AnchorMax: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: 289, y: 114.18}
+  m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1855521222
 MonoBehaviour:
@@ -1331,7 +1334,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Victory
+  m_text: 
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}

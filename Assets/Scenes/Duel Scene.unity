@@ -137,7 +137,6 @@ GameObject:
   - component: {fileID: 76764649}
   - component: {fileID: 76764650}
   - component: {fileID: 76764651}
-  - component: {fileID: 76764651}
   m_Layer: 0
   m_Name: Gameplay Board
   m_TagString: Untagged
@@ -178,11 +177,9 @@ MonoBehaviour:
     isAi: 0
     teamOne: 0
     pieces: []
-    pieces: []
   - name: 
     isAi: 0
     teamOne: 0
-    pieces: []
     pieces: []
   boardSize: 8
   audioSource: {fileID: 0}
@@ -205,11 +202,9 @@ MonoBehaviour:
     isAi: 0
     teamOne: 1
     pieces: []
-    pieces: []
   - name: player2
     isAi: 1
     teamOne: 0
-    pieces: []
     pieces: []
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
@@ -347,7 +342,6 @@ MonoBehaviour:
   - name: player1
     isAi: 0
     teamOne: 1
-    pieces: []
     pieces: []
   - name: player2
     isAi: 1
@@ -998,7 +992,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sizeInput: {fileID: 0}
   modeDropdown: {fileID: 0}
-  sceneConfigs: []
   sceneConfigs: []
 --- !u!114 &1357622846
 MonoBehaviour:

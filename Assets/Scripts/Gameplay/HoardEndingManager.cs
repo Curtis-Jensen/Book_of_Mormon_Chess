@@ -8,9 +8,12 @@ public class HoardEndingManager : MonoBehaviour
     public GameObject winScreen;
 
     int[] teamCounts;
+    PieceSpawner pieceSpawner;
 
     void Awake()
     {
+        pieceSpawner = FindAnyObjectByType<PieceSpawner>();
+
         teamCounts = new int[2];
         for (int i = 0; i < teamCounts.Length; i++)
         {
@@ -30,28 +33,34 @@ public class HoardEndingManager : MonoBehaviour
     
     public void CheckEnd()
     {
-        var pieceSpawner = FindAnyObjectByType<PieceSpawner>();
+        CheckStalemate();
+        CheckExtinction();
+    }
 
+    void CheckStalemate()
+    {
         // Check if either player has any legal moves
-        bool player1HasMoves = false;
+        bool playerHasMoves = false;
 
         // Check player 1's pieces
         foreach (var piece in pieceSpawner.players[0].pieces)
         {
             if (piece.GetMoves().Count > 0)
             {
-                player1HasMoves = true;
+                playerHasMoves = true;
                 break;
             }
         }
         // If either player has no legal moves, it's a stalemate
-        if (!player1HasMoves)
+        if (!playerHasMoves)
         {
             Debug.Log("Stalemate detected - one player has no legal moves!");
             EndGame();
         }
+    }
 
-        //Check if all pieces are gone
+    void CheckExtinction()
+    {
         if (pieceSpawner.players[0].pieces.Count <= 0)
         {
             Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");

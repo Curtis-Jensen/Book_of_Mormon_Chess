@@ -188,6 +188,7 @@ public class TurnManager : MonoBehaviour
         selectedPiece.MoveEnd();
 
         endingManager.CheckEnd();
+        if (endingManager.gameOver) return;
 
         ChangeTurn();
     }

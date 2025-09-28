@@ -1,12 +1,13 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Analytics;
 
 // Hard coded for The Nephites’ Last Stand at the moment
 public class HoardEndingManager : MonoBehaviour
 {
     public GameObject winScreen;
-
+    [HideInInspector] public bool gameOver = false;
     int[] teamCounts;
     protected PieceSpawner pieceSpawner;
 
@@ -75,5 +76,6 @@ public class HoardEndingManager : MonoBehaviour
     public void EndGame()
     {
         winScreen.SetActive(true);
+        gameOver = true;
     }
 }

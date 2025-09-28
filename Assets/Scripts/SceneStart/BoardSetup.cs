@@ -66,7 +66,6 @@ public class BoardSetup : MonoBehaviour
         pieceSpawner = GetComponent<PieceSpawner>();
         aiManager = GetComponent<AiManager>();
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
-        Debug.Log($"{TurnManager.endingManager.gameObject.name}");
         TurnManager.aiManager = aiManager;
         TurnManager.players = players;
         TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;

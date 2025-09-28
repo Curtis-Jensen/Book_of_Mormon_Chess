@@ -13,7 +13,7 @@ public class RequiredAttributeValidator : Editor
 
         foreach (var field in fields)
         {
-            if (field.GetCustomAttribute<SerializeField>() != null || field.IsPublic)
+            if (field.GetCustomAttribute<SerializeField>() != null)
             {
                 var value = field.GetValue(target);
                 if (value == null)

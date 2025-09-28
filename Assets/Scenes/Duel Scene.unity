@@ -700,9 +700,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 20b081f620df64fbfb3f487e07472e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  cameraPadding: 0.5
-  backGroundOffset: {x: -0.00056, y: -0.018, z: 10}
-  background: {fileID: 381365333}
 --- !u!1 &631765871
 GameObject:
   m_ObjectHideFlags: 0
@@ -1311,7 +1308,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 290.9, y: 268.74}
+  m_AnchoredPosition: {x: 278, y: 183.87}
   m_SizeDelta: {x: 200, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1855521222

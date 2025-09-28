@@ -313,6 +313,7 @@ MonoBehaviour:
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
+  HoardEndingManager: {fileID: 0}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   spawnDisplay: {fileID: 1704381419}
@@ -2359,10 +2360,17 @@ MonoBehaviour:
       Moroni was left alone. He had no family, friends, nor anywhere to go\u2014but
       he finished the record and hid it in the earth, just as he was commanded. "
     referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/morm/8?lang=eng&id=p1-p5#p1
+  - name: Moroni 8:7
+    verse: And behold, the Lamanites have hunted my people, the Nephites, down from
+      city to city and from place to place, even until they are no more; and great
+      has been their fall; yea, great and marvelous is the destruction of my people,
+      the Nephites.
+    referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/morm/8?lang=eng&id=p7#p7
   - name: Mormon 8:8
-    verse: The Nephites are slain.  And behold also, the Lamanites are at war one
-      with another; and the whole face of this land is one continual round of murder
-      and bloodshed; and no one knoweth the end of the war.
+    verse: And behold it is The hand of the Lord which hath done this.  And behold
+      also, the Lamanites are at war one with another; and the whole face of this
+      land is one continual round of murder and bloodshed; and no one knoweth the
+      end of the war.
     referenceLink: https://www.churchofjesuschrist.org/study/scriptures/bofm/morm/8?lang=eng
   - name: 'Moroni 9: 11-14'
     verse: "Some time before the battle Mormon wrote to Moroni about the Nephites

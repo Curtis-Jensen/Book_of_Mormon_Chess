@@ -14,6 +14,7 @@ public class TurnManager : MonoBehaviour
     [HideInInspector] public int boardSize = 8;
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public AiManager aiManager;
+    [HideInInspector] public HoardEndingManager endingManager;
 
     protected int playerTurn = 0;
 
@@ -185,6 +186,9 @@ public class TurnManager : MonoBehaviour
         audioSource.Play();
 
         selectedPiece.MoveEnd();
+
+        endingManager.CheckEnd();
+        if (endingManager.gameOver) return;
 
         ChangeTurn();
     }

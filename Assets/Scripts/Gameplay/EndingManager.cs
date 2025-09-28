@@ -1,36 +1,43 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
-// Hard coded for The Nephites’ Last Stand at the moment
-public class EndingManager : MonoBehaviour
+public class EndingManager : HoardEndingManager
 {
-    public GameObject winScreen;
+    [SerializeField] PieceSets pieceSets;
 
-    int[] teamCounts;
-
-    void Awake()
+    public override void CheckEnd()
     {
-        teamCounts = new int[2];
-        for (int i = 0; i < teamCounts.Length; i++)
+        for (int i = 0; i < pieceSpawner.players.Length; i++)
         {
-            teamCounts[i] = 0;
+            CheckStalemate(i);
+            CheckExtinction(i);
         }
     }
 
-    public void ReportSpawn(int playerIndex, int materialValue)
+    protected override void EndGame(int playerIndex)
     {
-        teamCounts[playerIndex] += materialValue;
+        base.EndGame(playerIndex);
+
+        SetFlagColor(playerIndex);
     }
 
-    public void ReportDeath(int playerIndex, int materialValue)
+    void SetFlagColor(int playerIndex)
     {
-        teamCounts[playerIndex] -= materialValue;
-
-        if (teamCounts[playerIndex] <= 0 && playerIndex == 0)
+        int winningPlayerIndex;
+        if (playerIndex == 0)
         {
-            Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");
-            winScreen.SetActive(true);
+            winningPlayerIndex = 1;
         }
+        else
+        {
+            winningPlayerIndex = 0;
+        }
+
+        var winningPlayerName = pieceSpawner.players[winningPlayerIndex].name;
+        var colorSelection = PlayerPrefs.GetInt(winningPlayerName + "color");//🎨
+
+        winScreen.GetComponent<Image>().color = pieceSets.colorSets[colorSelection].baseColor;
     }
 }

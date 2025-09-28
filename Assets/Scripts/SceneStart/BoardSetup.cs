@@ -6,6 +6,7 @@ using UnityEngine.UIElements;
 
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TurnManager))]
+[RequireComponent(typeof(HoardEndingManager))]
 public class BoardSetup : MonoBehaviour
 {
     public Player[] players;
@@ -64,6 +65,7 @@ public class BoardSetup : MonoBehaviour
         pieceSpawner = GetComponent<PieceSpawner>();
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
+        TurnManager.endingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
         TurnManager.players = players;
         TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;

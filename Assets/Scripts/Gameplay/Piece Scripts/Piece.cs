@@ -14,6 +14,12 @@ public abstract class Piece : MonoBehaviour
 
     public int playerIndex;
 
+    [Header("Dance Properties")]
+    [Tooltip("How high the piece bounces in units")]
+    public float bounceHeight = 0.5f;
+    [Tooltip("How long each bounce cycle takes in seconds")]
+    public float bounceDuration = 0.5f;
+
     [HideInInspector]
     public bool firstTurnTaken = false;
 
@@ -34,6 +40,44 @@ public abstract class Piece : MonoBehaviour
     public virtual void MoveEnd()
     {
         //Mostly exists for pawn promotion override
+    }
+
+    private Coroutine danceCoroutine;
+    public void Dance()
+    {
+        danceCoroutine = StartCoroutine(DanceAnimation());
+    }
+
+    private IEnumerator DanceAnimation()
+    {
+        Vector3 startPosition = transform.position;
+        
+        while (true)
+        {
+            // Bounce up
+            float elapsedTime = 0f;
+            while (elapsedTime < bounceDuration / 2)
+            {
+                elapsedTime += Time.deltaTime;
+                float progress = elapsedTime / (bounceDuration / 2);
+                float height = Mathf.Sin(progress * Mathf.PI) * bounceHeight;
+                transform.position = startPosition + new Vector3(0, height, 0);
+                yield return null;
+            }
+
+            // Bounce down
+            elapsedTime = 0f;
+            while (elapsedTime < bounceDuration / 2)
+            {
+                elapsedTime += Time.deltaTime;
+                float progress = elapsedTime / (bounceDuration / 2);
+                float height = Mathf.Sin((1 - progress) * Mathf.PI) * bounceHeight;
+                transform.position = startPosition + new Vector3(0, height, 0);
+                yield return null;
+            }
+
+            transform.position = startPosition;
+        }
     }
 
     public void Die()

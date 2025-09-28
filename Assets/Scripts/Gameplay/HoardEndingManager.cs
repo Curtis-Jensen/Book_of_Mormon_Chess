@@ -60,7 +60,7 @@ public class HoardEndingManager : MonoBehaviour
         if (!playerHasMoves)
         {
             Debug.Log("Stalemate detected - one player has no legal moves!");
-            EndGame();
+            EndGame(playerIndex);
         }
     }
 
@@ -69,11 +69,11 @@ public class HoardEndingManager : MonoBehaviour
         if (pieceSpawner.players[playerIndex].pieces.Count <= 0)
         {
             Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");
-            EndGame();
+            EndGame(playerIndex);
         }
     }
 
-    public void EndGame()
+    protected virtual void EndGame(int playerIndex)
     {
         winScreen.SetActive(true);
         gameOver = true;

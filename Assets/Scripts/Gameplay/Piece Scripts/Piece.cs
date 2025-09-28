@@ -19,6 +19,8 @@ public abstract class Piece : MonoBehaviour
     public float bounceHeight = 0.5f;
     [Tooltip("How long each bounce cycle takes in seconds")]
     public float bounceDuration = 0.5f;
+    [Tooltip("Maximum random delay added between bounces (in seconds)")]
+    public float maxBounceDelay = 0.3f;
 
     [HideInInspector]
     public bool firstTurnTaken = false;
@@ -51,32 +53,43 @@ public abstract class Piece : MonoBehaviour
     private IEnumerator DanceAnimation()
     {
         Vector3 startPosition = transform.position;
+        bool firstBounce = true;
         
         while (true)
         {
-            // Bounce up
+            // Complete bounce cycle
             float elapsedTime = 0f;
-            while (elapsedTime < bounceDuration / 2)
+            float fullDuration = bounceDuration;
+            
+            while (elapsedTime < fullDuration)
             {
-                elapsedTime += Time.deltaTime;
-                float progress = elapsedTime / (bounceDuration / 2);
-                float height = Mathf.Sin(progress * Mathf.PI) * bounceHeight;
+                float normalizedTime = elapsedTime / fullDuration;
+                // Full sine wave from 0 to PI for smooth up and down motion
+                float height = Mathf.Sin(normalizedTime * Mathf.PI) * bounceHeight;
                 transform.position = startPosition + new Vector3(0, height, 0);
+                
+                elapsedTime += Time.deltaTime;
                 yield return null;
             }
 
-            // Bounce down
-            elapsedTime = 0f;
-            while (elapsedTime < bounceDuration / 2)
-            {
-                elapsedTime += Time.deltaTime;
-                float progress = elapsedTime / (bounceDuration / 2);
-                float height = Mathf.Sin((1 - progress) * Mathf.PI) * bounceHeight;
-                transform.position = startPosition + new Vector3(0, height, 0);
-                yield return null;
-            }
-
+            // Ensure we end at the start position and stay there during delay
             transform.position = startPosition;
+            
+            // Add delay after bounce (except for first bounce)
+            if (!firstBounce && maxBounceDelay > 0)
+            {
+                float waitDuration = Random.Range(0f, maxBounceDelay);
+                float waitedTime = 0f;
+                
+                while (waitedTime < waitDuration)
+                {
+                    waitedTime += Time.deltaTime;
+                    // Make sure we stay at the ground position during the wait
+                    transform.position = startPosition;
+                    yield return null;
+                }
+            }
+            firstBounce = false;
         }
     }
 

@@ -12,6 +12,8 @@ public class PieceSpawner : MonoBehaviour
     public float pieceBounceHeight = 0.5f;
     [Tooltip("How long each bounce cycle takes in seconds")]
     public float piecebounceDuration = 0.5f;
+    [Tooltip("Maximum random delay added between bounces (in seconds)")]
+    public float maxBounceDelay = 0.3f;
 
     TurnManager TurnManager;
 
@@ -96,5 +98,6 @@ public class PieceSpawner : MonoBehaviour
     {
         pieceScript.bounceHeight = pieceBounceHeight;
         pieceScript.bounceDuration = piecebounceDuration;
+        pieceScript.maxBounceDelay = maxBounceDelay;
     }
 }

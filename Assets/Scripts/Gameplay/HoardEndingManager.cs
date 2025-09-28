@@ -8,7 +8,7 @@ public class HoardEndingManager : MonoBehaviour
     public GameObject winScreen;
 
     int[] teamCounts;
-    PieceSpawner pieceSpawner;
+    protected PieceSpawner pieceSpawner;
 
     //Initialized objects
     void Awake()
@@ -35,7 +35,7 @@ public class HoardEndingManager : MonoBehaviour
     }
 
     //More of a method holder method
-    public void CheckEnd()
+    public virtual void CheckEnd()
     {
         CheckStalemate();
         CheckExtinction();

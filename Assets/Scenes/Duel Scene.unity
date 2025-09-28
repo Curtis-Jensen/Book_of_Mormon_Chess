@@ -184,7 +184,7 @@ MonoBehaviour:
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
-  HoardEndingManager: {fileID: 0}
+  endingManager: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -356,7 +356,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 76764644}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a101a1c5a6390481dbb83c2923793ab4, type: 3}
+  m_Script: {fileID: 11500000, guid: 25c43ee910d9b4169848a7d2178ca664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   winScreen: {fileID: 1855521220}
@@ -846,7 +846,6 @@ GameObject:
   - component: {fileID: 1357622844}
   - component: {fileID: 1357622841}
   - component: {fileID: 1357622845}
-  - component: {fileID: 1357622846}
   m_Layer: 0
   m_Name: Managers
   m_TagString: GameController
@@ -993,19 +992,6 @@ MonoBehaviour:
   sizeInput: {fileID: 0}
   modeDropdown: {fileID: 0}
   sceneConfigs: []
---- !u!114 &1357622846
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1357622834}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a101a1c5a6390481dbb83c2923793ab4, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  winScreen: {fileID: 1357622834}
 --- !u!1 &1495983631
 GameObject:
   m_ObjectHideFlags: 0

@@ -1,15 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEditor;
 using UnityEngine;
 
 public class EndingManager : HoardEndingManager
 {
-    public void CheckEnd()
+    public override void CheckEnd()
     {
-        foreach (var player in pieceSpawner.players)
+        Debug.Log($"Called the appropriate CheckEnd method in {this.GetType()}");
+        for (int i = 0; i < pieceSpawner.players.Length; i++)
         {
-            CheckStalemate(player.playerIndex);
-            CheckExtinction(player.playerIndex);
+            CheckStalemate(i);
+            CheckExtinction(i);
         }
     }
 }

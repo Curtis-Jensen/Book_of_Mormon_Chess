@@ -41,7 +41,7 @@ public abstract class Piece : MonoBehaviour
 
     public virtual void MoveEnd()
     {
-        //Mostly exists for pawn promotion override
+        //Mostly exists for pawn promotion override, but we can't make it virtual because then every piece would need to implement it
     }
 
     private Coroutine danceCoroutine;

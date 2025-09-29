@@ -19,6 +19,28 @@ public class King : Piece
           new(-1,  1),
           new( 1, -1)};
 
+    protected override void Start()
+    {
+        TurnManager.Instance.OnMoveEnd += IsInCheck;
+
+        base.Start();
+    }
+
+    public void IsInCheck()
+    {
+        Vector2Int kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+
+        // Check all enemy pieces to see if they can attack the king
+        var enemyPieces = FindObjectOfType<PieceSpawner>().players[teamOne ? 1 : 0].pieces;
+        foreach (var enemyPiece in enemyPieces)
+        {
+            if (enemyPiece.GetMoves().Contains(kingPosition))
+            {
+                Debug.Log("Check!");
+            }
+        }
+    }
+
     public override List<Vector2Int> GetMoves()
     {
         List<Vector2Int> validMoves = new();

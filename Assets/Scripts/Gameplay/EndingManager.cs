@@ -16,7 +16,7 @@ public class EndingManager : HoardEndingManager
         }
     }
 
-    protected override void EndGame(int playerIndex)
+    public override void EndGame(int playerIndex)
     {
         base.EndGame(playerIndex);
 

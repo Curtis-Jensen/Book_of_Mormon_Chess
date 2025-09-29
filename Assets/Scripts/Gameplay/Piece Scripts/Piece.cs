@@ -44,10 +44,9 @@ public abstract class Piece : MonoBehaviour
         //Mostly exists for pawn promotion override, but we can't make it virtual because then every piece would need to implement it
     }
 
-    private Coroutine danceCoroutine;
     public void Dance()
     {
-        danceCoroutine = StartCoroutine(DanceAnimation());
+        StartCoroutine(DanceAnimation());
     }
 
     private IEnumerator DanceAnimation()
@@ -93,7 +92,7 @@ public abstract class Piece : MonoBehaviour
         }
     }
 
-    public void Die()
+    public virtual void Die()
     {
         InstantiateDeathEffects();
 

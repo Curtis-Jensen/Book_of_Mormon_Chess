@@ -7,13 +7,19 @@ public class PieceSpawner : MonoBehaviour
     public PieceSets pieceSets;
     public Player[] players;
 
+    [Header("Victory Dance Properties")]
+    [Tooltip("How high the pieces bounce in units")]
+    public float pieceBounceHeight = 0.5f;
+    [Tooltip("How long each bounce cycle takes in seconds")]
+    public float piecebounceDuration = 0.5f;
+    [Tooltip("Maximum random delay added between bounces (in seconds)")]
+    public float maxBounceDelay = 0.3f;
+
     TurnManager TurnManager;
-    AiManager aiManager;
 
     void Awake()
     {
         TurnManager = GetComponent<TurnManager>();
-        aiManager = GetComponent<AiManager>();
 
         players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
         players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
@@ -54,6 +60,8 @@ public class PieceSpawner : MonoBehaviour
         pieceScript.teamOne = player.teamOne;//⚖️
         pieceScript.playerIndex = playerIndex;
 
+        SetDanceProperties(pieceScript);
+
         player.pieces.Add(pieceScript);//⚖️
 
         TurnManager.tiles[(int)position.x, (int)position.y].piece = pieceScript;
@@ -84,5 +92,12 @@ public class PieceSpawner : MonoBehaviour
 
         pieceInstance.transform.localScale
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
-    }   
+    }
+
+    void SetDanceProperties(Piece pieceScript)
+    {
+        pieceScript.bounceHeight = pieceBounceHeight;
+        pieceScript.bounceDuration = piecebounceDuration;
+        pieceScript.maxBounceDelay = maxBounceDelay;
+    }
 }

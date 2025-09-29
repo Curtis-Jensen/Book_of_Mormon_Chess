@@ -347,6 +347,8 @@ MonoBehaviour:
     isAi: 1
     teamOne: 0
     pieces: []
+  pieceBounceHeight: 0.5
+  piecebounceDuration: 1
 --- !u!114 &76764651
 MonoBehaviour:
   m_ObjectHideFlags: 0

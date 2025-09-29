@@ -73,7 +73,7 @@ public class HoardEndingManager : MonoBehaviour
         }
     }
 
-    protected virtual void EndGame(int playerIndex)
+    public virtual void EndGame(int playerIndex)
     {
         winScreen.SetActive(true);
         gameOver = true;

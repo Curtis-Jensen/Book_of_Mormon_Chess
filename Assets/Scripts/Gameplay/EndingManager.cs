@@ -16,15 +16,10 @@ public class EndingManager : HoardEndingManager
         }
     }
 
-    protected override void EndGame(int playerIndex)
+    public override void EndGame(int playerIndex)
     {
         base.EndGame(playerIndex);
 
-        SetFlagColor(playerIndex);
-    }
-
-    void SetFlagColor(int playerIndex)
-    {
         int winningPlayerIndex;
         if (playerIndex == 0)
         {
@@ -35,9 +30,24 @@ public class EndingManager : HoardEndingManager
             winningPlayerIndex = 0;
         }
 
+        SetFlagColor(winningPlayerIndex);
+
+        CreateParty(winningPlayerIndex);
+    }
+
+    void SetFlagColor(int winningPlayerIndex)
+    {
         var winningPlayerName = pieceSpawner.players[winningPlayerIndex].name;
         var colorSelection = PlayerPrefs.GetInt(winningPlayerName + "color");//🎨
 
         winScreen.GetComponent<Image>().color = pieceSets.colorSets[colorSelection].baseColor;
+    }
+
+    void CreateParty(int winningPlayerIndex)
+    {
+        foreach(Piece piece in pieceSpawner.players[winningPlayerIndex].pieces)
+        {
+            piece.GetComponent<Piece>().Dance();
+        }
     }
 }

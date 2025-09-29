@@ -14,6 +14,14 @@ public abstract class Piece : MonoBehaviour
 
     public int playerIndex;
 
+    [Header("Dance Properties")]
+    [Tooltip("How high the piece bounces in units")]
+    public float bounceHeight = 0.5f;
+    [Tooltip("How long each bounce cycle takes in seconds")]
+    public float bounceDuration = 0.5f;
+    [Tooltip("Maximum random delay added between bounces (in seconds)")]
+    public float maxBounceDelay = 0.3f;
+
     [HideInInspector]
     public bool firstTurnTaken = false;
 
@@ -33,10 +41,58 @@ public abstract class Piece : MonoBehaviour
 
     public virtual void MoveEnd()
     {
-        //Mostly exists for pawn promotion override
+        //Mostly exists for pawn promotion override, but we can't make it virtual because then every piece would need to implement it
     }
 
-    public void Die()
+    public void Dance()
+    {
+        StartCoroutine(DanceAnimation());
+    }
+
+    private IEnumerator DanceAnimation()
+    {
+        Vector3 startPosition = transform.position;
+        bool firstBounce = true;
+        
+        while (true)
+        {
+            // Complete bounce cycle
+            float elapsedTime = 0f;
+            float fullDuration = bounceDuration;
+            
+            while (elapsedTime < fullDuration)
+            {
+                float normalizedTime = elapsedTime / fullDuration;
+                // Full sine wave from 0 to PI for smooth up and down motion
+                float height = Mathf.Sin(normalizedTime * Mathf.PI) * bounceHeight;
+                transform.position = startPosition + new Vector3(0, height, 0);
+                
+                elapsedTime += Time.deltaTime;
+                yield return null;
+            }
+
+            // Ensure we end at the start position and stay there during delay
+            transform.position = startPosition;
+            
+            // Add delay after bounce (except for first bounce)
+            if (!firstBounce && maxBounceDelay > 0)
+            {
+                float waitDuration = Random.Range(0f, maxBounceDelay);
+                float waitedTime = 0f;
+                
+                while (waitedTime < waitDuration)
+                {
+                    waitedTime += Time.deltaTime;
+                    // Make sure we stay at the ground position during the wait
+                    transform.position = startPosition;
+                    yield return null;
+                }
+            }
+            firstBounce = false;
+        }
+    }
+
+    public virtual void Die()
     {
         InstantiateDeathEffects();
 

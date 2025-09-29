@@ -7,6 +7,9 @@ using UnityEngine.UIElements;
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; set; } // Static instance
+    public delegate void MoveEndHandler();
+    public event MoveEndHandler OnMoveEnd;
+
     public Tile[,] tiles;
     public float moveTime = 0.5f;
 
@@ -186,6 +189,8 @@ public class TurnManager : MonoBehaviour
         audioSource.Play();
 
         selectedPiece.MoveEnd();
+
+        OnMoveEnd?.Invoke();
 
         endingManager.CheckEnd();
         if (endingManager.gameOver) return;

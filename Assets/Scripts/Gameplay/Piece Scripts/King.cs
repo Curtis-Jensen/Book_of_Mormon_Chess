@@ -6,8 +6,6 @@ using UnityEngine;
 
 public class King : Piece
 {
-    [TextArea]
-    public string winStatement;
     //The four cardinal directions, and diagonal moves, to be multiplied upon
     Vector2Int[] moveDirections =
         { new( 1,  0),
@@ -18,6 +16,28 @@ public class King : Piece
           new(-1, -1),
           new(-1,  1),
           new( 1, -1)};
+
+    protected override void Start()
+    {
+        TurnManager.Instance.OnMoveEnd += IsInCheck;
+
+        base.Start();
+    }
+
+    public void IsInCheck()
+    {
+        Vector2Int kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+
+        // Check all enemy pieces to see if they can attack the king
+        var enemyPieces = FindObjectOfType<PieceSpawner>().players[teamOne ? 1 : 0].pieces;
+        foreach (var enemyPiece in enemyPieces)
+        {
+            if (enemyPiece.GetMoves().Contains(kingPosition))
+            {
+                Debug.Log($"Check!");
+            }
+        }
+    }
 
     public override List<Vector2Int> GetMoves()
     {
@@ -40,21 +60,11 @@ public class King : Piece
         return validMoves;
     }
 
-    void OnDestroy()
+    public override void Die()
     {
-        TMP_Text winnerText;
+        var endingManager = FindAnyObjectByType<EndingManager>();
+        endingManager.EndGame(teamOne ? 0 : 1);
 
-        //Yes, this is jenky.  It exists because a king is deleted during the scene closing, and so it throws an error
-        try
-        {
-            winnerText = GameObject.Find("Winner Text").GetComponent<TMP_Text>();
-        }
-        catch
-        {
-            return;
-        }
-
-        winnerText.gameObject.SetActive(true);
-        winnerText.text = winStatement;
+        base.Die();
     }
 }

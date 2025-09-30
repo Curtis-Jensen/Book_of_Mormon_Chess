@@ -26,7 +26,7 @@ public class King : Piece
 
     public void IsInCheck()
     {
-        Vector2Int kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
         // Check all enemy pieces to see if they can attack the king
         var enemyPieces = FindObjectOfType<PieceSpawner>().players[teamOne ? 1 : 0].pieces;

@@ -23,10 +23,12 @@ public class SceneLoader : MonoBehaviour
     {
         PlayerPrefs.SetInt("boardSize", GetInputText(sizeInput));
 
-        string dropDownOption = modeDropdown.options[modeDropdown.value].text;
+        string sceneName = PlayerPrefs.GetString("gameMode");
+
+        Debug.Log($"{sceneName} selected");
         
         // Find matching config and save prefab configuration
-        SceneConfig selectedConfig = Array.Find(sceneConfigs, config => config.dropDownOptionName == dropDownOption);
+        SceneConfig selectedConfig = Array.Find(sceneConfigs, config => config.dropDownOptionName == sceneName);
         
         // Store number of prefabs
         PlayerPrefs.SetInt("backRowCount", selectedConfig.backRowPrefabs.Length);

@@ -11,7 +11,6 @@ public class MenuTabController : MonoBehaviour
     }
 
     [SerializeField] GameObject firstMenuPanel; // The initial menu panel
-    [SerializeField] Button nextButton; // Button to go to tabbed menu
     [SerializeField] GameObject tabButtonsContainer; // Container for tab buttons
     [SerializeField] Button backButton; // Button to return to main menu
     [SerializeField] Tab[] tabs; // Assign in Inspector
@@ -30,9 +29,6 @@ public class MenuTabController : MonoBehaviour
 
         // Add back button listener
         backButton.onClick.AddListener(ShowMainMenu);
-
-        nextButton.onClick.AddListener(() => ShowTab(0));
-        nextButton.onClick.AddListener(ShowTabbedMenu);
     }
 
     public void ShowMainMenu()
@@ -61,7 +57,7 @@ public class MenuTabController : MonoBehaviour
         ShowTab(0);
     }
 
-    public void ShowTab(int index = 0)
+    public void ShowTab(int index)
     {
         // Hide all panels, show selected one
         foreach (var tab in tabs)

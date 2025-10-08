@@ -2137,7 +2137,7 @@ GameObject:
   - component: {fileID: 296455811}
   - component: {fileID: 296455810}
   m_Layer: 5
-  m_Name: Anti_Nepi_Lehi
+  m_Name: Anti-Nephi-Lehi Guards
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

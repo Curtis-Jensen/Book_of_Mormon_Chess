@@ -41,5 +41,6 @@ public class StriplingWarrior : Piece
     public override void Die()
     {
         TurnManager.Instance.selectedPiece.Die();
+        TurnManager.Instance.selectedPiece = this;
     }
 }

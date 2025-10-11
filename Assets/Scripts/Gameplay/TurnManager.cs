@@ -21,7 +21,7 @@ public class TurnManager : MonoBehaviour
 
     protected int playerTurn = 0;
 
-    protected Piece selectedPiece;
+    public Piece selectedPiece;
 
     List<Tile> selectedTiles = new();
 

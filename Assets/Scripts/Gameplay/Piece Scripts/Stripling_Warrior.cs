@@ -8,14 +8,14 @@ public class Stripling_Warrior : Piece
 {
     //The four cardinal directions, and diagonal moves
     Vector2Int[] moveDirections =
-        [ new( 1,  0),
+        { new( 1,  0),
           new(-1,  0),
           new(0,   1),
           new(0,  -1),
           new( 1,  1),
           new(-1, -1),
           new(-1,  1),
-          new( 1, -1)];
+          new( 1, -1) };
 
     public override List<Vector2Int> GetMoves()
     {
@@ -40,6 +40,6 @@ public class Stripling_Warrior : Piece
 
     public override void Die()
     {
-        
+        TurnManager.Instance.selectedPiece.Die();
     }
 }

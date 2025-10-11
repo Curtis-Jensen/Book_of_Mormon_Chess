@@ -12,7 +12,7 @@ GameObject:
   - component: {fileID: 5959132904255804860}
   - component: {fileID: -7440039492141285134}
   m_Layer: 0
-  m_Name: Stripling_Warrior
+  m_Name: StriplingWarrior
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

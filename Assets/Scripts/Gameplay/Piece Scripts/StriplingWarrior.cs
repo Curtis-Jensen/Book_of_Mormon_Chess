@@ -4,7 +4,7 @@ using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
-public class Stripling_Warrior : Piece
+public class StriplingWarrior : Piece
 {
     //The four cardinal directions, and diagonal moves
     Vector2Int[] moveDirections =

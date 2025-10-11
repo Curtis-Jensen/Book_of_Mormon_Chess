@@ -4,40 +4,18 @@ using System.ComponentModel;
 using TMPro;
 using UnityEngine;
 
-public class King : Piece
+public class Stripling_Warrior : Piece
 {
     //The four cardinal directions, and diagonal moves
     Vector2Int[] moveDirections =
-        { new( 1,  0),
+        [ new( 1,  0),
           new(-1,  0),
           new(0,   1),
           new(0,  -1),
           new( 1,  1),
           new(-1, -1),
           new(-1,  1),
-          new( 1, -1)};
-
-    protected override void Start()
-    {
-        TurnManager.Instance.OnMoveEnd += IsInCheck;
-
-        base.Start();
-    }
-
-    public void IsInCheck()
-    {
-        var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-
-        // Check all enemy pieces to see if they can attack the king
-        var enemyPieces = FindObjectOfType<PieceSpawner>().players[teamOne ? 1 : 0].pieces;
-        foreach (var enemyPiece in enemyPieces)
-        {
-            if (enemyPiece.GetMoves().Contains(kingPosition))
-            {
-                Debug.Log($"Check!");
-            }
-        }
-    }
+          new( 1, -1)];
 
     public override List<Vector2Int> GetMoves()
     {
@@ -62,9 +40,6 @@ public class King : Piece
 
     public override void Die()
     {
-        var endingManager = FindAnyObjectByType<EndingManager>();
-        endingManager.EndGame(teamOne ? 0 : 1);
-
-        base.Die();
+        
     }
 }

@@ -255,6 +255,7 @@ public class TurnManager : MonoBehaviour
     /// <returns></returns>
     public bool IsEnemyPiece(Vector2Int position, bool isLight)
     {
+        //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
         Tile tile = tiles[position.x, position.y];

@@ -40,6 +40,11 @@ public class StriplingWarrior : Piece
 
     public override void Die()
     {
+        if(TurnManager.Instance.selectedPiece.GetType() == typeof(StriplingWarrior))
+        {
+            base.Die();
+            return;
+        }
         TurnManager.Instance.selectedPiece.Die();
         TurnManager.Instance.selectedPiece = this;
     }

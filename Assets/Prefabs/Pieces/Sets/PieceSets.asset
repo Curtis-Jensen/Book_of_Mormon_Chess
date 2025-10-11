@@ -42,6 +42,7 @@ MonoBehaviour:
     Bishop: {fileID: 21300000, guid: fab550018fd65374283604d7f2f0c18c, type: 3}
     Knight: {fileID: 21300000, guid: 37283c2603355c242b88a44bcc8d2cd9, type: 3}
     Pawn: {fileID: 21300000, guid: 2f842e5f180975541ad1496de871a322, type: 3}
+    StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
   - transformScale: 0.17
     King: {fileID: 21300000, guid: 22ec1a8031e236c49bf0f05515432d9d, type: 3}
     Queen: {fileID: 21300000, guid: 60d9c70de7e7cc84d9361c589c15088c, type: 3}
@@ -49,3 +50,4 @@ MonoBehaviour:
     Bishop: {fileID: 21300000, guid: 3acd8e31623a4c34dbe2d9a7a007047c, type: 3}
     Knight: {fileID: 21300000, guid: 25a0f3881c5c64843a501c02a5bc0575, type: 3}
     Pawn: {fileID: 21300000, guid: d35cf06e017178844ac3690a062e9dec, type: 3}
+    StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}

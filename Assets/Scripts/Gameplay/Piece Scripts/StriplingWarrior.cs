@@ -2,15 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
+using UnityEditor.Search;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class StriplingWarrior : Piece
 {
+    [SerializeField] Sprite activeSprite;
+    [SerializeField] Sprite woundedSprite;
+    SpriteRenderer spriteRenderer;
+
+
     [SerializeField] int maxWoundedTurns = 2;
-
     int currentWoundedTurns = 0;
-
     TextMeshPro woundedCounterText;
 
     //The four cardinal directions, and diagonal moves
@@ -43,6 +47,8 @@ public class StriplingWarrior : Piece
 
         woundedCounterText = GetComponentInChildren<TextMeshPro>();
         woundedCounterText.text = "";
+
+        spriteRenderer = GetComponent<SpriteRenderer>();
     }
 
     public override List<Vector2Int> GetMoves()
@@ -66,6 +72,9 @@ public class StriplingWarrior : Piece
         return validMoves;
     }
 
+    /// <summary>
+    /// Stripling Warriors don't die, they just get wounded.
+    /// </summary>
     public override void Die()
     {
         if (TurnManager.Instance.selectedPiece.GetType() == typeof(StriplingWarrior))
@@ -78,6 +87,7 @@ public class StriplingWarrior : Piece
 
         moveDirections = new Vector2Int[0];
         currentWoundedTurns = maxWoundedTurns;
+        spriteRenderer.sprite = woundedSprite;
     }
     
     public void DecrementWoundedCounter()
@@ -86,7 +96,10 @@ public class StriplingWarrior : Piece
         if (currentWoundedTurns <= 0)
         {
             moveDirections = kingMovementPattern;
+            
             woundedCounterText.text = "";
+
+            spriteRenderer.sprite = activeSprite;
         }
         else
         {

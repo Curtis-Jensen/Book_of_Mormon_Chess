@@ -107,6 +107,8 @@ MonoBehaviour:
   bounceDuration: 0.5
   maxBounceDelay: 0.3
   firstTurnTaken: 0
+  activeSprite: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
+  woundedSprite: {fileID: 21300000, guid: 32e58c4adc4974ce5bfb1d572bd58f04, type: 3}
   maxWoundedTurns: 2
 --- !u!1 &4832628187878888663
 GameObject:

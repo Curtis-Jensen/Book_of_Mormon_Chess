@@ -3,10 +3,15 @@ using System.Collections.Generic;
 using System.ComponentModel;
 using TMPro;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class StriplingWarrior : Piece
 {
     [SerializeField] int maxWoundedTurns = 2;
+
+    int currentWoundedTurns = 0;
+
+    TextMeshPro woundedCounterText;
 
     //The four cardinal directions, and diagonal moves
     Vector2Int[] moveDirections;
@@ -21,7 +26,6 @@ public class StriplingWarrior : Piece
           new(-1,  1),
           new( 1, -1) };
 
-    int currentWoundedTurns = 0;
 
     protected override void Start()
     {
@@ -36,6 +40,9 @@ public class StriplingWarrior : Piece
         maxWoundedTurns *= 2; //Convert from player turns to full turns
 
         TurnManager.Instance.OnMoveEnd += DecrementWoundedCounter;
+
+        woundedCounterText = GetComponentInChildren<TextMeshPro>();
+        woundedCounterText.text = "";
     }
 
     public override List<Vector2Int> GetMoves()
@@ -79,6 +86,11 @@ public class StriplingWarrior : Piece
         if (currentWoundedTurns <= 0)
         {
             moveDirections = kingMovementPattern;
+            woundedCounterText.text = "";
+        }
+        else
+        {
+            woundedCounterText.text = (currentWoundedTurns / 2 + currentWoundedTurns % 2).ToString();
         }
 
         Debug.Log($"Stripling Warrior has {currentWoundedTurns} turns left wounded.");

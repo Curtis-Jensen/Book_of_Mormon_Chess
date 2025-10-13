@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
 
 public class AiChoice
@@ -21,7 +22,7 @@ public class AiManager : MonoBehaviour
         players = FindObjectOfType<PieceSpawner>().players;
     }
 
-    private bool IsKingInCheck(int playerIndex)
+    private King KingInCheck(int playerIndex)
     {
         // Find the king among the player's pieces
         King king = null;
@@ -34,10 +35,9 @@ public class AiManager : MonoBehaviour
             }
         }
 
-        if (king == null) return false;
-
-        if (king.inCheck) return true;
-        return false;
+        if (king == null || !king.inCheck) return null;
+        else
+        return king;
     }
 
     private AiChoice GetKingEscapeMove(int playerIndex)
@@ -71,7 +71,7 @@ public class AiManager : MonoBehaviour
     public AiChoice ChooseMove(int playerIndex)
     {
         // First priority: If king is in check, move it
-        if (IsKingInCheck(playerIndex))
+        if (KingInCheck(playerIndex))
         {
             var kingEscapeMove = GetKingEscapeMove(playerIndex);
             if (kingEscapeMove != null)

@@ -73,7 +73,7 @@ public class Pawn : Piece
 
         foreach (var move in diagonalMoves)
         {
-            if (TurnManager.Instance.IsEnemyPiece(move, teamOne))
+            if (IsEnemyPiece(move, teamOne))
             {
                 validMoves.Add(move);
             }

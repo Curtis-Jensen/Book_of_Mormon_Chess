@@ -29,7 +29,7 @@ public class Bishop : Piece
                     validMoves.Add(newMove);
                     continue;
                 }
-                else if (TurnManager.Instance.IsEnemyPiece(newMove, teamOne))
+                else if (IsEnemyPiece(newMove, teamOne))
                 {
                     validMoves.Add(newMove);
                 }

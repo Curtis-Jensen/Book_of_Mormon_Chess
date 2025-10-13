@@ -60,7 +60,7 @@ public class StriplingWarrior : Piece
                 new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
 
             bool emptyOrEnemy =
-                IsTileEmpty(newMove) || TurnManager.Instance.IsEnemyPiece(newMove, teamOne);
+                IsTileEmpty(newMove) || IsEnemyPiece(newMove, teamOne);
 
             if (emptyOrEnemy)
             {

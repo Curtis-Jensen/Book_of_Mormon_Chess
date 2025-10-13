@@ -22,6 +22,30 @@ public class AiManager : MonoBehaviour
         players = FindObjectOfType<PieceSpawner>().players;
     }
 
+    public AiChoice ChooseMove(int playerIndex)
+    {
+
+        // First priority: If king is in check, move it
+        if (FindKingInCheck(playerIndex))
+        {
+            var kingEscapeMove = GetKingEscapeMove(playerIndex);
+            if (kingEscapeMove != null)
+            {
+                return kingEscapeMove;
+            }
+        }
+
+        // Second priority: Look for killing moves
+        var killingMove = ChooseKillingMove(playerIndex);
+        if (killingMove != null)
+        {
+            return killingMove;
+        }
+
+        // Last resort: Make a random move
+        return ChooseRandomMove(playerIndex);
+    }
+
     private King FindKingInCheck(int playerIndex)
     {
         // Find the king among the player's pieces
@@ -66,30 +90,6 @@ public class AiManager : MonoBehaviour
             chosenPiece = king,
             moveTo = randomMove
         };
-    }
-
-    public AiChoice ChooseMove(int playerIndex)
-    {
-
-        // First priority: If king is in check, move it
-        if (FindKingInCheck(playerIndex))
-        {
-            var kingEscapeMove = GetKingEscapeMove(playerIndex);
-            if (kingEscapeMove != null)
-            {
-                return kingEscapeMove;
-            }
-        }
-
-        // Second priority: Look for killing moves
-        var killingMove = ChooseKillingMove(playerIndex);
-        if (killingMove != null)
-        {
-            return killingMove;
-        }
-
-        // Last resort: Make a random move
-        return ChooseRandomMove(playerIndex);
     }
 
     public AiChoice ChooseKillingMove(int playerIndex)

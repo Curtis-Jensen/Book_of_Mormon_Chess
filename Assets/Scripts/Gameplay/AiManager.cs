@@ -24,11 +24,12 @@ public class AiManager : MonoBehaviour
 
     public AiChoice ChooseMove(int playerIndex)
     {
+        var kingInCheck = FindKingInCheck(playerIndex);
 
         // First priority: If king is in check, move it
-        if (FindKingInCheck(playerIndex))
+        if (kingInCheck)
         {
-            var kingEscapeMove = GetKingEscapeMove(playerIndex);
+            var kingEscapeMove = GetKingEscapeMove(kingInCheck);
             if (kingEscapeMove != null)
             {
                 return kingEscapeMove;
@@ -64,21 +65,8 @@ public class AiManager : MonoBehaviour
         return king;
     }
 
-    private AiChoice GetKingEscapeMove(int playerIndex)
+    private AiChoice GetKingEscapeMove(King king)
     {
-        // Find the king
-        King king = null;
-        foreach (var piece in players[playerIndex].pieces)
-        {
-            if (piece is King)
-            {
-                king = (King)piece;
-                break;
-            }
-        }
-
-        if (king == null) return null;
-
         // Get all possible moves for the king
         var moves = king.GetMoves();
         if (moves.Count == 0) return null;

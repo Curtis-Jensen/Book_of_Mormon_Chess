@@ -1,7 +1,14 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Net;
+using System.Runtime.Serialization.Formatters;
 using UnityEngine;
+
+public class AiChoice
+{
+    public Piece chosenPiece;
+    public Vector2 moveTo;
+}
 
 public class AiManager : MonoBehaviour
 {
@@ -17,16 +24,60 @@ public class AiManager : MonoBehaviour
 
     public AiChoice ChooseMove(int playerIndex)
     {
-        var killingMove = ChooseKillingMove(playerIndex);
+        var kingInCheck = FindKingInCheck(playerIndex);
 
-        if (killingMove == null)
+        // First priority: If king is in check, move it
+        if (kingInCheck)
         {
-            return ChooseRandomMove(playerIndex);
+            var kingEscapeMove = GetKingEscapeMove(kingInCheck);
+            if (kingEscapeMove != null)
+            {
+                return kingEscapeMove;
+            }
         }
-        else
+
+        // Second priority: Look for killing moves
+        var killingMove = ChooseKillingMove(playerIndex);
+        if (killingMove != null)
         {
             return killingMove;
         }
+
+        // Last resort: Make a random move
+        return ChooseRandomMove(playerIndex);
+    }
+
+    private King FindKingInCheck(int playerIndex)
+    {
+        // Find the king among the player's pieces
+        King king = null;
+        foreach (var piece in players[playerIndex].pieces)
+        {
+            if (piece is King)
+            {
+                king = (King)piece;
+                break;
+            }
+        }
+
+        if (king == null || !king.inCheck) return null;
+        else
+        return king;
+    }
+
+    private AiChoice GetKingEscapeMove(King king)
+    {
+        // Get all possible moves for the king
+        var moves = king.GetMoves();
+        if (moves.Count == 0) return null;
+
+        // Choose a random move for the king
+        var randomMove = moves[Random.Range(0, moves.Count)];
+        return new AiChoice
+        {
+            chosenPiece = king,
+            moveTo = randomMove
+        };
     }
 
     public AiChoice ChooseKillingMove(int playerIndex)
@@ -67,7 +118,7 @@ public class AiManager : MonoBehaviour
         {
             var numberOfPieces = players[playerIndex].pieces.Count;
             //Picks a random piece
-            aiChoice.chosenPiece = players[playerIndex].pieces [Random.Range(0, numberOfPieces)];
+            aiChoice.chosenPiece = players[playerIndex].pieces[Random.Range(0, numberOfPieces)];
             //If it selects a piece that does not exist; try again.
             if (aiChoice.chosenPiece == null) continue;
 
@@ -88,8 +139,3 @@ public class AiManager : MonoBehaviour
     }
 }
 
-public class AiChoice
-{
-    public Piece chosenPiece;
-    public Vector2 moveTo;
-}

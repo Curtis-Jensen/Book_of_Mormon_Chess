@@ -6,6 +6,8 @@ using UnityEngine;
 
 public class King : Piece
 {
+    public bool inCheck;
+
     //The four cardinal directions, and diagonal moves
     Vector2Int[] moveDirections =
         { new( 1,  0),
@@ -28,6 +30,7 @@ public class King : Piece
     {
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
+        inCheck = false;
         // Check all enemy pieces to see if they can attack the king
         var enemyPieces = FindObjectOfType<PieceSpawner>().players[teamOne ? 1 : 0].pieces;
         foreach (var enemyPiece in enemyPieces)
@@ -35,6 +38,7 @@ public class King : Piece
             if (enemyPiece.GetMoves().Contains(kingPosition))
             {
                 Debug.Log($"Check!");
+                inCheck = true;
             }
         }
     }

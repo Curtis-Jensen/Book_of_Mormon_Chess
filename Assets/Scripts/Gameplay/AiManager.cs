@@ -22,7 +22,7 @@ public class AiManager : MonoBehaviour
         players = FindObjectOfType<PieceSpawner>().players;
     }
 
-    private King KingInCheck(int playerIndex)
+    private King FindKingInCheck(int playerIndex)
     {
         // Find the king among the player's pieces
         King king = null;
@@ -70,8 +70,9 @@ public class AiManager : MonoBehaviour
 
     public AiChoice ChooseMove(int playerIndex)
     {
+
         // First priority: If king is in check, move it
-        if (KingInCheck(playerIndex))
+        if (FindKingInCheck(playerIndex))
         {
             var kingEscapeMove = GetKingEscapeMove(playerIndex);
             if (kingEscapeMove != null)

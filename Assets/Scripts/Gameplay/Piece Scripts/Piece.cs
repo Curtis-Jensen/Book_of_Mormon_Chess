@@ -2,10 +2,18 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+public enum Team
+{
+    Nephite,
+    Lamanite,
+    Inanimate
+}
+
+
 [RequireComponent(typeof(SpriteRenderer))]
 public abstract class Piece : MonoBehaviour
 {
-    [Tooltip("Variable to keep track of \"black\" player or \"white\" player.")]
+    [Tooltip("Variable to keep track of affiliation")]
     public bool teamOne;
     [Tooltip("Represents how valuable this piece is")]
     public int materialValue;

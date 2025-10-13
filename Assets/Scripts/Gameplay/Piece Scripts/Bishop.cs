@@ -24,7 +24,7 @@ public class Bishop : Piece
                 Vector2Int newMove =
                     new((int)transform.position.x + moveDistance.x, (int)transform.position.y + moveDistance.y);
 
-                if (TurnManager.Instance.IsTileEmpty(newMove))
+                if (IsTileEmpty(newMove))
                 {
                     validMoves.Add(newMove);
                     continue;

@@ -54,7 +54,7 @@ public class Pawn : Piece
         // Check one square forward
         Vector2Int forwardMove =
             new((int)transform.position.x, (int)transform.position.y + forward);
-        if (TurnManager.Instance.IsTileEmpty(forwardMove))
+        if (IsTileEmpty(forwardMove))
         {
             validMoves.Add(forwardMove);
         }

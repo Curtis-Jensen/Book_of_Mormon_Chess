@@ -239,13 +239,7 @@ public class TurnManager : MonoBehaviour
     /// </summary>
     /// <param name="position"></param>
     /// <returns></returns>
-    public bool IsTileEmpty(Vector2Int position)
-    {
-        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
-        Tile tile = tiles[position.x, position.y];
-        return tile.piece == null;
-    }
 
     /// <summary>
     /// Check if a tile contains an enemy piece

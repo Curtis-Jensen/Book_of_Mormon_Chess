@@ -35,10 +35,14 @@ public abstract class Piece : MonoBehaviour
 
     protected HoardEndingManager hoardEndingManager;
 
+    int boardSize;
+
     protected virtual void Start()
     {
         hoardEndingManager = FindAnyObjectByType<HoardEndingManager>();
         hoardEndingManager.ReportSpawn(playerIndex, materialValue);
+
+        boardSize = PlayerPrefs.GetInt("boardSize", 8);
     }
 
     /// <summary>
@@ -47,9 +51,17 @@ public abstract class Piece : MonoBehaviour
     /// <returns></returns>
     public abstract List<Vector2Int> GetMoves();
 
+    public bool IsTileEmpty(Vector2Int position)
+    {
+        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
+
+        Tile tile = TurnManager.Instance.tiles[position.x, position.y];
+        return tile.piece == null;
+    }
+
     public virtual void MoveEnd()
     {
-        //Mostly exists for pawn promotion override, but we can't make it virtual because then every piece would need to implement it
+        //Mostly exists for pawn promotion override, but we can't make it abstract because then every piece would need to implement it
     }
 
     public void Dance()

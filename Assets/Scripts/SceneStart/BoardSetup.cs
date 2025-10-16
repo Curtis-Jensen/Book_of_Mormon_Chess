@@ -33,7 +33,7 @@ public class BoardSetup : MonoBehaviour
         InitializeVariables();
         SpawnTiles();
         InitializeTurnManagerReferences();
-        InitializeTurnManager();
+        AssigningTiles();
     }
 
     protected virtual void StartPieces()
@@ -179,7 +179,7 @@ public class BoardSetup : MonoBehaviour
         TurnManager.audioSource = GetComponent<AudioSource>();
     }
 
-    void InitializeTurnManager()
+    void AssigningTiles()
     {
         // Iterate through each child in the hierarchy
         for (int y = 0; y < boardSize; y++)
@@ -202,7 +202,8 @@ public class BoardSetup : MonoBehaviour
                     Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
                     if (piece != null)
                     {
-                        piece.teamOne = y < 2; // Assuming white pawns are on the first two rows
+                        Debug.Log($"We actually reached this!");
+                        //piece.teamOne = y < 2; // Assuming white pawns are on the first two rows
                     }
                 }
             }

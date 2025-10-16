@@ -11,7 +11,7 @@ public class Pawn : Piece
 
     override protected void Start()
     {
-        if (teamOne)
+        if (faction == Faction.Nephite)
         {
             endRow = PlayerPrefs.GetInt("boardSize") - 1;
         }
@@ -34,8 +34,13 @@ public class Pawn : Piece
     {
         List<Vector2Int> validMoves = new();
 
-        //If it's light, go up, if it's dark, go down
-        int forward = teamOne ? 1 : -1;
+        Debug.Log($"{faction} Pawn at {transform.position} calculating moves.");
+        int forward = 1;
+        //If a Lamanie, go down, otherwise, go up
+        if (faction == Faction.Lamanite)
+        {
+            forward = -1;
+        }
 
         validMoves = GetForwardMoves (validMoves, forward);
 
@@ -73,7 +78,7 @@ public class Pawn : Piece
 
         foreach (var move in diagonalMoves)
         {
-            if (IsEnemyPiece(move, teamOne))
+            if (IsEnemyPiece(move))
             {
                 validMoves.Add(move);
             }

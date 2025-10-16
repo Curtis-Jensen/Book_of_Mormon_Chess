@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public enum Team
+public enum Faction
 {
     Nephite,
     Lamanite,
@@ -14,7 +14,7 @@ public enum Team
 public abstract class Piece : MonoBehaviour
 {
     [Tooltip("Variable to keep track of affiliation")]
-    public bool teamOne;
+    public Faction faction;
     [Tooltip("Represents how valuable this piece is")]
     public int materialValue;
     public GameObject destroyParticlesPrefab;
@@ -66,13 +66,17 @@ public abstract class Piece : MonoBehaviour
     /// <param name="position"></param>
     /// <param name="isLight"></param>
     /// <returns></returns>
-    public bool IsEnemyPiece(Vector2Int position, bool isLight)
+    public bool IsEnemyPiece(Vector2Int position)
     {
         //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
         Tile tile = TurnManager.Instance.tiles[position.x, position.y];
-        return tile.piece != null && tile.piece.teamOne != isLight;
+
+        if (tile.piece == null) return false;
+        else if (tile.piece.faction == Faction.Inanimate) return false;
+        else
+        return tile.piece.faction != faction;
     }
 
     public virtual void MoveEnd()

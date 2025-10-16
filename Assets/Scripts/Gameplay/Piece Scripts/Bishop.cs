@@ -29,7 +29,7 @@ public class Bishop : Piece
                     validMoves.Add(newMove);
                     continue;
                 }
-                else if (IsEnemyPiece(newMove, teamOne))
+                else if (IsEnemyPiece(newMove))
                 {
                     validMoves.Add(newMove);
                 }

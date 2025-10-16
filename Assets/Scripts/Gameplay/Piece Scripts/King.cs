@@ -29,10 +29,10 @@ public class King : Piece
     public void IsInCheck()
     {
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-
         inCheck = false;
+
         // Check all enemy pieces to see if they can attack the king
-        var enemyPieces = FindObjectOfType<PieceSpawner>().players[teamOne ? 1 : 0].pieces;
+        var enemyPieces = FindObjectOfType<PieceSpawner>().players[(int)faction].pieces;
         foreach (var enemyPiece in enemyPieces)
         {
             if (enemyPiece.GetMoves().Contains(kingPosition))
@@ -53,7 +53,7 @@ public class King : Piece
                 new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
 
             bool emptyOrEnemy =
-                IsTileEmpty(newMove) || IsEnemyPiece(newMove, teamOne);
+                IsTileEmpty(newMove) || IsEnemyPiece(newMove);
 
             if (emptyOrEnemy)
             {
@@ -67,7 +67,7 @@ public class King : Piece
     public override void Die()
     {
         var endingManager = FindAnyObjectByType<EndingManager>();
-        endingManager.EndGame(teamOne ? 0 : 1);
+        endingManager.EndGame(playerIndex);
 
         base.Die();
     }

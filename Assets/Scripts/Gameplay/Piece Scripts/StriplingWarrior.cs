@@ -60,7 +60,7 @@ public class StriplingWarrior : Piece
                 new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
 
             bool emptyOrEnemy =
-                IsTileEmpty(newMove) || IsEnemyPiece(newMove, teamOne);
+                IsTileEmpty(newMove) || IsEnemyPiece(newMove);
 
             if (emptyOrEnemy)
             {
@@ -104,7 +104,5 @@ public class StriplingWarrior : Piece
         {
             woundedCounterText.text = (currentWoundedTurns / 2 + currentWoundedTurns % 2).ToString();
         }
-
-        Debug.Log($"Stripling Warrior has {currentWoundedTurns} turns left wounded.");
     }
 }

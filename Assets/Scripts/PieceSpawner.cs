@@ -57,7 +57,7 @@ public class PieceSpawner : MonoBehaviour
 
         pieceInstance.name = $"{pieceInstance.name} {player.name} {position.x + 1}";//📛
 
-        pieceScript.teamOne = player.teamOne;//⚖️
+        pieceScript.faction = player.faction;//⚖️
         pieceScript.playerIndex = playerIndex;
 
         SetDanceProperties(pieceScript);

@@ -46,7 +46,7 @@ public class King : Piece
 
                 if (piece.GetMoves().Contains(kingPosition))
                 {
-                    Debug.LogError($"Check!");
+                    Debug.Log($"Check!");
                     inCheck = true;
                     return; // We can return early since we found a check
                 }

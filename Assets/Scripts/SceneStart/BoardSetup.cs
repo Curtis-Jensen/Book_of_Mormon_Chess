@@ -189,23 +189,6 @@ public class BoardSetup : MonoBehaviour
                 var tilePosition = boardSize * y + x;
 
                 Tile tile = transform.GetChild(tilePosition).GetComponent<Tile>(); // Get the Tile component 
-                if (tile == null)
-                {
-                    Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
-                }
-
-                TurnManager.tiles[x, y] = tile;
-
-                // If there is a pawn on this tile, initialize it
-                if (tile.transform.childCount > 0)
-                {
-                    Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
-                    if (piece != null)
-                    {
-                        Debug.Log($"We actually reached this!");
-                        //piece.teamOne = y < 2; // Assuming white pawns are on the first two rows
-                    }
-                }
             }
         }
     }

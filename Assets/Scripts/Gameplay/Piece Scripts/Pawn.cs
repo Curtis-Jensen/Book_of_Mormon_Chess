@@ -34,7 +34,6 @@ public class Pawn : Piece
     {
         List<Vector2Int> validMoves = new();
 
-        Debug.Log($"{faction} Pawn at {transform.position} calculating moves.");
         int forward = 1;
         //If a Lamanie, go down, otherwise, go up
         if (faction == Faction.Lamanite)

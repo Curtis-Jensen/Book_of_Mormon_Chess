@@ -31,14 +31,25 @@ public class King : Piece
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
         inCheck = false;
 
-        // Check all enemy pieces to see if they can attack the king
-        var enemyPieces = FindObjectOfType<PieceSpawner>().players[(int)faction].pieces;
-        foreach (var enemyPiece in enemyPieces)
+        // Get all pieces from all players
+        var pieceSpawner = FindObjectOfType<PieceSpawner>();
+        var allPlayers = pieceSpawner.players;
+
+        // Check pieces from each faction
+        foreach (var player in allPlayers)
         {
-            if (enemyPiece.GetMoves().Contains(kingPosition))
+            foreach (var piece in player.pieces)
             {
-                Debug.Log($"Check!");
-                inCheck = true;
+                // Skip if it's our own piece or if it's an inanimate piece
+                if (piece.faction == faction || piece.faction == Faction.Inanimate)
+                    continue;
+
+                if (piece.GetMoves().Contains(kingPosition))
+                {
+                    Debug.LogError($"Check!");
+                    inCheck = true;
+                    return; // We can return early since we found a check
+                }
             }
         }
     }

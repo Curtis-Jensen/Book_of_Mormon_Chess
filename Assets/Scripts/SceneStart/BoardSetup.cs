@@ -189,6 +189,8 @@ public class BoardSetup : MonoBehaviour
                 var tilePosition = boardSize * y + x;
 
                 Tile tile = transform.GetChild(tilePosition).GetComponent<Tile>(); // Get the Tile component 
+
+                TurnManager.tiles[x, y] = tile;
             }
         }
     }

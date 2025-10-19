@@ -205,7 +205,7 @@ MonoBehaviour:
     pieces: []
   - name: player2
     isAi: 1
-    faction: 0
+    faction: 1
     pieces: []
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}

@@ -11,8 +11,7 @@ public class EndingManager : HoardEndingManager
     {
         for (int i = 0; i < pieceSpawner.players.Length; i++)
         {
-            CheckStalemate(i);
-            CheckExtinction(i);
+            CheckNoMoves(i);
         }
     }
 

@@ -38,11 +38,10 @@ public class HoardEndingManager : MonoBehaviour
     //More of a method holder method
     public virtual void CheckEnd()
     {
-        CheckStalemate();
-        CheckExtinction();
+        CheckNoMoves();
     }
 
-    protected void CheckStalemate(int playerIndex = 0)
+    protected void CheckNoMoves(int playerIndex = 0)
     {
         // Check if either player has any legal moves
         bool playerHasMoves = false;
@@ -60,15 +59,6 @@ public class HoardEndingManager : MonoBehaviour
         if (!playerHasMoves)
         {
             Debug.Log("Stalemate detected - one player has no legal moves!");
-            EndGame(playerIndex);
-        }
-    }
-
-    protected void CheckExtinction(int playerIndex = 0)
-    {
-        if (pieceSpawner.players[playerIndex].pieces.Count <= 0)
-        {
-            Debug.Log($"Player 1 has lost all their pieces and thus lost the game!");
             EndGame(playerIndex);
         }
     }

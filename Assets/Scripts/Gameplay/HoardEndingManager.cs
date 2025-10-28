@@ -58,14 +58,25 @@ public class HoardEndingManager : MonoBehaviour
         // If either player has no legal moves, it's a stalemate
         if (!playerHasMoves)
         {
-            Debug.Log("Stalemate detected - one player has no legal moves!");
             EndGame(playerIndex);
         }
     }
 
     public virtual void EndGame(int playerIndex)
     {
+        EndGameLogging();
+
         winScreen.SetActive(true);
         gameOver = true;
+    }
+
+    void EndGameLogging()
+    {
+        Debug.Log($"Game Over! Stats:\n" +
+              $"Nephite Pieces: {pieceSpawner.players[0].pieces.Count}\n" + 
+              $"Lamanite Pieces: {pieceSpawner.players[1].pieces.Count}\n" +
+              $"Board Size: {PlayerPrefs.GetInt("boardSize")}\n" +
+              $"Game Mode: {PlayerPrefs.GetString("gameMode")}\n" +
+              $"Material Count - Nephites: {teamCounts[0]}, Lamanites: {teamCounts[1]}");
     }
 }

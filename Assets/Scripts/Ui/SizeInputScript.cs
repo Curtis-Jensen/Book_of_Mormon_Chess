@@ -4,7 +4,7 @@ using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class InputScript : MonoBehaviour
+public class SizeInputScript : MonoBehaviour
 {
     public Slider slider;
     public TextMeshProUGUI sizeInput;
@@ -12,6 +12,9 @@ public class InputScript : MonoBehaviour
     public void UpdateSlider()
     {
         var inputValue = GetInputText(sizeInput);
+
+        PlayerPrefs.SetInt("boardSize", inputValue);
+
         slider.value = inputValue;
     }
 

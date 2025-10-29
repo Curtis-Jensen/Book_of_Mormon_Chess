@@ -26,6 +26,16 @@ public class BoardSetup : MonoBehaviour
     {
         StartBoard();
         StartPieces();
+        if (TurnManager.players[0].isAi)
+        {
+            StartCoroutine(DelayFirstTurn());
+        }
+    }
+
+    IEnumerator DelayFirstTurn()
+    {
+        yield return new WaitForSeconds(1f); // 1 second delay
+        TurnManager.AiTurn();
     }
 
     void StartBoard()

@@ -215,7 +215,7 @@ public class TurnManager : MonoBehaviour
         }
     }
 
-    void AiTurn()
+    public void AiTurn()
     {
         var aiChoice = aiManager.ChooseMove(playerTurn);
 

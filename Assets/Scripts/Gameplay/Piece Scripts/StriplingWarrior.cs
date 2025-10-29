@@ -99,7 +99,7 @@ public class StriplingWarrior : Piece
         currentWoundedTurns--;
         if (currentWoundedTurns <= 0)
         {
-            StandUp();
+            UnWounded();
         }
         else
         {
@@ -107,7 +107,7 @@ public class StriplingWarrior : Piece
         }
     }
     
-    void StandUp()
+    void UnWounded()
     {
         moveDirections = kingMovementPattern;
 

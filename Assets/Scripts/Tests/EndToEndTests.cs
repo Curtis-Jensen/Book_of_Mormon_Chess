@@ -7,18 +7,63 @@ using UnityEditor;
 
 public class EndToEndTests : MonoBehaviour
 {
+    private int currentSceneIndex = 0;
+    private SceneLoader sceneLoader;
+
+    private void OnEnable()
+    {
+        EndingManager.OnGameEnd += OnGameEnded;
+    }
+
+    private void OnDisable()
+    {
+        EndingManager.OnGameEnd -= OnGameEnded;
+    }
+
     public void StartTest()
     {
-        var sceneLoader = FindObjectOfType<SceneLoader>();
+        sceneLoader = FindObjectOfType<SceneLoader>();
+        if (sceneLoader == null)
+        {
+            Debug.LogError("SceneLoader not found!");
+            return;
+        }
 
         // Make this GameObject persist between scenes
         DontDestroyOnLoad(gameObject);
 
-        // Load first scene from sceneLoader configs
-        var firstConfig = sceneLoader.sceneConfigs[0];
-        PlayerPrefs.SetString("gameMode", firstConfig.dropDownOptionName);
+        // Start with first scene
+        LoadNextScene();
+    }
+
+    private void LoadNextScene()
+    {
+        if (sceneLoader.sceneConfigs == null || currentSceneIndex >= sceneLoader.sceneConfigs.Length)
+        {
+            Debug.Log("End-to-end test completed!");
+            return;
+        }
+
+        var config = sceneLoader.sceneConfigs[currentSceneIndex];
+        PlayerPrefs.SetString("gameMode", config.dropDownOptionName);
         PlayerPrefs.SetInt("boardSize", 8); // Default size
         sceneLoader.SetupNewScene();
+    }
+
+    private void OnGameEnded(int losingPlayerIndex)
+    {
+        int winningPlayerIndex = losingPlayerIndex == 0 ? 1 : 0;
+        Debug.Log($"Game ended in scene {currentSceneIndex} with player {winningPlayerIndex} winning (player {losingPlayerIndex} lost)");
+        currentSceneIndex++;
+        
+        // Wait a bit to see the victory animation before moving to next scene
+        StartCoroutine(LoadNextSceneAfterDelay());
+    }
+
+    private IEnumerator LoadNextSceneAfterDelay()
+    {
+        yield return new WaitForSeconds(2f); // Adjust delay as needed
+        LoadNextScene();
     }
 }
 

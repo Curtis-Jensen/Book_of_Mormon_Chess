@@ -6,6 +6,10 @@ using UnityEngine.Analytics;
 // Hard coded for The Nephites’ Last Stand at the moment
 public class HoardEndingManager : MonoBehaviour
 {
+    // Delegate and event for game ending
+    public delegate void GameEndHandler(int playerIndex);
+    public static event GameEndHandler OnGameEnd;
+
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;
     int[] teamCounts;
@@ -68,6 +72,9 @@ public class HoardEndingManager : MonoBehaviour
 
         winScreen.SetActive(true);
         gameOver = true;
+
+        // Invoke the event with the player index
+        OnGameEnd?.Invoke(playerIndex);
     }
 
     void EndGameLogging()

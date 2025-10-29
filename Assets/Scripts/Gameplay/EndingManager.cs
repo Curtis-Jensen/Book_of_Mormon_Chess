@@ -30,7 +30,6 @@ public class EndingManager : HoardEndingManager
         }
 
         SetFlagColor(winningPlayerIndex);
-
         CreateParty(winningPlayerIndex);
     }
 

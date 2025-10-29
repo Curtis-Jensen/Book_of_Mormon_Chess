@@ -7,13 +7,16 @@ using UnityEditor;
 
 public class EndToEndTests : MonoBehaviour
 {
-    public SceneLoader sceneLoader;
-
     public void StartTest()
     {
+        var sceneLoader = FindObjectOfType<SceneLoader>();
+
+        // Make this GameObject persist between scenes
+        DontDestroyOnLoad(gameObject);
+
         // Load first scene from sceneLoader configs
         var firstConfig = sceneLoader.sceneConfigs[0];
-        PlayerPrefs.SetString("gameMode", firstConfig.sceneName);
+        PlayerPrefs.SetString("gameMode", firstConfig.dropDownOptionName);
         PlayerPrefs.SetInt("boardSize", 8); // Default size
         sceneLoader.SetupNewScene();
     }
@@ -31,6 +34,11 @@ public class EndToEndTestsEditor : Editor
         
         if (GUILayout.Button("Run First Scene Test"))
         {
+            if (!EditorApplication.isPlaying)
+            {
+                EditorApplication.EnterPlaymode();
+            }
+
             tester.StartTest();
         }
     }

@@ -87,6 +87,8 @@ public class StriplingWarrior : Piece
         moveDirections = new Vector2Int[0];
         currentWoundedTurns = maxWoundedTurns;
         spriteRenderer.sprite = woundedSprite;
+
+        faction = Faction.Inanimate;
     }
     
     public void DecrementWoundedCounter()

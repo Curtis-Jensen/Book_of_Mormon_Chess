@@ -15,6 +15,7 @@ public class StriplingWarrior : Piece
     [SerializeField] int maxWoundedTurns = 2;
     int currentWoundedTurns = 0;
     TextMeshPro woundedCounterText;
+    Faction originalFaction;
 
     //The four cardinal directions, and diagonal moves
     Vector2Int[] moveDirections;
@@ -48,6 +49,8 @@ public class StriplingWarrior : Piece
         woundedCounterText.text = "";
 
         spriteRenderer = GetComponent<SpriteRenderer>();
+
+        originalFaction = faction;
     }
 
     public override List<Vector2Int> GetMoves()
@@ -90,21 +93,28 @@ public class StriplingWarrior : Piece
 
         faction = Faction.Inanimate;
     }
-    
+
     public void DecrementWoundedCounter()
     {
         currentWoundedTurns--;
         if (currentWoundedTurns <= 0)
         {
-            moveDirections = kingMovementPattern;
-            
-            woundedCounterText.text = "";
-
-            spriteRenderer.sprite = activeSprite;
+            StandUp();
         }
         else
         {
             woundedCounterText.text = (currentWoundedTurns / 2 + currentWoundedTurns % 2).ToString();
         }
+    }
+    
+    void StandUp()
+    {
+        moveDirections = kingMovementPattern;
+
+        woundedCounterText.text = "";
+
+        spriteRenderer.sprite = activeSprite;
+
+        faction = originalFaction;
     }
 }

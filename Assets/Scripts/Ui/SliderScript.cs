@@ -18,5 +18,7 @@ public class SliderScript : MonoBehaviour
     public void UpdateInput()
     {
         input.text = slider.value.ToString();
+        PlayerPrefs.SetInt("boardSize", input.text == "" ? 0 : int.Parse(input.text));
+
     }
 }

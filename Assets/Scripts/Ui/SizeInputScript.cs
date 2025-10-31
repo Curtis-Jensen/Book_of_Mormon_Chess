@@ -13,8 +13,6 @@ public class SizeInputScript : MonoBehaviour
     {
         var inputValue = GetInputText(sizeInput);
 
-        PlayerPrefs.SetInt("boardSize", inputValue);
-
         slider.value = inputValue;
     }
 

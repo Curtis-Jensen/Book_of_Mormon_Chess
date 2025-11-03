@@ -60,6 +60,8 @@ public class PieceSpawner : MonoBehaviour
         pieceScript.faction = player.faction;//⚖️
         pieceScript.playerIndex = playerIndex;
 
+        pieceScript.boardSize = TurnManager.boardSize;
+
         SetDanceProperties(pieceScript);
 
         player.pieces.Add(pieceScript);//⚖️

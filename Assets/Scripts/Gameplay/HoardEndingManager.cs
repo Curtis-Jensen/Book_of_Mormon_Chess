@@ -42,28 +42,31 @@ public class HoardEndingManager : MonoBehaviour
     //More of a method holder method
     public virtual void CheckEnd()
     {
-        CheckNoMoves();
+        if (CheckNoMoves()) EndGame(0);
     }
 
-    protected void CheckNoMoves(int playerIndex = 0)
+    public bool CheckNoMoves(int playerIndex = 0)
     {
         // Check if either player has any legal moves
         bool playerHasMoves = false;
 
-        // Check player 1's pieces
+        // Check player's pieces
         foreach (var piece in pieceSpawner.players[playerIndex].pieces)
         {
-            if (piece.GetMoves().Count > 0)
+            var moves = piece.GetMoves();
+            if (moves.Count > 0)
             {
                 playerHasMoves = true;
                 break;
             }
         }
-        // If either player has no legal moves, it's a stalemate
+
+        // If the player has no legal moves, log details before ending
         if (!playerHasMoves)
         {
-            EndGame(playerIndex);
+            return true;
         }
+        return false;
     }
 
     public virtual void EndGame(int playerIndex)

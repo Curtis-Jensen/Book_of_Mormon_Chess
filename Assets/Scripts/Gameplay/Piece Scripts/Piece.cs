@@ -35,14 +35,13 @@ public abstract class Piece : MonoBehaviour
 
     protected HoardEndingManager hoardEndingManager;
 
-    int boardSize;
+    [HideInInspector]
+    public int boardSize;
 
     protected virtual void Start()
     {
         hoardEndingManager = FindAnyObjectByType<HoardEndingManager>();
         hoardEndingManager.ReportSpawn(playerIndex, materialValue);
-
-        boardSize = PlayerPrefs.GetInt("boardSize", 8);
     }
 
     /// <summary>

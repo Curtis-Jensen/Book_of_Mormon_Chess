@@ -21,11 +21,8 @@ public class SceneLoader : MonoBehaviour
     //Called by the main menu so it knows which scene to go to
     public void SetupNewScene()
     {
-        string sceneName = PlayerPrefs.GetString("gameMode");
-
-        Debug.Log($"{sceneName} selected");
-        
         // Find matching config and save prefab configuration
+        string sceneName = PlayerPrefs.GetString("gameMode");        
         SceneConfig selectedConfig = Array.Find(sceneConfigs, config => config.dropDownOptionName == sceneName);
         
         // Store number of prefabs

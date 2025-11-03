@@ -77,7 +77,7 @@ public class HoardTurnManager : TurnManager
     {
         //var aiChoiceX = aiManager.ChooseMove(playerTurn).moveTo.x;
         //Debug.Log($"{selectedPiece.name} x move is: {aiChoiceX}");
-        if (aiManager.ChooseMove(1) == null)
+        if (endingManager.CheckNoMoves(1))
         {
             NewWave();
             playerTurn = 1; //We change the playerTurn here so that it is always the players turn after a wave spawns

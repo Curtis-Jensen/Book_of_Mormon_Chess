@@ -80,6 +80,7 @@ public abstract class Piece : MonoBehaviour
 
     public virtual void MoveEnd()
     {
+        firstTurnTaken = true;
         //Mostly exists for pawn promotion override, but we can't make it abstract because then every piece would need to implement it
     }
 

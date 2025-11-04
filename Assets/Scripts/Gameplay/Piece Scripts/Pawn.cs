@@ -27,6 +27,7 @@ public class Pawn : Piece
 
     public override void MoveEnd()
     {
+        base.MoveEnd();
         if (transform.position.y != endRow) return;
 
         QueenPromotion();

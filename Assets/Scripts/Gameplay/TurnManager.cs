@@ -200,8 +200,6 @@ public class TurnManager : MonoBehaviour
 
     protected virtual void ChangeTurn()
     {
-        selectedPiece.firstTurnTaken = true;
-
         // Move to next player
         playerTurn++;
         if (playerTurn >= players.Length)
@@ -231,14 +229,5 @@ public class TurnManager : MonoBehaviour
             Debug.LogError("SelectedPiece is null!");
         }
     }
-    #endregion
-
-    #region 🧩 Tile & Piece Status Checkers
-    /// <summary>
-    /// Check if a tile is empty
-    /// </summary>
-    /// <param name="position"></param>
-    /// <returns></returns>
-
     #endregion
 }

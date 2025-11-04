@@ -9,7 +9,7 @@ public enum Faction
     Inanimate
 }
 
-// 🚨TECH DEBT TODO🚨: Sliding Pieces have their own subtype
+// 🚨TECH DEBT TODO🚨: Sliding Pieces have their own subtype, and so do stepping pieces
 // 🚨TECH DEBT TODO🚨: Create IsValidMove for order of checking: 1. Out of Bounds 2. Empty 3. Enemy (which the pawn will sidestep because he's a special boy)
 [RequireComponent(typeof(SpriteRenderer))]
 public abstract class Piece : MonoBehaviour

@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
+// 🚨TECH DEBT TODO🚨: Partially uses Piece.Die() for queening!
+// 🚨TECH DEBT TODO🚨: Queening unit test!
 public class Pawn : Piece
 {
     public GameObject queenPrefab;
@@ -41,9 +43,9 @@ public class Pawn : Piece
             forward = -1;
         }
 
-        validMoves = GetForwardMoves (validMoves, forward);
+        validMoves = GetForwardMoves(validMoves, forward);
 
-        if(!firstTurnTaken && validMoves.Count != 0)
+        if (!firstTurnTaken && validMoves.Count != 0)
         {
             validMoves = GetForwardMoves(validMoves, forward * 2);
         }
@@ -95,6 +97,6 @@ public class Pawn : Piece
 
         FindObjectOfType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
         hoardEndingManager.ReportDeath(playerIndex, materialValue);
-        Destroy(gameObject);        
+        Destroy(gameObject);
     }
 }

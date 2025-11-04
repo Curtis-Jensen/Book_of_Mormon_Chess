@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+// 🚨TECH DEBT TODO🚨: Rename EndingManager to ClassicEndingManager and HoardEndingManager to EndingManager!🚨
 public class EndingManager : HoardEndingManager
 {
     [SerializeField] PieceSets pieceSets;
@@ -11,7 +12,10 @@ public class EndingManager : HoardEndingManager
     {
         for (int i = 0; i < pieceSpawner.players.Length; i++)
         {
-            CheckNoMoves(i);
+            if (CheckNoMoves(i))
+            {
+                EndGame(i);
+            }
         }
     }
 
@@ -43,7 +47,7 @@ public class EndingManager : HoardEndingManager
 
     void CreateParty(int winningPlayerIndex)
     {
-        foreach(Piece piece in pieceSpawner.players[winningPlayerIndex].pieces)
+        foreach (Piece piece in pieceSpawner.players[winningPlayerIndex].pieces)
         {
             piece.GetComponent<Piece>().Dance();
         }

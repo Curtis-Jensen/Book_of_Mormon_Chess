@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
 
-// Hard coded for The Nephites’ Last Stand at the moment
+// 🚨TECH DEBT TODO🚨: Rename EndingManager to ClassicEndingManager and HoardEndingManager to EndingManager!🚨
 public class HoardEndingManager : MonoBehaviour
 {
     // Delegate and event for game ending
@@ -54,6 +54,7 @@ public class HoardEndingManager : MonoBehaviour
         foreach (var piece in pieceSpawner.players[playerIndex].pieces)
         {
             var moves = piece.GetMoves();
+
             if (moves.Count > 0)
             {
                 playerHasMoves = true;
@@ -61,12 +62,7 @@ public class HoardEndingManager : MonoBehaviour
             }
         }
 
-        // If the player has no legal moves, log details before ending
-        if (!playerHasMoves)
-        {
-            return true;
-        }
-        return false;
+        return !playerHasMoves;
     }
 
     public virtual void EndGame(int playerIndex)

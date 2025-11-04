@@ -4,6 +4,7 @@ using UnityEngine;
 using UnityEngine.Networking;
 using UnityEngine.UIElements;
 
+// 🚨TECH DEBT TODO🚨: The King should be its own prefab instead of relying on knowing that index 0 is the king.
 [RequireComponent(typeof(AiManager))]
 [RequireComponent(typeof(TurnManager))]
 [RequireComponent(typeof(HoardEndingManager))]

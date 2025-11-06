@@ -53,6 +53,23 @@ public class StriplingWarrior : Piece
         originalFaction = faction;
     }
 
+    public override bool IsEnemyPiece(Vector2Int position)
+    {
+        // Check if position is valid
+        if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
+
+        Tile tile = TurnManager.Instance.tiles[position.x, position.y];
+        
+        // If there's no piece, it's not an enemy
+        if (tile.piece == null) return false;
+        
+        // If it's another Stripling Warrior, they won't fight each other
+        if (tile.piece.GetType() == typeof(StriplingWarrior)) return false;
+        
+        // For all other pieces, use normal enemy detection
+        return tile.piece.faction != faction && tile.piece.faction != Faction.Inanimate;
+    }
+
     public override List<Vector2Int> GetMoves()
     {
         List<Vector2Int> validMoves = new();

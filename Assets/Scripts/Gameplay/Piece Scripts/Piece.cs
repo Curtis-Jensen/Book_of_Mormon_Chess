@@ -66,7 +66,7 @@ public abstract class Piece : MonoBehaviour
     /// <param name="position"></param>
     /// <param name="isLight"></param>
     /// <returns></returns>
-    public bool IsEnemyPiece(Vector2Int position)
+    public virtual bool IsEnemyPiece(Vector2Int position)
     {
         //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;

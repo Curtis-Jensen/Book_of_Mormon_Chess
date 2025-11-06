@@ -66,8 +66,7 @@ public class StriplingWarrior : Piece
         // If it's another Stripling Warrior, they won't fight each other
         if (tile.piece.GetType() == typeof(StriplingWarrior)) return false;
         
-        // For all other pieces, use normal enemy detection
-        return tile.piece.faction != faction && tile.piece.faction != Faction.Inanimate;
+        return base.IsEnemyPiece(position);
     }
 
     public override List<Vector2Int> GetMoves()

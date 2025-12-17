@@ -80,3 +80,12 @@ MonoBehaviour:
     Knight: {fileID: 21300000, guid: 9c041d2660b910c48a1085e430fc8b0e, type: 3}
     Pawn: {fileID: 21300000, guid: de2965427b0f5b6459cd108351e81a59, type: 3}
     StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
+  - name: Pixel Art
+    transformScale: 0.17
+    King: {fileID: 21300000, guid: 30610f0874514344bacc69874c1f5717, type: 3}
+    Queen: {fileID: 21300000, guid: 543ada6a0d833614886d0bb40d7c26bb, type: 3}
+    Rook: {fileID: 21300000, guid: 428269875f5d851468fe4d74d394cc25, type: 3}
+    Bishop: {fileID: 21300000, guid: 286e70d7a07d8de41b06ee95c4426081, type: 3}
+    Knight: {fileID: 21300000, guid: ed2cf83f249e02746912ffade9d16326, type: 3}
+    Pawn: {fileID: 21300000, guid: e135d2a31d636894f9f3b081fc40e83e, type: 3}
+    StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}

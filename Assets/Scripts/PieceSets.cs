@@ -22,6 +22,7 @@ public class ColorSet
 [System.Serializable]
 public class SpriteSet// : ScriptableObject
 {
+    public string name;
     public float transformScale;
     public Sprite King, Queen, Rook, Bishop, Knight, Pawn, StriplingWarrior;
 }

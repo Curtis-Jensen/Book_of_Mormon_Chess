@@ -63,7 +63,7 @@ MonoBehaviour:
     Pawn: {fileID: 21300000, guid: 92f1ad8b1d87c3a468c279bf39823dc8, type: 3}
     StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
   - name: Classic
-    transformScale: 0.17
+    transformScale: 0.5
     King: {fileID: 21300000, guid: 74745aabfaa24ce4985d13a8f5eb25a0, type: 3}
     Queen: {fileID: 21300000, guid: 2aacdd4685d565a4b93eee23a6173229, type: 3}
     Rook: {fileID: 21300000, guid: a255ba942e2e8f54baf57a08af2d60ce, type: 3}
@@ -81,7 +81,7 @@ MonoBehaviour:
     Pawn: {fileID: 21300000, guid: de2965427b0f5b6459cd108351e81a59, type: 3}
     StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
   - name: Pixel Art
-    transformScale: 0.17
+    transformScale: 5
     King: {fileID: 21300000, guid: 30610f0874514344bacc69874c1f5717, type: 3}
     Queen: {fileID: 21300000, guid: 543ada6a0d833614886d0bb40d7c26bb, type: 3}
     Rook: {fileID: 21300000, guid: 428269875f5d851468fe4d74d394cc25, type: 3}

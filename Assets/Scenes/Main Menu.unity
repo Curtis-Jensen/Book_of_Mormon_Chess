@@ -3065,6 +3065,10 @@ PrefabInstance:
       propertyPath: toSave
       value: player1style
       objectReference: {fileID: 0}
+    - target: {fileID: 2626491845205690567, guid: 0b9a6e8a30ed54184a9d61e83bf89dd6, type: 3}
+      propertyPath: defaultValue
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 0b9a6e8a30ed54184a9d61e83bf89dd6, type: 3}
 --- !u!224 &489991959 stripped
@@ -3130,7 +3134,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Nephites
+  m_text: Lamanites
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -3600,7 +3604,7 @@ MonoBehaviour:
   m_Placeholder: {fileID: 0}
   m_ItemText: {fileID: 274142437}
   m_ItemImage: {fileID: 0}
-  m_Value: 0
+  m_Value: 1
   m_Options:
     m_Options:
     - m_Text: Nephites
@@ -3675,7 +3679,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toSave: player1style
   defaultValue: 0
-  sceneConfigs: []
 --- !u!1 &801564668
 GameObject:
   m_ObjectHideFlags: 0
@@ -4302,7 +4305,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toSave: player1color
   defaultValue: 3
-  sceneConfigs: []
 --- !u!114 &846980275
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7652,7 +7654,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   toSave: player2color
   defaultValue: 0
-  sceneConfigs: []
 --- !u!114 &1517884224
 MonoBehaviour:
   m_ObjectHideFlags: 0

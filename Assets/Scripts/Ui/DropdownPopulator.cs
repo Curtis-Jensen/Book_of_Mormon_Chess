@@ -31,7 +31,6 @@ public class DropdownPopulator : MonoBehaviour
         // Add an option for each SceneConfig
         foreach (var spriteSet in pieceSets.spriteSets)
         {
-            Debug.Log(spriteSet.name);
             options.Add(spriteSet.name);
         }
 

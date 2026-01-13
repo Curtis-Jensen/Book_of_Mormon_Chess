@@ -133,9 +133,12 @@ public abstract class Piece : MonoBehaviour
         }
     }
 
-    public virtual void Die()
+    public virtual void Die(bool instantiateEffects = true)
     {
-        InstantiateDeathEffects();
+        if (instantiateEffects)
+        {
+            InstantiateDeathEffects();
+        }
 
         FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
         

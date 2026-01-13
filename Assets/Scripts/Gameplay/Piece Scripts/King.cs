@@ -75,7 +75,7 @@ public class King : Piece
         return validMoves;
     }
 
-    public override void Die()
+    public override void Die(bool instantiateEffects = true)
     {
         var endingManager = FindAnyObjectByType<EndingManager>();
         endingManager.EndGame(playerIndex);

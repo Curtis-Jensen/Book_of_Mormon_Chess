@@ -96,8 +96,6 @@ public class Pawn : Piece
 
         Debug.LogWarning($"{name} spawned at: {transform.position}");
 
-        FindObjectOfType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
-        hoardEndingManager.ReportDeath(playerIndex, materialValue);
-        Destroy(gameObject);
+        Die(instantiateEffects: false);
     }
 }

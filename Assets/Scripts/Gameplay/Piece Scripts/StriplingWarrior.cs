@@ -93,7 +93,7 @@ public class StriplingWarrior : Piece
     /// <summary>
     /// Stripling Warriors don't die, they just get wounded.
     /// </summary>
-    public override void Die()
+    public override void Die(bool instantiateEffects = true)
     {
         if (TurnManager.Instance.selectedPiece.GetType() == typeof(StriplingWarrior))
         {

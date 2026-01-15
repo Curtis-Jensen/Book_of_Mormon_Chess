@@ -15,7 +15,7 @@ public class CameraController : MonoBehaviour
     void Start()
     {
         cam = GetComponent<Camera>();
-        var boardWidth = PlayerPrefs.GetInt("boardSize");
+        var boardWidth = PlayerPrefs.GetInt("boardSize", 7);
 
         SetCameraSize(boardWidth);
         CenterBoard(boardWidth);

@@ -56,7 +56,7 @@ public class BoardSetup : MonoBehaviour
 
     void InitializeVariables()
     {
-        boardSize = PlayerPrefs.GetInt("boardSize");
+        boardSize = PlayerPrefs.GetInt("boardSize", 7);
         
         // Load back row prefabs from PlayerPrefs
         int backRowCount = PlayerPrefs.GetInt("backRowCount");
@@ -79,8 +79,8 @@ public class BoardSetup : MonoBehaviour
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
         TurnManager.players = players;
-        TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
-        TurnManager.players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
+        TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI", 0) == 1;
+        TurnManager.players[1].isAi = PlayerPrefs.GetInt("2isAI", 1) == 1;
     }
 
     void SpawnTiles()

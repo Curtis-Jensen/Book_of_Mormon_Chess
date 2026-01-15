@@ -15,7 +15,7 @@ public class Pawn : Piece
     {
         if (faction == Faction.Nephite)
         {
-            endRow = PlayerPrefs.GetInt("boardSize") - 1;
+            endRow = PlayerPrefs.GetInt("boardSize", 7) - 1;
         }
         else
         {

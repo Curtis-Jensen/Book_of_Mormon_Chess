@@ -15,7 +15,7 @@ public class HoardTurnManager : TurnManager
 
     void Start()
     {
-        boardSize = PlayerPrefs.GetInt("boardSize");
+        boardSize = PlayerPrefs.GetInt("boardSize", 7);
         pieceSpawner = FindAnyObjectByType<PieceSpawner>();
         NewWave();
     }

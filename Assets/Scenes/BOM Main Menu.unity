@@ -156,7 +156,7 @@ RectTransform:
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 10, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -1264,7 +1264,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AI Nephites
+  m_Text: AI Player
 --- !u!222 &201435306
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -2686,7 +2686,7 @@ RectTransform:
   - {fileID: 1174069293}
   - {fileID: 1517884222}
   m_Father: {fileID: 1172850867}
-  m_RootOrder: 1
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -3155,7 +3155,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2626491844443884566, guid: 0b9a6e8a30ed54184a9d61e83bf89dd6, type: 3}
       propertyPath: m_RootOrder
-      value: 3
+      value: 5
       objectReference: {fileID: 0}
     - target: {fileID: 2626491844443884566, guid: 0b9a6e8a30ed54184a9d61e83bf89dd6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -5215,12 +5215,12 @@ RectTransform:
   m_Children:
   - {fileID: 1881955144}
   - {fileID: 2076638913}
-  m_Father: {fileID: 1009876756}
-  m_RootOrder: 2
+  m_Father: {fileID: 1172850867}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 207.6, y: 35}
+  m_AnchoredPosition: {x: 207.6, y: 5.01}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &994786174
@@ -5315,7 +5315,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1009876756
 RectTransform:
   m_ObjectHideFlags: 0
@@ -5330,8 +5330,6 @@ RectTransform:
   m_Children:
   - {fileID: 1656469023}
   - {fileID: 2085088173}
-  - {fileID: 994786173}
-  - {fileID: 1962866845}
   m_Father: {fileID: 2107960876}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -5544,7 +5542,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 1172850867}
-  m_RootOrder: 2
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6322,6 +6320,8 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
+  - {fileID: 994786173}
+  - {fileID: 1962866845}
   - {fileID: 1414836430}
   - {fileID: 393803605}
   - {fileID: 1015613551}
@@ -7444,7 +7444,7 @@ RectTransform:
   - {fileID: 128054925}
   - {fileID: 1508876323}
   m_Father: {fileID: 1172850867}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8152,8 +8152,8 @@ RectTransform:
   m_Father: {fileID: 313942709}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 0}
-  m_AnchorMax: {x: 0, y: 0}
+  m_AnchorMin: {x: 0.5, y: 0}
+  m_AnchorMax: {x: 0.5, y: 1}
   m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 20, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
@@ -9736,12 +9736,12 @@ RectTransform:
   m_Children:
   - {fileID: 606445877}
   - {fileID: 201435304}
-  m_Father: {fileID: 1009876756}
-  m_RootOrder: 3
+  m_Father: {fileID: 1172850867}
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 207.60005, y: -5.000004}
+  m_AnchoredPosition: {x: -212.4, y: 6.8}
   m_SizeDelta: {x: 160, y: 20}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1962866846
@@ -10032,7 +10032,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2626491844443884566, guid: 0b9a6e8a30ed54184a9d61e83bf89dd6, type: 3}
       propertyPath: m_RootOrder
-      value: 4
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 2626491844443884566, guid: 0b9a6e8a30ed54184a9d61e83bf89dd6, type: 3}
       propertyPath: m_AnchorMax.x
@@ -10510,7 +10510,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: AI Lamanites
+  m_Text: AI Player
 --- !u!222 &2076638915
 CanvasRenderer:
   m_ObjectHideFlags: 0

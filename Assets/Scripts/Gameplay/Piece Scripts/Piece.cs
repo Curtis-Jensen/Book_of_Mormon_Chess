@@ -42,7 +42,7 @@ public abstract class Piece : MonoBehaviour
     protected virtual void Start()
     {
         hoardEndingManager = FindAnyObjectByType<HoardEndingManager>();
-        hoardEndingManager.ReportSpawn(playerIndex, materialValue);
+        hoardEndingManager.UpdateMaterial(playerIndex, materialValue);
     }
 
     /// <summary>
@@ -142,7 +142,7 @@ public abstract class Piece : MonoBehaviour
 
         FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
         
-        hoardEndingManager.ReportDeath(playerIndex, materialValue);
+        hoardEndingManager.UpdateMaterial(playerIndex, -materialValue);
 
         Destroy(gameObject);
     }

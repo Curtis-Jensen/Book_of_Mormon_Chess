@@ -27,16 +27,11 @@ public class HoardEndingManager : MonoBehaviour
         }
     }
 
-    //Updates material
-    public void ReportSpawn(int playerIndex, int materialValue)
+    public void UpdateMaterial(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] += materialValue;
-    }
 
-    //Updates material
-    public void ReportDeath(int playerIndex, int materialValue)
-    {
-        teamCounts[playerIndex] -= materialValue;
+        
     }
 
     //More of a method holder method.  Hardcoded for the first (0) player moving because only the Nephites can lose.

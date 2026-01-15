@@ -39,7 +39,7 @@ public class HoardEndingManager : MonoBehaviour
         teamCounts[playerIndex] -= materialValue;
     }
 
-    //More of a method holder method
+    //More of a method holder method.  Hardcoded for the first (0) player moving because only the Nephites can lose.
     public virtual void CheckEnd()
     {
         if (CheckNoMoves()) EndGame(0);

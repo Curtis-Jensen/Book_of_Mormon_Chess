@@ -13,6 +13,10 @@ public class HoardEndingManager : MonoBehaviour
 
     public TextMeshProUGUI materialCountText;
 
+    public Color tieColor;
+    public Color nephiteWinColor;
+    public Color lamaniteWinColor;
+
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;
     int[] teamCounts;
@@ -34,6 +38,21 @@ public class HoardEndingManager : MonoBehaviour
     {
         teamCounts[playerIndex] += materialValue;
 
+        //Color changes based on who is winning
+        if(teamCounts[0] == teamCounts[1])
+        {
+            materialCountText.color = tieColor;
+        }
+        else if(teamCounts[0] > teamCounts[1])
+        {
+            materialCountText.color = nephiteWinColor;
+        }
+        else
+        {
+            materialCountText.color = lamaniteWinColor;
+        }
+
+        //Update text
         materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
     }
 

@@ -363,7 +363,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c43ee910d9b4169848a7d2178ca664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  materialCountText: {fileID: 0}
+  materialCountText: {fileID: 685577180}
+  tieColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.44705883}
+  nephiteWinColor: {r: 0, g: 0.008824366, b: 0.8490566, a: 1}
+  lamaniteWinColor: {r: 0.6132076, g: 0, b: 0, a: 1}
   winScreen: {fileID: 1542109433}
   gameOver: 0
   pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
@@ -847,7 +850,7 @@ GameObject:
   - component: {fileID: 685577181}
   - component: {fileID: 685577180}
   m_Layer: 5
-  m_Name: Text (TMP)
+  m_Name: Material Text
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

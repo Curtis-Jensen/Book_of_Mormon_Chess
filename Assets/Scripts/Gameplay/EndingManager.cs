@@ -37,6 +37,44 @@ public class EndingManager : HoardEndingManager
         CreateParty(winningPlayerIndex);
     }
 
+    public override void UpdateMaterial(int playerIndex, int materialValue)
+    {
+        base.UpdateMaterial(playerIndex, materialValue);
+        
+                //Color changes based on who is winning
+        if(teamCounts[0] == teamCounts[1])
+        {
+            materialCountText.color = tieColor;
+        }
+        else if(teamCounts[0] > teamCounts[1])
+        {
+            materialCountText.color = nephiteWinColor;
+        }
+        else
+        {
+            materialCountText.color = lamaniteWinColor;
+        }
+
+        //Update sliders
+        UpdateSliders(0);
+        UpdateSliders(1);
+
+        //Update text
+        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
+
+        UpdateSliders(playerIndex);
+    }
+
+    void UpdateSliders(int playerIndex)
+    {
+        if (teamCounts[playerIndex] > materialSliders[playerIndex].maxValue)
+        {
+            materialSliders[playerIndex].maxValue = teamCounts[playerIndex];
+        }
+
+        materialSliders[playerIndex].value = teamCounts[playerIndex];
+    }
+
     void SetFlagColor(int winningPlayerIndex)
     {
         var winningPlayerName = pieceSpawner.players[winningPlayerIndex].name;

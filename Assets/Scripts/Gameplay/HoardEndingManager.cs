@@ -22,7 +22,7 @@ public class HoardEndingManager : MonoBehaviour
 
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;
-    int[] teamCounts;
+    protected int[] teamCounts;
     protected PieceSpawner pieceSpawner;
 
     //Initialized objects
@@ -37,40 +37,9 @@ public class HoardEndingManager : MonoBehaviour
         }
     }
 
-    public void UpdateMaterial(int playerIndex, int materialValue)
+    public virtual void UpdateMaterial(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] += materialValue;
-
-        //Color changes based on who is winning
-        if(teamCounts[0] == teamCounts[1])
-        {
-            materialCountText.color = tieColor;
-        }
-        else if(teamCounts[0] > teamCounts[1])
-        {
-            materialCountText.color = nephiteWinColor;
-        }
-        else
-        {
-            materialCountText.color = lamaniteWinColor;
-        }
-
-        //Update sliders
-        UpdateSliders(0);
-        UpdateSliders(1);
-
-        //Update text
-        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
-    }
-
-    void UpdateSliders(int playerIndex)
-    {
-        if (teamCounts[playerIndex] > materialSliders[playerIndex].maxValue)
-        {
-            materialSliders[playerIndex].maxValue = teamCounts[playerIndex];
-        }
-
-        materialSliders[playerIndex].value = teamCounts[playerIndex];
     }
 
     //More of a method holder method.  Hardcoded for the first (0) player moving because only the Nephites can lose.

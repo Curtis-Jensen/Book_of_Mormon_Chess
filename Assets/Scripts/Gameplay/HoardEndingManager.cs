@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using TMPro;
 
 // 🚨TECH DEBT TODO🚨: Rename EndingManager to ClassicEndingManager and HoardEndingManager to EndingManager!🚨
 public class HoardEndingManager : MonoBehaviour
@@ -9,6 +10,8 @@ public class HoardEndingManager : MonoBehaviour
     // Delegate and event for game ending
     public delegate void GameEndHandler(int playerIndex);
     public static event GameEndHandler OnGameEnd;
+
+    public TextMeshProUGUI materialCountText;
 
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;
@@ -31,7 +34,7 @@ public class HoardEndingManager : MonoBehaviour
     {
         teamCounts[playerIndex] += materialValue;
 
-        
+        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
     }
 
     //More of a method holder method.  Hardcoded for the first (0) player moving because only the Nephites can lose.

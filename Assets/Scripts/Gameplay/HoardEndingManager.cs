@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.Analytics;
+using TMPro;
+using UnityEngine.UI;
 
 // 🚨TECH DEBT TODO🚨: Rename EndingManager to ClassicEndingManager and HoardEndingManager to EndingManager!🚨
 public class HoardEndingManager : MonoBehaviour
@@ -9,6 +11,14 @@ public class HoardEndingManager : MonoBehaviour
     // Delegate and event for game ending
     public delegate void GameEndHandler(int playerIndex);
     public static event GameEndHandler OnGameEnd;
+
+    public TextMeshProUGUI materialCountText;
+
+    public Color tieColor;
+    public Color nephiteWinColor;
+    public Color lamaniteWinColor;
+
+    public Slider[] materialSliders = new Slider[2];
 
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;
@@ -27,19 +37,43 @@ public class HoardEndingManager : MonoBehaviour
         }
     }
 
-    //Updates material
-    public void ReportSpawn(int playerIndex, int materialValue)
+    public void UpdateMaterial(int playerIndex, int materialValue)
     {
         teamCounts[playerIndex] += materialValue;
+
+        //Color changes based on who is winning
+        if(teamCounts[0] == teamCounts[1])
+        {
+            materialCountText.color = tieColor;
+        }
+        else if(teamCounts[0] > teamCounts[1])
+        {
+            materialCountText.color = nephiteWinColor;
+        }
+        else
+        {
+            materialCountText.color = lamaniteWinColor;
+        }
+
+        //Update sliders
+        UpdateSliders(0);
+        UpdateSliders(1);
+
+        //Update text
+        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
     }
 
-    //Updates material
-    public void ReportDeath(int playerIndex, int materialValue)
+    void UpdateSliders(int playerIndex)
     {
-        teamCounts[playerIndex] -= materialValue;
+        if (teamCounts[playerIndex] > materialSliders[playerIndex].maxValue)
+        {
+            materialSliders[playerIndex].maxValue = teamCounts[playerIndex];
+        }
+
+        materialSliders[playerIndex].value = teamCounts[playerIndex];
     }
 
-    //More of a method holder method
+    //More of a method holder method.  Hardcoded for the first (0) player moving because only the Nephites can lose.
     public virtual void CheckEnd()
     {
         if (CheckNoMoves()) EndGame(0);

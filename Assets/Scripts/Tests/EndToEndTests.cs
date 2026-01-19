@@ -81,7 +81,8 @@ public class EndToEndTestsEditor : Editor
         {
             if (!EditorApplication.isPlaying)
             {
-                EditorApplication.EnterPlaymode();
+                //EditorApplication.EnterPlaymode();
+                Debug.LogError("You must be in Play Mode to run the test.  Perhaps one day we can have it work, but at the moment when it enters play mode it forgets all other instructions.  Using Player prefs or something might help?");
             }
 
             tester.StartTest();

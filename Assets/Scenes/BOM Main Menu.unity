@@ -10590,26 +10590,31 @@ MonoBehaviour:
     backRowPrefabs:
     - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
     - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+    pawnPrefab: {fileID: 0}
   - dropDownOptionName: Rooks
     sceneName: Duel Scene
     backRowPrefabs:
     - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
     - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
+    pawnPrefab: {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
   - dropDownOptionName: Bishops
     sceneName: Duel Scene
     backRowPrefabs:
     - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
     - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
+    pawnPrefab: {fileID: 0}
   - dropDownOptionName: Queens
     sceneName: Duel Scene
     backRowPrefabs:
     - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
     - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
+    pawnPrefab: {fileID: 0}
   - dropDownOptionName: Knights
     sceneName: Duel Scene
     backRowPrefabs:
     - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
     - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
+    pawnPrefab: {fileID: 0}
   - dropDownOptionName: All Units
     sceneName: Duel Scene
     backRowPrefabs:
@@ -10619,6 +10624,7 @@ MonoBehaviour:
     - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
     - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
     - {fileID: 3255683134816343083, guid: cd45206b47de749f29dd6f6d09c88f90, type: 3}
+    pawnPrefab: {fileID: 0}
   - dropDownOptionName: Nephites' Last Stand
     sceneName: Nephites' Last Stand
     backRowPrefabs:
@@ -10627,6 +10633,7 @@ MonoBehaviour:
     - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
     - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
     - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
+    pawnPrefab: {fileID: 0}
   - dropDownOptionName: Anti-Nephi-Lehi Guards
     sceneName: Duel Scene
     backRowPrefabs:
@@ -10635,6 +10642,7 @@ MonoBehaviour:
     - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
     - {fileID: 6715645601842407704, guid: 3131f4050535c604d9d9ced660681725, type: 3}
     - {fileID: 3255683134816343083, guid: cd45206b47de749f29dd6f6d09c88f90, type: 3}
+    pawnPrefab: {fileID: 0}
 --- !u!4 &2089302261
 Transform:
   m_ObjectHideFlags: 0

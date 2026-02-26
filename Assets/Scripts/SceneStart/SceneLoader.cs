@@ -10,7 +10,6 @@ public class SceneConfig
     public string dropDownOptionName;
     public string sceneName;
     public GameObject[] backRowPrefabs;
-    public GameObject pawnPrefab;
 }
 
 public class SceneLoader : MonoBehaviour
@@ -34,8 +33,6 @@ public class SceneLoader : MonoBehaviour
         {
             PlayerPrefs.SetString($"backRowPrefab_{i}", selectedConfig.backRowPrefabs[i].name);
         }
-
-        PlayerPrefs.SetString("pawnPrefab", selectedConfig.pawnPrefab.name);
 
         LoadScene(selectedConfig.sceneName);
     }

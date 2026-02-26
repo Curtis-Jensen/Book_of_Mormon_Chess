@@ -175,6 +175,11 @@ public class BoardSetup : MonoBehaviour
 
     protected void OrderPawns(int playerIndex, int pawnRow)
     {
+        pawn = Resources.Load<GameObject>($"Prefabs/{PlayerPrefs.GetString("pawnPrefab")}");
+        if (pawn == null)
+        {
+            return;
+        }
         for (int x = 0; x < boardSize; x++)
         {
             pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);

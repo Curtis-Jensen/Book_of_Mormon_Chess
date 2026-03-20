@@ -1,6 +1,5 @@
 using System.Collections;
 using System.Collections.Generic;
-using System;
 using UnityEngine;
 
 public enum Faction
@@ -15,11 +14,6 @@ public enum Faction
 [RequireComponent(typeof(SpriteRenderer))]
 public abstract class Piece : MonoBehaviour
 {
-    /// <summary>
-    /// Published whenever a piece's material contribution should be added/removed.
-    /// (playerIndex, deltaMaterial)
-    /// </summary>
-    public static event Action<int, int> OnMaterialValueChanged;
 
     [Tooltip("Variable to keep track of affiliation")]
     public Faction faction;
@@ -44,10 +38,14 @@ public abstract class Piece : MonoBehaviour
     [HideInInspector]
     public int boardSize;
 
+    EndingManager endingManager;
+
     protected virtual void Start()
     {
-        // Publish material contribution. Subscribers decide whether to care (e.g. classic vs horde).
-        OnMaterialValueChanged?.Invoke(playerIndex, materialValue);
+        endingManager = FindAnyObjectByType<EndingManager>();
+        if (endingManager == null) return;
+
+        endingManager.UpdateMaterial(playerIndex, materialValue);
     }
 
     /// <summary>
@@ -147,8 +145,8 @@ public abstract class Piece : MonoBehaviour
 
         FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
 
-        // Remove material contribution.
-        OnMaterialValueChanged?.Invoke(playerIndex, -materialValue);
+        if(endingManager != null)
+            endingManager.UpdateMaterial(playerIndex,-materialValue);
 
         Destroy(gameObject);
     }

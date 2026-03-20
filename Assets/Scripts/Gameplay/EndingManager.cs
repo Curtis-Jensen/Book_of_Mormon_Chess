@@ -1,11 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
 
 public class EndingManager : HoardEndingManager
 {
     [SerializeField] PieceSets pieceSets;
+    [SerializeField] Slider[] materialSliders = new Slider[2];
+    [SerializeField] TextMeshProUGUI materialCountText;
+    [SerializeField] Color tieColor;
+    [SerializeField] Color nephiteWinColor;
+    [SerializeField] Color lamaniteWinColor;
 
     int[] teamCounts;
 

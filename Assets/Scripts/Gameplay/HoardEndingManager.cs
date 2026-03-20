@@ -12,13 +12,6 @@ public class HoardEndingManager : MonoBehaviour
     public delegate void GameEndHandler(int playerIndex);
     public static event GameEndHandler OnGameEnd;
 
-    public TextMeshProUGUI materialCountText;
-
-    public Color tieColor;
-    public Color nephiteWinColor;
-    public Color lamaniteWinColor;
-
-    public Slider[] materialSliders = new Slider[2];
 
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;

@@ -22,55 +22,12 @@ public class HoardEndingManager : MonoBehaviour
 
     public GameObject winScreen;
     [HideInInspector] public bool gameOver = false;
-    int[] teamCounts;
     protected PieceSpawner pieceSpawner;
 
     //Initialized objects
     void Awake()
     {
         pieceSpawner = FindAnyObjectByType<PieceSpawner>();
-
-        teamCounts = new int[2];
-        for (int i = 0; i < teamCounts.Length; i++)
-        {
-            teamCounts[i] = 0;
-        }
-    }
-
-    public void UpdateMaterial(int playerIndex, int materialValue)
-    {
-        teamCounts[playerIndex] += materialValue;
-
-        //Color changes based on who is winning
-        if(teamCounts[0] == teamCounts[1])
-        {
-            materialCountText.color = tieColor;
-        }
-        else if(teamCounts[0] > teamCounts[1])
-        {
-            materialCountText.color = nephiteWinColor;
-        }
-        else
-        {
-            materialCountText.color = lamaniteWinColor;
-        }
-
-        //Update sliders
-        UpdateSliders(0);
-        UpdateSliders(1);
-
-        //Update text
-        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
-    }
-
-    void UpdateSliders(int playerIndex)
-    {
-        if (teamCounts[playerIndex] > materialSliders[playerIndex].maxValue)
-        {
-            materialSliders[playerIndex].maxValue = teamCounts[playerIndex];
-        }
-
-        materialSliders[playerIndex].value = teamCounts[playerIndex];
     }
 
     //More of a method holder method.  Hardcoded for the first (0) player moving because only the Nephites can lose.
@@ -116,7 +73,6 @@ public class HoardEndingManager : MonoBehaviour
               $"Nephite Pieces: {pieceSpawner.players[0].pieces.Count}\n" + 
               $"Lamanite Pieces: {pieceSpawner.players[1].pieces.Count}\n" +
               $"Board Size: {PlayerPrefs.GetInt("boardSize")}\n" +
-              $"Game Mode: {PlayerPrefs.GetString("gameMode")}\n" +
-              $"Material Count - Nephites: {teamCounts[0]}, Lamanites: {teamCounts[1]}");
+              $"Game Mode: {PlayerPrefs.GetString("gameMode")}");
     }
 }

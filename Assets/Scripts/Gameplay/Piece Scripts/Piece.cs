@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using System;
 using UnityEngine;
 
 public enum Faction
@@ -14,6 +15,12 @@ public enum Faction
 [RequireComponent(typeof(SpriteRenderer))]
 public abstract class Piece : MonoBehaviour
 {
+    /// <summary>
+    /// Published whenever a piece's material contribution should be added/removed.
+    /// (playerIndex, deltaMaterial)
+    /// </summary>
+    public static event Action<int, int> OnMaterialValueChanged;
+
     [Tooltip("Variable to keep track of affiliation")]
     public Faction faction;
     [Tooltip("Represents how valuable this piece is")]
@@ -34,15 +41,13 @@ public abstract class Piece : MonoBehaviour
     [HideInInspector]
     public bool firstTurnTaken = false;
 
-    protected HoardEndingManager hoardEndingManager;
-
     [HideInInspector]
     public int boardSize;
 
     protected virtual void Start()
     {
-        hoardEndingManager = FindAnyObjectByType<HoardEndingManager>();
-        hoardEndingManager.UpdateMaterial(playerIndex, materialValue);
+        // Publish material contribution. Subscribers decide whether to care (e.g. classic vs horde).
+        OnMaterialValueChanged?.Invoke(playerIndex, materialValue);
     }
 
     /// <summary>
@@ -118,7 +123,7 @@ public abstract class Piece : MonoBehaviour
             // Add delay after bounce (except for first bounce)
             if (!firstBounce && maxBounceDelay > 0)
             {
-                float waitDuration = Random.Range(0f, maxBounceDelay);
+                float waitDuration = UnityEngine.Random.Range(0f, maxBounceDelay);
                 float waitedTime = 0f;
                 
                 while (waitedTime < waitDuration)
@@ -141,8 +146,9 @@ public abstract class Piece : MonoBehaviour
         }
 
         FindAnyObjectByType<PieceSpawner>().players[playerIndex].pieces.Remove(this);
-        
-        hoardEndingManager.UpdateMaterial(playerIndex, -materialValue);
+
+        // Remove material contribution.
+        OnMaterialValueChanged?.Invoke(playerIndex, -materialValue);
 
         Destroy(gameObject);
     }
@@ -157,7 +163,7 @@ public abstract class Piece : MonoBehaviour
             capturedPieceColor.g, capturedPieceColor.b, 1f));
 
         //Spawn ghost
-        Quaternion randomRotation = Quaternion.Euler(0f, 0f, Random.Range(0f, 360f));
+        Quaternion randomRotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
         var ghostInstance = Instantiate(ghost, transform.position, randomRotation);
 
         ghostInstance.GetComponent<SpriteRenderer>().sprite = 

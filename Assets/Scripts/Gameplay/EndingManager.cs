@@ -3,10 +3,58 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-// 🚨TECH DEBT TODO🚨: Rename EndingManager to ClassicEndingManager and HoardEndingManager to EndingManager!🚨
 public class EndingManager : HoardEndingManager
 {
     [SerializeField] PieceSets pieceSets;
+
+    int[] teamCounts;
+
+    void Awake()
+    {
+        pieceSpawner = FindAnyObjectByType<PieceSpawner>();
+
+        teamCounts = new int[2];
+        for (int i = 0; i < teamCounts.Length; i++)
+        {
+            teamCounts[i] = 0;
+        }
+    }
+
+    public void UpdateMaterial(int playerIndex, int materialValue)
+    {
+        teamCounts[playerIndex] += materialValue;
+
+        //Color changes based on who is winning
+        if(teamCounts[0] == teamCounts[1])
+        {
+            materialCountText.color = tieColor;
+        }
+        else if(teamCounts[0] > teamCounts[1])
+        {
+            materialCountText.color = nephiteWinColor;
+        }
+        else
+        {
+            materialCountText.color = lamaniteWinColor;
+        }
+
+        //Update sliders
+        UpdateSliders(0);
+        UpdateSliders(1);
+
+        //Update text
+        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
+    }
+
+        void UpdateSliders(int playerIndex)
+    {
+        if (teamCounts[playerIndex] > materialSliders[playerIndex].maxValue)
+        {
+            materialSliders[playerIndex].maxValue = teamCounts[playerIndex];
+        }
+
+        materialSliders[playerIndex].value = teamCounts[playerIndex];
+    }
 
     public override void CheckEnd()
     {

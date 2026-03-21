@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
@@ -12,6 +12,7 @@ public class HoardTurnManager : TurnManager
 
     int waveNumber;
     PieceSpawner pieceSpawner;
+    public int WaveNumber => waveNumber;
 
     void Start()
     {

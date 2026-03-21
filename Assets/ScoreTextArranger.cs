@@ -7,12 +7,14 @@ public class ScoreTextArranger : MonoBehaviour
 {
     [SerializeField, TextArea(3, 8)] private string displayText;
 
-    private TMP_Text scoreText;
+    HoardTurnManager hoardTurnManager;
+    TMP_Text scoreText;
 
     void Start()
     {
+        hoardTurnManager = FindAnyObjectByType<HoardTurnManager>();
         scoreText = GetComponent<TMP_Text>();
 
-        scoreText.text = displayText;
+        scoreText.text = hoardTurnManager.WaveNumber.ToString();
     }
 }

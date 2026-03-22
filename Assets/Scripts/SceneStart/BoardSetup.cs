@@ -79,8 +79,12 @@ public class BoardSetup : MonoBehaviour
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
         TurnManager.players = players;
-        TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI", 0) == 1;
-        TurnManager.players[1].isAi = PlayerPrefs.GetInt("2isAI", 1) == 1;
+
+        for(int i = 0;i < players.Length; i++)
+        {
+            Debug.Log($"{i+1}isAI");
+            TurnManager.players[i].isAi = PlayerPrefs.GetInt($"{i+1}isAI", 0) == 1;
+        }
     }
 
     void SpawnTiles()

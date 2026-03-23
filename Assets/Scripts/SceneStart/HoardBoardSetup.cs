@@ -8,11 +8,11 @@ public class HoardBoardSetup : BoardSetup
 {
     protected override void OrderPieces(int[] pieceChoices)
     {
-        OrderBackRows(pieceChoices, 0, 0);
+        OrderBackRows(pieceChoices, 0);
 
         if (boardSize > 3)
         {
-            OrderPawns(0, 1);
+            OrderPawns(0);
         }
     }
 }

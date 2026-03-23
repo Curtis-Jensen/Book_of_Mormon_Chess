@@ -82,7 +82,6 @@ public class BoardSetup : MonoBehaviour
 
         for(int i = 0;i < players.Length; i++)
         {
-            Debug.Log($"{i+1}isAI");
             TurnManager.players[i].isAi = PlayerPrefs.GetInt($"{i+1}isAI", 0) == 1;
         }
     }
@@ -115,10 +114,11 @@ public class BoardSetup : MonoBehaviour
 
     protected int[] RandomizePieces()
     {
-        int[] pieceChoices = new int[boardSize];
+        int teamWidth = boardSize / players.Length * 2 + 1;
+        int[] pieceChoices = new int[teamWidth];
         List<int> bag = new();
 
-        for (int i = 0; i < boardSize; i++)
+        for (int i = 0; i < teamWidth; i++)
         {
             // Refill and reshuffle the bag if it's empty
             if (bag.Count == 0)
@@ -159,26 +159,45 @@ public class BoardSetup : MonoBehaviour
 
     virtual protected void OrderPieces(int[] pieceChoices)
     {
-        OrderBackRows(pieceChoices, 0, 0);
-        OrderBackRows(pieceChoices, 1, boardSize - 1);
-
-        if (boardSize > 3)
+        for(int i = 0; i < players.Length; i++)
         {
-            OrderPawns(0, 1);
-            OrderPawns(1, boardSize - 2);
-        }
+            OrderBackRows(pieceChoices, i);
+
+            if (boardSize > 3)
+            {
+                OrderPawns(i);
+            }
+        } 
     }
 
-    protected void OrderBackRows(int[] pieceChoices, int playerIndex, int pieceRow)
+    protected void OrderBackRows(int[] pieceChoices, int playerIndex)
     {
+        var evenFaction = playerIndex%2 == 0;
+        var pieceRow = 0;
+
+        if (!evenFaction)
+        {
+            pieceRow = boardSize - 1;
+        }
+
         for (int x = 0; x < boardSize; x++)
         {
             pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, pieceRow), playerIndex);
         }
     }
 
-    protected void OrderPawns(int playerIndex, int pawnRow)
+    protected void OrderPawns(int playerIndex)
     {
+        var evenFaction = playerIndex%2 == 0;
+        var pawnRow = 1;
+
+        if (!evenFaction)
+        {
+            pawnRow = boardSize - 2;
+        }
+
+        Debug.Log($"{pawnRow}");
+
         for (int x = 0; x < boardSize; x++)
         {
             pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);

@@ -1,4 +1,4 @@
-﻿using System.Collections;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -21,8 +21,20 @@ public class PieceSpawner : MonoBehaviour
     {
         TurnManager = GetComponent<TurnManager>();
 
-        players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
-        players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
+        if (players == null)
+        {
+            return;
+        }
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (players[i] == null)
+            {
+                continue;
+            }
+
+            players[i].isAi = PlayerPrefs.GetInt($"{i + 1}isAI", 0) == 1;
+        }
     }
 
     /// <summary>
@@ -45,9 +57,36 @@ public class PieceSpawner : MonoBehaviour
     /// <param name="playerIndex">Index of the player owning the piece</param>
     public Piece SpawnPiece(GameObject piecePrefab, Vector2 position, int playerIndex)
     {
+        if (players == null || playerIndex < 0 || playerIndex >= players.Length)
+        {
+            Debug.LogError($"Invalid player index {playerIndex} for piece spawn.");
+            return null;
+        }
+
+        int x = (int)position.x;
+        int y = (int)position.y;
+        if (TurnManager == null || TurnManager.tiles == null || x < 0 || y < 0 ||
+            x >= TurnManager.tiles.GetLength(0) || y >= TurnManager.tiles.GetLength(1))
+        {
+            Debug.LogError($"Invalid board position ({x}, {y}) for piece spawn.");
+            return null;
+        }
+
+        if (piecePrefab == null)
+        {
+            Debug.LogError("Attempted to spawn a null piece prefab.");
+            return null;
+        }
+
         var player = players[playerIndex]; //🧑🏻
+        if (player == null)
+        {
+            Debug.LogError($"Player at index {playerIndex} is null.");
+            return null;
+        }
+
         var pieceInstance =
-        Instantiate(piecePrefab, TurnManager.tiles[(int)position.x, (int)position.y].transform); //🏗️
+        Instantiate(piecePrefab, TurnManager.tiles[x, y].transform); //🏗️
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
@@ -66,7 +105,7 @@ public class PieceSpawner : MonoBehaviour
 
         player.pieces.Add(pieceScript);//⚖️
 
-        TurnManager.tiles[(int)position.x, (int)position.y].piece = pieceScript;
+        TurnManager.tiles[x, y].piece = pieceScript;
 
         return pieceScript;
     }

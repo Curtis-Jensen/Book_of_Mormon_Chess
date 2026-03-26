@@ -28,7 +28,8 @@ public class EndingManager : HoardEndingManager
 
     public void UpdateMaterial(int playerIndex, int materialValue)
     {
-        factionCounts[playerIndex] += materialValue;
+        var factionIndex = playerIndex % 2;
+        factionCounts[factionIndex] += materialValue;
 
         //Color changes based on who is winning
         if(factionCounts[0] == factionCounts[1])
@@ -45,21 +46,20 @@ public class EndingManager : HoardEndingManager
         }
 
         //Update sliders
-        UpdateSliders(0);
-        UpdateSliders(1);
+        UpdateSliders(factionIndex);
 
         //Update text
         materialCountText.text = (factionCounts[0] - factionCounts[1]).ToString();
     }
 
-        void UpdateSliders(int playerIndex)
+        void UpdateSliders(int factionIndex)
     {
-        if (factionCounts[playerIndex] > materialSliders[playerIndex].maxValue)
+        if (factionCounts[factionIndex] > materialSliders[factionIndex].maxValue)
         {
-            materialSliders[playerIndex].maxValue = factionCounts[playerIndex];
+            materialSliders[factionIndex].maxValue = factionCounts[factionIndex];
         }
 
-        materialSliders[playerIndex].value = factionCounts[playerIndex];
+        materialSliders[factionIndex].value = factionCounts[factionIndex];
     }
 
     public override void CheckEnd()

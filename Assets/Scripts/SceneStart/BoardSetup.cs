@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(HoardEndingManager))]
 public class BoardSetup : MonoBehaviour
 {
-    public Player[] players;
     public GameObject lightTilePrefab;
     public GameObject darkTilePrefab;
     public GameObject pawn;
@@ -78,11 +77,11 @@ public class BoardSetup : MonoBehaviour
         aiManager = GetComponent<AiManager>();
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
-        TurnManager.players = players;
+        TurnManager.players = pieceSpawner.players;
 
-        for(int i = 0;i < players.Length; i++)
+        for(int i = 0;i < pieceSpawner.players.Length; i++)
         {
-            TurnManager.players[i].isAi = PlayerPrefs.GetInt($"{i+1}isAI", 0) == 1;
+            pieceSpawner.players[i].isAi = PlayerPrefs.GetInt($"{i+1}isAI", 0) == 1;
         }
     }
 
@@ -114,7 +113,7 @@ public class BoardSetup : MonoBehaviour
 
     protected int[] RandomizePieces()
     {
-        int teamWidth = boardSize / players.Length * 2 + 1;
+        int teamWidth = boardSize / pieceSpawner.players.Length * 2 + 1;
         int[] pieceChoices = new int[teamWidth];
         List<int> bag = new();
 
@@ -159,7 +158,7 @@ public class BoardSetup : MonoBehaviour
 
     virtual protected void OrderPieces(int[] pieceChoices)
     {
-        for(int i = 0; i < players.Length; i++)
+        for(int i = 0; i < pieceSpawner.players.Length; i++)
         {
             OrderBackRows(pieceChoices, i);
 
@@ -211,7 +210,7 @@ public class BoardSetup : MonoBehaviour
 
     void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX) 
     { 
-        int lanesPerSide = Mathf.Max(1, players.Length / 2); 
+        int lanesPerSide = Mathf.Max(1, pieceSpawner.players.Length / 2); 
         int laneWidth = Mathf.Max(1, boardSize / lanesPerSide); 
         int laneIndex = playerIndex / 2; 
 

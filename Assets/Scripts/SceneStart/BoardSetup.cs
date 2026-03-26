@@ -74,7 +74,6 @@ public class BoardSetup : MonoBehaviour
         TurnManager = GetComponent<TurnManager>();
         TurnManager.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
-        pieceSpawner.players = players;
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
@@ -113,20 +112,13 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    //
     protected int[] RandomizePieces()
     {
-        int lanesPerSide = Mathf.Max(1, players.Length / 2);
-        int laneWidth = Mathf.Max(1, boardSize / lanesPerSide);
-        int[] pieceChoices = new int[laneWidth];
+        int teamWidth = boardSize / players.Length * 2 + 1;
+        int[] pieceChoices = new int[teamWidth];
         List<int> bag = new();
 
-        if (backPiecePrefabs == null || backPiecePrefabs.Length == 0)
-        {
-            return pieceChoices;
-        }
-
-        for (int i = 0; i < laneWidth; i++)
+        for (int i = 0; i < teamWidth; i++)
         {
             // Refill and reshuffle the bag if it's empty
             if (bag.Count == 0)
@@ -149,13 +141,6 @@ public class BoardSetup : MonoBehaviour
                 }
             }
 
-            // If there are no non-king pieces configured, keep default fallback value (king index 0)
-            if (bag.Count == 0)
-            {
-                pieceChoices[i] = 0;
-                continue;
-            }
-
             // Assign the next piece from the bag to the pieceChoices array
             pieceChoices[i] = bag[0];
             bag.RemoveAt(0); // Remove the used piece from the bag
@@ -164,37 +149,8 @@ public class BoardSetup : MonoBehaviour
         return pieceChoices;
     }
 
-    void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX)
-    {
-        int lanesPerSide = Mathf.Max(1, players.Length / 2);
-        int laneWidth = Mathf.Max(1, boardSize / lanesPerSide);
-        int laneIndex = playerIndex / 2;
-
-        startX = laneIndex * laneWidth;
-        if (startX >= boardSize)
-        {
-            startX = boardSize;
-            endX = boardSize;
-            return;
-        }
-
-        endX = Mathf.Min(startX + laneWidth, boardSize);
-    }
-
-    void GetPlayerRows(int playerIndex, out int homeRow, out int pawnRow)
-    {
-        bool isBottomSide = playerIndex % 2 == 0;
-        homeRow = isBottomSide ? 0 : boardSize - 1;
-        pawnRow = isBottomSide ? 1 : boardSize - 2;
-    }
-
     int[] PlaceKing(int[] pieceChoices)
     {
-        if (pieceChoices.Length == 0)
-        {
-            return pieceChoices;
-        }
-
         //We set a random spot to be 0 so 1 king spawns
         pieceChoices[Random.Range(0, pieceChoices.Length)] = 0;
 
@@ -216,44 +172,33 @@ public class BoardSetup : MonoBehaviour
 
     protected void OrderBackRows(int[] pieceChoices, int playerIndex)
     {
-        if (backPiecePrefabs == null || backPiecePrefabs.Length == 0)
+        var evenFaction = playerIndex%2 == 0;
+        var pieceRow = 0;
+
+        if (!evenFaction)
         {
-            return;
+            pieceRow = boardSize - 1;
         }
 
-        GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
-        GetPlayerRows(playerIndex, out int homeRow, out _);
-
-        for (int x = startX; x < endX; x++)
+        for (int x = 0; x < boardSize; x++)
         {
-            int laneLocalIndex = x - startX;
-            if (laneLocalIndex < 0 || laneLocalIndex >= pieceChoices.Length)
-            {
-                continue;
-            }
-
-            int piecePrefabIndex = pieceChoices[laneLocalIndex];
-            if (piecePrefabIndex < 0 || piecePrefabIndex >= backPiecePrefabs.Length)
-            {
-                continue;
-            }
-
-            GameObject piecePrefab = backPiecePrefabs[piecePrefabIndex];
-            if (piecePrefab == null)
-            {
-                continue;
-            }
-
-            pieceSpawner.SpawnPiece(piecePrefab, new Vector2(x, homeRow), playerIndex);
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, pieceRow), playerIndex);
         }
     }
 
     protected void OrderPawns(int playerIndex)
     {
-        GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
-        GetPlayerRows(playerIndex, out _, out int pawnRow);
+        var evenFaction = playerIndex%2 == 0;
+        var pawnRow = 1;
 
-        for (int x = startX; x < endX; x++)
+        if (!evenFaction)
+        {
+            pawnRow = boardSize - 2;
+        }
+
+        Debug.Log($"{pawnRow}");
+
+        for (int x = 0; x < boardSize; x++)
         {
             pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
         }

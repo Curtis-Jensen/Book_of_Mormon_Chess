@@ -13,29 +13,29 @@ public class EndingManager : HoardEndingManager
     [SerializeField] Color nephiteWinColor;
     [SerializeField] Color lamaniteWinColor;
 
-    int[] teamCounts;
+    int[] factionCounts;
 
     void Awake()
     {
         pieceSpawner = FindAnyObjectByType<PieceSpawner>();
 
-        teamCounts = new int[2];
-        for (int i = 0; i < teamCounts.Length; i++)
+        factionCounts = new int[2];
+        for (int i = 0; i < factionCounts.Length; i++)
         {
-            teamCounts[i] = 0;
+            factionCounts[i] = 0;
         }
     }
 
     public void UpdateMaterial(int playerIndex, int materialValue)
     {
-        teamCounts[playerIndex] += materialValue;
+        factionCounts[playerIndex] += materialValue;
 
         //Color changes based on who is winning
-        if(teamCounts[0] == teamCounts[1])
+        if(factionCounts[0] == factionCounts[1])
         {
             materialCountText.color = tieColor;
         }
-        else if(teamCounts[0] > teamCounts[1])
+        else if(factionCounts[0] > factionCounts[1])
         {
             materialCountText.color = nephiteWinColor;
         }
@@ -49,17 +49,17 @@ public class EndingManager : HoardEndingManager
         UpdateSliders(1);
 
         //Update text
-        materialCountText.text = (teamCounts[0] - teamCounts[1]).ToString();
+        materialCountText.text = (factionCounts[0] - factionCounts[1]).ToString();
     }
 
         void UpdateSliders(int playerIndex)
     {
-        if (teamCounts[playerIndex] > materialSliders[playerIndex].maxValue)
+        if (factionCounts[playerIndex] > materialSliders[playerIndex].maxValue)
         {
-            materialSliders[playerIndex].maxValue = teamCounts[playerIndex];
+            materialSliders[playerIndex].maxValue = factionCounts[playerIndex];
         }
 
-        materialSliders[playerIndex].value = teamCounts[playerIndex];
+        materialSliders[playerIndex].value = factionCounts[playerIndex];
     }
 
     public override void CheckEnd()

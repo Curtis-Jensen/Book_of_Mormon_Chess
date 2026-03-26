@@ -408,7 +408,7 @@ MonoBehaviour:
   pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   players:
   - name: player1
-    isAi: 0
+    isAi: 1
     faction: 0
     pieces: []
   - name: player2

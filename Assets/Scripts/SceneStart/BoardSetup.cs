@@ -180,9 +180,14 @@ public class BoardSetup : MonoBehaviour
             pieceRow = boardSize - 1;
         }
 
-        for (int x = 0; x < boardSize; x++)
+        GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
+
+        
+        for (int x = startX; x < endX; x++)
         {
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, pieceRow), playerIndex);
+            var localX = x - startX;
+
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[localX]], new Vector2(x, pieceRow), playerIndex);
         }
     }
 
@@ -196,13 +201,31 @@ public class BoardSetup : MonoBehaviour
             pawnRow = boardSize - 2;
         }
 
-        Debug.Log($"{pawnRow}");
+        GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
 
-        for (int x = 0; x < boardSize; x++)
+        for (int x = startX; x < endX; x++)
         {
             pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
         }
     }
+
+    void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX) 
+    { 
+        int lanesPerSide = Mathf.Max(1, players.Length / 2); 
+        int laneWidth = Mathf.Max(1, boardSize / lanesPerSide); 
+        int laneIndex = playerIndex / 2; 
+
+        startX = laneIndex * laneWidth; 
+
+        if (startX >= boardSize) 
+        { 
+            startX = boardSize; 
+            endX = boardSize; 
+            return; 
+        } 
+
+        endX = Mathf.Min(startX + laneWidth, boardSize); 
+    } 
 
     void InitializeTurnManagerReferences()
     {

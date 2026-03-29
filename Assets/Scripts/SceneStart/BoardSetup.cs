@@ -26,7 +26,7 @@ public class BoardSetup : MonoBehaviour
     {
         StartBoard();
         StartPieces();
-        if (TurnManager.players[0].isAi)
+        if (pieceSpawner.players[0].isAi)
         {
             StartCoroutine(DelayFirstTurn());
         }
@@ -77,7 +77,7 @@ public class BoardSetup : MonoBehaviour
         aiManager = GetComponent<AiManager>();
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
-        TurnManager.players = pieceSpawner.players;
+        TurnManager.pieceSpawner = pieceSpawner;
 
         for(int i = 0;i < pieceSpawner.players.Length; i++)
         {

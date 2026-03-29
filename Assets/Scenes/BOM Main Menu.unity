@@ -885,7 +885,7 @@ RectTransform:
   m_Children:
   - {fileID: 1853598338}
   m_Father: {fileID: 262307931}
-  m_RootOrder: 4
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1116,7 +1116,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Yellow
+  m_text: Red
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -1524,7 +1524,6 @@ RectTransform:
   m_Children:
   - {fileID: 1638908523}
   - {fileID: 992810422}
-  - {fileID: 2146330045}
   - {fileID: 1616413524}
   - {fileID: 166932999}
   m_Father: {fileID: 2107960876}
@@ -4416,7 +4415,7 @@ MonoBehaviour:
   m_Placeholder: {fileID: 0}
   m_ItemText: {fileID: 85780898}
   m_ItemImage: {fileID: 0}
-  m_Value: 2
+  m_Value: 3
   m_Options:
     m_Options:
     - m_Text: Red
@@ -4836,7 +4835,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Green
+  m_text: Blue
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -5162,7 +5161,7 @@ GameObject:
   - component: {fileID: 1009876758}
   - component: {fileID: 1009876757}
   m_Layer: 5
-  m_Name: Empty Panel
+  m_Name: Play Panel
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -5179,7 +5178,8 @@ RectTransform:
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
-  m_Children: []
+  m_Children:
+  - {fileID: 2146330045}
   m_Father: {fileID: 2107960876}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -7840,7 +7840,7 @@ MonoBehaviour:
   m_Placeholder: {fileID: 0}
   m_ItemText: {fileID: 804242409}
   m_ItemImage: {fileID: 0}
-  m_Value: 1
+  m_Value: 0
   m_Options:
     m_Options:
     - m_Text: Red
@@ -8156,7 +8156,7 @@ RectTransform:
   m_Children:
   - {fileID: 2139233102}
   m_Father: {fileID: 262307931}
-  m_RootOrder: 3
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8455,7 +8455,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1638908523
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11442,12 +11442,12 @@ RectTransform:
   m_Children:
   - {fileID: 1011645725}
   - {fileID: 1021294126}
-  m_Father: {fileID: 262307931}
-  m_RootOrder: 2
+  m_Father: {fileID: 1009876756}
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0.5}
   m_AnchorMax: {x: 0, y: 0.5}
-  m_AnchoredPosition: {x: 411.52304, y: -67.4349}
+  m_AnchoredPosition: {x: 388.4701, y: -63.5}
   m_SizeDelta: {x: 95.6074, y: 45}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2146330046

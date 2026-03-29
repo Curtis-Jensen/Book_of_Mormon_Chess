@@ -415,14 +415,6 @@ MonoBehaviour:
     isAi: 1
     faction: 1
     pieces: []
-  - name: player3
-    isAi: 1
-    faction: 0
-    pieces: []
-  - name: player4
-    isAi: 1
-    faction: 1
-    pieces: []
   pieceBounceHeight: 0.5
   piecebounceDuration: 1
   maxBounceDelay: 0.3

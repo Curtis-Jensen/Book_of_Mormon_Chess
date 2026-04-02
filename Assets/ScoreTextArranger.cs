@@ -5,8 +5,6 @@ using UnityEngine;
 
 public class ScoreTextArranger : MonoBehaviour
 {
-    [SerializeField, TextArea(3, 8)] private string displayText;
-
     HoardTurnManager hoardTurnManager;
     TMP_Text scoreText;
 
@@ -15,6 +13,11 @@ public class ScoreTextArranger : MonoBehaviour
         hoardTurnManager = FindAnyObjectByType<HoardTurnManager>();
         scoreText = GetComponent<TMP_Text>();
 
+        SetNumber();
+    }
+
+    void SetNumber()
+    {
         scoreText.text = hoardTurnManager.WaveNumber.ToString();
     }
 }

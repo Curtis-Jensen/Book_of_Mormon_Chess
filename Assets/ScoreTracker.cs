@@ -3,9 +3,11 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class ScoreTextArranger : MonoBehaviour
+public class ScoreTracker : MonoBehaviour
 {
-    [SerializeField] TMP_Text highScoreText;
+    [SerializeField] string highScoreMessage;
+    [SerializeField] TMP_Text highScorePrefix;
+    [SerializeField] TMP_Text highScoreNumber;
 
     void Start()
     {
@@ -30,9 +32,11 @@ public class ScoreTextArranger : MonoBehaviour
         int highScore = PlayerPrefs.GetInt(highScoreKey, 0);
         if (currentScore > highScore)
         {
+            highScorePrefix.text = highScoreMessage;
+
             PlayerPrefs.SetInt(highScoreKey, currentScore);
         }
 
-        highScoreText.text = PlayerPrefs.GetInt(highScoreKey).ToString();
+        highScoreNumber.text = PlayerPrefs.GetInt(highScoreKey).ToString();
     }
 }

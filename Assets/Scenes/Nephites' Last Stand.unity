@@ -1633,7 +1633,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &730674202
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1918,7 +1918,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 6f1536de88d1342cfb1a7bbbf67e4efa, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  highScoreText: {fileID: 969621920}
+  highScoreMessage: New Highscore!
+  highScorePrefix: {fileID: 1465817495}
+  highScoreNumber: {fileID: 969621920}
 --- !u!114 &896964290
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4071,7 +4073,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1715703210
 RectTransform:
   m_ObjectHideFlags: 0

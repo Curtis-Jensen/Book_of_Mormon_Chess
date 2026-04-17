@@ -5,8 +5,7 @@ using UnityEngine;
 
 public class ScoreTextArranger : MonoBehaviour
 {
-    TMP_Text scoreText;
-    TMP_Text highScoreText;
+    [SerializeField] TMP_Text highScoreText;
 
     void Start()
     {
@@ -19,7 +18,7 @@ public class ScoreTextArranger : MonoBehaviour
 
     void SetScore(int currentScore)
     {
-        scoreText = GetComponent<TMP_Text>();
+        var scoreText = GetComponent<TMP_Text>();
         scoreText.text = currentScore.ToString();
     }
 

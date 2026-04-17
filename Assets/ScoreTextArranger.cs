@@ -5,24 +5,26 @@ using UnityEngine;
 
 public class ScoreTextArranger : MonoBehaviour
 {
-    HoardTurnManager hoardTurnManager;
     TMP_Text scoreText;
     TMP_Text highScoreText;
 
-
     void Start()
     {
-        hoardTurnManager = FindAnyObjectByType<HoardTurnManager>();
-        scoreText = GetComponent<TMP_Text>();
+        var hoardTurnManager = FindAnyObjectByType<HoardTurnManager>();
+        int currentScore = hoardTurnManager.WaveNumber;
 
-        SetScore();
+        SetScore(currentScore);
+        SetHighscore(currentScore);
     }
 
-    void SetScore()
+    void SetScore(int currentScore)
     {
-        int currentScore = hoardTurnManager.WaveNumber;
+        scoreText = GetComponent<TMP_Text>();
         scoreText.text = currentScore.ToString();
+    }
 
+    void SetHighscore(int currentScore)
+    {
         var boardWidth = PlayerPrefs.GetInt("boardSize");
         string highScoreKey = $"{boardWidth}x{boardWidth}highScore";
         

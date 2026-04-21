@@ -9591,7 +9591,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b45b9a61021c2a45aca330ec7187001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolVariableName: 2isAI
+  boolVariableName: 4isAI
   toggle: {fileID: 5335940650486420770}
   defaultValue: 1
 --- !u!1 &5335940650500573298
@@ -9681,9 +9681,21 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 1172850867}
     m_Modifications:
+    - target: {fileID: 5335940650130653179, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_text
+      value: Purple
+      objectReference: {fileID: 0}
     - target: {fileID: 5335940650297098677, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Value
-      value: 4
+      value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940651395816859, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 415.3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940651715577125, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 220.8
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651943581128, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Pivot.x
@@ -9751,7 +9763,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651943581128, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: -215.5
+      value: -222.1
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651943581128, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_AnchoredPosition.y
@@ -12230,7 +12242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b45b9a61021c2a45aca330ec7187001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolVariableName: 2isAI
+  boolVariableName: 3isAI
   toggle: {fileID: 5335940651434907722}
   defaultValue: 1
 --- !u!114 &5335940651549438968

@@ -248,19 +248,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.2
-  players:
-  - name: 
-    isAi: 0
-    faction: 0
-    pieces: []
-  - name: 
-    isAi: 0
-    faction: 0
-    pieces: []
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
   endingManager: {fileID: 0}
+  pieceSpawner: {fileID: 0}
   selectedPiece: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
@@ -412,6 +404,14 @@ MonoBehaviour:
     faction: 0
     pieces: []
   - name: player2
+    isAi: 1
+    faction: 1
+    pieces: []
+  - name: player3
+    isAi: 1
+    faction: 0
+    pieces: []
+  - name: player4
     isAi: 1
     faction: 1
     pieces: []

@@ -73,6 +73,14 @@ public class BoardSetup : MonoBehaviour
         TurnManager = GetComponent<TurnManager>();
         TurnManager.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
+        
+        // Resize players list to 2 if 4playerMode is disabled
+        bool fourPlayerMode = PlayerPrefs.GetInt("4playerMode", 1) == 1;
+        if (!fourPlayerMode && pieceSpawner.players.Length > 2)
+        {
+            System.Array.Resize(ref pieceSpawner.players, 2);
+        }
+        
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
         TurnManager.endingManager = GetComponent<HoardEndingManager>();

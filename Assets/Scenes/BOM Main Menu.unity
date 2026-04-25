@@ -521,7 +521,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolVariableName: 4playerMode
   toggle: {fileID: 53687848}
-  defaultValue: 1
+  defaultValue: 0
 --- !u!114 &53687848
 MonoBehaviour:
   m_ObjectHideFlags: 0

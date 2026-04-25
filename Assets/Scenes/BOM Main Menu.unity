@@ -519,7 +519,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0b45b9a61021c2a45aca330ec7187001, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  boolVariableName: 3isAI
+  boolVariableName: 4playerMode
   toggle: {fileID: 53687848}
   defaultValue: 1
 --- !u!114 &53687848

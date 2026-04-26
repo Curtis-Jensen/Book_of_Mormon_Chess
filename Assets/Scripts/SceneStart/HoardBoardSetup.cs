@@ -8,12 +8,17 @@ public class HoardBoardSetup : BoardSetup
 {
     protected override void OrderPieces(int[] pieceChoices)
     {
-        OrderBackRows(pieceChoices, 0);
-
-        if (boardSize > 3)
+        for(int i = 0; i < pieceSpawner.players.Length; i++)
         {
-            OrderPawns(0);
-        }
+            if (i == 1) continue; // We skip player 2 because that's reserved for the endless Lamanites
+
+            OrderBackRows(pieceChoices, i);
+
+            if (boardSize > 3)
+            {
+                OrderPawns(i);
+            }
+        } 
     }
 
 

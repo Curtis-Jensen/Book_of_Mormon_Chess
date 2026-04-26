@@ -521,7 +521,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolVariableName: 4playerMode
   toggle: {fileID: 53687848}
-  defaultValue: 0
 --- !u!114 &53687848
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -4096,18 +4095,18 @@ RectTransform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032377134}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 53687846}
-  m_Father: {fileID: 2107960876}
+  m_Father: {fileID: 1172850867}
   m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -369.4, y: -141.2}
+  m_AnchoredPosition: {x: -369.4, y: -137.26509}
   m_SizeDelta: {x: 200, y: 26.0311}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1032377136
@@ -4939,6 +4938,7 @@ RectTransform:
   - {fileID: 715246455}
   - {fileID: 5335940651981885467}
   - {fileID: 5335940649942588787}
+  - {fileID: 1032377135}
   m_Father: {fileID: 2107960876}
   m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -8382,7 +8382,6 @@ RectTransform:
   - {fileID: 262307931}
   - {fileID: 1009876756}
   - {fileID: 1172850867}
-  - {fileID: 1032377135}
   m_Father: {fileID: 0}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -9997,7 +9996,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolVariableName: 4isAI
   toggle: {fileID: 5335940650486420770}
-  defaultValue: 1
 --- !u!1 &5335940650500573298
 GameObject:
   m_ObjectHideFlags: 0
@@ -10087,7 +10085,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 5335940650130653179, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_text
-      value: Purple
+      value: Blue
       objectReference: {fileID: 0}
     - target: {fileID: 5335940650297098677, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Value
@@ -12648,7 +12646,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   boolVariableName: 3isAI
   toggle: {fileID: 5335940651434907722}
-  defaultValue: 1
 --- !u!114 &5335940651549438968
 MonoBehaviour:
   m_ObjectHideFlags: 0

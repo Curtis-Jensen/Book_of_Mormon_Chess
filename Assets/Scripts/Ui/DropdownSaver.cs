@@ -24,7 +24,8 @@ public class DropdownSaver : MonoBehaviour
         {
             dropdown = GetComponent<TMP_Dropdown>();
         }
-        LoadSavedValue();
+
+        Save();
     }
 
     private void OnEnable()

@@ -9,10 +9,9 @@ public class SetBoolean : MonoBehaviour
 
     public Toggle toggle;
 
-    public int defaultValue;
-
     private void Awake()
     {
+        int defaultValue = toggle.isOn ? 1 : 0;
         toggle.isOn = PlayerPrefs.GetInt(boolVariableName, defaultValue) == 1;
         SetBool();
     }

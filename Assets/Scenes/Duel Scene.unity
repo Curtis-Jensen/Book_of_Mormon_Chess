@@ -248,19 +248,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   moveTime: 0.2
-  players:
-  - name: 
-    isAi: 0
-    faction: 0
-    pieces: []
-  - name: 
-    isAi: 0
-    faction: 0
-    pieces: []
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
   endingManager: {fileID: 0}
+  pieceSpawner: {fileID: 0}
   selectedPiece: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
@@ -274,15 +266,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c83f73e91a7f04ba5628caf2aa870d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  players:
-  - name: player1
-    isAi: 0
-    faction: 0
-    pieces: []
-  - name: player2
-    isAi: 1
-    faction: 0
-    pieces: []
   lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
@@ -417,10 +400,18 @@ MonoBehaviour:
   pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   players:
   - name: player1
-    isAi: 0
+    isAi: 1
     faction: 0
     pieces: []
   - name: player2
+    isAi: 1
+    faction: 1
+    pieces: []
+  - name: player3
+    isAi: 1
+    faction: 0
+    pieces: []
+  - name: player4
     isAi: 1
     faction: 1
     pieces: []
@@ -439,16 +430,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 25c43ee910d9b4169848a7d2178ca664, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  winScreen: {fileID: 1542109433}
+  gameOver: 0
+  pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
+  materialSliders:
+  - {fileID: 592118998}
+  - {fileID: 238588207}
   materialCountText: {fileID: 685577180}
   tieColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.44705883}
   nephiteWinColor: {r: 0, g: 0.008824366, b: 0.8490566, a: 1}
   lamaniteWinColor: {r: 0.6132076, g: 0, b: 0, a: 1}
-  materialSliders:
-  - {fileID: 592118998}
-  - {fileID: 238588207}
-  winScreen: {fileID: 1542109433}
-  gameOver: 0
-  pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
 --- !u!1 &153935751
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,7 +10,6 @@ using UnityEngine.UIElements;
 [RequireComponent(typeof(HoardEndingManager))]
 public class BoardSetup : MonoBehaviour
 {
-    public Player[] players;
     public GameObject lightTilePrefab;
     public GameObject darkTilePrefab;
     public GameObject pawn;
@@ -27,7 +26,7 @@ public class BoardSetup : MonoBehaviour
     {
         StartBoard();
         StartPieces();
-        if (TurnManager.players[0].isAi)
+        if (pieceSpawner.players[0].isAi)
         {
             StartCoroutine(DelayFirstTurn());
         }
@@ -49,6 +48,13 @@ public class BoardSetup : MonoBehaviour
 
     protected virtual void StartPieces()
     {
+        // Resize players list to 2 if 4playerMode is disabled
+        bool fourPlayerMode = PlayerPrefs.GetInt("4playerMode", 1) == 1;
+        if (!fourPlayerMode && pieceSpawner.players.Length > 2)
+        {
+            System.Array.Resize(ref pieceSpawner.players, 2);
+        }
+
         var pieceChoices = RandomizePieces();
         pieceChoices = PlaceKing(pieceChoices);    
         OrderPieces(pieceChoices);
@@ -74,13 +80,17 @@ public class BoardSetup : MonoBehaviour
         TurnManager = GetComponent<TurnManager>();
         TurnManager.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
+        
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
         TurnManager.endingManager = GetComponent<HoardEndingManager>();
         TurnManager.aiManager = aiManager;
-        TurnManager.players = players;
-        TurnManager.players[0].isAi = PlayerPrefs.GetInt("1isAI", 0) == 1;
-        TurnManager.players[1].isAi = PlayerPrefs.GetInt("2isAI", 1) == 1;
+        TurnManager.pieceSpawner = pieceSpawner;
+
+        for(int i = 0;i < pieceSpawner.players.Length; i++)
+        {
+            pieceSpawner.players[i].isAi = PlayerPrefs.GetInt($"{i+1}isAI", 0) == 1;
+        }
     }
 
     void SpawnTiles()
@@ -111,10 +121,11 @@ public class BoardSetup : MonoBehaviour
 
     protected int[] RandomizePieces()
     {
-        int[] pieceChoices = new int[boardSize];
+        int teamWidth = boardSize / pieceSpawner.players.Length * 2 + 1;
+        int[] pieceChoices = new int[teamWidth];
         List<int> bag = new();
 
-        for (int i = 0; i < boardSize; i++)
+        for (int i = 0; i < teamWidth; i++)
         {
             // Refill and reshuffle the bag if it's empty
             if (bag.Count == 0)
@@ -155,31 +166,78 @@ public class BoardSetup : MonoBehaviour
 
     virtual protected void OrderPieces(int[] pieceChoices)
     {
-        OrderBackRows(pieceChoices, 0, 0);
-        OrderBackRows(pieceChoices, 1, boardSize - 1);
-
-        if (boardSize > 3)
+        for(int i = 0; i < pieceSpawner.players.Length; i++)
         {
-            OrderPawns(0, 1);
-            OrderPawns(1, boardSize - 2);
+            OrderBackRows(pieceChoices, i);
+
+            if (boardSize > 3)
+            {
+                OrderPawns(i);
+            }
+        } 
+    }
+
+    protected void OrderBackRows(int[] pieceChoices, int playerIndex)
+    {
+        var evenFaction = playerIndex%2 == 0;
+        var pieceRow = 0;
+
+        if (!evenFaction)
+        {
+            pieceRow = boardSize - 1;
+        }
+
+        GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
+
+        
+        for (int x = startX; x < endX; x++)
+        {
+            var localX = x - startX;
+
+            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[localX]], new Vector2(x, pieceRow), playerIndex);
         }
     }
 
-    protected void OrderBackRows(int[] pieceChoices, int playerIndex, int pieceRow)
+    protected void OrderPawns(int playerIndex)
     {
-        for (int x = 0; x < boardSize; x++)
-        {
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[x]], new Vector2(x, pieceRow), playerIndex);
-        }
-    }
+        var evenFaction = playerIndex%2 == 0;
+        var pawnRow = 1;
 
-    protected void OrderPawns(int playerIndex, int pawnRow)
-    {
-        for (int x = 0; x < boardSize; x++)
+        if (!evenFaction)
+        {
+            pawnRow = boardSize - 2;
+        }
+
+        GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
+
+        for (int x = startX; x < endX; x++)
         {
             pieceSpawner.SpawnPiece(pawn, new Vector2(x, pawnRow), playerIndex);
         }
     }
+
+
+    /*
+        📐 Calculates how many teams will be on each side based on how many total teams there are.
+        For instance: 2 teams would result in 1 team per side: 2 players / 2 sides = 1 per side. 
+        4/2 = 2
+        
+        📏 Calculate width each team gets on their side
+
+        🗂️ Determine which side this player is on (0 or 1) by dividing by 2
+
+        📍 Calculate starting x position for this side
+    */
+
+    protected virtual void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX) 
+    { 
+        int lanesPerSide = pieceSpawner.players.Length / 2; //📐
+        int laneWidth = boardSize / lanesPerSide;//📏
+        int laneIndex = playerIndex / 2; //🗂️
+
+        startX = laneIndex * laneWidth; //📍
+        endX = startX + laneWidth; 
+    } 
 
     void InitializeTurnManagerReferences()
     {

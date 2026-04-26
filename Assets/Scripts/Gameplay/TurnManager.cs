@@ -13,11 +13,12 @@ public class TurnManager : MonoBehaviour
     public Tile[,] tiles;
     public float moveTime = 0.5f;
 
-    [HideInInspector] public Player[] players;
     [HideInInspector] public int boardSize = 8;
     [HideInInspector] public AudioSource audioSource;
     [HideInInspector] public AiManager aiManager;
     [HideInInspector] public HoardEndingManager endingManager;
+    [HideInInspector] public PieceSpawner pieceSpawner;
+
 
     protected int playerTurn = 0;
 
@@ -202,12 +203,12 @@ public class TurnManager : MonoBehaviour
     {
         // Move to next player
         playerTurn++;
-        if (playerTurn >= players.Length)
+        if (playerTurn >= pieceSpawner.players.Length)
         {
             playerTurn = 0;
         }
 
-        if (players[playerTurn].isAi)
+        if (pieceSpawner.players[playerTurn].isAi)
         {
             AiTurn();
         }

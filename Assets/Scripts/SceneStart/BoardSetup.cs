@@ -216,10 +216,16 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
+
+    //1 Calculates how many teams will be on each side based on how many total teams there are.
+    //  For instance: 2 teams would result in 1 team per side: 2 players / 2 sides = 1 per side. 
+    //  4/2 = 2
+
+    //
     protected virtual void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX) 
     { 
-        int lanesPerSide = Mathf.Max(1, pieceSpawner.players.Length / 2); 
-        int laneWidth = Mathf.Max(1, boardSize / lanesPerSide); 
+        int lanesPerSide = pieceSpawner.players.Length / 2; //1
+        int laneWidth = boardSize / lanesPerSide; 
         int laneIndex = playerIndex / 2; 
 
         startX = laneIndex * laneWidth; 

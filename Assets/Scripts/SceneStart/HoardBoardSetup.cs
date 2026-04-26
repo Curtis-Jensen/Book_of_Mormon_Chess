@@ -16,9 +16,10 @@ public class HoardBoardSetup : BoardSetup
         }
     }
 
+
     protected override void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX) 
     { 
-        int lanesPerSide = Mathf.Max(1, pieceSpawner.players.Length / 2); 
+        int lanesPerSide = Mathf.Max(1, pieceSpawner.players.Length / 2);
         int laneWidth = Mathf.Max(1, boardSize / lanesPerSide); 
         int laneIndex = playerIndex / 2; 
 

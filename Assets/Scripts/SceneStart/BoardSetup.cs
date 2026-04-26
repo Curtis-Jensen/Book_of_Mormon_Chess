@@ -217,26 +217,36 @@ public class BoardSetup : MonoBehaviour
     }
 
 
-    //1 Calculates how many teams will be on each side based on how many total teams there are.
-    //  For instance: 2 teams would result in 1 team per side: 2 players / 2 sides = 1 per side. 
-    //  4/2 = 2
+    /*
+        📐 Calculates how many teams will be on each side based on how many total teams there are.
+        For instance: 2 teams would result in 1 team per side: 2 players / 2 sides = 1 per side. 
+        4/2 = 2
+        
+        📏 Calculate width each team gets on their side
 
-    //
+        🗂️ Determine which side this player is on (0 or 1) by dividing by 2
+
+        📍 Calculate starting x position for this side
+    */
+
     protected virtual void GetPlayerLaneBounds(int playerIndex, out int startX, out int endX) 
     { 
-        int lanesPerSide = pieceSpawner.players.Length / 2; //1
-        int laneWidth = boardSize / lanesPerSide; 
-        int laneIndex = playerIndex / 2; 
+        int lanesPerSide = pieceSpawner.players.Length / 2; //📐
+        int laneWidth = boardSize / lanesPerSide;//📏
+        int laneIndex = playerIndex / 2; //🗂️
 
-        startX = laneIndex * laneWidth; 
+        startX = laneIndex * laneWidth; //📍
 
+        //✅ Check if starting position is off the board
         if (startX >= boardSize) 
         { 
+            //🚫 If off board, set both bounds to edge
             startX = boardSize; 
             endX = boardSize; 
             return; 
         } 
 
+        //🎯 Set ending position to start + width, capped at board edge
         endX = Mathf.Min(startX + laneWidth, boardSize); 
     } 
 

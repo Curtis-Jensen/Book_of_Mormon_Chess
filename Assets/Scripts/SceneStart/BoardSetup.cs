@@ -236,18 +236,7 @@ public class BoardSetup : MonoBehaviour
         int laneIndex = playerIndex / 2; //🗂️
 
         startX = laneIndex * laneWidth; //📍
-
-        //✅ Check if starting position is off the board
-        if (startX >= boardSize) 
-        { 
-            //🚫 If off board, set both bounds to edge
-            startX = boardSize; 
-            endX = boardSize; 
-            return; 
-        } 
-
-        //🎯 Set ending position to start + width, capped at board edge
-        endX = Mathf.Min(startX + laneWidth, boardSize); 
+        endX = startX + laneWidth; 
     } 
 
     void InitializeTurnManagerReferences()

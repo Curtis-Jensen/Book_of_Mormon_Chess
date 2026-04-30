@@ -5,16 +5,22 @@ public class AnnotationDrawer : MonoBehaviour
     [SerializeField] private GameObject circlePrefab;
     private GameObject circleInstance;
 
-    void OnMouseDown(int button)
+    void Update()
     {
-        Debug.Log($"working!");
-        if (button == 1) // Right mouse button
+        if (Input.GetMouseButtonDown(1)) // Right mouse button
         {
-            ToggleCircle();
+            Vector2 mousePos = Input.mousePosition;
+            Vector2 worldPos = Camera.main.ScreenToWorldPoint(mousePos);
+            
+            RaycastHit2D hit = Physics2D.Raycast(worldPos, Vector2.zero);
+            if (hit.collider != null && hit.collider.gameObject == gameObject)
+            {
+                ToggleCircle();
+            }
         }
     }
 
-    public void ToggleCircle()
+    void ToggleCircle()
     {
         if (circleInstance != null)
         {

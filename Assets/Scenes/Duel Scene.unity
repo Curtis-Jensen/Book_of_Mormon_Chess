@@ -266,7 +266,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: e3c83f73e91a7f04ba5628caf2aa870d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  lightTilePrefab: {fileID: 8223566576563227974, guid: 80d4e373fbbfcda468d8fd75a412e146, type: 3}
+  lightTilePrefab: {fileID: 4060012261659177701, guid: ac3b9a0dde3c443c5adc17f2b9aeaa37, type: 3}
   darkTilePrefab: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
   pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
   backPiecePrefabs:

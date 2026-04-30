@@ -4,5 +4,14 @@
 EditorBuildSettings:
   m_ObjectHideFlags: 0
   serializedVersion: 2
-  m_Scenes: []
+  m_Scenes:
+  - enabled: 1
+    path: Assets/Scenes/BOM Main Menu.unity
+    guid: 764a16bb4d5c2494382c985b190a2817
+  - enabled: 1
+    path: Assets/Scenes/Nephites' Last Stand.unity
+    guid: 29618698a80a2154dbb85fe80eb4b69d
+  - enabled: 1
+    path: Assets/Scenes/Duel Scene.unity
+    guid: b6aa8109edcca1a4391db0a831314251
   m_configObjects: {}

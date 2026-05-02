@@ -8,6 +8,6 @@ public class SceneButton : MonoBehaviour
     {
         PlayerPrefs.SetString("gameMode", gameObject.name);
 
-        FindObjectOfType<MenuTabController>().ShowTabbedMenu();
+        //FindObjectOfType<MenuTabController>().ShowTabbedMenu();
     }
 }

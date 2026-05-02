@@ -31,14 +31,6 @@ public class Flipbook : MonoBehaviour
     }
 
     /// <summary>
-    /// Get the name of the current game mode (from SceneConfigs).
-    /// </summary>
-    public string GetCurrentModeName()
-    {
-        return sceneLoader.sceneConfigs[currentPageIndex].dropDownOptionName;
-    }
-
-    /// <summary>
     /// Show the page at the given index and hide all others.
     /// </summary>
     private void ShowPage(int pageIndex)

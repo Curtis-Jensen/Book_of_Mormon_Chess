@@ -14,8 +14,6 @@ public class SceneConfig
 
 public class SceneLoader : MonoBehaviour
 {
-    public TextMeshProUGUI sizeInput;
-    public TMP_Dropdown modeDropdown;
     public SceneConfig[] sceneConfigs;
 
     //Called by the main menu so it knows which scene to go to
@@ -37,11 +35,9 @@ public class SceneLoader : MonoBehaviour
         LoadScene(selectedConfig.sceneName);
     }
 
-    #region Private Methods
     //Called by the main menu button to be hardcoded to one scene.  Also called by SetupNewScene to load the selected scene
     public void LoadScene(string sceneName = "Main Menu")
     {
         SceneManager.LoadScene(sceneName);
     }
-    #endregion
 }

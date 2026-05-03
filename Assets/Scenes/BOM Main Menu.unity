@@ -1046,7 +1046,6 @@ GameObject:
   - component: {fileID: 251173042}
   - component: {fileID: 251173044}
   - component: {fileID: 251173043}
-  - component: {fileID: 251173045}
   m_Layer: 5
   m_Name: Chapters Panel
   m_TagString: Untagged
@@ -1066,13 +1065,13 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children:
-  - {fileID: 269496593}
+  - {fileID: 275146741}
   - {fileID: 2140515996}
+  - {fileID: 269496593}
   - {fileID: 842833526}
   - {fileID: 1318390186}
   - {fileID: 1467928154}
   - {fileID: 2057123362}
-  - {fileID: 275146741}
   - {fileID: 417733653}
   - {fileID: 631435520}
   m_Father: {fileID: 2107960876}
@@ -1121,27 +1120,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 251173041}
   m_CullTransparentMesh: 1
---- !u!114 &251173045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 251173041}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 7360f1423d96b4b5d80474702555ce08, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  pages:
-  - {fileID: 2140515995}
-  - {fileID: 269496592}
-  - {fileID: 842833525}
-  - {fileID: 1318390185}
-  - {fileID: 1467928153}
-  - {fileID: 2057123361}
-  - {fileID: 275146740}
-  sceneLoader: {fileID: 2089302260}
 --- !u!1 &256822689
 GameObject:
   m_ObjectHideFlags: 0
@@ -1636,7 +1614,7 @@ RectTransform:
   m_Children:
   - {fileID: 1991157294}
   m_Father: {fileID: 251173042}
-  m_RootOrder: 0
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -1761,7 +1739,6 @@ GameObject:
   - component: {fileID: 275146745}
   - component: {fileID: 275146744}
   - component: {fileID: 275146743}
-  - component: {fileID: 275146742}
   m_Layer: 5
   m_Name: Nephites' Last Stand
   m_TagString: Untagged
@@ -1783,25 +1760,13 @@ RectTransform:
   m_Children:
   - {fileID: 1075836236}
   m_Father: {fileID: 251173042}
-  m_RootOrder: 6
+  m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.0000019073, y: 119.89001}
+  m_AnchoredPosition: {x: 0, y: 119.89001}
   m_SizeDelta: {x: 297.2016, y: 78.98}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &275146742
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 275146740}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665ff8ac8ec9849478436af681a24ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &275146743
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1846,16 +1811,16 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 275146742}
-        m_TargetAssemblyTypeName: SceneButton, Assembly-CSharp
-        m_MethodName: SelectScene
-        m_Mode: 1
+      - m_Target: {fileID: 2089302260}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: LoadScene
+        m_Mode: 5
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: 
+          m_StringArgument: Nephits' Last Stand
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &275146744
@@ -3527,7 +3492,7 @@ RectTransform:
   m_Children:
   - {fileID: 328304217}
   m_Father: {fileID: 251173042}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -5636,7 +5601,7 @@ RectTransform:
   m_Children:
   - {fileID: 1313951992}
   m_Father: {fileID: 251173042}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -6168,7 +6133,7 @@ RectTransform:
   m_Children:
   - {fileID: 1747365869}
   m_Father: {fileID: 251173042}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -7685,7 +7650,7 @@ RectTransform:
   m_Children:
   - {fileID: 21710598}
   m_Father: {fileID: 251173042}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -8285,8 +8250,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7051cf0a81424a49bb9da73494856a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeInput: {fileID: 256822691}
-  modeDropdown: {fileID: 0}
   sceneConfigs:
   - dropDownOptionName: Pawns Only
     sceneName: Duel Scene
@@ -8614,11 +8577,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139233101}
   m_CullTransparentMesh: 1
---- !u!1 &2140515995 stripped
-GameObject:
-  m_CorrespondingSourceObject: {fileID: 3126669944486250167, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
-  m_PrefabInstance: {fileID: 3126669945198077996}
-  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2140515996 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3126669944486250160, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
@@ -8840,7 +8798,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3126669944486250160, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -0.000012398
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 3126669944486250160, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x

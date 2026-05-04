@@ -1,8 +1,6 @@
 ﻿using System;
-using TMPro;
 using UnityEngine;
 using UnityEngine.SceneManagement;
-using UnityEngine.UI;
 
 [Serializable]
 public class SceneConfig
@@ -19,20 +17,17 @@ public class SceneLoader : MonoBehaviour
     //Called by the main menu so it knows which scene to go to
     public void SetupNewScene()
     {
-        // Find matching config and save prefab configuration
-        string sceneName = PlayerPrefs.GetString("gameMode");        
+        string sceneName = PlayerPrefs.GetString("gameMode");
         SceneConfig selectedConfig = Array.Find(sceneConfigs, config => config.dropDownOptionName == sceneName);
-        
-        // Store number of prefabs
-        PlayerPrefs.SetInt("backRowCount", selectedConfig.backRowPrefabs.Length);
+        LoadWithConfig(selectedConfig);
+    }
 
-        // Store prefab names in order
-        for (int i = 0; i < selectedConfig.backRowPrefabs.Length; i++)
-        {
-            PlayerPrefs.SetString($"backRowPrefab_{i}", selectedConfig.backRowPrefabs[i].name);
-        }
-
-        LoadScene(selectedConfig.sceneName);
+    public void LoadWithConfig(SceneConfig config)
+    {
+        PlayerPrefs.SetInt("backRowCount", config.backRowPrefabs.Length);
+        for (int i = 0; i < config.backRowPrefabs.Length; i++)
+            PlayerPrefs.SetString($"backRowPrefab_{i}", config.backRowPrefabs[i].name);
+        LoadScene(config.sceneName);
     }
 
     //Called by the main menu button to be hardcoded to one scene.  Also called by SetupNewScene to load the selected scene

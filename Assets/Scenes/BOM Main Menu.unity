@@ -1592,9 +1592,9 @@ GameObject:
   - component: {fileID: 269496597}
   - component: {fileID: 269496596}
   - component: {fileID: 269496595}
-  - component: {fileID: 269496594}
+  - component: {fileID: 269496598}
   m_Layer: 5
-  m_Name: Rooks
+  m_Name: '"Rooks"'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -1621,18 +1621,6 @@ RectTransform:
   m_AnchoredPosition: {x: 208.6, y: -0.000012398}
   m_SizeDelta: {x: 250, y: 50}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &269496594
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 269496592}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 665ff8ac8ec9849478436af681a24ac8, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &269496595
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1677,9 +1665,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 269496594}
+      - m_Target: {fileID: 269496592}
         m_TargetAssemblyTypeName: SceneButton, Assembly-CSharp
-        m_MethodName: SelectScene
+        m_MethodName: 
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1727,6 +1715,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 269496592}
   m_CullTransparentMesh: 1
+--- !u!114 &269496598
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 269496592}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82a74514d33540b4acdd5239ebeabf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneLoader: {fileID: 0}
+  configIndex: 0
 --- !u!1 &275146740
 GameObject:
   m_ObjectHideFlags: 0
@@ -1739,6 +1741,7 @@ GameObject:
   - component: {fileID: 275146745}
   - component: {fileID: 275146744}
   - component: {fileID: 275146743}
+  - component: {fileID: 275146746}
   m_Layer: 5
   m_Name: Nephites' Last Stand
   m_TagString: Untagged
@@ -1811,10 +1814,10 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 2089302260}
-        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
-        m_MethodName: LoadScene
-        m_Mode: 5
+      - m_Target: {fileID: 275146746}
+        m_TargetAssemblyTypeName: SceneButton, Assembly-CSharp
+        m_MethodName: OnClick
+        m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
@@ -1861,6 +1864,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 275146740}
   m_CullTransparentMesh: 1
+--- !u!114 &275146746
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 275146740}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82a74514d33540b4acdd5239ebeabf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneLoader: {fileID: 2089302260}
+  configIndex: 7
 --- !u!1 &279560618
 GameObject:
   m_ObjectHideFlags: 0
@@ -2662,7 +2679,7 @@ GameObject:
   - component: {fileID: 631435522}
   - component: {fileID: 631435521}
   m_Layer: 5
-  m_Name: '"Training Chapters'
+  m_Name: '"Training Chapters"'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -3472,7 +3489,7 @@ GameObject:
   - component: {fileID: 842833528}
   - component: {fileID: 842833527}
   m_Layer: 5
-  m_Name: Bishops
+  m_Name: '"Bishops"'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -4552,7 +4569,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 56.3, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1075836237
@@ -4575,7 +4592,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: Nephites' Last Stand
+  m_text: The Nephites' Last Stand
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -4638,7 +4655,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: -0.21586609, y: 0, z: 0, w: 0}
+  m_margin: {x: -0.21586609, y: 0, z: 108.86148, w: 0}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -5581,7 +5598,7 @@ GameObject:
   - component: {fileID: 1318390188}
   - component: {fileID: 1318390187}
   m_Layer: 5
-  m_Name: Queens
+  m_Name: '"Queens"'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6113,7 +6130,7 @@ GameObject:
   - component: {fileID: 1467928156}
   - component: {fileID: 1467928155}
   m_Layer: 5
-  m_Name: Knights
+  m_Name: '"Knights"'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -7630,7 +7647,7 @@ GameObject:
   - component: {fileID: 2057123363}
   - component: {fileID: 2057123366}
   m_Layer: 5
-  m_Name: All Units
+  m_Name: '"All Units"'
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -8251,7 +8268,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneConfigs:
-  - dropDownOptionName: Pawns Only
+  - dropDownOptionName: Pawns
     sceneName: Duel Scene
     backRowPrefabs:
     - {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
@@ -8577,11 +8594,30 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2139233101}
   m_CullTransparentMesh: 1
+--- !u!1 &2140515995 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 3126669944486250167, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
+  m_PrefabInstance: {fileID: 3126669945198077996}
+  m_PrefabAsset: {fileID: 0}
 --- !u!224 &2140515996 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 3126669944486250160, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
   m_PrefabInstance: {fileID: 3126669945198077996}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &2140516000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2140515995}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b82a74514d33540b4acdd5239ebeabf0, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  sceneLoader: {fileID: 2089302260}
+  configIndex: 0
 --- !u!1 &2146330044
 GameObject:
   m_ObjectHideFlags: 0
@@ -8812,9 +8848,17 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 3126669944486250161, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
+      value: 
+      objectReference: {fileID: 2140516000}
+    - target: {fileID: 3126669944486250161, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
+      value: OnClick
+      objectReference: {fileID: 0}
     - target: {fileID: 3126669944486250167, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
       propertyPath: m_Name
-      value: Pawns
+      value: '"Pawns"'
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}

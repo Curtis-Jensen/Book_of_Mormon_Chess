@@ -26,29 +26,36 @@ public class King : Piece
         base.Start();
     }
 
+    /*
+        🧩 Get all pieces from all players
+
+        🔍 Check pieces from each faction
+
+        ⏭️ Skip if it's our own piece or if it's an inanimate piece
+
+        🏃 We can return early since we found a check
+    */
     public void IsInCheck()
     {
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
         inCheck = false;
 
-        // Get all pieces from all players
-        var pieceSpawner = FindObjectOfType<PieceSpawner>();
+        var pieceSpawner = FindObjectOfType<PieceSpawner>(); // 🧩
         var allPlayers = pieceSpawner.players;
 
-        // Check pieces from each faction
-        foreach (var player in allPlayers)
+        foreach (var player in allPlayers) // 🔍
         {
             foreach (var piece in player.pieces)
             {
-                // Skip if it's our own piece or if it's an inanimate piece
-                if (piece.faction == faction || piece.faction == Faction.Inanimate)
+                
+                if (piece.faction == faction || piece.faction == Faction.Inanimate) // ⏭️
                     continue;
 
                 if (piece.GetMoves().Contains(kingPosition))
                 {
                     Debug.LogError($"Check!");
                     inCheck = true;
-                    return; // We can return early since we found a check
+                    return; // 🏃
                 }
             }
         }

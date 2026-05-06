@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class TurnTakingTile : Tile
+public class TurnTakingTile : TileSelector
 {
    
 }

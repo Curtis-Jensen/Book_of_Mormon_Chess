@@ -10,7 +10,9 @@ public class TurnManager : MonoBehaviour
     public delegate void MoveEndHandler();
     public event MoveEndHandler OnMoveEnd;
 
-    public Tile[,] tiles;
+    public ThreatTable ThreatTable { get; private set; } = new();
+
+    public TileSelector[,] tiles;
     public float moveTime = 0.5f;
 
     [HideInInspector] public int boardSize = 8;
@@ -24,13 +26,13 @@ public class TurnManager : MonoBehaviour
 
     public Piece selectedPiece;
 
-    List<Tile> selectedTiles = new();
+    List<TileSelector> selectedTiles = new();
 
     /// <summary>
     /// Makes decisions on what to do if the tile is clicked in different states
     /// </summary>
     /// <param name="clickedTile"></param>
-    public void OnTileClicked(Tile clickedTile)
+    public void OnTileClicked(TileSelector clickedTile)
     {
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
         if (!clickedTile.selected)
@@ -51,7 +53,7 @@ public class TurnManager : MonoBehaviour
     /// Deselects all currently selected tiles.  
     /// Called when another piece is selected or a piecce moves
     /// </summary>
-    public List<Tile> DeselectTiles(List<Tile> selectedTiles)
+    public List<TileSelector> DeselectTiles(List<TileSelector> selectedTiles)
     {
         foreach (var tile in selectedTiles)
         {
@@ -74,7 +76,7 @@ public class TurnManager : MonoBehaviour
         selectedTiles = HilightPossibleTiles(piece.GetMoves(), piece, selectedTiles);
     }
 
-    public List<Tile> HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece, List<Tile> selectedTiles)
+    public List<TileSelector> HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece, List<TileSelector> selectedTiles)
     {
         var tileUnderPiece =
             tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
@@ -116,7 +118,7 @@ public class TurnManager : MonoBehaviour
     {
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
-        Tile startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
+        TileSelector startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
 
         if(selectedPiece == null)
         {
@@ -172,13 +174,13 @@ public class TurnManager : MonoBehaviour
     /// 👪 Set the piece's new parent to the destination tile both in transform and in script
     /// </summary>
     /// <param name="destinationTile"></param>
-    protected void AssignNewParent(Tile destinationTile, Piece selectedPiece)
+    protected void AssignNewParent(TileSelector destinationTile, Piece selectedPiece)
     {
         selectedPiece.transform.SetParent(destinationTile.transform);
         destinationTile.piece = selectedPiece;
     }
 
-    void MoveEnd(Tile destinationTile)
+    void MoveEnd(TileSelector destinationTile)
     {
         if (destinationTile.piece != null)
         {
@@ -190,6 +192,9 @@ public class TurnManager : MonoBehaviour
         audioSource.Play();
 
         selectedPiece.MoveEnd();
+
+        // 🗺️ Rebuild threat table before notifying subscribers so IsInCheck() reads fresh data
+        ThreatTable.Rebuild(pieceSpawner);
 
         OnMoveEnd?.Invoke();
 

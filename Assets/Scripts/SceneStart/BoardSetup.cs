@@ -241,7 +241,7 @@ public class BoardSetup : MonoBehaviour
 
     void InitializeTurnManagerReferences()
     {
-        TurnManager.tiles = new Tile[boardSize, boardSize];
+        TurnManager.tiles = new TileSelector[boardSize, boardSize];
 
         TurnManager.Instance = TurnManager;
 
@@ -257,10 +257,10 @@ public class BoardSetup : MonoBehaviour
             {
                 var tilePosition = boardSize * y + x;
 
-                Tile tile = transform.GetChild(tilePosition).GetComponent<Tile>(); // Get the Tile component 
+                TileSelector tile = transform.GetChild(tilePosition).GetComponent<TileSelector>(); // Get the TileSelector component
                 if (tile == null)
                 {
-                    Debug.LogError($"Tile component not found on GameObject at position ({x}, {y}).");
+                    Debug.LogError($"TileSelector component not found on GameObject at position ({x}, {y}).");
                 }
 
                 TurnManager.tiles[x, y] = tile;

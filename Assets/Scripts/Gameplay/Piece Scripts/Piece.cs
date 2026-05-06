@@ -59,7 +59,7 @@ public abstract class Piece : MonoBehaviour
         //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
-        Tile tile = TurnManager.Instance.tiles[position.x, position.y];
+        TileSelector tile = TurnManager.Instance.tiles[position.x, position.y];
         return tile.piece == null;
     }
 
@@ -74,7 +74,7 @@ public abstract class Piece : MonoBehaviour
         //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
-        Tile tile = TurnManager.Instance.tiles[position.x, position.y];
+        TileSelector tile = TurnManager.Instance.tiles[position.x, position.y];
 
         if (tile.piece == null) return false;
         else if (tile.piece.faction == Faction.Inanimate) return false;

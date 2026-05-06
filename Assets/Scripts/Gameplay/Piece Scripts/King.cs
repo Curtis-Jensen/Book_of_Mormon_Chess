@@ -26,40 +26,18 @@ public class King : Piece
         base.Start();
     }
 
-    /*
-        🧩 Get all pieces from all players
-
-        🔍 Check pieces from each faction
-
-        ⏭️ Skip if it's our own piece or if it's an inanimate piece
-
-        🏃 We can return early since we found a check
-    */
     public void IsInCheck()
     {
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
-        inCheck = false;
 
-        var pieceSpawner = FindObjectOfType<PieceSpawner>(); // 🧩
-        var allPlayers = pieceSpawner.players;
+        // 🗺️ Delegate to ThreatTable — it already knows what threatens every square
+        inCheck = TurnManager.Instance.ThreatTable.IsThreatenedBy(kingPosition, EnemyFaction());
 
-        foreach (var player in allPlayers) // 🔍
-        {
-            foreach (var piece in player.pieces)
-            {
-                
-                if (piece.faction == faction || piece.faction == Faction.Inanimate) // ⏭️
-                    continue;
-
-                if (piece.GetMoves().Contains(kingPosition))
-                {
-                    Debug.LogError($"Check!");
-                    inCheck = true;
-                    return; // 🏃
-                }
-            }
-        }
+        if (inCheck) Debug.LogError("Check!");
     }
+
+    // ⚔️ Returns the opposing faction so IsInCheck knows whose threats to check
+    Faction EnemyFaction() => faction == Faction.Nephite ? Faction.Lamanite : Faction.Nephite;
 
     public override List<Vector2Int> GetMoves()
     {

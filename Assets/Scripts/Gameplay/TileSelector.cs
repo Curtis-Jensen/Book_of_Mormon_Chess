@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEditor;
 using UnityEngine;
 
-public class Tile : MonoBehaviour
+public class TileSelector : MonoBehaviour
 {
     public bool selected;
     public Piece piece;
@@ -26,7 +26,7 @@ public class Tile : MonoBehaviour
 
     void OnMouseDown()
     {
-        TurnManager.Instance.OnTileClicked(this); // Notify the Board when a tile is clicked
+        TurnManager.Instance.OnTileClicked(this);
     }
 }
 

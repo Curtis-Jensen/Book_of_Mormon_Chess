@@ -89,6 +89,27 @@ public class Pawn : Piece
         return validMoves;
     }
 
+    // ⚔️ Pawns threaten diagonals regardless of whether an enemy is there —
+    // so we declare threats from attack squares only, not forward walking squares
+    public override void DeclareThreats()
+    {
+        int forward = faction == Faction.Lamanite ? -1 : 1;
+
+        Vector2Int[] attackSquares =
+        {
+            new((int)transform.position.x - 1, (int)transform.position.y + forward),
+            new((int)transform.position.x + 1, (int)transform.position.y + forward)
+        };
+
+        foreach (var position in attackSquares)
+        {
+            if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) continue;
+
+            var tile = TurnManager.Instance.tiles[position.x, position.y];
+            tile.GetComponent<TileThreats>().threatenedBy.Add(this);
+        }
+    }
+
     public void QueenPromotion()
     {
         var pieceSpawner = FindObjectOfType<PieceSpawner>();

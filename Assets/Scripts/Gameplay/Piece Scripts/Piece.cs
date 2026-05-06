@@ -83,7 +83,7 @@ public abstract class Piece : MonoBehaviour
     }
 
     // 📢 Write this piece into the TileThreats of every square it can currently attack
-    public void DeclareThreats()
+    public virtual void DeclareThreats()
     {
         if (faction == Faction.Inanimate) return;
 

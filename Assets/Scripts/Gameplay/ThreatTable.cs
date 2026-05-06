@@ -5,14 +5,31 @@ using UnityEngine;
 /// Tracks which squares are threatened by which pieces.
 /// Rebuilt after every move. Read by IsInCheck(), king move filtering, and (eventually) hover highlighting.
 /// </summary>
-public class ThreatTable
+public class ThreatTable : MonoBehaviour
 {
+    public static ThreatTable Instance { get; private set; }
+
+    public delegate void ThreatTableUpdatedHandler();
+    public event ThreatTableUpdatedHandler OnThreatTableUpdated;
+
     // 🗺️ Maps each board position to the list of pieces that can attack it
     Dictionary<Vector2Int, List<Piece>> threatenedSquares = new();
 
-    public void Rebuild(PieceSpawner pieceSpawner)
+    void Awake()
+    {
+        Instance = this;
+    }
+
+    void Start()
+    {
+        TurnManager.Instance.OnMoveEnd += Rebuild;
+    }
+
+    void Rebuild()
     {
         threatenedSquares.Clear();
+
+        var pieceSpawner = TurnManager.Instance.pieceSpawner;
 
         // 🧩 Get all pieces from all players
         foreach (var player in pieceSpawner.players)
@@ -32,6 +49,9 @@ public class ThreatTable
                 }
             }
         }
+
+        // 📢 Notify subscribers that the table is fresh and ready to read
+        OnThreatTableUpdated?.Invoke();
     }
 
     public bool IsThreatenedBy(Vector2Int square, Faction byFaction)

@@ -10,8 +10,6 @@ public class TurnManager : MonoBehaviour
     public delegate void MoveEndHandler();
     public event MoveEndHandler OnMoveEnd;
 
-    public ThreatTable ThreatTable { get; private set; } = new();
-
     public TileSelector[,] tiles;
     public float moveTime = 0.5f;
 
@@ -192,9 +190,6 @@ public class TurnManager : MonoBehaviour
         audioSource.Play();
 
         selectedPiece.MoveEnd();
-
-        // 🗺️ Rebuild threat table before notifying subscribers so IsInCheck() reads fresh data
-        ThreatTable.Rebuild(pieceSpawner);
 
         OnMoveEnd?.Invoke();
 

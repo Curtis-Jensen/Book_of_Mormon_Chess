@@ -21,7 +21,7 @@ public class King : Piece
 
     protected override void Start()
     {
-        TurnManager.Instance.OnMoveEnd += IsInCheck;
+        ThreatTable.Instance.OnThreatTableUpdated += IsInCheck;
 
         base.Start();
     }
@@ -31,7 +31,7 @@ public class King : Piece
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
         // 🗺️ Delegate to ThreatTable — it already knows what threatens every square
-        inCheck = TurnManager.Instance.ThreatTable.IsThreatenedBy(kingPosition, EnemyFaction());
+        inCheck = ThreatTable.Instance.IsThreatenedBy(kingPosition, EnemyFaction());
 
         if (inCheck) Debug.LogError("Check!");
     }

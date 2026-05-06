@@ -82,6 +82,18 @@ public abstract class Piece : MonoBehaviour
         return tile.piece.faction != faction;
     }
 
+    // 📢 Write this piece into the TileThreats of every square it can currently attack
+    public void DeclareThreats()
+    {
+        if (faction == Faction.Inanimate) return;
+
+        foreach (var position in GetMoves())
+        {
+            var tile = TurnManager.Instance.tiles[position.x, position.y];
+            tile.GetComponent<TileThreats>().threatenedBy.Add(this);
+        }
+    }
+
     public virtual void MoveEnd()
     {
         firstTurnTaken = true;

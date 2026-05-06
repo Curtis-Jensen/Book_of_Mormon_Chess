@@ -6,9 +6,14 @@ using UnityEngine.UIElements;
 
 public class TurnManager : MonoBehaviour
 {
-    public static TurnManager Instance { get; set; } // Static instance
+    public static TurnManager Instance { get; private set; }
     public delegate void MoveEndHandler();
     public event MoveEndHandler OnMoveEnd;
+
+    void Awake()
+    {
+        Instance = this;
+    }
 
     public TileSelector[,] tiles;
     public float moveTime = 0.5f;

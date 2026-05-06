@@ -243,8 +243,6 @@ public class BoardSetup : MonoBehaviour
     {
         TurnManager.tiles = new TileSelector[boardSize, boardSize];
 
-        TurnManager.Instance = TurnManager;
-
         TurnManager.audioSource = GetComponent<AudioSource>();
     }
 

@@ -213,6 +213,7 @@ GameObject:
   - component: {fileID: 76764649}
   - component: {fileID: 76764650}
   - component: {fileID: 76764651}
+  - component: {fileID: 76764652}
   m_Layer: 0
   m_Name: Gameplay Board
   m_TagString: Untagged
@@ -440,6 +441,18 @@ MonoBehaviour:
   tieColor: {r: 0.509434, g: 0.509434, b: 0.509434, a: 0.44705883}
   nephiteWinColor: {r: 0, g: 0.008824366, b: 0.8490566, a: 1}
   lamaniteWinColor: {r: 0.6132076, g: 0, b: 0, a: 1}
+--- !u!114 &76764652
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76764644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 2174181a943df49ed99cb73ef605141b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &153935751
 GameObject:
   m_ObjectHideFlags: 0
@@ -1719,8 +1732,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d7051cf0a81424a49bb9da73494856a4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sizeInput: {fileID: 0}
-  modeDropdown: {fileID: 0}
   sceneConfigs: []
 --- !u!1 &1495983631
 GameObject:

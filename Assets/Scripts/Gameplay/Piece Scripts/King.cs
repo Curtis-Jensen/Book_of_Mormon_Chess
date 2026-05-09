@@ -43,22 +43,36 @@ public class King : Piece
     public override List<Vector2Int> GetMoves()
     {
         List<Vector2Int> validMoves = new();
+        var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
         foreach (var moveDirection in moveDirections)
         {
-            Vector2Int newMove =
-                new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
+            Vector2Int candidate = new(kingPosition.x + moveDirection.x, kingPosition.y + moveDirection.y);
 
-            bool emptyOrEnemy =
-                IsTileEmpty(newMove) || IsEnemyPiece(newMove);
+            if (!IsTileEmpty(candidate) && !IsEnemyPiece(candidate)) continue;
 
-            if (emptyOrEnemy)
-            {
-                validMoves.Add(newMove);
-            }
+            // 🔬 Simulate the king moving there and check if it would be threatened
+            if (IsSafeAfterSimulation(kingPosition, candidate))
+                validMoves.Add(candidate);
         }
 
         return validMoves;
+    }
+
+    // 🔬 Temporarily moves the king, rebuilds threats, checks safety, then undoes
+    bool IsSafeAfterSimulation(Vector2Int from, Vector2Int to)
+    {
+        // 🚦 If we're already inside a simulation, skip — prevents infinite recursion
+        if (BoardSimulator.IsSimulating) return true;
+
+        Piece displaced = BoardSimulator.SimulateMove(from, to);
+
+        ThreatCoordinator.Instance.RebuildSilently();
+        bool isSafe = !TurnManager.Instance.tiles[to.x, to.y].GetComponent<TileThreats>().IsThreatenedBy(EnemyFaction());
+
+        BoardSimulator.UndoSimulate(from, to, displaced);
+
+        return isSafe;
     }
 
     public override void Die(bool instantiateEffects = true)

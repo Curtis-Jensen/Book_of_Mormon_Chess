@@ -25,6 +25,15 @@ public class ThreatCoordinator : MonoBehaviour
 
     void UpdateThreats()
     {
+        RebuildSilently();
+
+        // ✅ Phase 3: Notify subscribers that threat data is fresh
+        OnThreatsReady?.Invoke();
+    }
+
+    // 🔇 Runs phases 1 and 2 only — used by simulation so no game reactions fire mid-check
+    public void RebuildSilently()
+    {
         // 🧹 Phase 1: Clear all tile threat lists
         var tiles = TurnManager.Instance.tiles;
         foreach (var tile in tiles)
@@ -34,8 +43,5 @@ public class ThreatCoordinator : MonoBehaviour
         foreach (var player in TurnManager.Instance.pieceSpawner.players)
             foreach (var piece in player.pieces)
                 piece.DeclareThreats();
-
-        // ✅ Phase 3: Notify subscribers that threat data is fresh
-        OnThreatsReady?.Invoke();
     }
 }

@@ -13,15 +13,15 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 1329807554543808878, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
       propertyPath: m_Color.b
-      value: 1
+      value: 0.3764706
       objectReference: {fileID: 0}
     - target: {fileID: 1329807554543808878, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
       propertyPath: m_Color.g
-      value: 1
+      value: 0.50980395
       objectReference: {fileID: 0}
     - target: {fileID: 1329807554543808878, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
       propertyPath: m_Color.r
-      value: 1
+      value: 0.627451
       objectReference: {fileID: 0}
     - target: {fileID: 4789932303938480311, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
       propertyPath: m_RootOrder
@@ -69,7 +69,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8223566576563227974, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}
       propertyPath: m_Name
-      value: Light_Tile Variant
+      value: Light_Tile
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 41b4a07eeb89caa4b8398780ae9a294c, type: 3}

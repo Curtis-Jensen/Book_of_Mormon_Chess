@@ -4,6 +4,7 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+//Rename to "TurnChanger"
 public class TurnManager : MonoBehaviour
 {
     public static TurnManager Instance { get; private set; }

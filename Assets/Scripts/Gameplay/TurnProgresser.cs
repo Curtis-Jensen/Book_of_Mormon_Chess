@@ -4,16 +4,50 @@ using System.Linq;
 using UnityEngine;
 using UnityEngine.UIElements;
 
-//Rename to "TurnChanger"
-public class TurnManager : MonoBehaviour
+public class TurnProgresser : MonoBehaviour
 {
-    public static TurnManager Instance { get; private set; }
+    public static TurnProgresser Instance { get; private set; }
     public delegate void MoveEndHandler();
     public event MoveEndHandler OnMoveEnd;
 
-    void Awake()
+    protected virtual void Awake()
     {
         Instance = this;
+
+        // A correspondence game is regular duel chess played across two devices via
+        // Firestore instead of hotseat -- see PushLocalState/OnRemoteStateReceived below.
+        // These are written by CorrespondenceMenu before this scene loads.
+        correspondenceMode = PlayerPrefs.GetInt("correspondenceMode") == 1;
+        if (correspondenceMode)
+        {
+            gameId = PlayerPrefs.GetString("correspondenceGameId");
+            localPlayerIndex = PlayerPrefs.GetInt("correspondenceLocalPlayerIndex");
+            isGameCreator = PlayerPrefs.GetInt("correspondenceIsCreator") == 1;
+        }
+    }
+
+    [Tooltip("How often to poll Firestore for the opponent's move while waiting on our turn. REST has no live listener, so we ask instead of being told.")]
+    public float correspondencePollSeconds = 5f;
+
+    void Start()
+    {
+        if (correspondenceMode)
+        {
+            StartCoroutine(PollGameStateRoutine());
+        }
+    }
+
+    IEnumerator PollGameStateRoutine()
+    {
+        while (true)
+        {
+            CorrespondenceGameRepository.Instance.FetchGame(
+                gameId,
+                onFetched: OnRemoteStateReceived,
+                onError: message => Debug.LogWarning("Correspondence poll failed: " + message));
+
+            yield return new WaitForSeconds(correspondencePollSeconds);
+        }
     }
 
     public TileSelector[,] tiles;
@@ -25,6 +59,14 @@ public class TurnManager : MonoBehaviour
     [HideInInspector] public HoardEndingManager endingManager;
     [HideInInspector] public PieceSpawner pieceSpawner;
 
+    [HideInInspector] public bool correspondenceMode;
+    [HideInInspector] public string gameId;
+    [HideInInspector] public int localPlayerIndex;
+    [HideInInspector] public bool isGameCreator;
+
+    GameDoc latestGame;
+    bool applyingRemoteState;
+    bool hasAppliedInitialState;
 
     protected int playerTurn = 0;
 
@@ -36,8 +78,10 @@ public class TurnManager : MonoBehaviour
     /// Makes decisions on what to do if the tile is clicked in different states
     /// </summary>
     /// <param name="clickedTile"></param>
-    public void OnTileClicked(TileSelector clickedTile)
+    public virtual void OnTileClicked(TileSelector clickedTile)
     {
+        if (correspondenceMode && playerTurn != localPlayerIndex) return; // Not this device's turn
+
         //If the tile is not already selected, deselect other tiles and attempt to select the underlying piece
         if (!clickedTile.selected)
         {
@@ -214,6 +258,12 @@ public class TurnManager : MonoBehaviour
             playerTurn = 0;
         }
 
+        if (correspondenceMode)
+        {
+            if (!applyingRemoteState) PushLocalState();
+            return; // No AI opponent in correspondence mode
+        }
+
         if (pieceSpawner.players[playerTurn].isAi)
         {
             AiTurn();
@@ -228,6 +278,51 @@ public class TurnManager : MonoBehaviour
 
         MovePiece(aiChoice.moveTo);
     }
+
+    #region 📡 Correspondence sync
+
+    void PushLocalState()
+    {
+        if (latestGame == null)
+        {
+            Debug.LogError("TurnProgresser: tried to push state before the game document loaded.");
+            return;
+        }
+
+        var boardState = GameStateSerializer.Serialize(this, playerTurn);
+        latestGame.boardSize = boardState.boardSize;
+        latestGame.currentTurnIndex = boardState.currentTurnIndex;
+        latestGame.pieces = boardState.pieces;
+
+        CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
+    }
+
+    void OnRemoteStateReceived(GameDoc game)
+    {
+        latestGame = game;
+
+        // The creator's own freshly-spawned board IS the initial state; push it
+        // once instead of waiting to receive it back (pieces will be empty until then).
+        if (isGameCreator && !hasAppliedInitialState && game.pieces.Count == 0)
+        {
+            hasAppliedInitialState = true;
+            playerTurn = 0;
+            PushLocalState();
+            return;
+        }
+
+        if (hasAppliedInitialState && game.currentTurnIndex == playerTurn) return; // Already in sync
+
+        applyingRemoteState = true;
+        GameStateSerializer.Apply(
+            new GameStateDto { boardSize = game.boardSize, currentTurnIndex = game.currentTurnIndex, pieces = game.pieces },
+            this, pieceSpawner);
+        playerTurn = game.currentTurnIndex;
+        hasAppliedInitialState = true;
+        applyingRemoteState = false;
+    }
+
+    #endregion
 
     void MoveTest()
     {

@@ -31,7 +31,7 @@ public class King : Piece
         var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
 
         // 🗺️ Read directly from this king's tile — ThreatCoordinator already populated it
-        var myTile = TurnManager.Instance.tiles[kingPosition.x, kingPosition.y];
+        var myTile = TurnProgresser.Instance.tiles[kingPosition.x, kingPosition.y];
         inCheck = myTile.GetComponent<TileThreats>().IsThreatenedBy(EnemyFaction());
 
         if (inCheck) Debug.LogError("Check!");
@@ -68,7 +68,7 @@ public class King : Piece
         Piece displaced = BoardSimulator.SimulateMove(from, to);
 
         ThreatCoordinator.Instance.RebuildSilently();
-        bool isSafe = !TurnManager.Instance.tiles[to.x, to.y].GetComponent<TileThreats>().IsThreatenedBy(EnemyFaction());
+        bool isSafe = !TurnProgresser.Instance.tiles[to.x, to.y].GetComponent<TileThreats>().IsThreatenedBy(EnemyFaction());
 
         BoardSimulator.UndoSimulate(from, to, displaced);
 

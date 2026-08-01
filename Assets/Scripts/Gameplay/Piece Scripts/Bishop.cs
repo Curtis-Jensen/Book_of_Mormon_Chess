@@ -18,7 +18,7 @@ public class Bishop : Piece
 
         foreach (var moveDirection in moveDirections)
         {
-            for (int distance = 1; distance < TurnManager.Instance.boardSize; distance++)
+            for (int distance = 1; distance < TurnProgresser.Instance.boardSize; distance++)
             {
                 var moveDistance = moveDirection * distance;
                 Vector2Int newMove =

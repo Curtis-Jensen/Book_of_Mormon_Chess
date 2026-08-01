@@ -6,7 +6,7 @@ using UnityEngine.UIElements;
 
 // 🚨TECH DEBT TODO🚨: The King should be its own prefab instead of relying on knowing that index 0 is the king.
 [RequireComponent(typeof(AiManager))]
-[RequireComponent(typeof(TurnManager))]
+[RequireComponent(typeof(TurnProgresser))]
 [RequireComponent(typeof(HoardEndingManager))]
 public class BoardSetup : MonoBehaviour
 {
@@ -18,7 +18,7 @@ public class BoardSetup : MonoBehaviour
     [HideInInspector] public int boardSize = 8;
 
     protected GameObject[,] tiles;
-    protected TurnManager TurnManager;
+    protected TurnProgresser TurnProgresser;
     protected AiManager aiManager;
     protected PieceSpawner pieceSpawner;
 
@@ -35,19 +35,27 @@ public class BoardSetup : MonoBehaviour
     IEnumerator DelayFirstTurn()
     {
         yield return new WaitForSeconds(1f); // 1 second delay
-        TurnManager.AiTurn();
+        TurnProgresser.AiTurn();
     }
 
     void StartBoard()
     {
         InitializeVariables();
         SpawnTiles();
-        InitializeTurnManagerReferences();
+        InitializeTurnProgresserReferences();
         AssigningTiles();
     }
 
     protected virtual void StartPieces()
     {
+        // The player joining an existing correspondence game shouldn't randomize their own
+        // back row -- they need to wait and receive the creator's board from Firestore instead
+        // (see TurnProgresser.OnRemoteStateReceived).
+        if (TurnProgresser.correspondenceMode && !TurnProgresser.isGameCreator)
+        {
+            return;
+        }
+
         // Resize players list to 2 if 4playerMode is disabled
         bool fourPlayerMode = PlayerPrefs.GetInt("4playerMode", 1) == 1;
         if (!fourPlayerMode && pieceSpawner.players.Length > 2)
@@ -77,15 +85,15 @@ public class BoardSetup : MonoBehaviour
             }
         }
 
-        TurnManager = GetComponent<TurnManager>();
-        TurnManager.boardSize = boardSize;
+        TurnProgresser = GetComponent<TurnProgresser>();
+        TurnProgresser.boardSize = boardSize;
         pieceSpawner = GetComponent<PieceSpawner>();
         
         //If the int comes in as 1 that means true
         aiManager = GetComponent<AiManager>();
-        TurnManager.endingManager = GetComponent<HoardEndingManager>();
-        TurnManager.aiManager = aiManager;
-        TurnManager.pieceSpawner = pieceSpawner;
+        TurnProgresser.endingManager = GetComponent<HoardEndingManager>();
+        TurnProgresser.aiManager = aiManager;
+        TurnProgresser.pieceSpawner = pieceSpawner;
 
         for(int i = 0;i < pieceSpawner.players.Length; i++)
         {
@@ -239,11 +247,11 @@ public class BoardSetup : MonoBehaviour
         endX = startX + laneWidth; 
     } 
 
-    void InitializeTurnManagerReferences()
+    void InitializeTurnProgresserReferences()
     {
-        TurnManager.tiles = new TileSelector[boardSize, boardSize];
+        TurnProgresser.tiles = new TileSelector[boardSize, boardSize];
 
-        TurnManager.audioSource = GetComponent<AudioSource>();
+        TurnProgresser.audioSource = GetComponent<AudioSource>();
     }
 
     void AssigningTiles()
@@ -261,7 +269,7 @@ public class BoardSetup : MonoBehaviour
                     Debug.LogError($"TileSelector component not found on GameObject at position ({x}, {y}).");
                 }
 
-                TurnManager.tiles[x, y] = tile;
+                TurnProgresser.tiles[x, y] = tile;
 
                 // If there is a pawn on this tile, initialize it
                 if (tile.transform.childCount > 0)

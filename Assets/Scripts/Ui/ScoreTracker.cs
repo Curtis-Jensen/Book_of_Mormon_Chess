@@ -11,8 +11,8 @@ public class ScoreTracker : MonoBehaviour
 
     void Start()
     {
-        var hoardTurnManager = FindAnyObjectByType<HoardTurnManager>();
-        int currentScore = hoardTurnManager.WaveNumber;
+        var hoardTurnProgresser = FindAnyObjectByType<HoardTurnProgresser>();
+        int currentScore = hoardTurnProgresser.WaveNumber;
 
         SetScore(currentScore);
         SetHighscore(currentScore);

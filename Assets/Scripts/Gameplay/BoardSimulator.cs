@@ -13,7 +13,7 @@ public static class BoardSimulator
     // ♟️ Temporarily move a piece on the tile grid. Returns the piece that was on the destination (if any).
     public static Piece SimulateMove(Vector2Int from, Vector2Int to)
     {
-        var tiles = TurnManager.Instance.tiles;
+        var tiles = TurnProgresser.Instance.tiles;
 
         var fromTile = tiles[from.x, from.y];
         var toTile = tiles[to.x, to.y];
@@ -30,7 +30,7 @@ public static class BoardSimulator
     // ↩️ Restore the tile grid to its state before SimulateMove was called
     public static void UndoSimulate(Vector2Int from, Vector2Int to, Piece displaced)
     {
-        var tiles = TurnManager.Instance.tiles;
+        var tiles = TurnProgresser.Instance.tiles;
 
         tiles[from.x, from.y].piece = tiles[to.x, to.y].piece;
         tiles[to.x, to.y].piece = displaced;

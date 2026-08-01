@@ -24,6 +24,9 @@ public abstract class Piece : MonoBehaviour
 
     public int playerIndex;
 
+    [HideInInspector]
+    public string prefabName;
+
     [Header("Dance Properties")]
     [Tooltip("How high the piece bounces in units")]
     public float bounceHeight = 0.5f;
@@ -59,7 +62,7 @@ public abstract class Piece : MonoBehaviour
         //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
-        TileSelector tile = TurnManager.Instance.tiles[position.x, position.y];
+        TileSelector tile = TurnProgresser.Instance.tiles[position.x, position.y];
         return tile.piece == null;
     }
 
@@ -74,7 +77,7 @@ public abstract class Piece : MonoBehaviour
         //Check for out of bounds
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
-        TileSelector tile = TurnManager.Instance.tiles[position.x, position.y];
+        TileSelector tile = TurnProgresser.Instance.tiles[position.x, position.y];
 
         if (tile.piece == null) return false;
         else if (tile.piece.faction == Faction.Inanimate) return false;
@@ -89,7 +92,7 @@ public abstract class Piece : MonoBehaviour
 
         foreach (var position in GetMoves())
         {
-            var tile = TurnManager.Instance.tiles[position.x, position.y];
+            var tile = TurnProgresser.Instance.tiles[position.x, position.y];
             tile.GetComponent<TileThreats>().threatenedBy.Add(this);
         }
     }

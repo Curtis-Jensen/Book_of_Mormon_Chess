@@ -20,7 +20,7 @@ public class ThreatCoordinator : MonoBehaviour
 
     void Start()
     {
-        TurnManager.Instance.OnMoveEnd += UpdateThreats;
+        TurnProgresser.Instance.OnMoveEnd += UpdateThreats;
     }
 
     void UpdateThreats()
@@ -35,12 +35,12 @@ public class ThreatCoordinator : MonoBehaviour
     public void RebuildSilently()
     {
         // 🧹 Phase 1: Clear all tile threat lists
-        var tiles = TurnManager.Instance.tiles;
+        var tiles = TurnProgresser.Instance.tiles;
         foreach (var tile in tiles)
             tile.GetComponent<TileThreats>().Clear();
 
         // 📢 Phase 2: Each piece declares what it threatens
-        foreach (var player in TurnManager.Instance.pieceSpawner.players)
+        foreach (var player in TurnProgresser.Instance.pieceSpawner.players)
             foreach (var piece in player.pieces)
                 piece.DeclareThreats();
     }

@@ -15,11 +15,11 @@ public class PieceSpawner : MonoBehaviour
     [Tooltip("Maximum random delay added between bounces (in seconds)")]
     public float maxBounceDelay = 0.3f;
 
-    TurnManager TurnManager;
+    TurnProgresser TurnProgresser;
 
     void Awake()
     {
-        TurnManager = GetComponent<TurnManager>();
+        TurnProgresser = GetComponent<TurnProgresser>();
 
         players[0].isAi = PlayerPrefs.GetInt("1isAI") == 1;
         players[1].isAi = PlayerPrefs.GetInt("2isAI") == 1;
@@ -47,7 +47,7 @@ public class PieceSpawner : MonoBehaviour
     {
         var player = players[playerIndex]; //🧑🏻
         var pieceInstance =
-        Instantiate(piecePrefab, TurnManager.tiles[(int)position.x, (int)position.y].transform); //🏗️
+        Instantiate(piecePrefab, TurnProgresser.tiles[(int)position.x, (int)position.y].transform); //🏗️
         var spriteRenderer = pieceInstance.GetComponent<SpriteRenderer>();
         var pieceScript = pieceInstance.GetComponent<Piece>(); //🔍
 
@@ -59,14 +59,15 @@ public class PieceSpawner : MonoBehaviour
 
         pieceScript.faction = player.faction;//⚖️
         pieceScript.playerIndex = playerIndex;
+        pieceScript.prefabName = piecePrefab.name;
 
-        pieceScript.boardSize = TurnManager.boardSize;
+        pieceScript.boardSize = TurnProgresser.boardSize;
 
         SetDanceProperties(pieceScript);
 
         player.pieces.Add(pieceScript);//⚖️
 
-        TurnManager.tiles[(int)position.x, (int)position.y].piece = pieceScript;
+        TurnProgresser.tiles[(int)position.x, (int)position.y].piece = pieceScript;
 
         return pieceScript;
     }

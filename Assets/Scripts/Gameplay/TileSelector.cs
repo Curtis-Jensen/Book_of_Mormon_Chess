@@ -26,7 +26,7 @@ public class TileSelector : MonoBehaviour
 
     void OnMouseDown()
     {
-        TurnManager.Instance.OnTileClicked(this);
+        TurnProgresser.Instance.OnTileClicked(this);
     }
 }
 

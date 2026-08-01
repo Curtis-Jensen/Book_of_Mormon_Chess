@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using TMPro;
 using UnityEngine;
 
-public class HoardTurnManager : TurnManager
+public class HoardTurnProgresser : TurnProgresser
 {
     public GameObject pawn;
     public PieceSets pieceSets;

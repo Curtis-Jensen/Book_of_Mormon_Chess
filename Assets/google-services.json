@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "1093283216630",
+    "project_id": "book-of-mormon-chess",
+    "storage_bucket": "book-of-mormon-chess.firebasestorage.app"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1093283216630:android:61d0ecdb62175b5b0580d7",
+        "android_client_info": {
+          "package_name": "com.curtisjensen.bomchess"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCf1uqFHJW5w6SaTD_aWlEci4uBDGVpoEM"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

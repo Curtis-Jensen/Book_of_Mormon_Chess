@@ -105,7 +105,7 @@ public class Pawn : Piece
         {
             if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) continue;
 
-            var tile = TurnManager.Instance.tiles[position.x, position.y];
+            var tile = TurnProgresser.Instance.tiles[position.x, position.y];
             tile.GetComponent<TileThreats>().threatenedBy.Add(this);
         }
     }

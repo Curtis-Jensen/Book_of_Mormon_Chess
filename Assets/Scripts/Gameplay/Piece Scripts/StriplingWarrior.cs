@@ -43,7 +43,7 @@ public class StriplingWarrior : Piece
 
         maxWoundedTurns *= 2; //Convert from player turns to full turns
 
-        TurnManager.Instance.OnMoveEnd += DecrementWoundedCounter;
+        TurnProgresser.Instance.OnMoveEnd += DecrementWoundedCounter;
 
         woundedCounterText = GetComponentInChildren<TextMeshPro>();
         woundedCounterText.text = "";
@@ -58,7 +58,7 @@ public class StriplingWarrior : Piece
         // Check if position is valid
         if (position.x < 0 || position.x >= boardSize || position.y < 0 || position.y >= boardSize) return false;
 
-        TileSelector tile = TurnManager.Instance.tiles[position.x, position.y];
+        TileSelector tile = TurnProgresser.Instance.tiles[position.x, position.y];
         
         // If there's no piece, it's not an enemy
         if (tile.piece == null) return false;
@@ -95,13 +95,13 @@ public class StriplingWarrior : Piece
     /// </summary>
     public override void Die(bool instantiateEffects = true)
     {
-        if (TurnManager.Instance.selectedPiece.GetType() == typeof(StriplingWarrior))
+        if (TurnProgresser.Instance.selectedPiece.GetType() == typeof(StriplingWarrior))
         {
             base.Die();
             return;
         }
-        TurnManager.Instance.selectedPiece.Die();
-        TurnManager.Instance.selectedPiece = this;
+        TurnProgresser.Instance.selectedPiece.Die();
+        TurnProgresser.Instance.selectedPiece = this;
 
         moveDirections = new Vector2Int[0];
         currentWoundedTurns = maxWoundedTurns;

@@ -15,7 +15,7 @@ public class TurnProgresser : MonoBehaviour
         Instance = this;
 
         // A correspondence game is regular duel chess played across two devices via
-        // Firestore instead of hotseat -- see PushLocalState/OnRemoteStateReceived below.
+        // Firestore instead of hotseat -- see PushMoveUpdate/OnRemoteStateReceived below.
         // These are written by CorrespondenceMenu before this scene loads.
         correspondenceMode = PlayerPrefs.GetInt("correspondenceMode") == 1;
         if (correspondenceMode)
@@ -41,10 +41,15 @@ public class TurnProgresser : MonoBehaviour
     {
         while (true)
         {
-            CorrespondenceGameRepository.Instance.FetchGame(
-                gameId,
-                onFetched: OnRemoteStateReceived,
-                onError: message => Debug.LogWarning("Correspondence poll failed: " + message));
+            // Skip while a previous replay is still animating -- otherwise a slow network
+            // could let this fire again mid-move and replay the same lastMove twice.
+            if (!applyingRemoteState)
+            {
+                CorrespondenceGameRepository.Instance.FetchGame(
+                    gameId,
+                    onFetched: OnRemoteStateReceived,
+                    onError: message => Debug.LogWarning("Correspondence poll failed: " + message));
+            }
 
             yield return new WaitForSeconds(correspondencePollSeconds);
         }
@@ -67,6 +72,7 @@ public class TurnProgresser : MonoBehaviour
     GameDoc latestGame;
     bool applyingRemoteState;
     bool hasAppliedInitialState;
+    int lastMoveFromX = -1, lastMoveFromY = -1, lastMoveToX = -1, lastMoveToY = -1;
 
     protected int playerTurn = 0;
 
@@ -151,6 +157,16 @@ public class TurnProgresser : MonoBehaviour
 	
     public void MovePiece(Vector2 destination)
     {
+        // Captured before DeselectPreviousPiece clears the tile/before the lerp moves the piece.
+        // Not captured while replaying an opponent's move -- we already know it from the DTO.
+        if (correspondenceMode && !applyingRemoteState)
+        {
+            lastMoveFromX = (int)selectedPiece.transform.position.x;
+            lastMoveFromY = (int)selectedPiece.transform.position.y;
+            lastMoveToX = (int)destination.x;
+            lastMoveToY = (int)destination.y;
+        }
+
         selectedTiles = DeselectTiles(selectedTiles);
         DeselectPreviousPiece();
         StartCoroutine(PhysicallyMovePiece(selectedPiece.gameObject, destination, selectedPiece));
@@ -260,7 +276,8 @@ public class TurnProgresser : MonoBehaviour
 
         if (correspondenceMode)
         {
-            if (!applyingRemoteState) PushLocalState();
+            if (!applyingRemoteState) PushMoveUpdate();
+            applyingRemoteState = false; // Whether this turn came from a local move or a replayed remote one, it's done now
             return; // No AI opponent in correspondence mode
         }
 
@@ -281,7 +298,9 @@ public class TurnProgresser : MonoBehaviour
 
     #region 📡 Correspondence sync
 
-    void PushLocalState()
+    // Full board snapshot -- only needed once, for the joiner's very first sync
+    // (they have no board of their own to diff against yet).
+    void PushInitialState()
     {
         if (latestGame == null)
         {
@@ -297,6 +316,28 @@ public class TurnProgresser : MonoBehaviour
         CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
     }
 
+    // Every move after the initial handshake: just the one move made, replayed
+    // through the real pipeline on the other end instead of a full re-snapshot.
+    void PushMoveUpdate()
+    {
+        if (latestGame == null)
+        {
+            Debug.LogError("TurnProgresser: tried to push a move before the game document loaded.");
+            return;
+        }
+
+        latestGame.currentTurnIndex = playerTurn;
+        latestGame.lastMove = new LastMoveDto
+        {
+            fromX = lastMoveFromX,
+            fromY = lastMoveFromY,
+            toX = lastMoveToX,
+            toY = lastMoveToY
+        };
+
+        CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
+    }
+
     void OnRemoteStateReceived(GameDoc game)
     {
         latestGame = game;
@@ -307,19 +348,50 @@ public class TurnProgresser : MonoBehaviour
         {
             hasAppliedInitialState = true;
             playerTurn = 0;
-            PushLocalState();
+            PushInitialState();
             return;
         }
 
-        if (hasAppliedInitialState && game.currentTurnIndex == playerTurn) return; // Already in sync
+        if (!hasAppliedInitialState)
+        {
+            // Joiner's first sync: nothing local exists yet, so this one time we need
+            // the full snapshot rather than a move to replay.
+            applyingRemoteState = true;
+            GameStateSerializer.Apply(
+                new GameStateDto { boardSize = game.boardSize, currentTurnIndex = game.currentTurnIndex, pieces = game.pieces },
+                this, pieceSpawner);
+            playerTurn = game.currentTurnIndex;
+            hasAppliedInitialState = true;
+            applyingRemoteState = false;
+            return;
+        }
+
+        if (game.currentTurnIndex == playerTurn) return; // Already in sync, nothing new to replay
+
+        ReplayRemoteMove(game.lastMove);
+    }
+
+    // Reuses the real move pipeline (OnTileClicked would normally do this) so captures,
+    // promotion, StriplingWarrior's wounding, etc. all run through their actual gameplay
+    // logic instead of us reconstructing that state by hand.
+    void ReplayRemoteMove(LastMoveDto move)
+    {
+        if (move == null || move.fromX < 0)
+        {
+            Debug.LogWarning("TurnProgresser: expected an opponent move to replay but found none.");
+            return;
+        }
+
+        var fromTile = tiles[move.fromX, move.fromY];
+        if (fromTile.piece == null)
+        {
+            Debug.LogError($"TurnProgresser: no piece found at replay source ({move.fromX},{move.fromY}) -- local board may be out of sync.");
+            return;
+        }
 
         applyingRemoteState = true;
-        GameStateSerializer.Apply(
-            new GameStateDto { boardSize = game.boardSize, currentTurnIndex = game.currentTurnIndex, pieces = game.pieces },
-            this, pieceSpawner);
-        playerTurn = game.currentTurnIndex;
-        hasAppliedInitialState = true;
-        applyingRemoteState = false;
+        selectedPiece = fromTile.piece;
+        MovePiece(new Vector2(move.toX, move.toY));
     }
 
     #endregion

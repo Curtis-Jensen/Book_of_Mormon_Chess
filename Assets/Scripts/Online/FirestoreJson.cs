@@ -20,7 +20,8 @@ public static class FirestoreJson
             ["currentTurnIndex"] = EncodeInt(doc.currentTurnIndex),
             ["status"] = EncodeString(doc.status),
             ["winnerIndex"] = EncodeInt(doc.winnerIndex),
-            ["pieces"] = EncodePieces(doc.pieces)
+            ["pieces"] = EncodePieces(doc.pieces),
+            ["lastMove"] = EncodeLastMove(doc.lastMove)
         };
 
         var body = new JObject { ["fields"] = fields };
@@ -42,7 +43,8 @@ public static class FirestoreJson
             currentTurnIndex = DecodeInt(fields["currentTurnIndex"]),
             status = DecodeString(fields["status"]),
             winnerIndex = DecodeInt(fields["winnerIndex"]),
-            pieces = DecodePieces(fields["pieces"])
+            pieces = DecodePieces(fields["pieces"]),
+            lastMove = DecodeLastMove(fields["lastMove"])
         };
     }
 
@@ -89,6 +91,20 @@ public static class FirestoreJson
         }
     };
 
+    static JObject EncodeLastMove(LastMoveDto move) => new()
+    {
+        ["mapValue"] = new JObject
+        {
+            ["fields"] = new JObject
+            {
+                ["fromX"] = EncodeInt(move.fromX),
+                ["fromY"] = EncodeInt(move.fromY),
+                ["toX"] = EncodeInt(move.toX),
+                ["toY"] = EncodeInt(move.toY)
+            }
+        }
+    };
+
     #endregion
 
     #region Decoding
@@ -125,6 +141,20 @@ public static class FirestoreJson
         }
 
         return result;
+    }
+
+    static LastMoveDto DecodeLastMove(JToken field)
+    {
+        var moveFields = field?["mapValue"]?["fields"];
+        if (moveFields == null) return new LastMoveDto(); // defaults to -1s -- no move yet
+
+        return new LastMoveDto
+        {
+            fromX = DecodeInt(moveFields["fromX"]),
+            fromY = DecodeInt(moveFields["fromY"]),
+            toX = DecodeInt(moveFields["toX"]),
+            toY = DecodeInt(moveFields["toY"])
+        };
     }
 
     #endregion

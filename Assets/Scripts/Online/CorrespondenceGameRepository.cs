@@ -34,12 +34,26 @@ public class CorrespondenceGameRepository : MonoBehaviour
         DontDestroyOnLoad(gameObject);
     }
 
+    const string RefreshTokenPrefKey = "correspondenceRefreshToken";
+
     public void Initialize(Action onReady, Action<string> onError)
     {
-        StartCoroutine(SignInAnonymouslyRoutine(onReady, onError));
+        var storedRefreshToken = PlayerPrefs.GetString(RefreshTokenPrefKey, "");
+        if (!string.IsNullOrEmpty(storedRefreshToken))
+        {
+            StartCoroutine(RefreshSignInRoutine(storedRefreshToken, onReady, onError));
+        }
+        else
+        {
+            StartCoroutine(SignUpAnonymouslyRoutine(onReady, onError));
+        }
     }
 
-    IEnumerator SignInAnonymouslyRoutine(Action onReady, Action<string> onError)
+    // Creates a brand-new anonymous identity. Only used the very first time this
+    // device plays -- afterwards we persist the refresh token and reuse the same
+    // identity (see RefreshSignInRoutine), otherwise every session would look like
+    // a different stranger to Firestore and "rejoining" your own room would fail.
+    IEnumerator SignUpAnonymouslyRoutine(Action onReady, Action<string> onError)
     {
         var url = $"https://identitytoolkit.googleapis.com/v1/accounts:signUp?key={webApiKey}";
 
@@ -55,68 +69,116 @@ public class CorrespondenceGameRepository : MonoBehaviour
         var response = JObject.Parse(request.downloadHandler.text);
         idToken = response["idToken"]?.ToString();
         localUserId = response["localId"]?.ToString();
+        StoreRefreshToken(response["refreshToken"]?.ToString());
 
         onReady?.Invoke();
     }
 
-    public void CreateGame(GameDoc initialState, Action<string> onCreated, Action<string> onError)
+    // Exchanges a previously-stored refresh token for a fresh ID token, keeping the
+    // same underlying identity (and thus the same seat) across app restarts.
+    IEnumerator RefreshSignInRoutine(string refreshToken, Action onReady, Action<string> onError)
     {
-        initialState.players = new() { localUserId, "" };
-        StartCoroutine(CreateGameRoutine(initialState, onCreated, onError));
-    }
+        var url = $"https://securetoken.googleapis.com/v1/token?key={webApiKey}";
+        var formBody = $"grant_type=refresh_token&refresh_token={UnityWebRequest.EscapeURL(refreshToken)}";
 
-    IEnumerator CreateGameRoutine(GameDoc initialState, Action<string> onCreated, Action<string> onError)
-    {
-        var url = $"{CollectionUrl}";
-        using var request = BuildRequest(url, "POST", FirestoreJson.ToDocumentJson(initialState));
+        var request = new UnityWebRequest(url, "POST");
+        request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(formBody));
+        request.downloadHandler = new DownloadHandlerBuffer();
+        request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+
         yield return request.SendWebRequest();
 
         if (request.result != UnityWebRequest.Result.Success)
         {
-            onError?.Invoke("CreateGame failed: " + request.error);
+            // Stored token might be stale/revoked -- fall back to a fresh identity rather than getting stuck.
+            Debug.LogWarning("Refresh sign-in failed, falling back to a new anonymous identity: " + request.error);
+            yield return SignUpAnonymouslyRoutine(onReady, onError);
             yield break;
         }
 
-        onCreated?.Invoke(FirestoreJson.ExtractDocumentId(request.downloadHandler.text));
+        var response = JObject.Parse(request.downloadHandler.text);
+        idToken = response["id_token"]?.ToString();
+        localUserId = response["user_id"]?.ToString();
+        StoreRefreshToken(response["refresh_token"]?.ToString());
+
+        onReady?.Invoke();
     }
 
-    public void JoinGame(string gameId, Action<int> onJoined, Action<string> onError)
+    void StoreRefreshToken(string refreshToken)
     {
-        StartCoroutine(JoinGameRoutine(gameId, onJoined, onError));
+        if (string.IsNullOrEmpty(refreshToken)) return;
+        PlayerPrefs.SetString(RefreshTokenPrefKey, refreshToken);
     }
 
-    IEnumerator JoinGameRoutine(string gameId, Action<int> onJoined, Action<string> onError)
+    // One button, one code: if the room doesn't exist yet we create it (caller becomes
+    // player 0), otherwise we join the open seat (player 1) -- or rejoin our own seat if
+    // this device already occupies one. onReady gets (localPlayerIndex, isCreator, boardSize)
+    // -- boardSize must be applied (PlayerPrefs "boardSize") *before* the Duel Scene loads and
+    // builds its tile grid, so both devices build an identically-sized board from the start
+    // rather than the joiner's own local setting silently disagreeing with the creator's.
+    public void PlayGame(string code, Action<int, bool, int> onReady, Action<string> onError)
     {
-        using var getRequest = BuildRequest(DocumentUrl(gameId), "GET", null);
+        StartCoroutine(PlayGameRoutine(code, onReady, onError));
+    }
+
+    IEnumerator PlayGameRoutine(string code, Action<int, bool, int> onReady, Action<string> onError)
+    {
+        using var getRequest = BuildRequest(DocumentUrl(code), "GET", null);
         yield return getRequest.SendWebRequest();
+
+        if (getRequest.responseCode == 404)
+        {
+            var newGame = new GameDoc
+            {
+                players = new() { localUserId, "" },
+                boardSize = PlayerPrefs.GetInt("boardSize", 7),
+                currentTurnIndex = 0,
+                status = "active"
+            };
+
+            using var createRequest = BuildRequest(DocumentUrl(code), "PATCH", FirestoreJson.ToDocumentJson(newGame));
+            yield return createRequest.SendWebRequest();
+
+            if (createRequest.result != UnityWebRequest.Result.Success)
+            {
+                onError?.Invoke("Couldn't create room: " + createRequest.error);
+                yield break;
+            }
+
+            onReady?.Invoke(0, true, newGame.boardSize);
+            yield break;
+        }
 
         if (getRequest.result != UnityWebRequest.Result.Success)
         {
-            onError?.Invoke("Game not found: " + gameId);
+            onError?.Invoke("Couldn't reach that room: " + getRequest.error);
             yield break;
         }
 
         var game = FirestoreJson.FromDocumentJson(getRequest.downloadHandler.text);
         if (game.players.Count < 2) game.players.Add("");
 
+        if (game.players[0] == localUserId) { onReady?.Invoke(0, true, game.boardSize); yield break; }
+        if (game.players[1] == localUserId) { onReady?.Invoke(1, false, game.boardSize); yield break; }
+
         if (!string.IsNullOrEmpty(game.players[1]))
         {
-            onError?.Invoke("Game is already full.");
+            onError?.Invoke("That room is already full.");
             yield break;
         }
 
         game.players[1] = localUserId;
 
-        using var patchRequest = BuildRequest(DocumentUrl(gameId), "PATCH", FirestoreJson.ToDocumentJson(game));
-        yield return patchRequest.SendWebRequest();
+        using var joinRequest = BuildRequest(DocumentUrl(code), "PATCH", FirestoreJson.ToDocumentJson(game));
+        yield return joinRequest.SendWebRequest();
 
-        if (patchRequest.result != UnityWebRequest.Result.Success)
+        if (joinRequest.result != UnityWebRequest.Result.Success)
         {
-            onError?.Invoke("JoinGame failed: " + patchRequest.error);
+            onError?.Invoke("Couldn't join that room: " + joinRequest.error);
             yield break;
         }
 
-        onJoined?.Invoke(1);
+        onReady?.Invoke(1, false, game.boardSize);
     }
 
     public void PushState(string gameId, GameDoc state)

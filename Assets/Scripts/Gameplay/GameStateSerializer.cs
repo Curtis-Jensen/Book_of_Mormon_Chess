@@ -53,7 +53,7 @@ public static class GameStateSerializer
     // Destroys every piece currently on the board and respawns from the saved state.
     public static void Apply(GameStateDto state, TurnProgresser turnManager, PieceSpawner pieceSpawner)
     {
-        ClearBoard(turnManager);
+        ClearBoard(turnManager, pieceSpawner);
 
         foreach (var pieceState in state.pieces)
         {
@@ -64,13 +64,22 @@ public static class GameStateSerializer
                 continue;
             }
 
+            if (pieceState.playerIndex < 0 || pieceState.playerIndex >= pieceSpawner.players.Length)
+            {
+                Debug.LogError($"GameStateSerializer: piece '{pieceState.prefabName}' at ({pieceState.x},{pieceState.y}) has playerIndex {pieceState.playerIndex}, but pieceSpawner.players only has {pieceSpawner.players.Length} entries. Skipping.");
+                continue;
+            }
+
             var position = new Vector2(pieceState.x, pieceState.y);
             var pieceScript = pieceSpawner.SpawnPiece(prefab, position, pieceState.playerIndex);
             pieceScript.firstTurnTaken = pieceState.firstTurnTaken;
         }
     }
 
-    static void ClearBoard(TurnProgresser turnManager)
+    // Destroys pieces directly rather than calling Piece.Die() -- Die() is a gameplay
+    // event (capture effects, StriplingWarrior's wounding instead of dying, etc.) and
+    // assumes a move is actually in progress. This is a hard reset, not a capture.
+    static void ClearBoard(TurnProgresser turnManager, PieceSpawner pieceSpawner)
     {
         for (int x = 0; x < turnManager.boardSize; x++)
         {
@@ -79,7 +88,8 @@ public static class GameStateSerializer
                 var tile = turnManager.tiles[x, y];
                 if (tile.piece == null) continue;
 
-                tile.piece.Die(instantiateEffects: false);
+                pieceSpawner.players[tile.piece.playerIndex].pieces.Remove(tile.piece);
+                Object.Destroy(tile.piece.gameObject);
                 tile.piece = null;
             }
         }

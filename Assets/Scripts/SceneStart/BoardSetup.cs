@@ -48,14 +48,6 @@ public class BoardSetup : MonoBehaviour
 
     protected virtual void StartPieces()
     {
-        // The player joining an existing correspondence game shouldn't randomize their own
-        // back row -- they need to wait and receive the creator's board from Firestore instead
-        // (see TurnProgresser.OnRemoteStateReceived).
-        if (TurnProgresser.correspondenceMode && !TurnProgresser.isGameCreator)
-        {
-            return;
-        }
-
         // Resize players list to 2 if 4playerMode is disabled
         bool fourPlayerMode = PlayerPrefs.GetInt("4playerMode", 1) == 1;
         if (!fourPlayerMode && pieceSpawner.players.Length > 2)
@@ -63,8 +55,17 @@ public class BoardSetup : MonoBehaviour
             System.Array.Resize(ref pieceSpawner.players, 2);
         }
 
+        // The player joining an existing correspondence game shouldn't randomize their own
+        // back row -- they need to wait and receive the creator's board from Firestore instead
+        // (see TurnProgresser.OnRemoteStateReceived). The resize above still needs to run for
+        // them though, so pieceSpawner.players matches the 2-player game everywhere else.
+        if (TurnProgresser.correspondenceMode && !TurnProgresser.isGameCreator)
+        {
+            return;
+        }
+
         var pieceChoices = RandomizePieces();
-        pieceChoices = PlaceKing(pieceChoices);    
+        pieceChoices = PlaceKing(pieceChoices);
         OrderPieces(pieceChoices);
     }
 

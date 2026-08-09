@@ -23,8 +23,17 @@ public class TurnProgresser : MonoBehaviour
             gameId = PlayerPrefs.GetString("correspondenceGameId");
             localPlayerIndex = PlayerPrefs.GetInt("correspondenceLocalPlayerIndex");
             isGameCreator = PlayerPrefs.GetInt("correspondenceIsCreator") == 1;
+            HoardEndingManager.OnGameEnd += OnGameEnded;
         }
     }
+
+    void OnDestroy()
+    {
+        if (correspondenceMode) HoardEndingManager.OnGameEnd -= OnGameEnded;
+    }
+
+    int winnerPlayerIndex = -1;
+    void OnGameEnded(int losingPlayerIndex) => winnerPlayerIndex = 1 - losingPlayerIndex;
 
     [Tooltip("How often to poll Firestore for the opponent's move while waiting on our turn. REST has no live listener, so we ask instead of being told.")]
     public float correspondencePollSeconds = 5f;
@@ -260,7 +269,12 @@ public class TurnProgresser : MonoBehaviour
         OnMoveEnd?.Invoke();
 
         endingManager.CheckEnd();
-        if (endingManager.gameOver) return;
+
+        // ChangeTurn() is what pushes the move to Firestore in correspondence mode --
+        // it needs to run even on the winning move, or the opponent never finds out
+        // the game ended and is left polling forever. Only the local hotseat/AI path
+        // (which has nothing to notify) skips it once the game is won.
+        if (endingManager.gameOver && !correspondenceMode) return;
 
         ChangeTurn();
     }
@@ -334,6 +348,12 @@ public class TurnProgresser : MonoBehaviour
             toX = lastMoveToX,
             toY = lastMoveToY
         };
+
+        if (endingManager.gameOver)
+        {
+            latestGame.status = "complete";
+            latestGame.winnerIndex = winnerPlayerIndex;
+        }
 
         CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
     }

@@ -207,13 +207,14 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 76764645}
+  - component: {fileID: 76764648}
   - component: {fileID: 76764647}
   - component: {fileID: 76764646}
-  - component: {fileID: 76764648}
   - component: {fileID: 76764649}
   - component: {fileID: 76764650}
   - component: {fileID: 76764651}
   - component: {fileID: 76764652}
+  - component: {fileID: 76764653}
   m_Layer: 0
   m_Name: Gameplay Board
   m_TagString: Untagged
@@ -248,12 +249,17 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a4269bedea4b08c49b7686eddf80ea5b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  correspondencePollSeconds: 5
   moveTime: 0.2
   boardSize: 8
   audioSource: {fileID: 0}
   aiManager: {fileID: 0}
   endingManager: {fileID: 0}
   pieceSpawner: {fileID: 0}
+  correspondenceMode: 0
+  gameId: 
+  localPlayerIndex: 0
+  isGameCreator: 0
   selectedPiece: {fileID: 0}
 --- !u!114 &76764647
 MonoBehaviour:
@@ -416,6 +422,8 @@ MonoBehaviour:
     isAi: 1
     faction: 1
     pieces: []
+  defaultPlayer1ColorIndex: 3
+  defaultPlayer2ColorIndex: 0
   pieceBounceHeight: 0.5
   piecebounceDuration: 1
   maxBounceDelay: 0.3
@@ -451,6 +459,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 2174181a943df49ed99cb73ef605141b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &76764653
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 76764644}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9413a8849fba245f6b249544b09c0b1b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &153935751

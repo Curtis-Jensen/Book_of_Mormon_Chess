@@ -85,54 +85,6 @@ public class TurnProgresser : MonoBehaviour
 
     protected int playerTurn = 0;
 
-    // 🩺 Temporary diagnostic for the tiles[]/piece.transform desync bug -- counts moves so
-    // logs can pin down exactly which move first corrupts the board, and scans the whole
-    // grid after every move looking for a piece whose registered tile doesn't match its
-    // own transform position (or vice versa).
-    int moveCount = 0;
-
-    void VerifyBoardIntegrity()
-    {
-        for (int x = 0; x < boardSize; x++)
-        {
-            for (int y = 0; y < boardSize; y++)
-            {
-                var tile = tiles[x, y];
-                if (tile.piece == null) continue;
-
-                var piecePos = tile.piece.transform.position;
-                if (Mathf.RoundToInt(piecePos.x) != x || Mathf.RoundToInt(piecePos.y) != y)
-                {
-                    Debug.LogError($"🩺 Board desync after move #{moveCount}: tiles[{x},{y}].piece is " +
-                        $"{tile.piece.name}, but that piece's transform is at ({piecePos.x}, {piecePos.y}).");
-                }
-            }
-        }
-
-        foreach (var player in pieceSpawner.players)
-        {
-            foreach (var piece in player.pieces)
-            {
-                if (piece == null) continue;
-
-                var pos = piece.transform.position;
-                int px = Mathf.RoundToInt(pos.x), py = Mathf.RoundToInt(pos.y);
-                if (px < 0 || px >= boardSize || py < 0 || py >= boardSize)
-                {
-                    Debug.LogError($"🩺 Board desync after move #{moveCount}: {piece.name} is off-board at ({pos.x}, {pos.y}).");
-                    continue;
-                }
-
-                if (tiles[px, py].piece != piece)
-                {
-                    var occupantName = tiles[px, py].piece == null ? "null" : tiles[px, py].piece.name;
-                    Debug.LogError($"🩺 Board desync after move #{moveCount}: {piece.name} sits at ({px},{py}) " +
-                        $"but tiles[{px},{py}].piece is {occupantName}.");
-                }
-            }
-        }
-    }
-
     public Piece selectedPiece;
 
     List<TileSelector> selectedTiles = new();
@@ -316,9 +268,6 @@ public class TurnProgresser : MonoBehaviour
         }
 
         AssignNewParent(destinationTile, selectedPiece);
-
-        moveCount++;
-        VerifyBoardIntegrity();
 
         audioSource.Play();
 

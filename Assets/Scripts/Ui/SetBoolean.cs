@@ -19,5 +19,6 @@ public class SetBoolean : MonoBehaviour
     public void SetBool()
     {
         PlayerPrefs.SetInt(boolVariableName, toggle.isOn ? 1 : 0);
+        PlayerPrefs.Save();
     }
 }

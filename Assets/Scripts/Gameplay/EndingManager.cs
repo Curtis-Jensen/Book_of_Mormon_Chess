@@ -94,7 +94,7 @@ public class EndingManager : HoardEndingManager
     void SetFlagColor(int winningPlayerIndex)
     {
         var winningPlayerName = pieceSpawner.players[winningPlayerIndex].name;
-        var colorSelection = PlayerPrefs.GetInt(winningPlayerName + "color");//🎨
+        var colorSelection = PlayerPrefs.GetInt(winningPlayerName + "color", pieceSpawner.DefaultColorIndex(winningPlayerName));//🎨
 
         winScreen.GetComponent<Image>().color = pieceSets.colorSets[colorSelection].baseColor;
     }

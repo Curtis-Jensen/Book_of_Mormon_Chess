@@ -6350,7 +6350,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 3126669944486250160, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0.0000047684
+      value: 0.0000038146973
       objectReference: {fileID: 0}
     - target: {fileID: 3126669944486250160, guid: 4d48d9138889b4e088d8598a8db1b444, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -7557,6 +7557,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3e1d0983c3d6d4bc4ab3d219dcabdc12, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gameSpeed: 10
+  boardSize: 8
 --- !u!114 &2089302263
 MonoBehaviour:
   m_ObjectHideFlags: 0

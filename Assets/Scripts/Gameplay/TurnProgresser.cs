@@ -85,6 +85,54 @@ public class TurnProgresser : MonoBehaviour
 
     protected int playerTurn = 0;
 
+    // 🩺 Temporary diagnostic for the tiles[]/piece.transform desync bug -- counts moves so
+    // logs can pin down exactly which move first corrupts the board, and scans the whole
+    // grid after every move looking for a piece whose registered tile doesn't match its
+    // own transform position (or vice versa).
+    int moveCount = 0;
+
+    void VerifyBoardIntegrity()
+    {
+        for (int x = 0; x < boardSize; x++)
+        {
+            for (int y = 0; y < boardSize; y++)
+            {
+                var tile = tiles[x, y];
+                if (tile.piece == null) continue;
+
+                var piecePos = tile.piece.transform.position;
+                if (Mathf.RoundToInt(piecePos.x) != x || Mathf.RoundToInt(piecePos.y) != y)
+                {
+                    Debug.LogError($"🩺 Board desync after move #{moveCount}: tiles[{x},{y}].piece is " +
+                        $"{tile.piece.name}, but that piece's transform is at ({piecePos.x}, {piecePos.y}).");
+                }
+            }
+        }
+
+        foreach (var player in pieceSpawner.players)
+        {
+            foreach (var piece in player.pieces)
+            {
+                if (piece == null) continue;
+
+                var pos = piece.transform.position;
+                int px = Mathf.RoundToInt(pos.x), py = Mathf.RoundToInt(pos.y);
+                if (px < 0 || px >= boardSize || py < 0 || py >= boardSize)
+                {
+                    Debug.LogError($"🩺 Board desync after move #{moveCount}: {piece.name} is off-board at ({pos.x}, {pos.y}).");
+                    continue;
+                }
+
+                if (tiles[px, py].piece != piece)
+                {
+                    var occupantName = tiles[px, py].piece == null ? "null" : tiles[px, py].piece.name;
+                    Debug.LogError($"🩺 Board desync after move #{moveCount}: {piece.name} sits at ({px},{py}) " +
+                        $"but tiles[{px},{py}].piece is {occupantName}.");
+                }
+            }
+        }
+    }
+
     public Piece selectedPiece;
 
     List<TileSelector> selectedTiles = new();
@@ -142,7 +190,7 @@ public class TurnProgresser : MonoBehaviour
     public List<TileSelector> HilightPossibleTiles(List<Vector2Int> attemptedMoves, Piece selectedPiece, List<TileSelector> selectedTiles)
     {
         var tileUnderPiece =
-            tiles[(int)selectedPiece.transform.position.x, (int)selectedPiece.transform.position.y];
+            tiles[Mathf.RoundToInt(selectedPiece.transform.position.x), Mathf.RoundToInt(selectedPiece.transform.position.y)];
 
         tileUnderPiece.Highlight(true);
 
@@ -170,8 +218,8 @@ public class TurnProgresser : MonoBehaviour
         // Not captured while replaying an opponent's move -- we already know it from the DTO.
         if (correspondenceMode && !applyingRemoteState)
         {
-            lastMoveFromX = (int)selectedPiece.transform.position.x;
-            lastMoveFromY = (int)selectedPiece.transform.position.y;
+            lastMoveFromX = Mathf.RoundToInt(selectedPiece.transform.position.x);
+            lastMoveFromY = Mathf.RoundToInt(selectedPiece.transform.position.y);
             lastMoveToX = (int)destination.x;
             lastMoveToY = (int)destination.y;
         }
@@ -191,7 +239,7 @@ public class TurnProgresser : MonoBehaviour
     {
         // 🚫👪 Orphan the piece from the tile script so en passants aren't eternal
         var piecePosition = selectedPiece.transform.position;
-        TileSelector startingTile = tiles[(int)piecePosition.x, (int)piecePosition.y];
+        TileSelector startingTile = tiles[Mathf.RoundToInt(piecePosition.x), Mathf.RoundToInt(piecePosition.y)];
 
         if(selectedPiece == null)
         {
@@ -250,6 +298,13 @@ public class TurnProgresser : MonoBehaviour
     protected void AssignNewParent(TileSelector destinationTile, Piece selectedPiece)
     {
         selectedPiece.transform.SetParent(destinationTile.transform);
+
+        // SetParent's worldPositionStays recomputes the local position via a matrix inverse --
+        // over hundreds of reparents that accumulates tiny floating-point error (e.g. 0.9999995
+        // instead of 1), which is enough to flip an (int) grid-index cast to the wrong tile.
+        // Re-snap to the exact integer coordinate every time to stop that drift from building up.
+        selectedPiece.transform.position = destinationTile.transform.position;
+
         destinationTile.piece = selectedPiece;
     }
 
@@ -261,6 +316,9 @@ public class TurnProgresser : MonoBehaviour
         }
 
         AssignNewParent(destinationTile, selectedPiece);
+
+        moveCount++;
+        VerifyBoardIntegrity();
 
         audioSource.Play();
 

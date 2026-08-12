@@ -28,7 +28,7 @@ public class King : Piece
 
     public void IsInCheck()
     {
-        var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        var kingPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
         // 🗺️ Read directly from this king's tile — ThreatCoordinator already populated it
         var myTile = TurnProgresser.Instance.tiles[kingPosition.x, kingPosition.y];
@@ -43,7 +43,7 @@ public class King : Piece
     public override List<Vector2Int> GetMoves()
     {
         List<Vector2Int> validMoves = new();
-        var kingPosition = new Vector2Int((int)transform.position.x, (int)transform.position.y);
+        var kingPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));
 
         foreach (var moveDirection in moveDirections)
         {

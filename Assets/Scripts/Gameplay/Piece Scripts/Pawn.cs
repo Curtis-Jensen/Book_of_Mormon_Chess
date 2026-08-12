@@ -60,7 +60,7 @@ public class Pawn : Piece
     {
         // Check one square forward
         Vector2Int forwardMove =
-            new((int)transform.position.x, (int)transform.position.y + forward);
+            new(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y) + forward);
         if (IsTileEmpty(forwardMove))
         {
             validMoves.Add(forwardMove);
@@ -74,8 +74,8 @@ public class Pawn : Piece
         // Check diagonal capture moves
         Vector2Int[] diagonalMoves = new Vector2Int[]
         {
-            new ((int)transform.position.x - 1, (int)transform.position.y + forward),
-            new ((int)transform.position.x + 1, (int)transform.position.y + forward)
+            new (Mathf.RoundToInt(transform.position.x) - 1, Mathf.RoundToInt(transform.position.y) + forward),
+            new (Mathf.RoundToInt(transform.position.x) + 1, Mathf.RoundToInt(transform.position.y) + forward)
         };
 
         foreach (var move in diagonalMoves)
@@ -97,8 +97,8 @@ public class Pawn : Piece
 
         Vector2Int[] attackSquares =
         {
-            new((int)transform.position.x - 1, (int)transform.position.y + forward),
-            new((int)transform.position.x + 1, (int)transform.position.y + forward)
+            new(Mathf.RoundToInt(transform.position.x) - 1, Mathf.RoundToInt(transform.position.y) + forward),
+            new(Mathf.RoundToInt(transform.position.x) + 1, Mathf.RoundToInt(transform.position.y) + forward)
         };
 
         foreach (var position in attackSquares)

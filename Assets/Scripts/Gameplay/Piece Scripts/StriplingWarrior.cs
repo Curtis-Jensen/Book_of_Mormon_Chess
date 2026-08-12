@@ -76,7 +76,7 @@ public class StriplingWarrior : Piece
         foreach (var moveDirection in moveDirections)
         {
             Vector2Int newMove =
-                new((int)transform.position.x + moveDirection.x, (int)transform.position.y + moveDirection.y);
+                new(Mathf.RoundToInt(transform.position.x) + moveDirection.x, Mathf.RoundToInt(transform.position.y) + moveDirection.y);
 
             bool emptyOrEnemy =
                 IsTileEmpty(newMove) || IsEnemyPiece(newMove);

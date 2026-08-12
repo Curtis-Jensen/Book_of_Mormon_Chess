@@ -66,8 +66,6 @@ public class CorrespondenceMenu : MonoBehaviour
         PlayerPrefs.SetInt("boardSize", boardSize);
 
         PlayerPrefs.SetInt("4playerMode", 0);
-        PlayerPrefs.SetInt("1isAI", 0);
-        PlayerPrefs.SetInt("2isAI", 0);
 
         PlayerPrefs.SetInt("correspondenceMode", 1);
         PlayerPrefs.SetString("correspondenceGameId", gameId);
@@ -76,7 +74,7 @@ public class CorrespondenceMenu : MonoBehaviour
 
         // Reuses SceneLoader's existing backRowCount/backRowPrefab_N PlayerPrefs handoff,
         // so BoardSetup spawns the identical piece set it always would for "All Units".
-        sceneLoader.LoadWithConfig(config);
+        sceneLoader.LoadWithConfig(config, isCorrespondence: true);
     }
 
     void SetStatus(string message)

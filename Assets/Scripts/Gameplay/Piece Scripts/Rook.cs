@@ -21,7 +21,7 @@ public class Rook : Piece
             {
                 var moveDistance = moveDirection * distance;
                 Vector2Int newMove =
-                    new((int)transform.position.x + moveDistance.x, (int)transform.position.y + moveDistance.y);
+                    new(Mathf.RoundToInt(transform.position.x) + moveDistance.x, Mathf.RoundToInt(transform.position.y) + moveDistance.y);
 
                 if (IsTileEmpty(newMove))
                 {

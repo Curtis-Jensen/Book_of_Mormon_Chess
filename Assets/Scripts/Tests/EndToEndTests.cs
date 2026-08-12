@@ -7,6 +7,12 @@ using UnityEditor;
 
 public class EndToEndTests : MonoBehaviour
 {
+    [Tooltip("Multiplies Time.timeScale while the test runs, so animations/AI moves fly by")]
+    public float gameSpeed = 1f;
+
+    [Tooltip("Board width/height (in tiles) used for every scene in the test run")]
+    public int boardSize = 8;
+
     private int currentSceneIndex = 0;
     private SceneLoader sceneLoader;
 
@@ -29,6 +35,8 @@ public class EndToEndTests : MonoBehaviour
             return;
         }
 
+        Time.timeScale = gameSpeed;
+
         // Make this GameObject persist between scenes
         DontDestroyOnLoad(gameObject);
 
@@ -46,7 +54,7 @@ public class EndToEndTests : MonoBehaviour
 
         var config = sceneLoader.sceneConfigs[currentSceneIndex];
         PlayerPrefs.SetString("gameMode", config.dropDownOptionName);
-        PlayerPrefs.SetInt("boardSize", 8); // Default size
+        PlayerPrefs.SetInt("boardSize", boardSize);
         sceneLoader.SetupNewScene();
     }
 

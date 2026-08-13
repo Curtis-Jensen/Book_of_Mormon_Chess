@@ -51,4 +51,14 @@ public class DropdownSaver : MonoBehaviour
     {
         PlayerPrefs.SetInt(toSave, dropdown.value);
     }
+
+    // Called by SettingsDefaultsSeeder so this control's own configured defaultValue
+    // becomes the saved value even if this GameObject is still inactive.
+    public void SeedIfMissing()
+    {
+        if (!PlayerPrefs.HasKey(toSave))
+        {
+            PlayerPrefs.SetInt(toSave, defaultValue);
+        }
+    }
 }

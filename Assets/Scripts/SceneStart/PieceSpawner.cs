@@ -7,10 +7,6 @@ public class PieceSpawner : MonoBehaviour
     public PieceSets pieceSets;
     public Player[] players;
 
-    [Header("Default Colors (used if a player has never opened Settings)")]
-    public int defaultPlayer1ColorIndex = 3;
-    public int defaultPlayer2ColorIndex = 0;
-
     [Header("Victory Dance Properties")]
     [Tooltip("How high the pieces bounce in units")]
     public float pieceBounceHeight = 0.5f;
@@ -76,14 +72,11 @@ public class PieceSpawner : MonoBehaviour
         return pieceScript;
     }
 
-    public int DefaultColorIndex(string playerName)
-    {
-        return playerName == "player1" ? defaultPlayer1ColorIndex : defaultPlayer2ColorIndex;
-    }
-
     Color SetColor(Player player, Piece pieceScript)
     {
-        var colorSelection = PlayerPrefs.GetInt(player.name + "color", DefaultColorIndex(player.name));//🎨
+        // SettingsDefaultsSeeder guarantees this key exists once the menu scene has
+        // loaded, seeded from the Settings dropdown's own configured defaultValue.
+        var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
         if (pieceScript is King)
         {
             return pieceSets.colorSets[colorSelection].kingColor;

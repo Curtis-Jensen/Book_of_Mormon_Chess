@@ -48,8 +48,10 @@ public class BoardSetup : MonoBehaviour
 
     protected virtual void StartPieces()
     {
-        // Resize players list to 2 if 4playerMode is disabled
-        bool fourPlayerMode = PlayerPrefs.GetInt("4playerMode", 1) == 1;
+        // Resize players list to 2 if 4playerMode is disabled.
+        // SettingsDefaultsSeeder guarantees this key exists once the menu scene has
+        // loaded, seeded from the toggle's own configured isOn state.
+        bool fourPlayerMode = PlayerPrefs.GetInt("4playerMode") == 1;
         if (!fourPlayerMode && pieceSpawner.players.Length > 2)
         {
             System.Array.Resize(ref pieceSpawner.players, 2);

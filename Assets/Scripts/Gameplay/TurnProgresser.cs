@@ -337,8 +337,12 @@ public class TurnProgresser : MonoBehaviour
         CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
     }
 
-    // Every move after the initial handshake: just the one move made, replayed
-    // through the real pipeline on the other end instead of a full re-snapshot.
+    // Every move after the initial handshake: pushes lastMove (replayed through the
+    // real pipeline on a client that's already open and in sync, for the animated
+    // experience) AND a fresh full snapshot (the actual ground truth). The snapshot
+    // matters for correspondence play specifically -- a client that was closed and
+    // reopened has no "already in sync" local board to replay a single move onto, so
+    // it needs a snapshot that's actually current, not just the opening position.
     void PushMoveUpdate()
     {
         if (latestGame == null)
@@ -347,7 +351,10 @@ public class TurnProgresser : MonoBehaviour
             return;
         }
 
-        latestGame.currentTurnIndex = playerTurn;
+        var boardState = GameStateSerializer.Serialize(this, playerTurn);
+        latestGame.boardSize = boardState.boardSize;
+        latestGame.currentTurnIndex = boardState.currentTurnIndex;
+        latestGame.pieces = boardState.pieces;
         latestGame.lastMove = new LastMoveDto
         {
             fromX = lastMoveFromX,

@@ -11,14 +11,26 @@ public class SettingsDefaultsSeeder : MonoBehaviour
 {
     void Awake()
     {
-        foreach (var dropdownSaver in GetComponentsInChildren<DropdownSaver>(includeInactive: true))
+        int dropdownCount = 0;
+        int setBooleanCount = 0;
+
+        // Search the whole scene, not just this object's children -- the Settings
+        // controls live under a different root than whatever object this is attached to.
+        foreach (var root in gameObject.scene.GetRootGameObjects())
         {
-            dropdownSaver.SeedIfMissing();
+            foreach (var dropdownSaver in root.GetComponentsInChildren<DropdownSaver>(includeInactive: true))
+            {
+                dropdownSaver.SeedIfMissing();
+                dropdownCount++;
+            }
+
+            foreach (var setBoolean in root.GetComponentsInChildren<SetBoolean>(includeInactive: true))
+            {
+                setBoolean.SeedIfMissing();
+                setBooleanCount++;
+            }
         }
 
-        foreach (var setBoolean in GetComponentsInChildren<SetBoolean>(includeInactive: true))
-        {
-            setBoolean.SeedIfMissing();
-        }
+        Debug.Log($"[SettingsDefaultsSeeder] Seeded {dropdownCount} DropdownSaver(s) and {setBooleanCount} SetBoolean(s).");
     }
 }

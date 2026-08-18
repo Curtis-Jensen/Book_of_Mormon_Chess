@@ -25,6 +25,15 @@ public class CorrespondenceMenu : MonoBehaviour
             onError: message => SetStatus("Couldn't connect: " + message));
     }
 
+    public void OnCopyCodeClicked()
+    {
+        if (roomCodeInput == null || string.IsNullOrWhiteSpace(roomCodeInput.text))
+            return;
+
+        GUIUtility.systemCopyBuffer = roomCodeInput.text.Trim().ToUpperInvariant();
+        SetStatus("Code copied!");
+    }
+
     public void OnPlayClicked()
     {
         if (roomCodeInput == null || string.IsNullOrWhiteSpace(roomCodeInput.text))

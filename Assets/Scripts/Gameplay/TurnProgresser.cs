@@ -1,9 +1,17 @@
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using TMPro;
 using UnityEngine;
 using UnityEngine.UIElements;
 
+// 🚨TECH DEBT TODO🚨: This class is doing two jobs -- local turn sequencing (its
+// original purpose) and correspondence multiplayer sync orchestration (polling,
+// pushing, replaying remote moves, tracking room state -- see the "Correspondence
+// sync" region below). Extract the latter into its own script. The real work is
+// giving MovePiece/ChangeTurn/OnTileClicked clean hook points for that script to
+// plug into (gate input, capture the move that just happened, get notified on
+// turn change, trigger a replay) rather than having all of it live inline here.
 public class TurnProgresser : MonoBehaviour
 {
     public static TurnProgresser Instance { get; private set; }
@@ -38,6 +46,9 @@ public class TurnProgresser : MonoBehaviour
     [Tooltip("How often to poll Firestore for the opponent's move while waiting on our turn. REST has no live listener, so we ask instead of being told.")]
     public float correspondencePollSeconds = 5f;
 
+    [Tooltip("Optional: only shown when a sync actually fails, so a failed push isn't silently invisible to the player. Stays empty/hidden the rest of the time. Safe to leave unassigned.")]
+    public TMP_Text errorText;
+
     void Start()
     {
         if (correspondenceMode)
@@ -56,13 +67,20 @@ public class TurnProgresser : MonoBehaviour
             {
                 CorrespondenceGameRepository.Instance.FetchGame(
                     gameId,
-                    onFetched: OnRemoteStateReceived,
-                    onError: message => Debug.LogWarning("Correspondence poll failed: " + message));
+                    onFetched: game => { ClearError(); OnRemoteStateReceived(game); },
+                    onError: message => ShowError("Couldn't check for your opponent's move -- will try again."));
             }
 
             yield return new WaitForSeconds(correspondencePollSeconds);
         }
     }
+
+    void ShowError(string message)
+    {
+        if (errorText != null) errorText.text = message;
+    }
+
+    void ClearError() => ShowError("");
 
     public TileSelector[,] tiles;
     public float moveTime = 0.5f;
@@ -334,7 +352,9 @@ public class TurnProgresser : MonoBehaviour
         latestGame.currentTurnIndex = boardState.currentTurnIndex;
         latestGame.pieces = boardState.pieces;
 
-        CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
+        CorrespondenceGameRepository.Instance.PushState(gameId, latestGame,
+            onSuccess: ClearError,
+            onFailure: error => ShowError("Couldn't reach the server to set up the game. Check your connection."));
     }
 
     // Every move after the initial handshake: pushes lastMove (replayed through the
@@ -369,7 +389,9 @@ public class TurnProgresser : MonoBehaviour
             latestGame.winnerIndex = winnerPlayerIndex;
         }
 
-        CorrespondenceGameRepository.Instance.PushState(gameId, latestGame);
+        CorrespondenceGameRepository.Instance.PushState(gameId, latestGame,
+            onSuccess: ClearError,
+            onFailure: error => ShowError("Your move didn't reach the server! Check your connection -- your opponent can't see it yet."));
     }
 
     void OnRemoteStateReceived(GameDoc game)

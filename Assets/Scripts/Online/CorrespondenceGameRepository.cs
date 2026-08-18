@@ -108,6 +108,10 @@ public class CorrespondenceGameRepository : MonoBehaviour
     {
         if (string.IsNullOrEmpty(refreshToken)) return;
         PlayerPrefs.SetString(RefreshTokenPrefKey, refreshToken);
+        // WebGL specifically has no reliable "save on quit" moment when a browser tab
+        // is just closed -- without an explicit Save(), this can live only in memory
+        // for the page session and vanish the instant the tab closes.
+        PlayerPrefs.Save();
     }
 
     // One button, one code: if the room doesn't exist yet we create it (caller becomes
@@ -181,18 +185,44 @@ public class CorrespondenceGameRepository : MonoBehaviour
         onReady?.Invoke(1, false, game.boardSize);
     }
 
-    public void PushState(string gameId, GameDoc state)
+    const int PushStateMaxAttempts = 3;
+
+    // A failed push used to just log to Debug.LogError and vanish -- invisible to a
+    // real player in a shipped build, and with no retry, a single flaky request could
+    // silently lose a move: the local player sees their move animate fine and has no
+    // idea the opponent never received it. Retries a couple of times with backoff
+    // before giving up, and always reports back which one happened so a caller can
+    // show something on-screen instead of leaving the player in the dark.
+    public void PushState(string gameId, GameDoc state, Action onSuccess = null, Action<string> onFailure = null)
     {
-        StartCoroutine(PushStateRoutine(gameId, state));
+        StartCoroutine(PushStateRoutine(gameId, state, onSuccess, onFailure));
     }
 
-    IEnumerator PushStateRoutine(string gameId, GameDoc state)
+    IEnumerator PushStateRoutine(string gameId, GameDoc state, Action onSuccess, Action<string> onFailure)
     {
-        using var request = BuildRequest(DocumentUrl(gameId), "PATCH", FirestoreJson.ToDocumentJson(state));
-        yield return request.SendWebRequest();
+        var body = FirestoreJson.ToDocumentJson(state);
+        string lastError = null;
 
-        if (request.result != UnityWebRequest.Result.Success)
-            Debug.LogError("PushState failed: " + request.error);
+        for (int attempt = 1; attempt <= PushStateMaxAttempts; attempt++)
+        {
+            using var request = BuildRequest(DocumentUrl(gameId), "PATCH", body);
+            yield return request.SendWebRequest();
+
+            if (request.result == UnityWebRequest.Result.Success)
+            {
+                onSuccess?.Invoke();
+                yield break;
+            }
+
+            lastError = request.error;
+            Debug.LogWarning($"PushState attempt {attempt}/{PushStateMaxAttempts} failed: {lastError}");
+
+            if (attempt < PushStateMaxAttempts)
+                yield return new WaitForSeconds(attempt * 1.5f);
+        }
+
+        Debug.LogError("PushState failed after retries: " + lastError);
+        onFailure?.Invoke(lastError);
     }
 
     // No live listener over REST -- callers poll this (e.g. when opening a game, or on a timer).

@@ -49,13 +49,16 @@ jobs:
           name: Book_of_Mormon_Chess_${{ matrix.targetPlatform }}-${{ steps.get_version.outputs.version }}
           path: build/${{ matrix.targetPlatform }}
 
-      - name: Push to itch.io
+      - name: Install butler
         if: matrix.targetPlatform == 'WebGL'
-        uses: yeslayla/setup-butler-action@v1
+        run: |
+          curl -L -o butler.zip https://broth.itch.zone/butler/linux-amd64/LATEST/archive/default
+          unzip butler.zip -d butler
+          chmod +x butler/butler
 
       - name: Publish WebGL build to itch.io
         if: matrix.targetPlatform == 'WebGL'
         env:
           BUTLER_API_KEY: ${{ secrets.ITCH_BUTLER_CREDENTIALS }}
         run: |
-          butler push build/${{ matrix.targetPlatform }} curtis-jensen-games/book-of-mormon-chess:web
+          ./butler/butler push build/${{ matrix.targetPlatform }} curtis-jensen-games/book-of-mormon-chess:web

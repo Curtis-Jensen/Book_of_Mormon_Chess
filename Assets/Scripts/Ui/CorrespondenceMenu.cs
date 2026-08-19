@@ -1,5 +1,8 @@
 using TMPro;
 using UnityEngine;
+#if UNITY_WEBGL && !UNITY_EDITOR
+using System.Runtime.InteropServices;
+#endif
 
 // Minimal correspondence lobby: one auto-generated, editable room code and one
 // button. Playing with the generated code creates a new room; editing it to
@@ -25,12 +28,24 @@ public class CorrespondenceMenu : MonoBehaviour
             onError: message => SetStatus("Couldn't connect: " + message));
     }
 
+#if UNITY_WEBGL && !UNITY_EDITOR
+    [DllImport("__Internal")]
+    static extern void CopyToClipboard(string text);
+#endif
+
     public void OnCopyCodeClicked()
     {
         if (roomCodeInput == null || string.IsNullOrWhiteSpace(roomCodeInput.text))
             return;
 
-        GUIUtility.systemCopyBuffer = roomCodeInput.text.Trim().ToUpperInvariant();
+        var code = roomCodeInput.text.Trim().ToUpperInvariant();
+
+#if UNITY_WEBGL && !UNITY_EDITOR
+        CopyToClipboard(code);
+#else
+        GUIUtility.systemCopyBuffer = code;
+#endif
+
         SetStatus("Code copied!");
     }
 

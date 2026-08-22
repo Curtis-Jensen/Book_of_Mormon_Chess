@@ -42,6 +42,12 @@ jobs:
           UNITY_PASSWORD: ${{ secrets.UNITY_PASSWORD }}
         with:
           targetPlatform: ${{ matrix.targetPlatform }}
+          # TEMPORARY (remove after chasing the correspondence-chess NullReferenceException/
+          # InvalidOperationException freeze bugs): -development enables a Development Build
+          # so exception stack traces actually include line numbers. This publishes straight
+          # to the live itch.io page -- it's bigger/slower and shows a "Development Build"
+          # watermark for every visitor while this is in place. Revert once we have a trace.
+          customParameters: -development
 
       - name: Upload Build Artifact
         uses: actions/upload-artifact@v4

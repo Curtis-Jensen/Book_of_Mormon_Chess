@@ -300,7 +300,9 @@ public class TurnProgresser : MonoBehaviour
 
             AssignNewParent(destinationTile, selectedPiece);
 
-            audioSource.Play();
+            // Defensive: a missing/unassigned AudioSource shouldn't be able to take the
+            // whole move down with it -- a sound failing to play is not worth losing a move over.
+            audioSource?.Play();
 
             selectedPiece.MoveEnd();
 

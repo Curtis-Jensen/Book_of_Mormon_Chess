@@ -280,28 +280,43 @@ public class TurnProgresser : MonoBehaviour
 
     void MoveEnd(TileSelector destinationTile)
     {
-        if (destinationTile.piece != null)
+        // A move that animated locally (capture effects, etc.) but then throws before
+        // reaching ChangeTurn()/PushMoveUpdate() is indistinguishable from "the game
+        // just froze" to a real player -- an uncaught exception here can kill whatever
+        // coroutine/callback chain was mid-flight and never resume it. Catching it
+        // means the move locally completes-or-fails visibly instead of silently
+        // vanishing, and ex.ToString() below prints the FULL stack trace as plain log
+        // text rather than a collapsed browser error someone has to manually expand.
+        try
         {
-            destinationTile.piece.Die();
+            if (destinationTile.piece != null)
+            {
+                destinationTile.piece.Die();
+            }
+
+            AssignNewParent(destinationTile, selectedPiece);
+
+            audioSource.Play();
+
+            selectedPiece.MoveEnd();
+
+            OnMoveEnd?.Invoke();
+
+            endingManager.CheckEnd();
+
+            // ChangeTurn() is what pushes the move to Firestore in correspondence mode --
+            // it needs to run even on the winning move, or the opponent never finds out
+            // the game ended and is left polling forever. Only the local hotseat/AI path
+            // (which has nothing to notify) skips it once the game is won.
+            if (endingManager.gameOver && !correspondenceMode) return;
+
+            ChangeTurn();
         }
-
-        AssignNewParent(destinationTile, selectedPiece);
-
-        audioSource.Play();
-
-        selectedPiece.MoveEnd();
-
-        OnMoveEnd?.Invoke();
-
-        endingManager.CheckEnd();
-
-        // ChangeTurn() is what pushes the move to Firestore in correspondence mode --
-        // it needs to run even on the winning move, or the opponent never finds out
-        // the game ended and is left polling forever. Only the local hotseat/AI path
-        // (which has nothing to notify) skips it once the game is won.
-        if (endingManager.gameOver && !correspondenceMode) return;
-
-        ChangeTurn();
+        catch (System.Exception ex)
+        {
+            Debug.LogError($"TurnProgresser.MoveEnd threw partway through a move: {ex}");
+            if (correspondenceMode) ShowError("Something went wrong finishing that move -- see the console for details.");
+        }
     }
 
     protected virtual void ChangeTurn()

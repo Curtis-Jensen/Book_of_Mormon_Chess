@@ -117,17 +117,17 @@ public class StriplingWarrior : Piece
         {
             UnWounded();
         }
-        else
+        else if (woundedCounterText != null)
         {
             woundedCounterText.text = (currentWoundedTurns / 2 + currentWoundedTurns % 2).ToString();
         }
     }
-    
+
     void UnWounded()
     {
         moveDirections = kingMovementPattern;
 
-        woundedCounterText.text = "";
+        if (woundedCounterText != null) woundedCounterText.text = "";
 
         spriteRenderer.sprite = activeSprite;
 

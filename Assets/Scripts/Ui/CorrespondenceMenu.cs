@@ -31,6 +31,9 @@ public class CorrespondenceMenu : MonoBehaviour
 #if UNITY_WEBGL && !UNITY_EDITOR
     [DllImport("__Internal")]
     static extern void CopyToClipboard(string text);
+
+    [DllImport("__Internal")]
+    static extern void PasteFromClipboard(string targetObjectName);
 #endif
 
     public void OnCopyCodeClicked()
@@ -47,6 +50,29 @@ public class CorrespondenceMenu : MonoBehaviour
 #endif
 
         SetStatus("Code copied!");
+    }
+
+    public void OnPasteCodeClicked()
+    {
+#if UNITY_WEBGL && !UNITY_EDITOR
+        // Response comes back later via OnClipboardPasted/OnClipboardPasteFailed below.
+        PasteFromClipboard(gameObject.name);
+#else
+        if (roomCodeInput != null) roomCodeInput.text = GUIUtility.systemCopyBuffer;
+        SetStatus("Code pasted.");
+#endif
+    }
+
+    // Called by ClipboardCopy.jslib via SendMessage once the browser's async clipboard read resolves.
+    void OnClipboardPasted(string text)
+    {
+        if (roomCodeInput != null) roomCodeInput.text = text.Trim().ToUpperInvariant();
+        SetStatus("Code pasted.");
+    }
+
+    void OnClipboardPasteFailed(string _)
+    {
+        SetStatus("Couldn't read clipboard -- paste it manually.");
     }
 
     public void OnPlayClicked()

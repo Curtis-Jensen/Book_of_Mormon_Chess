@@ -15,5 +15,21 @@ mergeInto(LibraryManager.library, {
             document.execCommand("copy");
             document.body.removeChild(textarea);
         }
+    },
+
+    // Paste is async in the browser, so the result comes back via SendMessage
+    // instead of a return value -- targetObjectNamePtr must be an active
+    // GameObject with an OnClipboardPasted(string) method.
+    PasteFromClipboard: function (targetObjectNamePtr) {
+        var targetObjectName = UTF8ToString(targetObjectNamePtr);
+        if (navigator.clipboard && navigator.clipboard.readText) {
+            navigator.clipboard.readText().then(function (text) {
+                SendMessage(targetObjectName, "OnClipboardPasted", text);
+            }).catch(function () {
+                SendMessage(targetObjectName, "OnClipboardPasteFailed", "");
+            });
+        } else {
+            SendMessage(targetObjectName, "OnClipboardPasteFailed", "");
+        }
     }
 });

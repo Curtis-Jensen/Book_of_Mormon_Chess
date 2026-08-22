@@ -1,27 +1,27 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 namespace Ui
 {
-    // Put this on the panel that should show first when the game starts.
-    // On Awake it activates itself and deactivates its sibling panels,
-    // so leaving the wrong panel active in the editor can't break a build.
+    // Put this on an always-active object (e.g. the Canvas) and list the
+    // objects that should be active when the game starts. Deactivates every
+    // direct child of this object, then reactivates the listed ones, so
+    // forgetting to reset panel visibility while working on menus can't
+    // break a build.
     public class DefaultMenuPanel : MonoBehaviour
     {
-        [Tooltip("Parent whose direct children are the menu panels. Defaults to this object's parent.")]
-        [SerializeField] private Transform panelsRoot;
+        [SerializeField] private List<GameObject> initiallyActiveObjects;
 
         private void Awake()
         {
-            Transform root = panelsRoot != null ? panelsRoot : transform.parent;
-            if (root == null)
+            foreach (Transform child in transform)
             {
-                gameObject.SetActive(true);
-                return;
+                child.gameObject.SetActive(false);
             }
 
-            foreach (Transform child in root)
+            foreach (GameObject obj in initiallyActiveObjects)
             {
-                child.gameObject.SetActive(child == transform);
+                obj.SetActive(true);
             }
         }
     }

@@ -33,7 +33,7 @@ public class CorrespondenceMenu : MonoBehaviour
     static extern void CopyToClipboard(string text);
 
     [DllImport("__Internal")]
-    static extern void PasteFromClipboard(string targetObjectName);
+    static extern void FocusPasteCatcher(string targetObjectName);
 #endif
 
     public void OnCopyCodeClicked()
@@ -55,15 +55,17 @@ public class CorrespondenceMenu : MonoBehaviour
     public void OnPasteCodeClicked()
     {
 #if UNITY_WEBGL && !UNITY_EDITOR
-        // Response comes back later via OnClipboardPasted/OnClipboardPasteFailed below.
-        PasteFromClipboard(gameObject.name);
+        // Focuses a hidden native input and waits for the browser's own paste
+        // event -- result comes back later via OnClipboardPasted/OnClipboardPasteFailed.
+        FocusPasteCatcher(gameObject.name);
+        SetStatus("Press Ctrl+V to paste...");
 #else
         if (roomCodeInput != null) roomCodeInput.text = GUIUtility.systemCopyBuffer;
         SetStatus("Code pasted.");
 #endif
     }
 
-    // Called by ClipboardCopy.jslib via SendMessage once the browser's async clipboard read resolves.
+    // Called by ClipboardCopy.jslib via SendMessage once the browser's native paste event fires.
     void OnClipboardPasted(string text)
     {
         if (roomCodeInput != null) roomCodeInput.text = text.Trim().ToUpperInvariant();
@@ -72,7 +74,7 @@ public class CorrespondenceMenu : MonoBehaviour
 
     void OnClipboardPasteFailed(string _)
     {
-        SetStatus("Couldn't read clipboard -- paste it manually.");
+        SetStatus("Couldn't read what was pasted -- try typing it in.");
     }
 
     public void OnPlayClicked()

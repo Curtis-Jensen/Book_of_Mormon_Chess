@@ -29,26 +29,42 @@ mergeInto(LibraryManager.library, {
         }
     },
 
-    // Paste is async in the browser, so the result comes back via SendMessage
-    // instead of a return value -- targetObjectNamePtr must be an active
-    // GameObject with an OnClipboardPasted(string) method.
-    PasteFromClipboard: function (targetObjectNamePtr) {
+    // navigator.clipboard.readText() needs a "clipboard-read" permission that
+    // itch.io's iframe never grants, with no legacy fallback (unlike copy). So
+    // instead of asking the Clipboard API for permission, this focuses a hidden
+    // native input and waits for the browser's own paste event (fired when the
+    // user presses Ctrl+V or right-click-pastes) -- that's driven by the user's
+    // OS-level paste action, not a JS clipboard read, so it isn't gated by the
+    // Permissions Policy. Result comes back via SendMessage since it's async;
+    // targetObjectNamePtr must be an active GameObject with OnClipboardPasted(string)
+    // and OnClipboardPasteFailed(string) methods.
+    FocusPasteCatcher: function (targetObjectNamePtr) {
         var targetObjectName = UTF8ToString(targetObjectNamePtr);
-        // There's no legacy fallback for reading the clipboard (execCommand("paste")
-        // is blocked by browsers for security reasons), so if the Permissions Policy
-        // disallows this (e.g. Chrome in an itch.io iframe), we just report failure.
-        if (navigator.clipboard && navigator.clipboard.readText) {
-            try {
-                navigator.clipboard.readText().then(function (text) {
-                    SendMessage(targetObjectName, "OnClipboardPasted", text);
-                }).catch(function () {
-                    SendMessage(targetObjectName, "OnClipboardPasteFailed", "");
-                });
-            } catch (e) {
+
+        var catcher = document.getElementById("clipboardPasteCatcher");
+        if (!catcher) {
+            catcher = document.createElement("input");
+            catcher.id = "clipboardPasteCatcher";
+            catcher.type = "text";
+            catcher.style.position = "fixed";
+            catcher.style.opacity = "0";
+            catcher.style.top = "0";
+            catcher.style.left = "0";
+            document.body.appendChild(catcher);
+        }
+
+        catcher.value = "";
+        catcher.onpaste = function (event) {
+            var text = (event.clipboardData || window.clipboardData).getData("text");
+            event.preventDefault();
+            catcher.blur();
+            if (text) {
+                SendMessage(targetObjectName, "OnClipboardPasted", text);
+            } else {
                 SendMessage(targetObjectName, "OnClipboardPasteFailed", "");
             }
-        } else {
-            SendMessage(targetObjectName, "OnClipboardPasteFailed", "");
-        }
+        };
+
+        catcher.focus();
     }
 });

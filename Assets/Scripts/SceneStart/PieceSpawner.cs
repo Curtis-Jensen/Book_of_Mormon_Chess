@@ -77,7 +77,6 @@ public class PieceSpawner : MonoBehaviour
         // SettingsDefaultsSeeder guarantees this key exists once the menu scene has
         // loaded, seeded from the Settings dropdown's own configured defaultValue.
         var colorSelection = PlayerPrefs.GetInt(player.name + "color");//🎨
-        Debug.Log($"[PieceSpawner] {player.name}color = {colorSelection} (HasKey: {PlayerPrefs.HasKey(player.name + "color")})");
         if (pieceScript is King)
         {
             return pieceSets.colorSets[colorSelection].kingColor;

@@ -59,11 +59,6 @@ public class DropdownSaver : MonoBehaviour
         if (!PlayerPrefs.HasKey(toSave))
         {
             PlayerPrefs.SetInt(toSave, defaultValue);
-            Debug.Log($"[DropdownSaver] Seeded '{toSave}' = {defaultValue} on '{gameObject.name}'");
-        }
-        else
-        {
-            Debug.Log($"[DropdownSaver] '{toSave}' already had a value ({PlayerPrefs.GetInt(toSave)}), not seeding.");
         }
     }
 }

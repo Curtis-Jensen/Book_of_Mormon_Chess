@@ -68,7 +68,11 @@ public class TurnProgresser : MonoBehaviour
                 CorrespondenceGameRepository.Instance.FetchGame(
                     gameId,
                     onFetched: game => { ClearError(); OnRemoteStateReceived(game); },
-                    onError: message => ShowError("Couldn't check for your opponent's move -- will try again."));
+                    onError: message =>
+                    {
+                        Debug.LogWarning("Correspondence poll failed: " + message);
+                        ShowError("Couldn't check for your opponent's move -- will try again.");
+                    });
             }
 
             yield return new WaitForSeconds(correspondencePollSeconds);

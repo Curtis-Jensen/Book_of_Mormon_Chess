@@ -280,7 +280,6 @@ public class BoardSetup : MonoBehaviour
                     Piece piece = tile.transform.GetChild(0).GetComponent<Piece>();
                     if (piece != null)
                     {
-                        Debug.Log($"We actually reached this!");
                         //piece.teamOne = y < 2; // Assuming white pawns are on the first two rows
                     }
                 }

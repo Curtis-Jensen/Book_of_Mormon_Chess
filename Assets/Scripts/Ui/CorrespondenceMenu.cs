@@ -18,13 +18,19 @@ public class CorrespondenceMenu : MonoBehaviour
     public TMP_InputField roomCodeInput;
     public TMP_Text statusText;
 
+    // Guards against clicking Play before anonymous sign-in actually finishes -- without
+    // this, PlayGame's Firestore request goes out with no valid auth token yet and gets
+    // rejected with a 403, which looks like "can't reach that room" but is really just
+    // a click-before-ready race.
+    bool isReady;
+
     void Start()
     {
         if (roomCodeInput != null) roomCodeInput.text = GenerateRoomCode();
 
         SetStatus("Connecting...");
         CorrespondenceGameRepository.Instance.Initialize(
-            onReady: () => SetStatus("Ready."),
+            onReady: () => { isReady = true; SetStatus("Ready."); },
             onError: message => SetStatus("Couldn't connect: " + message));
     }
 
@@ -79,6 +85,12 @@ public class CorrespondenceMenu : MonoBehaviour
 
     public void OnPlayClicked()
     {
+        if (!isReady)
+        {
+            SetStatus("Still connecting -- try again in a moment.");
+            return;
+        }
+
         if (roomCodeInput == null || string.IsNullOrWhiteSpace(roomCodeInput.text))
         {
             SetStatus("Enter a room code first.");

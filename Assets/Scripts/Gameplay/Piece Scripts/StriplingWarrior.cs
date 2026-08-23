@@ -37,6 +37,16 @@ public class StriplingWarrior : Piece
         base.Start();
     }
 
+    // Same leak as King's OnThreatsReady subscription: TurnProgresser is a persistent
+    // singleton, so a destroyed StriplingWarrior (base.Die() when killed by another
+    // Stripling Warrior, or GameStateSerializer's direct-Destroy board reset) would stay
+    // subscribed to OnMoveEnd forever and throw on the next move without this.
+    void OnDestroy()
+    {
+        if (TurnProgresser.Instance != null)
+            TurnProgresser.Instance.OnMoveEnd -= DecrementWoundedCounter;
+    }
+
     void SetupWounding()
     {
         moveDirections = kingMovementPattern;

@@ -26,6 +26,18 @@ public class King : Piece
         base.Start();
     }
 
+    // ThreatCoordinator is a persistent singleton -- without this, a captured/destroyed
+    // King stays subscribed to its OnThreatsReady event forever, and the next move throws
+    // a MissingReferenceException trying to call IsInCheck() on a destroyed object. This
+    // covers both a normal capture (Die() -> Destroy()) and GameStateSerializer's bulk
+    // board reset (which Destroys pieces directly, bypassing Die() entirely) since
+    // OnDestroy() fires either way.
+    void OnDestroy()
+    {
+        if (ThreatCoordinator.Instance != null)
+            ThreatCoordinator.Instance.OnThreatsReady -= IsInCheck;
+    }
+
     public void IsInCheck()
     {
         var kingPosition = new Vector2Int(Mathf.RoundToInt(transform.position.x), Mathf.RoundToInt(transform.position.y));

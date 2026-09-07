@@ -9,8 +9,7 @@ public class DropdownSaver : MonoBehaviour
 {
     TMP_Dropdown dropdown;
     public string toSave;
-    public int defaultValue;
-    
+
     private void Reset()
     {
         // This ensures we have the dropdown component when the script is first added
@@ -25,7 +24,10 @@ public class DropdownSaver : MonoBehaviour
             dropdown = GetComponent<TMP_Dropdown>();
         }
 
-        Save();
+        // Do NOT call Save() here. OnValidate fires for ANY Inspector edit on this
+        // component -- including editing Default Value itself -- and Save() writes
+        // the dropdown's current runtime value (unrelated to the field you just
+        // edited), silently overwriting PlayerPrefs back to the old value.
     }
 
     private void OnEnable()
@@ -42,7 +44,10 @@ public class DropdownSaver : MonoBehaviour
         
         if (dropdown != null)
         {
-            dropdown.value = PlayerPrefs.GetInt(toSave, defaultValue);
+            // dropdown.value here is still whatever was configured on the dropdown itself
+            // in the Editor (Awake/SeedIfMissing runs before this), so a missing key falls
+            // back to that -- the dropdown's own Value field is the one source of truth.
+            dropdown.value = PlayerPrefs.GetInt(toSave, dropdown.value);
             Save();
         }
     }
@@ -52,13 +57,18 @@ public class DropdownSaver : MonoBehaviour
         PlayerPrefs.SetInt(toSave, dropdown.value);
     }
 
-    // Called by SettingsDefaultsSeeder so this control's own configured defaultValue
-    // becomes the saved value even if this GameObject is still inactive.
+    // Called by SettingsDefaultsSeeder so the dropdown's own configured Value becomes
+    // the saved default even if this GameObject is still inactive.
     public void SeedIfMissing()
     {
+        if (dropdown == null)
+        {
+            dropdown = GetComponent<TMP_Dropdown>();
+        }
+
         if (!PlayerPrefs.HasKey(toSave))
         {
-            PlayerPrefs.SetInt(toSave, defaultValue);
+            PlayerPrefs.SetInt(toSave, dropdown.value);
         }
     }
 }

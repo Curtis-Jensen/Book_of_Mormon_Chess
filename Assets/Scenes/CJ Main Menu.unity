@@ -2741,28 +2741,40 @@ PrefabInstance:
     m_TransformParent: {fileID: 1172850867}
     m_Modifications:
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Value
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.size
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Birds
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
       value: Christmas
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[3].m_Text
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
       value: Classic
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      propertyPath: m_Options.m_Options.Array.data[3].m_Text
       value: Halloween
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      value: Lamanites
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.data[5].m_Text
-      value: Pixel Art
+      value: Nephites
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.data[6].m_Text
-      value: Birds
+      value: Pixel Art
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098095, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: toSave
@@ -2787,6 +2799,18 @@ PrefabInstance:
     - target: {fileID: 5335940650297098677, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Value
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650613117834, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650613117835, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 506.2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650613117835, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 25
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651395816856, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: defaultValue
@@ -4682,7 +4706,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSave: player4color
-  defaultValue: 1
 --- !u!114 &1172536692
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5318,7 +5341,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSave: player3color
-  defaultValue: 2
 --- !u!114 &1379454109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8306,7 +8328,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSave: player1style
-  defaultValue: 0
 --- !u!222 &5335940649919857021
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -9085,24 +9106,32 @@ PrefabInstance:
       value: 7
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[2].m_Text
+      propertyPath: m_Options.m_Options.Array.data[0].m_Text
+      value: Birds
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[1].m_Text
       value: Christmas
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[3].m_Text
+      propertyPath: m_Options.m_Options.Array.data[2].m_Text
       value: Classic
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
-      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      propertyPath: m_Options.m_Options.Array.data[3].m_Text
       value: Halloween
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Options.m_Options.Array.data[4].m_Text
+      value: Lamanites
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.data[5].m_Text
-      value: Pixel Art
+      value: Nephites
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.data[6].m_Text
-      value: Birds
+      value: Pixel Art
       objectReference: {fileID: 0}
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.data[7].m_Text
@@ -9119,6 +9148,18 @@ PrefabInstance:
     - target: {fileID: 5335940650297098677, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Value
       value: 3
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650613117834, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_IsActive
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650613117835, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 514.9
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650613117835, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 35.2
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651395816859, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -11928,7 +11969,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSave: player1style
-  defaultValue: 0
 --- !u!222 &5335940651925965845
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -12860,7 +12900,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSave: player2style
-  defaultValue: 1
 --- !u!224 &7961868994040236653
 RectTransform:
   m_ObjectHideFlags: 0
@@ -14296,7 +14335,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   toSave: player2style
-  defaultValue: 1
 --- !u!224 &7961868995489974021
 RectTransform:
   m_ObjectHideFlags: 0

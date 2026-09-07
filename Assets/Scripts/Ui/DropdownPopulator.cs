@@ -25,6 +25,11 @@ public class DropdownPopulator : MonoBehaviour
     /// </summary>
     public void PopulateDropdown()
     {
+        // ClearOptions() resets the dropdown's value to 0 as a side effect, which would
+        // wipe out whatever DropdownSaver already loaded from PlayerPrefs in OnEnable
+        // (OnEnable always runs before Start, so that value is already correct here).
+        int savedValue = gameModeDropdown.value;
+
         gameModeDropdown.ClearOptions();
         List<string> options = new();
 
@@ -35,5 +40,8 @@ public class DropdownPopulator : MonoBehaviour
         }
 
         gameModeDropdown.AddOptions(options);
+
+        gameModeDropdown.value = savedValue;
+        gameModeDropdown.RefreshShownValue();
     }
 }

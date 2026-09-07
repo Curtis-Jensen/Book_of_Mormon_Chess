@@ -304,6 +304,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   correspondencePollSeconds: 5
+  errorText: {fileID: 0}
   moveTime: 0.2
   boardSize: 8
   audioSource: {fileID: 0}
@@ -345,8 +346,6 @@ MonoBehaviour:
     isAi: 1
     faction: 0
     pieces: []
-  defaultPlayer1ColorIndex: 3
-  defaultPlayer2ColorIndex: 0
   pieceBounceHeight: 0.5
   piecebounceDuration: 0.5
   maxBounceDelay: 0.3
@@ -1020,7 +1019,7 @@ MonoBehaviour:
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
           m_IntArgument: 0
           m_FloatArgument: 0
-          m_StringArgument: BOM Main Menu
+          m_StringArgument: CJ Main Menu
           m_BoolArgument: 0
         m_CallState: 2
 --- !u!114 &502543869

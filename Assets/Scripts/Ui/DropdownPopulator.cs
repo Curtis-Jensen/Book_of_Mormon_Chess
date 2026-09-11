@@ -7,6 +7,10 @@ using UnityEngine;
 /// Generates dropdown options from available game mode configurations.
 /// Saving of the selected option is handled by DropdownSaver.
 /// </summary>
+// ExecuteAlways makes Start() (and therefore PopulateDropdown) run in the Editor as
+// soon as the component loads, not just when you press Play -- so the dropdown's
+// options always reflect PieceSets without needing a Play-mode test to see it.
+[ExecuteAlways]
 [RequireComponent(typeof(TMP_Dropdown))]
 public class DropdownPopulator : MonoBehaviour
 {
@@ -14,6 +18,15 @@ public class DropdownPopulator : MonoBehaviour
     private TMP_Dropdown gameModeDropdown;
 
     private void Start()
+    {
+        gameModeDropdown = GetComponent<TMP_Dropdown>();
+        PopulateDropdown();
+    }
+
+    // Also exposed as a button in the custom Inspector (see Editor/DropdownPopulatorEditor.cs)
+    // for forcing a refresh after editing PieceSets without waiting for a scene reload.
+    [ContextMenu("Populate Now")]
+    public void PopulateNow()
     {
         gameModeDropdown = GetComponent<TMP_Dropdown>();
         PopulateDropdown();

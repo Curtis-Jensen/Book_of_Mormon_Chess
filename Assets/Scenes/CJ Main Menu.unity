@@ -2812,6 +2812,14 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 25
       objectReference: {fileID: 0}
+    - target: {fileID: 5335940650764386728, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_text
+      value: Pixel Art
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650950236263, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 5335940651395816856, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: defaultValue
       value: 1
@@ -2827,6 +2835,14 @@ PrefabInstance:
     - target: {fileID: 5335940651395816858, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Name
       value: isAI
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940651395816859, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 97.2272
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940651395816859, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 377.91357
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651943581128, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Pivot.x
@@ -2920,6 +2936,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: Piece Style
       objectReference: {fileID: 0}
+    - target: {fileID: 7961868993826915849, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7961868994430493108, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_text
       value: Lamanites
@@ -2928,9 +2948,17 @@ PrefabInstance:
       propertyPath: m_Value
       value: 1
       objectReference: {fileID: 0}
+    - target: {fileID: 7961868995521135316, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 7961868995521135319, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: toSave
       value: player2style
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961868995521135319, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 7961868995521135319, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: defaultValue
@@ -9102,6 +9130,10 @@ PrefabInstance:
     m_TransformParent: {fileID: 1172850867}
     m_Modifications:
     - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Value
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940649958098080, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Options.m_Options.Array.size
       value: 7
       objectReference: {fileID: 0}
@@ -9161,9 +9193,21 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 35.2
       objectReference: {fileID: 0}
+    - target: {fileID: 5335940650764386728, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_text
+      value: Birds
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940650950236263, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Enabled
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5335940651395816859, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 99.5695
+      objectReference: {fileID: 0}
     - target: {fileID: 5335940651395816859, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 415.3
+      value: 385.08475
       objectReference: {fileID: 0}
     - target: {fileID: 5335940651715577125, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_AnchoredPosition.x
@@ -9260,6 +9304,14 @@ PrefabInstance:
     - target: {fileID: 5335940651943581131, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
       propertyPath: m_Name
       value: '"Nephites"'
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961868993826915849, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 7961868995521135319, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
+      propertyPath: m_Enabled
+      value: 0
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 3f08e9838cf9c4e2f9b6f7ffeb4be428, type: 3}
@@ -13007,6 +13059,16 @@ MonoBehaviour:
       m_Image: {fileID: 0}
     - m_Text: Lamanites
       m_Image: {fileID: 0}
+    - m_Text: Christmas
+      m_Image: {fileID: 0}
+    - m_Text: Classic
+      m_Image: {fileID: 0}
+    - m_Text: Halloween
+      m_Image: {fileID: 0}
+    - m_Text: Pixel Art
+      m_Image: {fileID: 0}
+    - m_Text: Birds
+      m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:
       m_Calls:
@@ -14441,6 +14503,16 @@ MonoBehaviour:
     - m_Text: Nephites
       m_Image: {fileID: 0}
     - m_Text: Lamanites
+      m_Image: {fileID: 0}
+    - m_Text: Christmas
+      m_Image: {fileID: 0}
+    - m_Text: Classic
+      m_Image: {fileID: 0}
+    - m_Text: Halloween
+      m_Image: {fileID: 0}
+    - m_Text: Pixel Art
+      m_Image: {fileID: 0}
+    - m_Text: Birds
       m_Image: {fileID: 0}
   m_OnValueChanged:
     m_PersistentCalls:

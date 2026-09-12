@@ -15,6 +15,13 @@ using UnityEngine;
 public class DropdownPopulator : MonoBehaviour
 {
     [SerializeField] private PieceSets pieceSets;
+
+    // Leave blank for the old "one dropdown picks a whole bundled set" behavior.
+    // Set to a piece type name (King, Queen, Rook, Bishop, Knight, Pawn) to populate
+    // this dropdown from that piece type's own PieceStyleOption[] instead, with each
+    // option's sprite shown as its icon -- for the per-piece-type mix-and-match UI.
+    [SerializeField] private string pieceTypeName;
+
     private TMP_Dropdown gameModeDropdown;
 
     private void Start()
@@ -44,12 +51,24 @@ public class DropdownPopulator : MonoBehaviour
         int savedValue = gameModeDropdown.value;
 
         gameModeDropdown.ClearOptions();
-        List<string> options = new();
+        List<TMP_Dropdown.OptionData> options = new();
 
-        // Add an option for each SceneConfig
-        foreach (var spriteSet in pieceSets.spriteSets)
+        if (string.IsNullOrEmpty(pieceTypeName))
         {
-            options.Add(spriteSet.name);
+            foreach (var spriteSet in pieceSets.spriteSets)
+            {
+                options.Add(new TMP_Dropdown.OptionData(spriteSet.name));
+            }
+        }
+        else
+        {
+            // Sprite goes on the OptionData itself so it shows up as the option's icon --
+            // requires the dropdown's Template Item and Caption to have an Image assigned
+            // to the TMP_Dropdown's "Item Image"/"Caption Image" fields in the Inspector.
+            foreach (var styleOption in pieceSets.GetOptions(pieceTypeName))
+            {
+                options.Add(new TMP_Dropdown.OptionData(styleOption.name, styleOption.sprite));
+            }
         }
 
         gameModeDropdown.AddOptions(options);

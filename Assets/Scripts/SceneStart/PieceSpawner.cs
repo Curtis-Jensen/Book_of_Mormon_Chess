@@ -89,14 +89,14 @@ public class PieceSpawner : MonoBehaviour
 
     void SetSprite(GameObject pieceInstance, GameObject piecePrefab, Player player, SpriteRenderer spriteRenderer)
     {
-        var styleChoice = PlayerPrefs.GetInt(player.name + "style"); //🎨
-        var spriteSet = pieceSets.spriteSets[styleChoice]; //🎨
+        var options = pieceSets.GetOptions(piecePrefab.name); //🎨
+        var styleChoice = PlayerPrefs.GetInt(player.name + "style" + piecePrefab.name); //🎨
+        var option = options[styleChoice];
 
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
+        spriteRenderer.sprite = option.sprite;
 
         pieceInstance.transform.localScale
-            = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);
+            = new Vector3(option.transformScale, option.transformScale, 1);
     }
 
     void SetDanceProperties(Piece pieceScript)

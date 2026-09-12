@@ -178,8 +178,9 @@ public abstract class Piece : MonoBehaviour
         //Spawn ghost
         Quaternion randomRotation = Quaternion.Euler(0f, 0f, UnityEngine.Random.Range(0f, 360f));
         var ghostInstance = Instantiate(ghost, transform.position, randomRotation);
+        ghostInstance.transform.localScale = transform.localScale;
 
-        ghostInstance.GetComponent<SpriteRenderer>().sprite = 
+        ghostInstance.GetComponent<SpriteRenderer>().sprite =
         GetComponent<SpriteRenderer>().sprite;
 
         ghostInstance.GetComponent<SpriteRenderer>().color = new Color(capturedPieceColor.r,

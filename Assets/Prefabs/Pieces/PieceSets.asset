@@ -57,9 +57,9 @@ MonoBehaviour:
     transformScale: 0.5
     King: {fileID: 21300000, guid: 74745aabfaa24ce4985d13a8f5eb25a0, type: 3}
     Queen: {fileID: 21300000, guid: 2aacdd4685d565a4b93eee23a6173229, type: 3}
-    Rook: {fileID: 21300000, guid: a255ba942e2e8f54baf57a08af2d60ce, type: 3}
+    Rook: {fileID: 21300000, guid: 72c06fef35eb94435a56af88c6c50bb3, type: 3}
     Bishop: {fileID: 21300000, guid: bcc89d3ed638c08419440c7872ee658b, type: 3}
-    Knight: {fileID: 21300000, guid: 8f96981e6b7071c4dac8a63dd78ae8da, type: 3}
+    Knight: {fileID: 21300000, guid: 8f1410ebd6397448480d079552a16ffa, type: 3}
     Pawn: {fileID: 21300000, guid: 9255915b45755154f864d80e2f8bb795, type: 3}
     StriplingWarrior: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
   - name: Halloween
@@ -150,8 +150,8 @@ MonoBehaviour:
     transformScale: 0.20785218
     sprite: {fileID: 21300000, guid: 6fa403afe3dce6c4d80796e070905fbe, type: 3}
   - name: Classic
-    transformScale: 0.087890625
-    sprite: {fileID: 21300000, guid: a255ba942e2e8f54baf57a08af2d60ce, type: 3}
+    transformScale: 0.4736842
+    sprite: {fileID: 21300000, guid: 72c06fef35eb94435a56af88c6c50bb3, type: 3}
   - name: Halloween
     transformScale: 0.2093023
     sprite: {fileID: 21300000, guid: 0406d3e874050d94497b79e18d9a66d4, type: 3}
@@ -194,8 +194,8 @@ MonoBehaviour:
     transformScale: 0.19354838
     sprite: {fileID: 21300000, guid: c21e1971d02a7cf4cb7c549ccb44e8d8, type: 3}
   - name: Classic
-    transformScale: 0.087890625
-    sprite: {fileID: 21300000, guid: 8f96981e6b7071c4dac8a63dd78ae8da, type: 3}
+    transformScale: 0.45685276
+    sprite: {fileID: 21300000, guid: 8f1410ebd6397448480d079552a16ffa, type: 3}
   - name: Halloween
     transformScale: 0.18947367
     sprite: {fileID: 21300000, guid: 9c041d2660b910c48a1085e430fc8b0e, type: 3}

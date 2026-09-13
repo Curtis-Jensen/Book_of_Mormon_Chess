@@ -35,7 +35,9 @@ public class DropdownSaver : MonoBehaviour
         LoadSavedValue();
     }
 
-    private void LoadSavedValue()
+    // Public so PieceCustomizationPanelController can force a reload after retargeting
+    // toSave to a different player's key.
+    public void LoadSavedValue()
     {
         if (dropdown == null)
         {

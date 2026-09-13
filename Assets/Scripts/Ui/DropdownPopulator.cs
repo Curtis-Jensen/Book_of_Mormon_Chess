@@ -21,6 +21,7 @@ public class DropdownPopulator : MonoBehaviour
     // this dropdown from that piece type's own PieceStyleOption[] instead, with each
     // option's sprite shown as its icon -- for the per-piece-type mix-and-match UI.
     [SerializeField] private string pieceTypeName;
+    public string PieceTypeName => pieceTypeName;
 
     private TMP_Dropdown gameModeDropdown;
 

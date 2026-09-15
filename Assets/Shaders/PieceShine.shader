@@ -59,7 +59,9 @@ Shader "Sprites/PieceShine"
                 float diag = (i.uv.x + i.uv.y) * 0.5;
                 float band = 1 - smoothstep(0, _ShineWidth, abs(diag - _ShineOffset));
 
-                fixed4 col = _ShineColor * band * spriteAlpha;
+                // Blend One One (additive) ignores the alpha channel that's written out, so
+                // _ShineColor.a has to scale the RGB directly here to actually control intensity.
+                fixed4 col = fixed4(_ShineColor.rgb * band * spriteAlpha * _ShineColor.a, 1);
                 return col;
             }
             ENDCG

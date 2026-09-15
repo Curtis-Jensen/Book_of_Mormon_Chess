@@ -128,9 +128,10 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   sourceRenderer: {fileID: 5959132904255804860}
   shineRenderer: {fileID: 3610656743796899845}
-  interval: 15
+  interval: 5
+  intervalRandomness: 1
   sweepDuration: 0.9
-  shineColor: {r: 1, g: 1, b: 1, a: 0.3137255}
+  shineColor: {r: 1, g: 1, b: 1, a: 0.5}
 --- !u!1 &4288859111428040620
 GameObject:
   m_ObjectHideFlags: 0
@@ -205,7 +206,7 @@ SpriteRenderer:
   m_SortingLayer: -1
   m_SortingOrder: 1
   m_Sprite: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 0.49803922}
+  m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0

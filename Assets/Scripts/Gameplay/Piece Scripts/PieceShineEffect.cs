@@ -11,6 +11,7 @@ public class PieceShineEffect : MonoBehaviour
     [SerializeField] SpriteRenderer sourceRenderer;
     [SerializeField] SpriteRenderer shineRenderer;
     [SerializeField] float interval = 15f;
+    [SerializeField, Range(0f, 1f)] float intervalRandomness = 0.3f;
     [SerializeField] float sweepDuration = 0.9f;
     [SerializeField] Color shineColor = new(1f, 1f, 1f, 0.6f);
 
@@ -24,7 +25,8 @@ public class PieceShineEffect : MonoBehaviour
     {
         if (sourceRenderer == null) sourceRenderer = GetComponent<SpriteRenderer>();
 
-        shineMaterial = new Material(Shader.Find("Sprites/PieceShine")) { color = shineColor };
+        shineMaterial = new Material(Shader.Find("Sprites/PieceShine"));
+        shineMaterial.SetColor("_ShineColor", shineColor);
         shineRenderer.material = shineMaterial;
         shineRenderer.enabled = false;
     }
@@ -47,7 +49,8 @@ public class PieceShineEffect : MonoBehaviour
     {
         while (true)
         {
-            yield return new WaitForSeconds(interval);
+            float wait = interval * Random.Range(1f - intervalRandomness, 1f + intervalRandomness);
+            yield return new WaitForSeconds(wait);
             yield return Sweep();
         }
     }

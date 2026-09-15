@@ -95,6 +95,13 @@ public class PieceSpawner : MonoBehaviour
 
         spriteRenderer.sprite = option.sprite;
 
+        if (option.animatorController != null)
+        {
+            var animator = pieceInstance.GetComponent<Animator>();
+            if (animator == null) animator = pieceInstance.AddComponent<Animator>();
+            animator.runtimeAnimatorController = option.animatorController;
+        }
+
         pieceInstance.transform.localScale
             = new Vector3(option.transformScale, option.transformScale, 1);
     }

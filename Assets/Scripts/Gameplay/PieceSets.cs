@@ -46,6 +46,11 @@ public class PieceStyleOption
     public string name;
     public float transformScale;
     public Sprite sprite;
+
+    // Set only for animated piece styles (e.g. the Minecraft End Crystal Queen).
+    // PieceSpawner adds an Animator with this controller instead of leaving the
+    // piece as a static sprite.
+    public RuntimeAnimatorController animatorController;
 }
 
 [System.Serializable]

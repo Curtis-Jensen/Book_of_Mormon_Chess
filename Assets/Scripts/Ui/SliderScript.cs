@@ -11,7 +11,6 @@ public class SliderScript : MonoBehaviour
 
     private void Start()
     {
-        slider.value = Random.Range(slider.minValue, slider.maxValue);
         UpdateInput();
     }
 

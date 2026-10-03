@@ -60,6 +60,9 @@ public class EndToEndTests : MonoBehaviour
 
     private void OnGameEnded(int losingPlayerIndex)
     {
+        // Normal games end too -- only advance when StartTest actually kicked off a run
+        if (sceneLoader == null) return;
+
         int winningPlayerIndex = losingPlayerIndex == 0 ? 1 : 0;
         Debug.Log($"Game ended in scene {currentSceneIndex} with player {winningPlayerIndex} winning (player {losingPlayerIndex} lost)");
         currentSceneIndex++;

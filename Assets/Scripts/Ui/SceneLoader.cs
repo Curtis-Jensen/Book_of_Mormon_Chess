@@ -14,6 +14,12 @@ public class SceneLoader : MonoBehaviour
 {
     public SceneConfig[] sceneConfigs;
 
+    void Awake()
+    {
+        // Lets the victory screen launch the next chapter without coming back here
+        ChapterProgress.SaveSetups(sceneConfigs);
+    }
+
     //Called by the main menu so it knows which scene to go to
     public void SetupNewScene()
     {
@@ -36,6 +42,9 @@ public class SceneLoader : MonoBehaviour
     public void LoadWithConfig(SceneConfig config, bool isCorrespondence)
     {
         if (!isCorrespondence) PlayerPrefs.SetInt("correspondenceMode", 0);
+
+        // Online games never count toward unlocking training chapters
+        ChapterProgress.SetCurrentChapter(isCorrespondence ? null : config.dropDownOptionName);
 
         PlayerPrefs.SetInt("backRowCount", config.backRowPrefabs.Length);
         for (int i = 0; i < config.backRowPrefabs.Length; i++)

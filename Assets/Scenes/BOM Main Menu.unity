@@ -590,11 +590,11 @@ RectTransform:
   m_Father: {fileID: 1032377135}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0.5, y: 0.5}
-  m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -25}
+  m_AnchorMin: {x: 0, y: 0.5}
+  m_AnchorMax: {x: 0, y: 0.5}
+  m_AnchoredPosition: {x: -8, y: 0}
   m_SizeDelta: {x: 19.8404, y: 20}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_Pivot: {x: 1, y: 0.5}
 --- !u!114 &53687847
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,8 +1517,8 @@ MonoBehaviour:
   m_fontMaterials: []
   m_fontColor32:
     serializedVersion: 2
-    rgba: 4278190080
-  m_fontColor: {r: 0, g: 0, b: 0, a: 1}
+    rgba: 4279179807
+  m_fontColor: {r: 0.12, g: 0.1, b: 0.06, a: 1}
   m_enableVertexGradient: 0
   m_colorMode: 3
   m_fontColorGradient:
@@ -1535,15 +1535,15 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 14
-  m_fontSizeBase: 14
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 18
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 1
-  m_VerticalAlignment: 256
+  m_HorizontalAlignment: 2
+  m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
   m_wordSpacing: 0
@@ -5516,6 +5516,7 @@ GameObject:
   - component: {fileID: 1032377135}
   - component: {fileID: 1032377137}
   - component: {fileID: 1032377136}
+  - component: {fileID: 1032377138}
   m_Layer: 5
   m_Name: '"4 Players"'
   m_TagString: Untagged
@@ -5541,9 +5542,9 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -300, y: 105}
-  m_SizeDelta: {x: 200, y: 26.0311}
-  m_Pivot: {x: 0.5, y: 0.5}
+  m_AnchoredPosition: {x: -297.53223, y: 95}
+  m_SizeDelta: {x: 170, y: 26}
+  m_Pivot: {x: 0, y: 0.5}
 --- !u!114 &1032377136
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -5591,14 +5592,14 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 18
-  m_fontSizeBase: 18
+  m_fontSize: 20
+  m_fontSizeBase: 20
   m_fontWeight: 400
   m_enableAutoSizing: 0
   m_fontSizeMin: 1
   m_fontSizeMax: 72
   m_fontStyle: 0
-  m_HorizontalAlignment: 2
+  m_HorizontalAlignment: 1
   m_VerticalAlignment: 512
   m_textAlignment: 65535
   m_characterSpacing: 0
@@ -5641,6 +5642,23 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1032377134}
   m_CullTransparentMesh: 1
+--- !u!114 &1032377138
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1032377134}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 91ef57dbbcc444a8bb53e6055ffa2e50, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  toggle: {fileID: 53687848}
+  dependentRows:
+  - {fileID: 5335940651981885468}
+  - {fileID: 5335940649942588788}
+  dimmedAlpha: 0.35
 --- !u!1 &1075836235
 GameObject:
   m_ObjectHideFlags: 0
@@ -11160,6 +11178,7 @@ GameObject:
   - component: {fileID: 5335940649942588787}
   - component: {fileID: 5335940649942588781}
   - component: {fileID: 5335940649942588786}
+  - component: {fileID: 5335940649942588788}
   m_Layer: 5
   m_Name: '"Player 4"'
   m_TagString: Untagged
@@ -11280,6 +11299,18 @@ RectTransform:
   m_AnchoredPosition: {x: -219, y: -165}
   m_SizeDelta: {x: -559.8795, y: -188}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &5335940649942588788
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335940649942588784}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!224 &5335940650031463993
 RectTransform:
   m_ObjectHideFlags: 0
@@ -15025,6 +15056,7 @@ GameObject:
   - component: {fileID: 5335940651981885467}
   - component: {fileID: 5335940651981885445}
   - component: {fileID: 5335940651981885466}
+  - component: {fileID: 5335940651981885468}
   m_Layer: 5
   m_Name: '"Player 3"'
   m_TagString: Untagged
@@ -15145,6 +15177,18 @@ RectTransform:
   m_AnchoredPosition: {x: -219, y: -100}
   m_SizeDelta: {x: -559.8795, y: -188}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!225 &5335940651981885468
+CanvasGroup:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5335940651981885464}
+  m_Enabled: 1
+  m_Alpha: 1
+  m_Interactable: 1
+  m_BlocksRaycasts: 1
+  m_IgnoreParentGroups: 0
 --- !u!222 &7961868993825894724
 CanvasRenderer:
   m_ObjectHideFlags: 0

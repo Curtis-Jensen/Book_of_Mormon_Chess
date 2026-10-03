@@ -13,6 +13,14 @@ public class EndingManager : HoardEndingManager
     [SerializeField] Color nephiteWinColor;
     [SerializeField] Color lamaniteWinColor;
 
+    [Header("Victory screen")]
+    [SerializeField] TMP_Text winnerText;
+    [SerializeField] TMP_Text unlockText;
+    [SerializeField] GameObject playAgainButton;
+    [SerializeField] GameObject nextChapterButton;
+
+    string unlockedChapter;
+
     int[] factionCounts;
 
     void Awake()
@@ -89,6 +97,46 @@ public class EndingManager : HoardEndingManager
 
         SetFlagColor(winningPlayerIndex);
         CreateParty(winningPlayerIndex);
+
+        bool online = PlayerPrefs.GetInt("correspondenceMode") == 1;
+
+        // Only a human beating the board unlocks the next training chapter
+        unlockedChapter = null;
+        if (!pieceSpawner.players[winningPlayerIndex].isAi && !online)
+            unlockedChapter = ChapterProgress.MarkCurrentChapterWon();
+
+        ShowVictoryDetails(winningPlayerIndex, online);
+    }
+
+    void ShowVictoryDetails(int winningPlayerIndex, bool online)
+    {
+        if (winnerText != null)
+            winnerText.text = winningPlayerIndex % 2 == 0 ? "Nephites win!" : "Lamanites win!";
+
+        if (unlockText != null)
+        {
+            unlockText.gameObject.SetActive(unlockedChapter != null);
+            unlockText.text = $"{unlockedChapter} unlocked";
+        }
+
+        // Online games can't be restarted from here, and a chapter only offers
+        // "Next" once it's actually unlocked
+        if (playAgainButton != null) playAgainButton.SetActive(!online);
+
+        string next = ChapterProgress.NextOf(ChapterProgress.CurrentChapter);
+        if (nextChapterButton != null)
+            nextChapterButton.SetActive(!online && next != null && ChapterProgress.IsUnlocked(next));
+    }
+
+    public void PlayAgain()
+    {
+        UnityEngine.SceneManagement.SceneManager.LoadScene(UnityEngine.SceneManagement.SceneManager.GetActiveScene().name);
+    }
+
+    public void NextChapter()
+    {
+        ChapterProgress.RequestAutoStart(ChapterProgress.NextOf(ChapterProgress.CurrentChapter));
+        UnityEngine.SceneManagement.SceneManager.LoadScene("BOM Main Menu");
     }
 
     void SetFlagColor(int winningPlayerIndex)

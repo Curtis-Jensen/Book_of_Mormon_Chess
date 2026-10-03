@@ -2432,8 +2432,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   musicChoices:
-  - music: {fileID: 8300000, guid: df42be9f105774e71a5f3eb61d6ba434, type: 3}
-    isCopyrighted: 1
+  - music: {fileID: 8300000, guid: 97482c9c000c4bb0b909475a41a023d0, type: 3}
+    isCopyrighted: 0
 --- !u!4 &279560620
 Transform:
   m_ObjectHideFlags: 0
@@ -2461,7 +2461,7 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.35
   m_Pitch: 1
   Loop: 0
   Mute: 0

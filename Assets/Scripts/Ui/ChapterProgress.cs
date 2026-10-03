@@ -12,6 +12,7 @@ public static class ChapterProgress
     };
 
     const string CurrentChapterKey = "currentChapter";
+    const string AutoStartKey = "autoStartChapter";
 
     static string WonKey(string chapter) => $"chapterWon_{chapter}";
 
@@ -33,13 +34,36 @@ public static class ChapterProgress
     // Called by SceneLoader so the Duel scene knows which chapter it's playing
     public static void SetCurrentChapter(string chapter) => PlayerPrefs.SetString(CurrentChapterKey, chapter ?? "");
 
-    public static void MarkCurrentChapterWon()
-    {
-        string chapter = PlayerPrefs.GetString(CurrentChapterKey, "");
-        if (Array.IndexOf(Order, chapter) < 0) return;
+    public static string CurrentChapter => PlayerPrefs.GetString(CurrentChapterKey, "");
 
+    // Chapter after this one in the unlock order, or null at the end / outside the list
+    public static string NextOf(string chapter)
+    {
+        int index = Array.IndexOf(Order, chapter);
+        return index < 0 || index + 1 >= Order.Length ? null : Order[index + 1];
+    }
+
+    // Returns the chapter this win newly unlocked, or null if nothing new opened up
+    public static string MarkCurrentChapterWon()
+    {
+        string chapter = CurrentChapter;
+        if (Array.IndexOf(Order, chapter) < 0) return null;
+
+        bool alreadyWon = IsWon(chapter);
         PlayerPrefs.SetInt(WonKey(chapter), 1);
         PlayerPrefs.Save();
+
+        return alreadyWon ? null : NextOf(chapter);
+    }
+
+    // The Duel scene has no chapter list, so "Next Chapter" asks the menu to launch it on load
+    public static void RequestAutoStart(string chapter) => PlayerPrefs.SetString(AutoStartKey, chapter);
+
+    public static string TakeAutoStart()
+    {
+        string chapter = PlayerPrefs.GetString(AutoStartKey, "");
+        PlayerPrefs.DeleteKey(AutoStartKey);
+        return string.IsNullOrEmpty(chapter) ? null : chapter;
     }
 
     public static void ResetAll()

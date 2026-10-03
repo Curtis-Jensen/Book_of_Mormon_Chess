@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.UI;
 
 // Put on a chapter button next to its SceneButton. Disables the button, greys its
-// piece icons, and adds a "Win X to unlock" line until ChapterProgress unlocks it.
+// piece icons, and adds a "Locked" line until ChapterProgress unlocks it.
 [RequireComponent(typeof(Button), typeof(SceneButton))]
 public class ChapterLock : MonoBehaviour
 {
@@ -30,7 +30,7 @@ public class ChapterLock : MonoBehaviour
         {
             label.text = unlocked
                 ? chapter
-                : $"{chapter}\n<size=55%>Win {ChapterProgress.PrerequisiteOf(chapter)} to unlock</size>";
+                : $"{chapter}\n<size=60%>Locked</size>";
         }
     }
 }

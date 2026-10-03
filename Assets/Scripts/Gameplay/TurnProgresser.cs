@@ -103,6 +103,9 @@ public class TurnProgresser : MonoBehaviour
     GameDoc latestGame;
     bool applyingRemoteState;
     bool hasAppliedInitialState;
+
+    public int CurrentTurn => playerTurn;
+    public bool HasInitialState => hasAppliedInitialState;
     int lastMoveFromX = -1, lastMoveFromY = -1, lastMoveToX = -1, lastMoveToY = -1;
 
     protected int playerTurn = 0;

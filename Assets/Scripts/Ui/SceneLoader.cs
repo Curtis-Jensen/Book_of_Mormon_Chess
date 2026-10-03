@@ -37,6 +37,9 @@ public class SceneLoader : MonoBehaviour
     {
         if (!isCorrespondence) PlayerPrefs.SetInt("correspondenceMode", 0);
 
+        // Online games never count toward unlocking training chapters
+        ChapterProgress.SetCurrentChapter(isCorrespondence ? null : config.dropDownOptionName);
+
         PlayerPrefs.SetInt("backRowCount", config.backRowPrefabs.Length);
         for (int i = 0; i < config.backRowPrefabs.Length; i++)
             PlayerPrefs.SetString($"backRowPrefab_{i}", config.backRowPrefabs[i].name);

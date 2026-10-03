@@ -89,6 +89,10 @@ public class EndingManager : HoardEndingManager
 
         SetFlagColor(winningPlayerIndex);
         CreateParty(winningPlayerIndex);
+
+        // Only a human beating the board unlocks the next training chapter
+        if (!pieceSpawner.players[winningPlayerIndex].isAi && PlayerPrefs.GetInt("correspondenceMode") != 1)
+            ChapterProgress.MarkCurrentChapterWon();
     }
 
     void SetFlagColor(int winningPlayerIndex)

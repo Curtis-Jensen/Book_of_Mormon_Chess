@@ -81,7 +81,7 @@ public class CorrespondenceGameRepository : MonoBehaviour
         var url = $"https://securetoken.googleapis.com/v1/token?key={webApiKey}";
         var formBody = $"grant_type=refresh_token&refresh_token={UnityWebRequest.EscapeURL(refreshToken)}";
 
-        var request = new UnityWebRequest(url, "POST");
+        using var request = new UnityWebRequest(url, "POST");
         request.uploadHandler = new UploadHandlerRaw(Encoding.UTF8.GetBytes(formBody));
         request.downloadHandler = new DownloadHandlerBuffer();
         request.SetRequestHeader("Content-Type", "application/x-www-form-urlencoded");

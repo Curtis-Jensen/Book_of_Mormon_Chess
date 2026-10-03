@@ -147,7 +147,11 @@ public class EndingManager : HoardEndingManager
         var winningPlayerName = pieceSpawner.players[winningPlayerIndex].name;
         var colorSelection = PlayerPrefs.GetInt(winningPlayerName + "color");//🎨
 
-        winScreen.GetComponent<Image>().color = pieceSets.colorSets[colorSelection].baseColor;
+        // The flag's UI/FlagWave shader multiplies by this tint and applies its own _Alpha (0.65),
+        // so force the tint opaque to keep the flag's transparency consistent across color sets.
+        var tint = pieceSets.colorSets[colorSelection].baseColor;
+        tint.a = 1f;
+        winScreen.GetComponent<Image>().color = tint;
     }
 
     void CreateParty(int winningPlayerIndex)

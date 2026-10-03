@@ -19,14 +19,10 @@ public class SceneLoader : MonoBehaviour
 {
     public SceneConfig[] sceneConfigs;
 
-    void Start()
+    void Awake()
     {
-        // Set by the victory screen's Next Chapter button
-        string chapter = ChapterProgress.TakeAutoStart();
-        if (chapter == null) return;
-
-        SceneConfig config = Array.Find(sceneConfigs, c => c.dropDownOptionName == chapter);
-        if (config != null) LoadWithConfig(config);
+        // Lets the victory screen launch the next chapter without coming back here
+        ChapterProgress.SaveSetups(sceneConfigs);
     }
 
     //Called by the main menu so it knows which scene to go to

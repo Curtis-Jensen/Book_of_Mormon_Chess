@@ -13,9 +13,10 @@ public class MusicPlayer : MonoBehaviour
      */
     void Start()
     {
+        // RemoveAll instead of Remove inside foreach -- modifying the list mid-iteration throws
         if (!Application.isEditor)
-            foreach (MusicChoice song in musicChoices)
-                if (song.isCopyrighted) musicChoices.Remove(song);
+            musicChoices.RemoveAll(song => song.isCopyrighted);
+        if (musicChoices.Count == 0) return;
 
         source = gameObject.GetComponent<AudioSource>();
         StartCoroutine(PlayMusic());

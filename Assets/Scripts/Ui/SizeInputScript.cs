@@ -11,17 +11,16 @@ public class SizeInputScript : MonoBehaviour
 
     public void UpdateSlider()
     {
-        var inputValue = GetInputText(sizeInput);
+        if (!TryGetInputValue(out int inputValue)) return;
 
         slider.value = inputValue;
     }
 
-    int GetInputText(TextMeshProUGUI input)
+    bool TryGetInputValue(out int inputValue)
     {
-        //Clean for spaces I think
-        var cleanedText = sizeInput.text.ToString().Remove(input.text.Length - 1, 1);
-
-        var inputValue = int.Parse(cleanedText);
+        // TMP input text carries a trailing zero-width space; strip anything non-numeric
+        var cleanedText = new string(System.Array.FindAll(sizeInput.text.ToCharArray(), char.IsDigit));
+        if (!int.TryParse(cleanedText, out inputValue)) return false;
 
         if(inputValue < 1)
         {
@@ -38,6 +37,6 @@ public class SizeInputScript : MonoBehaviour
             slider.value    = inputValue;
         }
 
-        return inputValue;
+        return true;
     }
 }

@@ -11,14 +11,15 @@ public class SliderScript : MonoBehaviour
 
     private void Start()
     {
-        slider.value = Random.Range(slider.minValue, slider.maxValue);
+        // Restore the saved size instead of randomizing, so the slider respects the last choice
+        slider.value = PlayerPrefs.GetInt("boardSize", (int)slider.value);
         UpdateInput();
     }
 
     public void UpdateInput()
     {
         input.text = slider.value.ToString();
-        PlayerPrefs.SetInt("boardSize", input.text == "" ? 0 : int.Parse(input.text));
+        PlayerPrefs.SetInt("boardSize", (int)slider.value);
 
     }
 }

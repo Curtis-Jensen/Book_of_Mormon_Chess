@@ -58,7 +58,7 @@ public static class ChapterProgress
     static string SetupKey(string chapter) => $"chapterSetup_{chapter}";
 
     // The Duel scene has no chapter list, so the menu stores each chapter's setup
-    // ("sceneName|Prefab,Prefab") for the victory screen's Next Chapter button
+    // ("sceneName|Prefab,Prefab|OpponentPrefab,...") for the victory screen's Next Chapter button
     public static void SaveSetups(SceneConfig[] configs)
     {
         foreach (var config in configs)
@@ -66,7 +66,8 @@ public static class ChapterProgress
             if (Array.IndexOf(Order, config.dropDownOptionName) < 0) continue;
 
             var prefabNames = Array.ConvertAll(config.backRowPrefabs, prefab => prefab.name);
-            PlayerPrefs.SetString(SetupKey(config.dropDownOptionName), $"{config.sceneName}|{string.Join(",", prefabNames)}");
+            var opponentNames = Array.ConvertAll(config.opponentBackRowPrefabs ?? new GameObject[0], prefab => prefab.name);
+            PlayerPrefs.SetString(SetupKey(config.dropDownOptionName), $"{config.sceneName}|{string.Join(",", prefabNames)}|{string.Join(",", opponentNames)}");
         }
     }
 
@@ -75,7 +76,7 @@ public static class ChapterProgress
     {
         string setup = PlayerPrefs.GetString(SetupKey(chapter), "");
         string[] parts = setup.Split('|');
-        if (parts.Length != 2) return false;
+        if (parts.Length < 2) return false;
 
         string[] prefabNames = parts[1].Split(',');
         PlayerPrefs.SetInt("correspondenceMode", 0);
@@ -83,6 +84,12 @@ public static class ChapterProgress
         PlayerPrefs.SetInt("backRowCount", prefabNames.Length);
         for (int i = 0; i < prefabNames.Length; i++)
             PlayerPrefs.SetString($"backRowPrefab_{i}", prefabNames[i]);
+
+        // Always write the count so a previous chapter's opponent row never leaks into this one
+        string[] opponentNames = parts.Length > 2 && parts[2] != "" ? parts[2].Split(',') : new string[0];
+        PlayerPrefs.SetInt("opponentBackRowCount", opponentNames.Length);
+        for (int i = 0; i < opponentNames.Length; i++)
+            PlayerPrefs.SetString($"opponentBackRowPrefab_{i}", opponentNames[i]);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(parts[0]);
         return true;

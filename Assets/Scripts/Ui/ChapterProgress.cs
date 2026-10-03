@@ -12,7 +12,6 @@ public static class ChapterProgress
     };
 
     const string CurrentChapterKey = "currentChapter";
-    const string AutoStartKey = "autoStartChapter";
 
     static string WonKey(string chapter) => $"chapterWon_{chapter}";
 
@@ -56,14 +55,37 @@ public static class ChapterProgress
         return alreadyWon ? null : NextOf(chapter);
     }
 
-    // The Duel scene has no chapter list, so "Next Chapter" asks the menu to launch it on load
-    public static void RequestAutoStart(string chapter) => PlayerPrefs.SetString(AutoStartKey, chapter);
+    static string SetupKey(string chapter) => $"chapterSetup_{chapter}";
 
-    public static string TakeAutoStart()
+    // The Duel scene has no chapter list, so the menu stores each chapter's setup
+    // ("sceneName|Prefab,Prefab") for the victory screen's Next Chapter button
+    public static void SaveSetups(SceneConfig[] configs)
     {
-        string chapter = PlayerPrefs.GetString(AutoStartKey, "");
-        PlayerPrefs.DeleteKey(AutoStartKey);
-        return string.IsNullOrEmpty(chapter) ? null : chapter;
+        foreach (var config in configs)
+        {
+            if (Array.IndexOf(Order, config.dropDownOptionName) < 0) continue;
+
+            var prefabNames = Array.ConvertAll(config.backRowPrefabs, prefab => prefab.name);
+            PlayerPrefs.SetString(SetupKey(config.dropDownOptionName), $"{config.sceneName}|{string.Join(",", prefabNames)}");
+        }
+    }
+
+    // Same PlayerPrefs handoff SceneLoader.LoadWithConfig does, from the saved setup
+    public static bool TryLaunch(string chapter)
+    {
+        string setup = PlayerPrefs.GetString(SetupKey(chapter), "");
+        string[] parts = setup.Split('|');
+        if (parts.Length != 2) return false;
+
+        string[] prefabNames = parts[1].Split(',');
+        PlayerPrefs.SetInt("correspondenceMode", 0);
+        SetCurrentChapter(chapter);
+        PlayerPrefs.SetInt("backRowCount", prefabNames.Length);
+        for (int i = 0; i < prefabNames.Length; i++)
+            PlayerPrefs.SetString($"backRowPrefab_{i}", prefabNames[i]);
+
+        UnityEngine.SceneManagement.SceneManager.LoadScene(parts[0]);
+        return true;
     }
 
     public static void ResetAll()

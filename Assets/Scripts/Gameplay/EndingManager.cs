@@ -135,8 +135,11 @@ public class EndingManager : HoardEndingManager
 
     public void NextChapter()
     {
-        ChapterProgress.RequestAutoStart(ChapterProgress.NextOf(ChapterProgress.CurrentChapter));
-        UnityEngine.SceneManagement.SceneManager.LoadScene("BOM Main Menu");
+        string next = ChapterProgress.NextOf(ChapterProgress.CurrentChapter);
+
+        // Falls back to the menu if this save predates chapter setups being stored
+        if (next == null || !ChapterProgress.TryLaunch(next))
+            UnityEngine.SceneManagement.SceneManager.LoadScene("BOM Main Menu");
     }
 
     void SetFlagColor(int winningPlayerIndex)

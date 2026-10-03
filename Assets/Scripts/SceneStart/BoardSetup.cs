@@ -14,6 +14,9 @@ public class BoardSetup : MonoBehaviour
     public GameObject darkTilePrefab;
     public GameObject pawn;
     public GameObject[] backPiecePrefabs;
+    // Back row for the Lamanite (odd-index) players when the chapter gives them a different
+    // army than the player (see SceneConfig.opponentBackRowPrefabs). Null = same as backPiecePrefabs.
+    public GameObject[] opponentBackPiecePrefabs;
 
     [HideInInspector] public int boardSize = 8;
 
@@ -76,17 +79,13 @@ public class BoardSetup : MonoBehaviour
         boardSize = PlayerPrefs.GetInt("boardSize", 7);
         
         // Load back row prefabs from PlayerPrefs
-        int backRowCount = PlayerPrefs.GetInt("backRowCount");
-        backPiecePrefabs = new GameObject[backRowCount];
-        for (int i = 0; i < backRowCount; i++)
-        {
-            string prefabName = PlayerPrefs.GetString($"backRowPrefab_{i}");
-            backPiecePrefabs[i] = Resources.Load<GameObject>($"Prefabs/{prefabName}");
-            if (backPiecePrefabs[i] == null)
-            {
-                Debug.LogError($"Failed to load prefab: {prefabName}");
-            }
-        }
+        backPiecePrefabs = LoadBackRow("backRow");
+
+        // Online games always mirror the same army (GameDoc only syncs one back row)
+        bool correspondence = PlayerPrefs.GetInt("correspondenceMode") == 1;
+        opponentBackPiecePrefabs = correspondence ? null : LoadBackRow("opponentBackRow");
+        if (opponentBackPiecePrefabs != null && opponentBackPiecePrefabs.Length == 0)
+            opponentBackPiecePrefabs = null;
 
         TurnProgresser = GetComponent<TurnProgresser>();
         TurnProgresser.boardSize = boardSize;
@@ -103,6 +102,27 @@ public class BoardSetup : MonoBehaviour
             pieceSpawner.players[i].isAi = PlayerPrefs.GetInt($"{i+1}isAI", 0) == 1;
         }
     }
+
+    // Reads the {prefix}Count / {prefix}Prefab_N handoff written by SceneLoader
+    GameObject[] LoadBackRow(string prefix)
+    {
+        int count = PlayerPrefs.GetInt($"{prefix}Count");
+        var prefabs = new GameObject[count];
+        for (int i = 0; i < count; i++)
+        {
+            string prefabName = PlayerPrefs.GetString($"{prefix}Prefab_{i}");
+            prefabs[i] = Resources.Load<GameObject>($"Prefabs/{prefabName}");
+            if (prefabs[i] == null)
+            {
+                Debug.LogError($"Failed to load prefab: {prefabName}");
+            }
+        }
+        return prefabs;
+    }
+
+    // Lamanites (odd index) get their own army when the chapter defines one
+    protected GameObject[] BackRowFor(int playerIndex) =>
+        playerIndex % 2 == 1 && opponentBackPiecePrefabs != null ? opponentBackPiecePrefabs : backPiecePrefabs;
 
     void SpawnTiles()
     {
@@ -205,7 +225,12 @@ public class BoardSetup : MonoBehaviour
         {
             var localX = x - startX;
 
-            pieceSpawner.SpawnPiece(backPiecePrefabs[pieceChoices[localX]], new Vector2(x, pieceRow), playerIndex);
+            // pieceChoices indexes the shared row; wrap so a shorter opponent row still works
+            // (index 0 stays the king slot either way)
+            var row = BackRowFor(playerIndex);
+            int choice = pieceChoices[localX];
+            if (choice >= row.Length) choice = row.Length == 1 ? 0 : 1 + (choice - 1) % (row.Length - 1);
+            pieceSpawner.SpawnPiece(row[choice], new Vector2(x, pieceRow), playerIndex);
         }
     }
 

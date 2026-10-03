@@ -8,6 +8,11 @@ public class SceneConfig
     public string dropDownOptionName;
     public string sceneName;
     public GameObject[] backRowPrefabs;
+
+    // Optional: a different back row for the Lamanite (odd-index) players, e.g. the
+    // Stripling Warriors chapter pits the player's Stripling Warriors against Lamanite Queens.
+    // Leave empty and every side uses backRowPrefabs. Index 0 is the king slot, same as above.
+    public GameObject[] opponentBackRowPrefabs;
 }
 
 public class SceneLoader : MonoBehaviour
@@ -40,6 +45,12 @@ public class SceneLoader : MonoBehaviour
         PlayerPrefs.SetInt("backRowCount", config.backRowPrefabs.Length);
         for (int i = 0; i < config.backRowPrefabs.Length; i++)
             PlayerPrefs.SetString($"backRowPrefab_{i}", config.backRowPrefabs[i].name);
+
+        // Always write the count so a previous chapter's opponent row never leaks into this one
+        int opponentCount = config.opponentBackRowPrefabs?.Length ?? 0;
+        PlayerPrefs.SetInt("opponentBackRowCount", opponentCount);
+        for (int i = 0; i < opponentCount; i++)
+            PlayerPrefs.SetString($"opponentBackRowPrefab_{i}", config.opponentBackRowPrefabs[i].name);
         LoadScene(config.sceneName);
     }
 

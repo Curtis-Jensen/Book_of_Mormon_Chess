@@ -21,7 +21,8 @@ public static class FirestoreJson
             ["status"] = EncodeString(doc.status),
             ["winnerIndex"] = EncodeInt(doc.winnerIndex),
             ["pieces"] = EncodePieces(doc.pieces),
-            ["lastMove"] = EncodeLastMove(doc.lastMove)
+            ["lastMove"] = EncodeLastMove(doc.lastMove),
+            ["isOpen"] = EncodeBool(doc.isOpen)
         };
 
         var body = new JObject { ["fields"] = fields };
@@ -29,10 +30,13 @@ public static class FirestoreJson
     }
 
     // Parses a Firestore REST document response (top-level {name, fields, createTime, updateTime}).
-    public static GameDoc FromDocumentJson(string rawJson)
+    public static GameDoc FromDocumentJson(string rawJson) => FromDocument(JObject.Parse(rawJson));
+
+    // Same as above but for a document object already parsed out of a larger response,
+    // e.g. the "document" field of each item in a :runQuery result array.
+    public static GameDoc FromDocument(JObject document)
     {
-        var response = JObject.Parse(rawJson);
-        var fields = response["fields"] as JObject ?? new JObject();
+        var fields = document["fields"] as JObject ?? new JObject();
 
         return new GameDoc
         {
@@ -44,15 +48,17 @@ public static class FirestoreJson
             status = DecodeString(fields["status"]),
             winnerIndex = DecodeInt(fields["winnerIndex"]),
             pieces = DecodePieces(fields["pieces"]),
-            lastMove = DecodeLastMove(fields["lastMove"])
+            lastMove = DecodeLastMove(fields["lastMove"]),
+            isOpen = DecodeBool(fields["isOpen"])
         };
     }
 
     // A create response's "name" is the full resource path; the game code is just the last segment.
-    public static string ExtractDocumentId(string rawJson)
+    public static string ExtractDocumentId(string rawJson) => ExtractDocumentId(JObject.Parse(rawJson));
+
+    public static string ExtractDocumentId(JObject document)
     {
-        var response = JObject.Parse(rawJson);
-        var fullName = response["name"]?.ToString() ?? "";
+        var fullName = document["name"]?.ToString() ?? "";
         return fullName.Substring(fullName.LastIndexOf('/') + 1);
     }
 

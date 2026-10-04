@@ -24,14 +24,26 @@ public class CorrespondenceMenu : MonoBehaviour
     // a click-before-ready race.
     bool isReady;
 
+    // LoginMenu already signs the player in (or resumes their session) before this
+    // panel can ever become active -- just wait for that to land rather than
+    // re-triggering sign-in here too.
     void Start()
     {
         if (roomCodeInput != null) roomCodeInput.text = GenerateRoomCode();
+        WaitForReady();
+    }
+
+    void WaitForReady()
+    {
+        if (CorrespondenceGameRepository.Instance.IsReady)
+        {
+            isReady = true;
+            SetStatus("Ready.");
+            return;
+        }
 
         SetStatus("Connecting...");
-        CorrespondenceGameRepository.Instance.Initialize(
-            onReady: () => { isReady = true; SetStatus("Ready."); },
-            onError: message => SetStatus("Couldn't connect: " + message));
+        Invoke(nameof(WaitForReady), 0.3f);
     }
 
 #if UNITY_WEBGL && !UNITY_EDITOR
@@ -116,7 +128,9 @@ public class CorrespondenceMenu : MonoBehaviour
         return new string(chars);
     }
 
-    void StartCorrespondenceScene(string gameId, int localPlayerIndex, bool isCreator, int boardSize)
+    // Public so MyGamesMenu can resume a game it already knows the id/seat for,
+    // skipping PlayGame's code-based create-or-join lookup entirely.
+    public void StartCorrespondenceScene(string gameId, int localPlayerIndex, bool isCreator, int boardSize)
     {
         var config = System.Array.Find(sceneLoader.sceneConfigs, c => c.dropDownOptionName == duelConfigDropdownName);
         if (config == null)

@@ -13,8 +13,8 @@ public class EndingManagerTests
     private TextMeshProUGUI materialCountText;
 
     private static readonly Color TieColor = Color.white;
-    private static readonly Color NephiteWinColor = Color.blue;
-    private static readonly Color LamaniteWinColor = Color.red;
+    private static readonly Color Side0Color = Color.blue;
+    private static readonly Color Side1Color = Color.red;
 
     [SetUp]
     public void SetUp()
@@ -39,8 +39,7 @@ public class EndingManagerTests
         type.GetField("materialSliders", flags).SetValue(endingManager, materialSliders);
         type.GetField("materialCountText", flags).SetValue(endingManager, materialCountText);
         type.GetField("tieColor", flags).SetValue(endingManager, TieColor);
-        type.GetField("nephiteWinColor", flags).SetValue(endingManager, NephiteWinColor);
-        type.GetField("lamaniteWinColor", flags).SetValue(endingManager, LamaniteWinColor);
+        type.GetField("sideColors", flags).SetValue(endingManager, new Color?[] { Side0Color, Side1Color });
     }
 
     [TearDown]
@@ -68,7 +67,7 @@ public class EndingManagerTests
     {
         endingManager.UpdateMaterial(playerIndex: 0, materialValue: 5);
 
-        Assert.AreEqual(NephiteWinColor, materialCountText.color);
+        Assert.AreEqual(Side0Color, materialCountText.color);
         Assert.AreEqual("5", materialCountText.text);
     }
 
@@ -77,7 +76,7 @@ public class EndingManagerTests
     {
         endingManager.UpdateMaterial(playerIndex: 1, materialValue: 4);
 
-        Assert.AreEqual(LamaniteWinColor, materialCountText.color);
+        Assert.AreEqual(Side1Color, materialCountText.color);
         Assert.AreEqual("-4", materialCountText.text);
     }
 

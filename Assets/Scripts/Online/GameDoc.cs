@@ -28,6 +28,9 @@ public class GameDoc
     public int currentTurnIndex;
     public string status = "active";
     public int winnerIndex = -1;
+    // True while seat 1 is still empty and the room is listed in the public open-game
+    // lobby; cleared the moment someone joins (see CorrespondenceGameRepository.JoinOpenGame).
+    public bool isOpen;
     // Only meaningful for the very first sync (the joiner has no board of their own yet);
     // after that, moves propagate via lastMove instead of resending the whole board.
     public List<PieceStateDto> pieces = new();

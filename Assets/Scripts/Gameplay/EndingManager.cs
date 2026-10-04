@@ -32,6 +32,31 @@ public class EndingManager : HoardEndingManager
         {
             factionCounts[i] = 0;
         }
+
+        SetSliderColors();
+    }
+
+    // The sliders used to have their fill colors hardcoded red/blue in the scene --
+    // always wrong whenever a player picked a different color in Settings. Side 0 is
+    // players 0 (and 2, in 4-player mode) by the same playerIndex % 2 grouping
+    // UpdateMaterial/BoardSetup use elsewhere; teammates could in theory pick different
+    // colors from each other, so this just takes the lower-index player on each side
+    // as that side's representative color.
+    void SetSliderColors()
+    {
+        if (pieceSets == null || pieceSpawner == null || pieceSpawner.players == null) return;
+
+        for (int side = 0; side < materialSliders.Length && side < pieceSpawner.players.Length; side++)
+        {
+            if (materialSliders[side] == null || materialSliders[side].fillRect == null) continue;
+
+            var player = pieceSpawner.players[side];
+            var colorIndex = PlayerPrefs.GetInt(player.name + "color");
+            if (colorIndex < 0 || colorIndex >= pieceSets.colorSets.Length) continue;
+
+            var fillImage = materialSliders[side].fillRect.GetComponent<Image>();
+            if (fillImage != null) fillImage.color = pieceSets.colorSets[colorIndex].baseColor;
+        }
     }
 
     public void UpdateMaterial(int playerIndex, int materialValue)

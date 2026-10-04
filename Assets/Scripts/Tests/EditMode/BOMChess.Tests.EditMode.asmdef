@@ -3,6 +3,7 @@
     "rootNamespace": "",
     "references": [
         "BOMChess",
+        "Unity.TextMeshPro",
         "UnityEngine.TestRunner",
         "UnityEditor.TestRunner"
     ],

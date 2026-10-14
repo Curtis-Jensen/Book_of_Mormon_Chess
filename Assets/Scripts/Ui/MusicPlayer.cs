@@ -9,6 +9,7 @@ public class MusicPlayer : MonoBehaviour
     [Tooltip("Seconds of silence between one song ending and the next starting")]
     public float gapBetweenSongs = 3f;
     AudioSource source;
+    float baseVolume;
     int lastIndex = -1;
 
     /* If in official build of the game, remove the ability for copyrighted music to be played
@@ -22,7 +23,21 @@ public class MusicPlayer : MonoBehaviour
         if (musicChoices.Count == 0) return;
 
         source = gameObject.GetComponent<AudioSource>();
+        // The AudioSource's own volume is the mix level; the player's setting scales it
+        baseVolume = source.volume;
+        ApplyVolume();
+        VolumeSettings.Changed += ApplyVolume;
         StartCoroutine(PlayMusic());
+    }
+
+    void OnDestroy()
+    {
+        VolumeSettings.Changed -= ApplyVolume;
+    }
+
+    void ApplyVolume()
+    {
+        source.volume = baseVolume * VolumeSettings.Get(VolumeChannel.Music);
     }
 
     IEnumerator PlayMusic()

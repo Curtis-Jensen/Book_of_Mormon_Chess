@@ -21,6 +21,6 @@ public class ButtonClickSounds : MonoBehaviour
 
     void PlayClick()
     {
-        if (clickClip != null) source.PlayOneShot(clickClip, volume);
+        if (clickClip != null) source.PlayOneShot(clickClip, volume * VolumeSettings.Get(VolumeChannel.SoundEffects));
     }
 }

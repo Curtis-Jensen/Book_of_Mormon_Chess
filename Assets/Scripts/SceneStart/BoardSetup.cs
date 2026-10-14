@@ -280,6 +280,8 @@ public class BoardSetup : MonoBehaviour
         TurnProgresser.tiles = new TileSelector[boardSize, boardSize];
 
         TurnProgresser.audioSource = GetComponent<AudioSource>();
+        if (TurnProgresser.audioSource != null)
+            TurnProgresser.audioSource.volume *= VolumeSettings.Get(VolumeChannel.SoundEffects);
     }
 
     void AssigningTiles()

@@ -60,6 +60,7 @@ public class MyGamesMenu : MonoBehaviour
             {
                 if (thisRefresh != refreshToken) return; // a newer Refresh() superseded this one
 
+                games.RemoveAll(g => g.doc.status == "closed");
                 if (games.Count == 0)
                 {
                     SetStatus("No games yet -- start one from the lobby.");
@@ -96,7 +97,19 @@ public class MyGamesMenu : MonoBehaviour
 
         var row = Instantiate(rowPrefab, listParent);
         row.Set(opponentName, turnStatus, () =>
-            correspondenceMenu.StartCorrespondenceScene(game.gameId, localPlayerIndex, isCreator, game.doc.boardSize));
+            correspondenceMenu.StartCorrespondenceScene(game.gameId, localPlayerIndex, isCreator, game.doc.boardSize),
+            () => CloseGame(game));
+    }
+
+    // "Closing" flags the doc rather than deleting it (PushState already passes the
+    // security rules; deletes may not), and Refresh hides closed games for both players.
+    void CloseGame(CorrespondenceGameRepository.MyGameSummary game)
+    {
+        game.doc.status = "closed";
+        SetStatus("Closing game...");
+        CorrespondenceGameRepository.Instance.PushState(game.gameId, game.doc,
+            onSuccess: Refresh,
+            onFailure: message => SetStatus("Couldn't close game: " + message));
     }
 
     void SetStatus(string message)

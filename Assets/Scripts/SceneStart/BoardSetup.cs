@@ -203,12 +203,19 @@ public class BoardSetup : MonoBehaviour
 
             if (boardSize > 3)
             {
-                // noPawns only strips the Lamanites (odd players); the player keeps a pawn screen
-                bool skipPawns = i % 2 == 1 && PlayerPrefs.GetInt("noPawns") == 1;
-                if (!skipPawns)
+                // noPawns: the player (even) gets no pawn row. With opponentDoubleRow the Lamanites
+                // (odd) stack a second back-row row where pawns normally go and push their pawns
+                // one row further out -- 3 rows vs the player's 1.
+                if (PlayerPrefs.GetInt("noPawns") != 1)
+                {
                     OrderPawns(i);
-                else if (PlayerPrefs.GetInt("opponentDoubleRow") == 1)
-                    OrderBackRows(pieceChoices, i, boardSize - 2);
+                }
+                else if (i % 2 == 1)
+                {
+                    bool doubleRow = PlayerPrefs.GetInt("opponentDoubleRow") == 1;
+                    if (doubleRow) OrderBackRows(pieceChoices, i, boardSize - 2);
+                    OrderPawns(i, doubleRow ? boardSize - 3 : boardSize - 2);
+                }
             }
         } 
     }
@@ -240,7 +247,7 @@ public class BoardSetup : MonoBehaviour
         }
     }
 
-    protected void OrderPawns(int playerIndex)
+    protected void OrderPawns(int playerIndex, int? rowOverride = null)
     {
         var evenFaction = playerIndex%2 == 0;
         var pawnRow = 1;
@@ -249,6 +256,7 @@ public class BoardSetup : MonoBehaviour
         {
             pawnRow = boardSize - 2;
         }
+        if (rowOverride.HasValue) pawnRow = rowOverride.Value;
 
         GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
 

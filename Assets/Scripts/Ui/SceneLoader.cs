@@ -14,7 +14,7 @@ public class SceneConfig
     // Leave empty and every side uses backRowPrefabs. Index 0 is the king slot, same as above.
     public GameObject[] opponentBackRowPrefabs;
 
-    // Skip the pawn rows entirely for both sides (Stripling Warriors tutorial experiment).
+    // Skip the Lamanite pawn row (Stripling Warriors tutorial experiment); the player keeps theirs.
     public bool noPawns;
     // Fill the Lamanite pawn row with a second copy of their back row instead of pawns.
     // Only meaningful alongside noPawns.

@@ -203,9 +203,11 @@ public class BoardSetup : MonoBehaviour
 
             if (boardSize > 3)
             {
-                if (PlayerPrefs.GetInt("noPawns") != 1)
+                // noPawns only strips the Lamanites (odd players); the player keeps a pawn screen
+                bool skipPawns = i % 2 == 1 && PlayerPrefs.GetInt("noPawns") == 1;
+                if (!skipPawns)
                     OrderPawns(i);
-                else if (i % 2 == 1 && PlayerPrefs.GetInt("opponentDoubleRow") == 1)
+                else if (PlayerPrefs.GetInt("opponentDoubleRow") == 1)
                     OrderBackRows(pieceChoices, i, boardSize - 2);
             }
         } 

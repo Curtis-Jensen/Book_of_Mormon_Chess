@@ -27,6 +27,14 @@ public class SceneLoader : MonoBehaviour
 
     void Awake()
     {
+        // Experiment: set in code so an already-open scene's stale serialized data can't override it
+        foreach (var config in sceneConfigs)
+        {
+            if (config.dropDownOptionName != "Stripling Warriors") continue;
+            config.noPawns = true;
+            config.opponentDoubleRow = true;
+        }
+
         // Lets the victory screen launch the next chapter without coming back here
         ChapterProgress.SaveSetups(sceneConfigs);
     }

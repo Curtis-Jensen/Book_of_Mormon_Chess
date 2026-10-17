@@ -14,6 +14,9 @@ public class FriendsMenu : MonoBehaviour
     public Transform requestsListParent;
     public Transform friendsListParent;
     public RequestRowView requestRowPrefab;
+
+    [Tooltip("Accept incoming friend requests automatically instead of showing Accept/Decline rows.")]
+    public bool autoAcceptRequests = true;
     public GameRowView friendRowPrefab;
 
     // See MyGamesMenu's identical guard: a reentrant Refresh() must not let a stale
@@ -56,6 +59,16 @@ public class FriendsMenu : MonoBehaviour
             {
                 if (thisRefresh != requestsRefreshToken) return;
 
+                // No friend-approval step: people finding each other fast matters more than
+                // gatekeeping right now. Accepting writes both sides, so one refresh at the end
+                // (not per request) shows the new friends. The Accept/Decline row UI is kept
+                // for when approval is switched back on.
+                if (autoAcceptRequests)
+                {
+                    AutoAccept(requests);
+                    return;
+                }
+
                 foreach (var req in requests)
                 {
                     var row = Instantiate(requestRowPrefab, requestsListParent);
@@ -65,6 +78,19 @@ public class FriendsMenu : MonoBehaviour
                 }
             },
             onError: message => { if (thisRefresh == requestsRefreshToken) SetStatus(message); });
+    }
+
+    void AutoAccept(List<CorrespondenceGameRepository.IncomingRequest> requests)
+    {
+        if (requests.Count == 0) return;
+
+        int remaining = requests.Count;
+        foreach (var req in requests)
+        {
+            CorrespondenceGameRepository.Instance.AcceptFriendRequest(req.fromUid, req.fromUsername,
+                onSuccess: () => { if (--remaining == 0) RefreshFriends(); },
+                onError: SetStatus); // a failed accept stays pending and is retried on the next open
+        }
     }
 
     void RefreshFriends()
@@ -152,8 +178,12 @@ public class FriendsMenu : MonoBehaviour
                     return;
                 }
 
+                // Send the request (they auto-accept next time they open the hub), and add them to
+                // my own list right now so I can hit Challenge without waiting for them.
                 CorrespondenceGameRepository.Instance.SendFriendRequest(user.uid,
-                    onSuccess: () => SetStatus("Friend request sent to " + user.username + "."),
+                    onSuccess: () => CorrespondenceGameRepository.Instance.AddFriendEntry(user.uid, user.username,
+                        onSuccess: () => { RefreshFriends(); SetStatus(user.username + " added -- tap their name to challenge."); },
+                        onError: SetStatus),
                     onError: SetStatus);
             },
             onNotFound: () => SetStatus("No one with that username."),

@@ -70,7 +70,7 @@ public partial class CorrespondenceGameRepository
                 // The failed-precondition response is what the exists=false check returns
                 // when the username's already taken -- everything else is a real error.
                 onError?.Invoke(reserveRequest.responseCode == 400 || reserveRequest.responseCode == 409
-                    ? "That username is already taken."
+                    ? UsernameTakenMessage
                     : "Couldn't claim that username: " + reserveRequest.error);
                 yield break;
             }
@@ -150,6 +150,31 @@ public partial class CorrespondenceGameRepository
         if (request.result != UnityWebRequest.Result.Success)
         {
             onError?.Invoke("Couldn't send that request: " + request.error);
+            yield break;
+        }
+
+        onSuccess?.Invoke();
+    }
+
+    // Writes only MY side of a friendship (my own friends subcollection, which I'm always
+    // allowed to write). Used right after sending a request so the new friend shows up for
+    // the sender immediately; the recipient's side is completed when they auto-accept.
+    public void AddFriendEntry(string friendUid, string friendUsername, Action onSuccess, Action<string> onError) =>
+        StartCoroutine(AddFriendEntryRoutine(friendUid, friendUsername, onSuccess, onError));
+
+    IEnumerator AddFriendEntryRoutine(string friendUid, string friendUsername, Action onSuccess, Action<string> onError)
+    {
+        var body = new JObject
+        {
+            ["fields"] = new JObject { ["username"] = new JObject { ["stringValue"] = friendUsername } }
+        }.ToString(Formatting.None);
+
+        using var request = BuildRequest(UserDocUrl(localUserId) + "/friends/" + friendUid, "PATCH", body);
+        yield return request.SendWebRequest();
+
+        if (request.result != UnityWebRequest.Result.Success)
+        {
+            onError?.Invoke("Couldn't add friend: " + request.error);
             yield break;
         }
 

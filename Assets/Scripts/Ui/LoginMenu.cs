@@ -37,7 +37,7 @@ public class LoginMenu : MonoBehaviour
         SetStatus("Checking for a saved login...");
         CorrespondenceGameRepository.Instance.Initialize(
             onReady: OnAuthenticated,
-            onNoStoredSession: () => SetStatus("Log in or sign up to play online."),
+            onNoStoredSession: () => SetStatus("Play as a guest, or log in to keep your games on any device."),
             onError: SetStatus);
     }
 
@@ -46,7 +46,7 @@ public class LoginMenu : MonoBehaviour
         if (!TryGetCredentials(out var email, out var password)) return;
 
         SetStatus("Logging in...");
-        CorrespondenceGameRepository.Instance.SignIn(email, password, OnAuthenticated, SetStatus);
+        CorrespondenceGameRepository.Instance.SignIn(email, password, OnEmailAuthenticated, SetStatus);
     }
 
     public void OnSignUpClicked()
@@ -54,7 +54,21 @@ public class LoginMenu : MonoBehaviour
         if (!TryGetCredentials(out var email, out var password)) return;
 
         SetStatus("Creating your account...");
-        CorrespondenceGameRepository.Instance.SignUp(email, password, OnAuthenticated, SetStatus);
+        CorrespondenceGameRepository.Instance.SignUp(email, password, OnEmailAuthenticated, SetStatus);
+    }
+
+    // One tap, no form: a guest account with a random Book of Mormon name, tied to this
+    // browser. SaveAccountMenu lets them attach an email afterwards.
+    public void OnGuestClicked()
+    {
+        SetStatus("Setting up your guest account...");
+        CorrespondenceGameRepository.Instance.SignUpAsGuest(OnAuthenticated, SetStatus);
+    }
+
+    void OnEmailAuthenticated()
+    {
+        CorrespondenceGameRepository.Instance.ClearGuestFlag();
+        OnAuthenticated();
     }
 
     // Logged in, but a brand-new account has no username yet -- route to username setup

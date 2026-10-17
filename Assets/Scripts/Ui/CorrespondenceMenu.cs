@@ -18,6 +18,11 @@ public class CorrespondenceMenu : MonoBehaviour
     public TMP_InputField roomCodeInput;
     public TMP_Text statusText;
 
+    // Friends list + My Games replaced typing/pasting room codes. The code flow is only
+    // hidden (not removed) so it can be switched back on from the inspector if needed.
+    [Tooltip("Show the legacy room-code field and its Copy/Paste/Play buttons.")]
+    public bool enableCodeSharing = false;
+
     // Guards against clicking Play before anonymous sign-in actually finishes -- without
     // this, PlayGame's Firestore request goes out with no valid auth token yet and gets
     // rejected with a 403, which looks like "can't reach that room" but is really just
@@ -30,7 +35,30 @@ public class CorrespondenceMenu : MonoBehaviour
     void Start()
     {
         if (roomCodeInput != null) roomCodeInput.text = GenerateRoomCode();
+        if (!enableCodeSharing) HideCodeSharingUi();
         WaitForReady();
+    }
+
+    // The code field's Copy/Paste/Play buttons live in the scene (Play as a prefab instance),
+    // so find them by the handler they call rather than by scene path.
+    void HideCodeSharingUi()
+    {
+        if (roomCodeInput != null) roomCodeInput.gameObject.SetActive(false);
+
+        var root = GetComponentInParent<Canvas>(true);
+        if (root == null) return;
+
+        foreach (var button in root.GetComponentsInChildren<UnityEngine.UI.Button>(true))
+        {
+            for (int i = 0; i < button.onClick.GetPersistentEventCount(); i++)
+            {
+                if (button.onClick.GetPersistentTarget(i) != this) continue;
+
+                var method = button.onClick.GetPersistentMethodName(i);
+                if (method == nameof(OnCopyCodeClicked) || method == nameof(OnPasteCodeClicked) || method == nameof(OnPlayClicked))
+                    button.gameObject.SetActive(false);
+            }
+        }
     }
 
     void WaitForReady()

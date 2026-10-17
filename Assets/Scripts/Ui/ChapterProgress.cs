@@ -17,17 +17,19 @@ public static class ChapterProgress
 
     public static bool IsWon(string chapter) => PlayerPrefs.GetInt(WonKey(chapter), 0) == 1;
 
+    // Stripling Warriors is unlocked from the start alongside Pawns, since it's
+    // the mode new players get invited into from multiplayer.
     public static bool IsUnlocked(string chapter)
     {
         int index = Array.IndexOf(Order, chapter);
-        return index <= 0 || IsWon(Order[index - 1]);
+        return index <= 0 || chapter == "Stripling Warriors" || IsWon(Order[index - 1]);
     }
 
     // Name of the chapter that unlocks this one, or null if it's already open
     public static string PrerequisiteOf(string chapter)
     {
         int index = Array.IndexOf(Order, chapter);
-        return index <= 0 ? null : Order[index - 1];
+        return index <= 0 || chapter == "Stripling Warriors" ? null : Order[index - 1];
     }
 
     // Called by SceneLoader so the Duel scene knows which chapter it's playing

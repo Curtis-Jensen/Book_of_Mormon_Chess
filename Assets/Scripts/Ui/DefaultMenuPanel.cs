@@ -10,6 +10,9 @@ namespace Ui
     // break a build.
     public class DefaultMenuPanel : MonoBehaviour
     {
+        // Other scenes set this (PlayerPrefs) to land on a specific panel instead of the defaults
+        public const string OpenPanelKey = "openPanelOnLoad";
+
         [SerializeField] private List<GameObject> initiallyActiveObjects;
 
         private void Awake()
@@ -23,6 +26,20 @@ namespace Ui
             {
                 obj.SetActive(true);
             }
+
+            string requested = PlayerPrefs.GetString(OpenPanelKey, "");
+            if (requested == "") return;
+            PlayerPrefs.DeleteKey(OpenPanelKey);
+
+            Transform target = transform.Find(requested);
+            if (target == null) return;
+
+            // Background stays; every other default panel makes way for the requested one
+            foreach (GameObject obj in initiallyActiveObjects)
+            {
+                if (obj.name != "Background") obj.SetActive(false);
+            }
+            target.gameObject.SetActive(true);
         }
     }
 }

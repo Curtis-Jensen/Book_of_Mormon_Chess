@@ -13,6 +13,7 @@ public class StriplingWarrior : Piece
 
 
     [SerializeField] int maxWoundedTurns = 2;
+    [SerializeField, Range(0f, 1f)] float ghostAlpha = 0.35f;
     int currentWoundedTurns = 0;
     TextMeshPro woundedCounterText;
     Faction originalFaction;
@@ -101,7 +102,8 @@ public class StriplingWarrior : Piece
     }
 
     /// <summary>
-    /// Stripling Warriors don't die, they just get wounded.
+    /// Stripling Warriors don't kill their attacker; they fade into a ghost for a while
+    /// and come back once their square is free of any piece, friend or foe.
     /// </summary>
     public override void Die(bool instantiateEffects = true)
     {
@@ -110,26 +112,55 @@ public class StriplingWarrior : Piece
             base.Die();
             return;
         }
-        TurnProgresser.Instance.selectedPiece.Die();
-        TurnProgresser.Instance.selectedPiece = this;
 
+        // The attacker survives and takes the square (MoveEnd reassigns tile.piece);
+        // the ghost stays behind, off the tile's occupant slot, so it blocks nothing.
         moveDirections = new Vector2Int[0];
         currentWoundedTurns = maxWoundedTurns;
         spriteRenderer.sprite = woundedSprite;
+        SetGhostAlpha(ghostAlpha);
 
         faction = Faction.Inanimate;
     }
 
+    void SetGhostAlpha(float alpha)
+    {
+        Color color = spriteRenderer.color;
+        color.a = alpha;
+        spriteRenderer.color = color;
+    }
+
+    TileSelector HomeTile()
+    {
+        var tiles = TurnProgresser.Instance.tiles;
+        int x = Mathf.RoundToInt(transform.position.x);
+        int y = Mathf.RoundToInt(transform.position.y);
+        return tiles[x, y];
+    }
+
     public void DecrementWoundedCounter()
     {
-        currentWoundedTurns--;
-        if (currentWoundedTurns <= 0)
+        if (faction != Faction.Inanimate) return; // Not a ghost
+
+        if (currentWoundedTurns > 0) currentWoundedTurns--;
+
+        if (currentWoundedTurns > 0)
         {
+            if (woundedCounterText != null)
+                woundedCounterText.text = (currentWoundedTurns / 2 + currentWoundedTurns % 2).ToString();
+            return;
+        }
+
+        // Time's up, but only revive on an empty square (or one we still own).
+        TileSelector tile = HomeTile();
+        if (tile.piece == null || tile.piece == this)
+        {
+            tile.piece = this;
             UnWounded();
         }
         else if (woundedCounterText != null)
         {
-            woundedCounterText.text = (currentWoundedTurns / 2 + currentWoundedTurns % 2).ToString();
+            woundedCounterText.text = "0";
         }
     }
 
@@ -140,6 +171,7 @@ public class StriplingWarrior : Piece
         if (woundedCounterText != null) woundedCounterText.text = "";
 
         spriteRenderer.sprite = activeSprite;
+        SetGhostAlpha(1f);
 
         faction = originalFaction;
     }

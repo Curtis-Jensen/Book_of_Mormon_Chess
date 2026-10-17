@@ -56,26 +56,40 @@ public class StriplingWarriorTests
     }
 
     [Test]
-    public void Die_WhenKilledByAnOrdinaryPiece_SurvivesWoundedInsteadAndKillsTheAttackerInstead()
+    public void Die_WhenKilledByAnOrdinaryPiece_BecomesAGhostAndTheAttackerSurvives()
     {
         var defender = fixture.PlaceStriplingWarrior(3, 3, playerIndex: 1, faction: Faction.Lamanite);
         var attacker = fixture.PlacePiece<Rook>(4, 4, playerIndex: 0, faction: Faction.Nephite);
-        fixture.EquipDeathEffects(attacker);
         fixture.TurnProgresser.selectedPiece = attacker;
+        BoardTestFixture.SetWoundedTurns(defender, currentWoundedTurns: 0, maxWoundedTurns: 14);
 
-        // Object.Destroy outside Play Mode logs an error (it's immediate in-editor,
-        // same as production behavior when this runs for real) -- expected here.
-        LogAssert.Expect(LogType.Error, new Regex("Destroy may not be called from edit mode"));
         defender.Die();
 
-        // Note: Piece.Die()'s own removal-from-player-list step uses
-        // FindAnyObjectByType<PieceSpawner>(), which isn't reliably *this* fixture's
-        // PieceSpawner if another one exists in a loaded scene -- so that part of the
-        // behavior isn't asserted here. What StriplingWarrior.Die() itself guarantees
-        // (defender survives, reassigns selectedPiece, goes Inanimate) is fully testable.
-        Assert.IsTrue(defender != null, "defender should survive, only wounded");
+        Assert.IsTrue(defender != null, "defender should survive as a ghost");
+        Assert.IsTrue(attacker != null, "attacker should not be killed");
         Assert.AreEqual(Faction.Inanimate, defender.faction);
-        Assert.AreSame(defender, fixture.TurnProgresser.selectedPiece);
+        Assert.AreSame(attacker, fixture.TurnProgresser.selectedPiece);
+        Assert.Less(defender.GetComponent<SpriteRenderer>().color.a, 1f);
+        Assert.AreEqual(0, BoardTestFixture.GetMoveDirections(defender).Length);
+    }
+
+    [Test]
+    public void DecrementWoundedCounter_GhostStaysGhostWhileAnotherPieceOccupiesItsSquare()
+    {
+        var warrior = fixture.PlaceStriplingWarrior(3, 3, playerIndex: 1, faction: Faction.Lamanite);
+        warrior.faction = Faction.Inanimate;
+        BoardTestFixture.SetWoundedTurns(warrior, currentWoundedTurns: 1, maxWoundedTurns: 4);
+        var squatter = fixture.PlacePiece<Rook>(5, 5, playerIndex: 0, faction: Faction.Nephite);
+        fixture.TurnProgresser.tiles[3, 3].piece = squatter;
+
+        warrior.DecrementWoundedCounter();
+        Assert.AreEqual(Faction.Inanimate, warrior.faction);
+
+        fixture.TurnProgresser.tiles[3, 3].piece = null;
+        warrior.DecrementWoundedCounter();
+
+        Assert.AreEqual(Faction.Lamanite, warrior.faction);
+        Assert.AreSame(warrior, fixture.TurnProgresser.tiles[3, 3].piece);
     }
 
     [Test]

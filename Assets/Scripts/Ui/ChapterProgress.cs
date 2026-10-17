@@ -1,4 +1,4 @@
-using System;
+﻿using System;
 using UnityEngine;
 
 // Training chapters unlock in order: winning a chapter unlocks the next one.
@@ -69,7 +69,7 @@ public static class ChapterProgress
 
             var prefabNames = Array.ConvertAll(config.backRowPrefabs, prefab => prefab.name);
             var opponentNames = Array.ConvertAll(config.opponentBackRowPrefabs ?? new GameObject[0], prefab => prefab.name);
-            PlayerPrefs.SetString(SetupKey(config.dropDownOptionName), $"{config.sceneName}|{string.Join(",", prefabNames)}|{string.Join(",", opponentNames)}");
+            PlayerPrefs.SetString(SetupKey(config.dropDownOptionName), $"{config.sceneName}|{string.Join(",", prefabNames)}|{string.Join(",", opponentNames)}|{(config.noPawns ? 1 : 0)}|{(config.opponentDoubleRow ? 1 : 0)}");
         }
     }
 
@@ -92,6 +92,9 @@ public static class ChapterProgress
         PlayerPrefs.SetInt("opponentBackRowCount", opponentNames.Length);
         for (int i = 0; i < opponentNames.Length; i++)
             PlayerPrefs.SetString($"opponentBackRowPrefab_{i}", opponentNames[i]);
+
+        PlayerPrefs.SetInt("noPawns", parts.Length > 3 && parts[3] == "1" ? 1 : 0);
+        PlayerPrefs.SetInt("opponentDoubleRow", parts.Length > 4 && parts[4] == "1" ? 1 : 0);
 
         UnityEngine.SceneManagement.SceneManager.LoadScene(parts[0]);
         return true;

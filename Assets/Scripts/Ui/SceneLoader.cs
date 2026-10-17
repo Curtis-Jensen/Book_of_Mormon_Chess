@@ -13,6 +13,12 @@ public class SceneConfig
     // Stripling Warriors chapter pits the player's Stripling Warriors against Lamanite Queens.
     // Leave empty and every side uses backRowPrefabs. Index 0 is the king slot, same as above.
     public GameObject[] opponentBackRowPrefabs;
+
+    // Skip the player's pawn row (Stripling Warriors tutorial experiment).
+    public bool noPawns;
+    // Lamanites get a second copy of their back row in front, with their pawns one row further out.
+    // Only meaningful alongside noPawns.
+    public bool opponentDoubleRow;
 }
 
 public class SceneLoader : MonoBehaviour
@@ -21,6 +27,14 @@ public class SceneLoader : MonoBehaviour
 
     void Awake()
     {
+        // Experiment: set in code so an already-open scene's stale serialized data can't override it
+        foreach (var config in sceneConfigs)
+        {
+            if (config.dropDownOptionName != "Stripling Warriors") continue;
+            config.noPawns = true;
+            config.opponentDoubleRow = true;
+        }
+
         // Lets the victory screen launch the next chapter without coming back here
         ChapterProgress.SaveSetups(sceneConfigs);
     }
@@ -60,6 +74,8 @@ public class SceneLoader : MonoBehaviour
         PlayerPrefs.SetInt("opponentBackRowCount", opponentCount);
         for (int i = 0; i < opponentCount; i++)
             PlayerPrefs.SetString($"opponentBackRowPrefab_{i}", config.opponentBackRowPrefabs[i].name);
+        PlayerPrefs.SetInt("noPawns", config.noPawns ? 1 : 0);
+        PlayerPrefs.SetInt("opponentDoubleRow", config.opponentDoubleRow ? 1 : 0);
         LoadScene(config.sceneName);
     }
 

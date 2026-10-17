@@ -46,7 +46,7 @@ public class LobbyMenu : MonoBehaviour
 
                 if (games.Count == 0)
                 {
-                    SetStatus("No open games right now -- start one below.");
+                    SetStatus("No open games right now.");
                     return;
                 }
 

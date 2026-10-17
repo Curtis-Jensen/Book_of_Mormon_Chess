@@ -79,7 +79,7 @@ public class FriendsMenu : MonoBehaviour
 
                 if (friends.Count == 0)
                 {
-                    SetStatus("No friends yet -- search a username above to add one.");
+                    SetStatus("No friends yet -- search a username to add one.");
                     return;
                 }
 
@@ -129,6 +129,12 @@ public class FriendsMenu : MonoBehaviour
 
         var row = Instantiate(friendRowPrefab, friendsListParent);
         row.Set(friend.username, status, onClick);
+    }
+
+    // "Play a Friend" on the hub: friends are challenged from this list, so jump to the search box.
+    public void FocusSearch()
+    {
+        if (searchInput != null) searchInput.ActivateInputField();
     }
 
     public void OnAddFriendClicked()

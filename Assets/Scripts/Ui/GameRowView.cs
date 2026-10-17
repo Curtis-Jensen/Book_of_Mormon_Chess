@@ -27,6 +27,12 @@ public class GameRowView : MonoBehaviour
         closeButton.onClick.AddListener(() => onClose());
     }
 
+    // Tints the whole row so it stands out in the list (e.g. games waiting on your move).
+    public void Highlight(Color tint)
+    {
+        if (button != null && button.targetGraphic != null) button.targetGraphic.color = tint;
+    }
+
     // Plain black "X" pinned to the row's right edge, built in code so no prefab edit is required.
     Button BuildCloseButton()
     {

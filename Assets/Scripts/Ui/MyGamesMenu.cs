@@ -1,3 +1,4 @@
+using System.Linq;
 using TMPro;
 using UnityEngine;
 
@@ -18,6 +19,8 @@ public class MyGamesMenu : MonoBehaviour
     // way to know a newer one had already cleared and repopulated the list. Each Refresh
     // call stamps its own token; a callback only draws rows if it's still the latest one.
     int refreshToken;
+
+    static readonly Color YourTurnTint = new Color(0.85f, 1f, 0.75f);
 
     void OnEnable()
     {
@@ -68,9 +71,17 @@ public class MyGamesMenu : MonoBehaviour
                 }
 
                 SetStatus("");
-                foreach (var game in games) CreateRow(game);
+                // Games waiting on you come first (OrderBy is stable, so the rest keep fetch order).
+                foreach (var game in games.OrderBy(g => IsLocalTurn(g) ? 0 : 1)) CreateRow(game);
             },
             onError: message => { if (thisRefresh == refreshToken) SetStatus(message); });
+    }
+
+    static bool IsLocalTurn(CorrespondenceGameRepository.MyGameSummary game)
+    {
+        int localIndex = game.doc.players.IndexOf(CorrespondenceGameRepository.Instance.LocalUserId);
+        bool waitingForOpponent = game.doc.players.Count < 2 || string.IsNullOrEmpty(game.doc.players[1]);
+        return game.doc.status == "active" && !waitingForOpponent && localIndex >= 0 && game.doc.currentTurnIndex == localIndex;
     }
 
     void CreateRow(CorrespondenceGameRepository.MyGameSummary game)
@@ -99,6 +110,7 @@ public class MyGamesMenu : MonoBehaviour
         row.Set(opponentName, turnStatus, () =>
             correspondenceMenu.StartCorrespondenceScene(game.gameId, localPlayerIndex, isCreator, game.doc.boardSize),
             () => CloseGame(game));
+        if (IsLocalTurn(game)) row.Highlight(YourTurnTint);
     }
 
     // "Closing" flags the doc rather than deleting it (PushState already passes the

@@ -48,6 +48,12 @@ public class CorrespondenceMenu : MonoBehaviour
         var root = GetComponentInParent<Canvas>(true);
         if (root == null) return;
 
+        // The "Share this code with a friend..." subtitle is plain scene text.
+        foreach (var label in root.GetComponentsInChildren<TMP_Text>(true))
+        {
+            if (label.text.StartsWith("Share this code")) label.gameObject.SetActive(false);
+        }
+
         foreach (var button in root.GetComponentsInChildren<UnityEngine.UI.Button>(true))
         {
             for (int i = 0; i < button.onClick.GetPersistentEventCount(); i++)

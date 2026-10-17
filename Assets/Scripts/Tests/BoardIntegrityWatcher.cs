@@ -62,6 +62,10 @@ public class BoardIntegrityWatcher : MonoBehaviour
             {
                 if (piece == null) continue;
 
+                // Wounded Stripling ghosts are Inanimate and deliberately never occupy
+                // tile.piece, so a tile can hold one active piece plus several ghosts.
+                if (piece.faction == Faction.Inanimate) continue;
+
                 var pos = piece.transform.position;
                 int px = Mathf.RoundToInt(pos.x), py = Mathf.RoundToInt(pos.y);
                 if (px < 0 || px >= boardSize || py < 0 || py >= boardSize)

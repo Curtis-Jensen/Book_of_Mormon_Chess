@@ -37,7 +37,7 @@ public class LoginMenu : MonoBehaviour
         SetStatus("Checking for a saved login...");
         CorrespondenceGameRepository.Instance.Initialize(
             onReady: OnAuthenticated,
-            onNoStoredSession: () => SetStatus("Play as a guest, or log in to keep your games on any device."),
+            onNoStoredSession: () => SetStatus(""),
             onError: SetStatus);
     }
 

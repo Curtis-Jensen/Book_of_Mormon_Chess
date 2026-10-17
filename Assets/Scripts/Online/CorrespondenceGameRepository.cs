@@ -311,6 +311,13 @@ public partial class CorrespondenceGameRepository : MonoBehaviour
     {
         public string gameId;
         public GameDoc doc;
+
+        public bool IsLocalTurn(string localUserId)
+        {
+            int localIndex = doc.players.IndexOf(localUserId);
+            bool waitingForOpponent = doc.players.Count < 2 || string.IsNullOrEmpty(doc.players[1]);
+            return doc.status == "active" && !waitingForOpponent && localIndex >= 0 && doc.currentTurnIndex == localIndex;
+        }
     }
 
     public void FetchMyGames(Action<List<MyGameSummary>> onFetched, Action<string> onError)

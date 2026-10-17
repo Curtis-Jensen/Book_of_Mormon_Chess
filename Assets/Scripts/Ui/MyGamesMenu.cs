@@ -77,12 +77,8 @@ public class MyGamesMenu : MonoBehaviour
             onError: message => { if (thisRefresh == refreshToken) SetStatus(message); });
     }
 
-    static bool IsLocalTurn(CorrespondenceGameRepository.MyGameSummary game)
-    {
-        int localIndex = game.doc.players.IndexOf(CorrespondenceGameRepository.Instance.LocalUserId);
-        bool waitingForOpponent = game.doc.players.Count < 2 || string.IsNullOrEmpty(game.doc.players[1]);
-        return game.doc.status == "active" && !waitingForOpponent && localIndex >= 0 && game.doc.currentTurnIndex == localIndex;
-    }
+    static bool IsLocalTurn(CorrespondenceGameRepository.MyGameSummary game) =>
+        game.IsLocalTurn(CorrespondenceGameRepository.Instance.LocalUserId);
 
     void CreateRow(CorrespondenceGameRepository.MyGameSummary game)
     {

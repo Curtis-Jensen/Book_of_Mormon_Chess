@@ -18902,6 +18902,8 @@ MonoBehaviour:
     opponentBackRowPrefabs:
     - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
     - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
+    noPawns: 1
+    opponentDoubleRow: 1
 --- !u!4 &2089302261
 Transform:
   m_ObjectHideFlags: 0

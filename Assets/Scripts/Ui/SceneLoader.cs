@@ -13,6 +13,12 @@ public class SceneConfig
     // Stripling Warriors chapter pits the player's Stripling Warriors against Lamanite Queens.
     // Leave empty and every side uses backRowPrefabs. Index 0 is the king slot, same as above.
     public GameObject[] opponentBackRowPrefabs;
+
+    // Skip the pawn rows entirely for both sides (Stripling Warriors tutorial experiment).
+    public bool noPawns;
+    // Fill the Lamanite pawn row with a second copy of their back row instead of pawns.
+    // Only meaningful alongside noPawns.
+    public bool opponentDoubleRow;
 }
 
 public class SceneLoader : MonoBehaviour
@@ -60,6 +66,8 @@ public class SceneLoader : MonoBehaviour
         PlayerPrefs.SetInt("opponentBackRowCount", opponentCount);
         for (int i = 0; i < opponentCount; i++)
             PlayerPrefs.SetString($"opponentBackRowPrefab_{i}", config.opponentBackRowPrefabs[i].name);
+        PlayerPrefs.SetInt("noPawns", config.noPawns ? 1 : 0);
+        PlayerPrefs.SetInt("opponentDoubleRow", config.opponentDoubleRow ? 1 : 0);
         LoadScene(config.sceneName);
     }
 

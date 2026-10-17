@@ -203,12 +203,15 @@ public class BoardSetup : MonoBehaviour
 
             if (boardSize > 3)
             {
-                OrderPawns(i);
+                if (PlayerPrefs.GetInt("noPawns") != 1)
+                    OrderPawns(i);
+                else if (i % 2 == 1 && PlayerPrefs.GetInt("opponentDoubleRow") == 1)
+                    OrderBackRows(pieceChoices, i, boardSize - 2);
             }
         } 
     }
 
-    protected void OrderBackRows(int[] pieceChoices, int playerIndex)
+    protected void OrderBackRows(int[] pieceChoices, int playerIndex, int? rowOverride = null)
     {
         var evenFaction = playerIndex%2 == 0;
         var pieceRow = 0;
@@ -217,6 +220,7 @@ public class BoardSetup : MonoBehaviour
         {
             pieceRow = boardSize - 1;
         }
+        if (rowOverride.HasValue) pieceRow = rowOverride.Value;
 
         GetPlayerLaneBounds(playerIndex, out int startX, out int endX);
 

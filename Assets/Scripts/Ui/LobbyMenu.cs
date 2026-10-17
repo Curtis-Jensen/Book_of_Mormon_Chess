@@ -70,13 +70,18 @@ public class LobbyMenu : MonoBehaviour
                 onError: SetStatus));
     }
 
+    // Set while a create request is in flight so a double-click can't open two games.
+    bool creatingGame;
+
     public void OnQuickMatchClicked()
     {
+        if (creatingGame) return;
+        creatingGame = true;
         SetStatus("Opening a game...");
         CorrespondenceGameRepository.Instance.CreateOpenGame(
             onReady: (gameId, localIndex, isCreator, boardSize) =>
                 correspondenceMenu.StartCorrespondenceScene(gameId, localIndex, isCreator, boardSize),
-            onError: SetStatus);
+            onError: message => { creatingGame = false; SetStatus(message); });
     }
 
     void SetStatus(string message)

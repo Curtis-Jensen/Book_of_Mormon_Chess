@@ -7,7 +7,7 @@ using UnityEngine;
 // Makes Nephites' Last Stand grow bleaker as the Nephites (player 0) lose troops:
 //   - the screen darkens in proportion to losses
 //   - rain begins after a set number of deaths and intensifies
-//   - lightning flashes at the halfway point, the second-to-last death and the last death
+//   - lightning at half dead and on the last two deaths, plus a low random chance on other deaths
 //   - the music slows (and deepens) after every death
 // Everything is built at runtime (overlay sprites + rain particles) so the scene only needs
 // this one component. Every number is exposed in the Inspector.
@@ -46,8 +46,18 @@ public class LastStandDramatizer : MonoBehaviour
     public float rainWindSpeed = -2.5f;
     [Tooltip("Thickness of each streak in world units")]
     public float rainDropSize = 0.025f;
-    [Tooltip("How long each streak is stretched, relative to its speed")]
-    public float rainStreakLength = 0.06f;
+    [Tooltip("How long each streak is, as seconds of its own motion (0.025 at speed 14 = about 0.35 units)")]
+    public float rainStreakLength = 0.025f;
+    [Range(0f, 1f)] [Tooltip("How much drop thickness varies (0 = all identical, 1 = from tiny to double size)")]
+    public float rainSizeVariation = 0.6f;
+    [Range(0f, 0.8f)] [Tooltip("How much each drop's fall speed varies, so they don't move in lockstep")]
+    public float rainSpeedVariation = 0.3f;
+    [Range(0f, 1f)] [Tooltip("How much the rain swells and thins in waves (0 = steady, 1 = near-stops between gusts)")]
+    public float rainGustStrength = 0.7f;
+    [Tooltip("How fast the gusts come and go, in waves per second")]
+    public float rainGustSpeed = 0.25f;
+    [Tooltip("How much the wind direction sways during gusts, in world units per second")]
+    public float rainWindSway = 2f;
     public Color rainColor = new Color(0f, 0f, 0f, 0.6f);
     [Tooltip("Optional looping rain sound")]
     public AudioClip rainLoopClip;
@@ -59,7 +69,9 @@ public class LastStandDramatizer : MonoBehaviour
     // LIGHTNING
     // ========================
     [Header("Lightning")]
-    [Tooltip("Flash when the Nephites have lost half their troops")]
+    [Range(0f, 1f)] [Tooltip("Chance of a strike on any other Nephite death, once the rain has started (0 = never, 1 = every death)")]
+    public float randomStrikeChance = 0.2f;
+    [Tooltip("Always strike when the Nephites have lost half their troops")]
     public bool flashAtHalfDead = true;
     [Tooltip("Flash on the second-to-last Nephite death")]
     public bool flashAtSecondToLastDeath = true;
@@ -68,8 +80,10 @@ public class LastStandDramatizer : MonoBehaviour
     public Color lightningColor = new Color(0.85f, 0.9f, 1f, 1f);
     [Range(0f, 1f)] [Tooltip("Screen opacity at the brightest point of a flash")]
     public float lightningPeakAlpha = 0.85f;
-    [Tooltip("How many quick strobes make up one lightning strike")]
-    public int strobesPerStrike = 2;
+    [Tooltip("Fewest quick flashes in one strike")]
+    public int minStrobesPerStrike = 1;
+    [Tooltip("Most quick flashes in one strike; each strike picks randomly between min and max")]
+    public int maxStrobesPerStrike = 2;
     [Tooltip("Seconds to snap up to full brightness")]
     public float flashRiseSeconds = 0.05f;
     [Tooltip("Seconds to fade back out after each strobe")]
@@ -95,9 +109,61 @@ public class LastStandDramatizer : MonoBehaviour
     public float musicSlowSeconds = 1.5f;
 
     // ========================
+    // VIGNETTE & COLOR DRAIN
+    // ========================
+    [Header("Vignette (closing-in edges)")]
+    [Range(0f, 1f)] [Tooltip("Edge darkness once only one Nephite is left; grows with losses")]
+    public float maxVignetteOpacity = 0.85f;
+    [Range(0f, 0.95f)] [Tooltip("Where the dark starts, as a fraction of the way out from the center (smaller = more tunnel-like)")]
+    public float vignetteInnerRadius = 0.35f;
+    public Color vignetteColor = Color.black;
+
+    [Header("Color drain")]
+    [Tooltip("How far colors wash toward gray once only one Nephite is left (0 = none). Keep small for a subtle effect")]
+    [Range(0f, 1f)] public float maxColorDrain = 0.25f;
+
+    // ========================
+    // CAMERA SHAKE
+    // ========================
+    [Header("Camera shake")]
+    [Tooltip("Shake strength on each Nephite death, as a fraction of half the screen height")]
+    public float deathShakeStrength = 0.03f;
+    public float deathShakeSeconds = 0.25f;
+    [Tooltip("Shake strength when lightning strikes (timed to the thunder sound)")]
+    public float thunderShakeStrength = 0.09f;
+    public float thunderShakeSeconds = 0.7f;
+    [Tooltip("Seconds between a strike's first flash and the thunder shake, so the rumble lands after the light")]
+    public float thunderShakeDelay = 0.1f;
+    [Tooltip("How fast the shake jitters")]
+    public float shakeFrequency = 28f;
+
+    // ========================
+    // HEARTBEAT (last troop only)
+    // ========================
+    [Header("Heartbeat (only while one Nephite remains)")]
+    public AudioClip heartbeatClip;
+    [Range(0f, 1f)] public float heartbeatVolume = 0.9f;
+    [Tooltip("Beats per minute when the last troop is left")]
+    public float heartbeatStartBpm = 70f;
+    [Tooltip("Beats per minute it climbs to")]
+    public float heartbeatMaxBpm = 120f;
+    [Tooltip("Seconds it takes to climb from start to max BPM")]
+    public float heartbeatRampSeconds = 25f;
+
+    // ========================
+    // MUSIC MUFFLING
+    // ========================
+    [Header("Music muffling")]
+    [Tooltip("Music high-frequency cutoff (Hz) when no troops are lost; 22000 = untouched")]
+    public float musicCutoffStart = 22000f;
+    [Tooltip("Cutoff (Hz) once only one Nephite is left; lower = more muffled")]
+    public float musicCutoffEnd = 1800f;
+
+    // ========================
     // RUNTIME STATE
     // ========================
     const int OverlaySortingOrder = 500; // Above pieces/tiles; UI canvases are unaffected
+    // Draw order: color drain 498, darkness 499, vignette 500, rain 501, lightning 502
 
     int _deaths;
     int _startingTroops;
@@ -107,6 +173,17 @@ public class LastStandDramatizer : MonoBehaviour
     Camera _cam;
     MusicPlayer _music;
     SpriteRenderer _darkness;
+    SpriteRenderer _vignette;
+    SpriteRenderer _drain;
+    AudioLowPassFilter _musicFilter;
+    AudioSource _heartbeatSource;
+    Coroutine _heartbeatRoutine;
+    Vector3 _shakeOffset;
+    float _shakeAmplitude;
+    float _shakeSecondsLeft;
+    float _shakeTotalSeconds;
+    float _currentVignette;
+    float _vignetteVelocity;
     SpriteRenderer _flash;
     ParticleSystem _rain;
     AudioSource _sfxSource;
@@ -134,7 +211,9 @@ public class LastStandDramatizer : MonoBehaviour
         if (_cam == null) { enabled = false; return; }
 
         Sprite square = MakeWhiteSquareSprite();
-        _darkness = MakeOverlay("Darkness Overlay", square, OverlaySortingOrder);
+        _drain = MakeOverlay("Color Drain Overlay", square, OverlaySortingOrder - 2);
+        _darkness = MakeOverlay("Darkness Overlay", square, OverlaySortingOrder - 1);
+        _vignette = MakeOverlay("Vignette Overlay", MakeVignetteSprite(), OverlaySortingOrder);
         _flash = MakeOverlay("Lightning Overlay", square, OverlaySortingOrder + 2);
         _rain = MakeRain();
 
@@ -145,16 +224,42 @@ public class LastStandDramatizer : MonoBehaviour
         _rainSource.loop = true;
         _rainSource.clip = rainLoopClip;
         _rainSource.volume = 0f;
+        _heartbeatSource = gameObject.AddComponent<AudioSource>();
+        _heartbeatSource.playOnAwake = false;
+
+        // Muffles the music as troops fall; starts wide open so nothing changes until the first death
+        if (_music != null)
+        {
+            _musicFilter = _music.gameObject.AddComponent<AudioLowPassFilter>();
+            _musicFilter.cutoffFrequency = musicCutoffStart;
+        }
     }
 
-    void OnEnable() { Piece.OnPieceKilled += OnPieceKilled; }
+    void OnEnable()
+    {
+        Piece.OnPieceKilled += OnPieceKilled;
+        HoardEndingManager.OnGameEnd += OnGameEnded;
+    }
 
-    void OnDisable() { Piece.OnPieceKilled -= OnPieceKilled; }
+    void OnDisable()
+    {
+        Piece.OnPieceKilled -= OnPieceKilled;
+        HoardEndingManager.OnGameEnd -= OnGameEnded;
+    }
+
+    // The game is over, so the heartbeat has nothing left to beat for.
+    void OnGameEnded(int playerIndex)
+    {
+        if (_heartbeatRoutine != null) StopCoroutine(_heartbeatRoutine);
+        _heartbeatRoutine = null;
+    }
 
     // Put the music back to normal if this object goes away (e.g. returning to the menu).
     void OnDestroy()
     {
         if (_music != null) _music.SetPitch(1f);
+        if (_musicFilter != null) Destroy(_musicFilter);
+        if (_cam != null) _cam.transform.position -= _shakeOffset;
     }
 
     // ========================
@@ -180,6 +285,11 @@ public class LastStandDramatizer : MonoBehaviour
         if (!_isRaining && _deaths >= rainStartsAfterDeaths) StartRain();
 
         TryStrikeLightning();
+        AddShake(deathShakeStrength, deathShakeSeconds);
+
+        // Only one troop left: start the heartbeat
+        if (_deaths == _startingTroops - 1 && _startingTroops >= 2 && heartbeatClip != null && _heartbeatRoutine == null)
+            _heartbeatRoutine = StartCoroutine(BeatHeart());
 
         // Reaches the minimum when one troop remains (startingTroops - 1 deaths), whatever the army size
         float deathsToMinimum = Mathf.Max(1, _startingTroops - 1);
@@ -188,16 +298,18 @@ public class LastStandDramatizer : MonoBehaviour
 
     // -------------------------------------------------------
     // TryStrikeLightning()
-    // Strikes at half dead, second-to-last, and last, each at most once even when they coincide
-    // (tiny armies can make "half" and "second-to-last" the same death).
+    // Always strikes at half dead and on the last two deaths, and randomly (randomStrikeChance) on others.
+    // Each death strikes at most once.
     // -------------------------------------------------------
     void TryStrikeLightning()
     {
         bool isHalf = flashAtHalfDead && _deaths == Mathf.CeilToInt(_startingTroops / 2f);
         bool isSecondToLast = flashAtSecondToLastDeath && _deaths == _startingTroops - 1;
         bool isLast = flashAtLastDeath && _deaths == _startingTroops;
+        // Other deaths: a low random chance, but only once the storm has actually begun
+        bool isRandom = _isRaining && Random.value < randomStrikeChance;
 
-        if (!(isHalf || isSecondToLast || isLast)) return;
+        if (!(isHalf || isSecondToLast || isLast || isRandom)) return;
         if (!_flashedAtDeath.Add(_deaths)) return;
 
         StartCoroutine(StrikeLightning());
@@ -214,6 +326,7 @@ public class LastStandDramatizer : MonoBehaviour
     // -------------------------------------------------------
     void LateUpdate()
     {
+        ApplyShake();
         FitOverlaysToCamera();
 
         // Darkness
@@ -225,6 +338,16 @@ public class LastStandDramatizer : MonoBehaviour
             Mathf.Max(0.01f, darknessFadeSeconds));
         _darkness.color = new Color(darknessColor.r, darknessColor.g, darknessColor.b, _currentDarkness);
 
+        // Vignette tightens and color drains as troops fall (both reach their max with one troop left)
+        float lastTroopProgress = _startingTroops > 1
+            ? Mathf.Clamp01(_deaths / Mathf.Max(1f, _startingTroops - 1f)) : 0f;
+        _currentVignette = Mathf.SmoothDamp(_currentVignette, lastTroopProgress * maxVignetteOpacity,
+            ref _vignetteVelocity, Mathf.Max(0.01f, darknessFadeSeconds));
+        _vignette.color = new Color(vignetteColor.r, vignetteColor.g, vignetteColor.b, _currentVignette);
+        _drain.color = new Color(0.5f, 0.5f, 0.5f, lastTroopProgress * maxColorDrain);
+        if (_musicFilter != null)
+            _musicFilter.cutoffFrequency = Mathf.Lerp(musicCutoffStart, musicCutoffEnd, lastTroopProgress);
+
         // Lightning overlay
         _flash.color = new Color(lightningColor.r, lightningColor.g, lightningColor.b, _flashAlpha);
 
@@ -232,7 +355,10 @@ public class LastStandDramatizer : MonoBehaviour
         if (_isRaining)
         {
             var emission = _rain.emission;
-            emission.rateOverTime = Mathf.Lerp(minRainRate, maxRainRate, lossFraction);
+            // Perlin noise makes the rain swell and thin unpredictably instead of a constant stream
+            float gust = Mathf.PerlinNoise(Time.time * rainGustSpeed, 3.7f);
+            float gustFactor = Mathf.Lerp(1f, Mathf.Lerp(0.15f, 1.4f, gust), rainGustStrength);
+            emission.rateOverTime = Mathf.Lerp(minRainRate, maxRainRate, lossFraction) * gustFactor;
             if (_rainSource.clip != null)
                 _rainSource.volume = Mathf.MoveTowards(_rainSource.volume, rainVolume,
                     rainVolume / Mathf.Max(0.01f, rainFadeInSeconds) * Time.deltaTime);
@@ -258,20 +384,34 @@ public class LastStandDramatizer : MonoBehaviour
         float width = _cam.orthographicSize * 2f * _cam.aspect + 1f;
         _darkness.transform.localScale = new Vector3(width, height, 1f);
         _flash.transform.localScale = new Vector3(width, height, 1f);
+        _vignette.transform.localScale = new Vector3(width, height, 1f);
+        _drain.transform.localScale = new Vector3(width, height, 1f);
 
-        float fallTime = height / Mathf.Max(0.1f, rainFallSpeed);
+        // Slowest drops set the lifetime so every drop can cross the whole screen
+        float slowestFall = Mathf.Max(0.1f, rainFallSpeed * (1f - rainSpeedVariation));
+        float fallTime = height / slowestFall;
         var main = _rain.main;
-        main.startLifetime = fallTime * 1.1f;
-        main.startSize = rainDropSize;
-        main.startColor = rainColor;
+        main.startLifetime = fallTime * 1.05f;
+        main.startSize = new ParticleSystem.MinMaxCurve(rainDropSize * (1f - rainSizeVariation * 0.5f),
+            rainDropSize * (1f + rainSizeVariation));
+        // Random alpha per drop so some read as nearer/fainter
+        Color faint = new Color(rainColor.r, rainColor.g, rainColor.b, rainColor.a * 0.4f);
+        main.startColor = new ParticleSystem.MinMaxGradient(faint, rainColor);
         var shape = _rain.shape;
-        shape.scale = new Vector3(width + Mathf.Abs(rainWindSpeed) * fallTime, 1f, 1f);
+        shape.scale = new Vector3(width + (Mathf.Abs(rainWindSpeed) + rainWindSway) * fallTime, 1f, 1f);
         var velocity = _rain.velocityOverLifetime;
-        velocity.x = rainWindSpeed;
-        velocity.y = -rainFallSpeed;
+        velocity.y = new ParticleSystem.MinMaxCurve(-rainFallSpeed * (1f + rainSpeedVariation),
+            -rainFallSpeed * (1f - rainSpeedVariation));
+        // Wind sways slowly with a second noise lane so it isn't the same as the gust rhythm
+        float sway = (Mathf.PerlinNoise(Time.time * rainGustSpeed * 0.7f, 17.3f) - 0.5f) * 2f * rainWindSway;
+        float wind = rainWindSpeed + sway;
+        // All three axes must share a curve mode, so x and z are two-constant ranges too
+        velocity.x = new ParticleSystem.MinMaxCurve(wind, wind);
+        velocity.z = new ParticleSystem.MinMaxCurve(0f, 0f);
         _rain.transform.localPosition = new Vector3(0f, _cam.orthographicSize + 0.5f, 5f);
         var rainRenderer = _rain.GetComponent<ParticleSystemRenderer>();
-        rainRenderer.lengthScale = rainStreakLength * rainFallSpeed;
+        rainRenderer.velocityScale = rainStreakLength;
+        rainRenderer.lengthScale = 1f;
     }
 
     // ========================
@@ -292,7 +432,9 @@ public class LastStandDramatizer : MonoBehaviour
     IEnumerator StrikeLightning()
     {
         if (lightningClip != null) _sfxSource.PlayOneShot(lightningClip, lightningVolume);
-        for (int i = 0; i < Mathf.Max(1, strobesPerStrike); i++)
+        StartCoroutine(ShakeAfterDelay(thunderShakeDelay));
+        int strobes = Random.Range(Mathf.Max(1, minStrobesPerStrike), Mathf.Max(minStrobesPerStrike, maxStrobesPerStrike) + 1);
+        for (int i = 0; i < strobes; i++)
         {
             // Later strobes are dimmer than the first
             float peak = i == 0 ? lightningPeakAlpha : lightningPeakAlpha * 0.7f;
@@ -308,7 +450,7 @@ public class LastStandDramatizer : MonoBehaviour
                 yield return null;
             }
             _flashAlpha = 0f;
-            if (i < strobesPerStrike - 1) yield return new WaitForSeconds(timeBetweenStrobes);
+            if (i < strobes - 1) yield return new WaitForSeconds(timeBetweenStrobes);
         }
 
         if (thunderClips != null && thunderClips.Length > 0)
@@ -319,9 +461,91 @@ public class LastStandDramatizer : MonoBehaviour
         }
     }
 
+    // -------------------------------------------------------
+    // AddShake(strength, seconds)
+    // Starts (or strengthens) a camera shake. Strength is a fraction of half the screen height.
+    // A new shake only replaces the current one if it would be stronger than what's left of it.
+    // -------------------------------------------------------
+    void AddShake(float strength, float seconds)
+    {
+        float remaining = _shakeTotalSeconds > 0f ? _shakeAmplitude * (_shakeSecondsLeft / _shakeTotalSeconds) : 0f;
+        if (strength < remaining) return;
+        _shakeAmplitude = strength;
+        _shakeSecondsLeft = _shakeTotalSeconds = Mathf.Max(0.01f, seconds);
+    }
+
+    IEnumerator ShakeAfterDelay(float delay)
+    {
+        yield return new WaitForSeconds(delay);
+        AddShake(thunderShakeStrength, thunderShakeSeconds);
+    }
+
+    // -------------------------------------------------------
+    // ApplyShake()
+    // CameraController moves the camera with += each frame, so we first undo last frame's shake
+    // offset (restoring the true position) and then apply a fresh one. The overlays are children
+    // of the camera, so they shake with it.
+    // -------------------------------------------------------
+    void ApplyShake()
+    {
+        _cam.transform.position -= _shakeOffset;
+        _shakeOffset = Vector3.zero;
+        if (_shakeSecondsLeft <= 0f) return;
+
+        _shakeSecondsLeft -= Time.deltaTime;
+        float fade = Mathf.Clamp01(_shakeSecondsLeft / _shakeTotalSeconds);
+        float size = _cam.orthographicSize * _shakeAmplitude * fade;
+        float t = Time.time * shakeFrequency;
+        _shakeOffset = new Vector3(
+            (Mathf.PerlinNoise(t, 0.5f) - 0.5f) * 2f * size,
+            (Mathf.PerlinNoise(0.5f, t) - 0.5f) * 2f * size, 0f);
+        _cam.transform.position += _shakeOffset;
+    }
+
+    // -------------------------------------------------------
+    // BeatHeart()
+    // Plays the lub-dub clip on a loop, gradually speeding up. Runs from the second-to-last
+    // death until the game ends.
+    // -------------------------------------------------------
+    IEnumerator BeatHeart()
+    {
+        float elapsed = 0f;
+        while (true)
+        {
+            _heartbeatSource.PlayOneShot(heartbeatClip, heartbeatVolume);
+            float bpm = Mathf.Lerp(heartbeatStartBpm, heartbeatMaxBpm,
+                Mathf.Clamp01(elapsed / Mathf.Max(0.01f, heartbeatRampSeconds)));
+            float wait = 60f / Mathf.Max(1f, bpm);
+            elapsed += wait;
+            yield return new WaitForSeconds(wait);
+        }
+    }
+
     // ========================
     // RUNTIME OBJECT BUILDERS
     // ========================
+
+    // Square sprite that's clear in the middle and dark at the edges (round fade, stretched to the screen).
+    Sprite MakeVignetteSprite()
+    {
+        const int size = 128;
+        var tex = new Texture2D(size, size, TextureFormat.RGBA32, false);
+        tex.wrapMode = TextureWrapMode.Clamp;
+        for (int y = 0; y < size; y++)
+        {
+            for (int x = 0; x < size; x++)
+            {
+                float dx = (x + 0.5f) / size * 2f - 1f;
+                float dy = (y + 0.5f) / size * 2f - 1f;
+                // 1.0 at the middle of each edge, ~1.41 at corners
+                float r = Mathf.Sqrt(dx * dx + dy * dy);
+                float a = Mathf.SmoothStep(0f, 1f, Mathf.InverseLerp(vignetteInnerRadius, 1.2f, r));
+                tex.SetPixel(x, y, new Color(1f, 1f, 1f, a));
+            }
+        }
+        tex.Apply();
+        return Sprite.Create(tex, new Rect(0, 0, size, size), new Vector2(0.5f, 0.5f), size);
+    }
 
     static Sprite MakeWhiteSquareSprite()
     {
@@ -330,6 +554,29 @@ public class LastStandDramatizer : MonoBehaviour
         tex.Apply();
         // 1 pixel per unit -> a 1x1 world-unit sprite we can scale to cover the screen
         return Sprite.Create(tex, new Rect(0, 0, 1, 1), new Vector2(0.5f, 0.5f), 1f);
+    }
+
+    // A thin vertical streak with soft edges and a faded tail, so drops look like rain instead of squares.
+    // Stretch-billboard particles orient the texture's long axis along their motion.
+    static Texture2D MakeStreakTexture()
+    {
+        const int w = 8, h = 64;
+        var tex = new Texture2D(w, h, TextureFormat.RGBA32, false);
+        tex.wrapMode = TextureWrapMode.Clamp;
+        for (int y = 0; y < h; y++)
+        {
+            float v = y / (h - 1f);
+            // Tail (top) fades in; head (bottom) ends in a quick round-off
+            float along = Mathf.SmoothStep(0f, 1f, v / 0.7f) * Mathf.SmoothStep(0f, 1f, (1f - v) / 0.12f);
+            for (int x = 0; x < w; x++)
+            {
+                float u = (x + 0.5f) / w * 2f - 1f;
+                float across = Mathf.Exp(-u * u * 5f);
+                tex.SetPixel(x, y, new Color(1f, 1f, 1f, along * across));
+            }
+        }
+        tex.Apply();
+        return tex;
     }
 
     SpriteRenderer MakeOverlay(string objectName, Sprite sprite, int sortingOrder)
@@ -368,14 +615,16 @@ public class LastStandDramatizer : MonoBehaviour
         var velocity = ps.velocityOverLifetime;
         velocity.enabled = true;
         velocity.space = ParticleSystemSimulationSpace.Local;
-        velocity.x = 0f; // all three axes must be set in the same curve mode
-        velocity.y = 0f;
-        velocity.z = 0f;
+        velocity.x = new ParticleSystem.MinMaxCurve(0f, 0f); // same curve mode on every axis
+        velocity.y = new ParticleSystem.MinMaxCurve(0f, 0f);
+        velocity.z = new ParticleSystem.MinMaxCurve(0f, 0f);
 
         var rainRenderer = go.GetComponent<ParticleSystemRenderer>();
         rainRenderer.renderMode = ParticleSystemRenderMode.Stretch;
         rainRenderer.sortingOrder = OverlaySortingOrder + 1; // above darkness so rain stays visible
-        rainRenderer.material = new Material(Shader.Find("Sprites/Default"));
+        var material = new Material(Shader.Find("Sprites/Default"));
+        material.mainTexture = MakeStreakTexture();
+        rainRenderer.material = material;
         return ps;
     }
 }

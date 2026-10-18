@@ -185,26 +185,51 @@ MonoBehaviour:
   rainFallSpeed: 14
   rainWindSpeed: -2.5
   rainDropSize: 0.07
-  rainStreakLength: 0.06
+  rainStreakLength: 0.025
+  rainSizeVariation: 0.6
+  rainSpeedVariation: 0.3
+  rainGustStrength: 0.7
+  rainGustSpeed: 0.25
+  rainWindSway: 2
   rainColor: {r: 0, g: 0, b: 0, a: 0.45}
   rainLoopClip: {fileID: 0}
   rainVolume: 0.4
   rainFadeInSeconds: 3
+  randomStrikeChance: 0.2
   flashAtHalfDead: 1
   flashAtSecondToLastDeath: 1
   flashAtLastDeath: 1
   lightningColor: {r: 1, g: 1, b: 1, a: 1}
   lightningPeakAlpha: 0.85
-  strobesPerStrike: 2
+  minStrobesPerStrike: 1
+  maxStrobesPerStrike: 2
   flashRiseSeconds: 0.05
   flashFadeSeconds: 0.25
   timeBetweenStrobes: 0.12
+  lightningClip: {fileID: 8300000, guid: c4d8a1f07b3e4a59b2e6d90f1a7c3e58, type: 3}
+  lightningVolume: 1
   thunderClips: []
   thunderVolume: 0.8
   thunderDelayRange: {x: 0.3, y: 1.2}
-  musicSpeedFactorPerDeath: 0.94
   minMusicSpeed: 0.6
   musicSlowSeconds: 1.5
+  maxVignetteOpacity: 0.85
+  vignetteInnerRadius: 0.35
+  vignetteColor: {r: 0, g: 0, b: 0, a: 1}
+  maxColorDrain: 0.25
+  deathShakeStrength: 0.03
+  deathShakeSeconds: 0.25
+  thunderShakeStrength: 0.09
+  thunderShakeSeconds: 0.7
+  thunderShakeDelay: 0.1
+  shakeFrequency: 28
+  heartbeatClip: {fileID: 8300000, guid: e2a96b3c5d1f4087a4c8f13b7d90ae21, type: 3}
+  heartbeatVolume: 0.9
+  heartbeatStartBpm: 70
+  heartbeatMaxBpm: 120
+  heartbeatRampSeconds: 25
+  musicCutoffStart: 22000
+  musicCutoffEnd: 1800
 --- !u!4 &18771992
 Transform:
   m_ObjectHideFlags: 0

@@ -9,7 +9,7 @@ PrefabInstance:
     m_Modifications:
     - target: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
       propertyPath: m_Name
-      value: Pawn
+      value: Lamanite Pawn
       objectReference: {fileID: 0}
     - target: {fileID: 3349445644490841759, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
       propertyPath: m_RootOrder
@@ -59,5 +59,9 @@ PrefabInstance:
       propertyPath: ghost
       value: 
       objectReference: {fileID: 4541555249494291026, guid: ca1117547aa9c452a97ebe17a483843e, type: 3}
+    - target: {fileID: 4842046188763103717, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+      propertyPath: queenPrefab
+      value: 
+      objectReference: {fileID: 3490791367867803738, guid: d80e404ddd8624e0d97f1b81b02a731e, type: 3}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}

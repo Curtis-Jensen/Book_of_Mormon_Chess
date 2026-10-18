@@ -4,6 +4,7 @@ MonoImporter:
   externalObjects: {}
   serializedVersion: 2
   defaultReferences:
+  - heartbeatClip: {fileID: 8300000, guid: e2a96b3c5d1f4087a4c8f13b7d90ae21, type: 3}
   - lightningClip: {fileID: 8300000, guid: c4d8a1f07b3e4a59b2e6d90f1a7c3e58, type: 3}
   executionOrder: 0
   icon: {instanceID: 0}

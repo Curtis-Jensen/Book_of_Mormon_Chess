@@ -112,6 +112,8 @@ public abstract class Piece : MonoBehaviour
     {
         Vector3 startPosition = transform.position;
         bool firstBounce = true;
+        var spriteRenderer = GetComponent<SpriteRenderer>();
+        int baseSortingOrder = spriteRenderer.sortingOrder;
         
         while (true)
         {
@@ -125,6 +127,8 @@ public abstract class Piece : MonoBehaviour
                 // Full sine wave from 0 to PI for smooth up and down motion
                 float height = Mathf.Sin(normalizedTime * Mathf.PI) * bounceHeight;
                 transform.position = startPosition + new Vector3(0, height, 0);
+                // Lower on the board renders in front so bouncing pieces don't clip into the row below
+                spriteRenderer.sortingOrder = baseSortingOrder - Mathf.RoundToInt(transform.position.y * 100f);
                 
                 elapsedTime += Time.deltaTime;
                 yield return null;
@@ -132,6 +136,7 @@ public abstract class Piece : MonoBehaviour
 
             // Ensure we end at the start position and stay there during delay
             transform.position = startPosition;
+            spriteRenderer.sortingOrder = baseSortingOrder - Mathf.RoundToInt(startPosition.y * 100f);
             
             // Add delay after bounce (except for first bounce)
             if (!firstBounce && maxBounceDelay > 0)

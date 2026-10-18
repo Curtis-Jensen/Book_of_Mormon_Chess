@@ -52,8 +52,6 @@ public class StriplingWarrior : Piece
     {
         moveDirections = kingMovementPattern;
 
-        maxWoundedTurns *= 2; //Convert from player turns to full turns
-
         TurnProgresser.Instance.OnMoveEnd += DecrementWoundedCounter;
 
         woundedCounterText = GetComponentInChildren<TextMeshPro>();
@@ -116,7 +114,11 @@ public class StriplingWarrior : Piece
         // The attacker survives and takes the square (MoveEnd reassigns tile.piece);
         // the ghost stays behind, off the tile's occupant slot, so it blocks nothing.
         moveDirections = new Vector2Int[0];
-        currentWoundedTurns = maxWoundedTurns;
+        // maxWoundedTurns is in full turns (one move each side). OnMoveEnd counts half-turns,
+        // and the wounding move's own MoveEnd fires right after this, so it's the first tick.
+        // Revival therefore lands at the end of the enemy's last move, giving the owner
+        // the next move with the revived piece before it can be wounded again.
+        currentWoundedTurns = maxWoundedTurns * 2 - 1;
         spriteRenderer.sprite = woundedSprite;
         SetGhostAlpha(ghostAlpha);
 

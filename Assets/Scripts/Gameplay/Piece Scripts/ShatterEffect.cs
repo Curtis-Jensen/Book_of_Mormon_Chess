@@ -73,6 +73,9 @@ public static class ShatterEffect
         var renderer = ps.GetComponent<ParticleSystemRenderer>();
         renderer.renderMode = ParticleSystemRenderMode.Billboard;
         renderer.sharedMaterial = GetShardMaterial();
+        // Same layer as the death ghosts, which sits below "Pieces" so shards never cover a piece.
+        renderer.sortingLayerName = "Corpses";
+        renderer.sortingOrder = 1;
 
         ps.Play(true);
     }

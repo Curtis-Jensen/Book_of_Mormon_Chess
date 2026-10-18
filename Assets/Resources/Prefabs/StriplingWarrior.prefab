@@ -113,7 +113,7 @@ MonoBehaviour:
   boardSize: 0
   activeSprite: {fileID: 21300000, guid: 785df483a2f574c65b3cf16ea29c813b, type: 3}
   woundedSprite: {fileID: 21300000, guid: 32e58c4adc4974ce5bfb1d572bd58f04, type: 3}
-  maxWoundedTurns: 7
+  maxWoundedTurns: 3
 --- !u!114 &5959132904255804861
 MonoBehaviour:
   m_ObjectHideFlags: 0

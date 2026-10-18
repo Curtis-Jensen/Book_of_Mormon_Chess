@@ -257,6 +257,11 @@ public class TurnProgresser : MonoBehaviour
         Vector3 endPosition = new(destination.x, destination.y, startPosition.z); // Preserve z-axis position
         var destinationTile = tiles[(int)destination.x, (int)destination.y];
 
+        // Mover always renders above whatever it's capturing (or passing near)
+        var moverRenderer = piece.GetComponent<SpriteRenderer>();
+        int originalSortingOrder = moverRenderer.sortingOrder;
+        moverRenderer.sortingOrder = originalSortingOrder + 100;
+
         while (time < moveTime)
         {
             piece.transform.position = Vector3.Lerp(startPosition, endPosition, time / moveTime);
@@ -267,6 +272,7 @@ public class TurnProgresser : MonoBehaviour
         //If this is not here the piece will end up slightly off the tile.  Probably due to the lerp above.
         piece.transform.position = endPosition;
 
+        moverRenderer.sortingOrder = originalSortingOrder;
         MoveEnd(destinationTile);
     }
 

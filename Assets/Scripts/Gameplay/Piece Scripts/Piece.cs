@@ -160,6 +160,9 @@ public abstract class Piece : MonoBehaviour
     // Argument is the dead piece's playerIndex. Used for atmosphere, e.g. LastStandDramatizer.
     public static event System.Action<int> OnPieceKilled;
 
+    // Fired when a queen is killed (not when one is created). Used for screen shake.
+    public static event System.Action OnQueenKilled;
+
     public virtual void Die(bool instantiateEffects = true)
     {
         if (instantiateEffects)
@@ -171,7 +174,11 @@ public abstract class Piece : MonoBehaviour
 
         // Promotion calls Die(instantiateEffects: false) to remove the old pawn, so that path
         // is deliberately not announced as a death.
-        if (instantiateEffects) OnPieceKilled?.Invoke(playerIndex);
+        if (instantiateEffects)
+        {
+            OnPieceKilled?.Invoke(playerIndex);
+            if (this is Queen) OnQueenKilled?.Invoke();
+        }
 
         if(endingManager != null)
             endingManager.UpdateMaterial(playerIndex,-materialValue);

@@ -9,6 +9,9 @@ public class Pawn : Piece
 {
     public GameObject queenPrefab;
 
+    // Fired when a pawn is swapped for its queen. Used for screen shake.
+    public static event System.Action OnPromoted;
+
     int endRow;
 
     override protected void Start()
@@ -121,5 +124,6 @@ public class Pawn : Piece
         Debug.LogWarning($"{name} spawned at: {transform.position}");
 
         Die(instantiateEffects: false);
+        OnPromoted?.Invoke();
     }
 }

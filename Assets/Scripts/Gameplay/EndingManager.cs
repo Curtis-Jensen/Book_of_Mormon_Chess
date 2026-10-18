@@ -16,6 +16,8 @@ public class EndingManager : HoardEndingManager
     [SerializeField] TMP_Text unlockText;
     [SerializeField] GameObject playAgainButton;
     [SerializeField] GameObject nextChapterButton;
+    [SerializeField] AudioClip victoryClip;
+    [SerializeField, Range(0f, 1f)] float victoryVolume = 0.8f;
 
     string unlockedChapter;
 
@@ -131,6 +133,7 @@ public class EndingManager : HoardEndingManager
 
         SetFlagColor(winningPlayerIndex);
         CreateParty(winningPlayerIndex);
+        PlayVictorySound();
 
         bool online = PlayerPrefs.GetInt("correspondenceMode") == 1;
 
@@ -142,10 +145,22 @@ public class EndingManager : HoardEndingManager
         ShowVictoryDetails(winningPlayerIndex, online);
     }
 
+    void PlayVictorySound()
+    {
+        if (victoryClip == null) return;
+        float sfx = PlayerPrefs.GetFloat(ButtonClickSounds.VolumeKey, ButtonClickSounds.DefaultVolume);
+        var go = new GameObject("VictorySound");
+        var src = go.AddComponent<AudioSource>();
+        src.clip = victoryClip;
+        src.volume = victoryVolume * sfx;
+        src.Play();
+        Destroy(go, victoryClip.length + 0.1f);
+    }
+
     void ShowVictoryDetails(int winningPlayerIndex, bool online)
     {
         if (winnerText != null)
-            winnerText.text = winningPlayerIndex % 2 == 0 ? "Nephites win!" : "Lamanites win!";
+            winnerText.text = winningPlayerIndex % 2 == 0 ? "Nephite Victory" : "Lamanite Victory";
 
         if (unlockText != null)
         {

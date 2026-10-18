@@ -20,6 +20,12 @@ public class MusicPlayer : MonoBehaviour
         source.volume = PlayerPrefs.GetFloat(VolumeKey, DefaultVolume);
     }
 
+    // Pitch also changes tempo (one knob for both). Used by LastStandDramatizer to drag the song down.
+    public void SetPitch(float pitch)
+    {
+        source.pitch = pitch;
+    }
+
     // Called by MusicVolumeSlider so changes are heard immediately, mid-song.
     public void SetVolume(float volume)
     {

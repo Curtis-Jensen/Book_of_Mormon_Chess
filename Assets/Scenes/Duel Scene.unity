@@ -389,6 +389,7 @@ MonoBehaviour:
   moveTime: 0.2
   boardSize: 8
   audioSource: {fileID: 0}
+  promotionClip: {fileID: 8300000, guid: 8325dd0d2e702408bbb85c48b5676bef, type: 3}
   captureClip: {fileID: 8300000, guid: b7c1e2a94d5f4a3e8f6021d9c3a5e7b1, type: 3}
   aiManager: {fileID: 0}
   endingManager: {fileID: 0}

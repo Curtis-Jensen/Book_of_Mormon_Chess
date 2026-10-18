@@ -92,8 +92,10 @@ public class PieceSpawner : MonoBehaviour
         var styleChoice = PlayerPrefs.GetInt(player.name + "style"); //🎨
         var spriteSet = pieceSets.spriteSets[styleChoice]; //🎨
 
-        spriteRenderer.sprite =
-            spriteSet.GetType().GetField(piecePrefab.name).GetValue(spriteSet) as Sprite;
+        // Prefab variants are named "<Variant> <Piece>" (e.g. "Lamanite Pawn") and share the base piece's sprite
+        var field = spriteSet.GetType().GetField(piecePrefab.name)
+            ?? spriteSet.GetType().GetField(piecePrefab.name.Substring(piecePrefab.name.LastIndexOf(' ') + 1));
+        spriteRenderer.sprite = field.GetValue(spriteSet) as Sprite;
 
         pieceInstance.transform.localScale
             = new Vector3(spriteSet.transformScale, spriteSet.transformScale, 1);

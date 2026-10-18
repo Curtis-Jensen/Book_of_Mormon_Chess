@@ -122,6 +122,104 @@ NavMeshSettings:
     debug:
       m_Flags: 0
   m_NavMeshData: {fileID: 0}
+--- !u!1 &18771990
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 18771992}
+  - component: {fileID: 18771991}
+  m_Layer: 0
+  m_Name: Last Stand Dramatizer
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &18771991
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18771990}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 38db80e2d24bf4a4ea9124a293e52a8d, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  darknessColor: {r: 0.02, g: 0.03, b: 0.09, a: 1}
+  darknessByLossFraction:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 1
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 1
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  maxDarkness: 0.65
+  extraDarknessWhenRaining: 0.08
+  darknessFadeSeconds: 1.5
+  rainStartsAfterDeaths: 1
+  minRainRate: 60
+  maxRainRate: 260
+  rainFallSpeed: 14
+  rainWindSpeed: -2.5
+  rainDropSize: 0.07
+  rainStreakLength: 0.06
+  rainColor: {r: 0, g: 0, b: 0, a: 0.45}
+  rainLoopClip: {fileID: 0}
+  rainVolume: 0.4
+  rainFadeInSeconds: 3
+  flashAtHalfDead: 1
+  flashAtSecondToLastDeath: 1
+  flashAtLastDeath: 1
+  lightningColor: {r: 1, g: 1, b: 1, a: 1}
+  lightningPeakAlpha: 0.85
+  strobesPerStrike: 2
+  flashRiseSeconds: 0.05
+  flashFadeSeconds: 0.25
+  timeBetweenStrobes: 0.12
+  thunderClips: []
+  thunderVolume: 0.8
+  thunderDelayRange: {x: 0.3, y: 1.2}
+  musicSpeedFactorPerDeath: 0.94
+  minMusicSpeed: 0.6
+  musicSlowSeconds: 1.5
+--- !u!4 &18771992
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 18771990}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 7
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &76764644
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,6 +388,7 @@ MonoBehaviour:
   - {fileID: 1085560861300411422, guid: 8757aa47fe22d7a4397914dd06adf71d, type: 3}
   - {fileID: 1085560861300411422, guid: e3d4ca10a5c1e524bb7199740cefa9c3, type: 3}
   - {fileID: 684026251731642388, guid: d213795bf3f660a41b0a3dbe906e3896, type: 3}
+  opponentBackPiecePrefabs: []
   boardSize: 5
 --- !u!114 &76764651
 MonoBehaviour:
@@ -308,6 +407,8 @@ MonoBehaviour:
   moveTime: 0.2
   boardSize: 8
   audioSource: {fileID: 0}
+  promotionClip: {fileID: 0}
+  captureClip: {fileID: 8300000, guid: b7c1e2a94d5f4a3e8f6021d9c3a5e7b1, type: 3}
   aiManager: {fileID: 0}
   endingManager: {fileID: 0}
   pieceSpawner: {fileID: 0}
@@ -316,7 +417,7 @@ MonoBehaviour:
   localPlayerIndex: 0
   isGameCreator: 0
   selectedPiece: {fileID: 0}
-  pawn: {fileID: 3349445644490841756, guid: 83afe6aaec85ed04dacc8cb0b242f8fa, type: 3}
+  pawn: {fileID: 5740310540323293174, guid: 547f39a6dfdf34898acf92b7d23f5a3b, type: 3}
   pieceSets: {fileID: 11400000, guid: aa1382c0b077bdd40a44d90b74ab651a, type: 2}
   spawnDisplay: {fileID: 1704381419}
   displayPrefix: 
@@ -3467,6 +3568,7 @@ MonoBehaviour:
     isCopyrighted: 0
   - music: {fileID: 8300000, guid: 5c1101bef9474123b084c23112800651, type: 3}
     isCopyrighted: 0
+  gapBetweenSongs: 3
 --- !u!114 &1357622845
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -1,0 +1,12 @@
+fileFormatVersion: 2
+guid: 38db80e2d24bf4a4ea9124a293e52a8d
+MonoImporter:
+  externalObjects: {}
+  serializedVersion: 2
+  defaultReferences:
+  - lightningClip: {fileID: 8300000, guid: c4d8a1f07b3e4a59b2e6d90f1a7c3e58, type: 3}
+  executionOrder: 0
+  icon: {instanceID: 0}
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 

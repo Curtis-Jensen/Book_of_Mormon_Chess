@@ -25,10 +25,13 @@ public class Pawn : Piece
         base.Start();
     }
 
+    // True once the pawn sits on its far row (checked after AssignNewParent has moved it).
+    public bool IsOnPromotionRow => transform.position.y == endRow;
+
     public override void MoveEnd()
     {
         base.MoveEnd();
-        if (transform.position.y != endRow) return;
+        if (!IsOnPromotionRow) return;
 
         QueenPromotion();
     }

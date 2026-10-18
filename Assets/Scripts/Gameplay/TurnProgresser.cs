@@ -91,6 +91,8 @@ public class TurnProgresser : MonoBehaviour
 
     [HideInInspector] public int boardSize = 8;
     [HideInInspector] public AudioSource audioSource;
+    public AudioClip promotionClip; // played when a pawn promotes; takes priority over the capture/move sounds
+    public AudioClip captureClip; // played on capture; the audioSource's own clip is the plain-move sound
     [HideInInspector] public AiManager aiManager;
     [HideInInspector] public HoardEndingManager endingManager;
     [HideInInspector] public PieceSpawner pieceSpawner;
@@ -296,7 +298,8 @@ public class TurnProgresser : MonoBehaviour
         // text rather than a collapsed browser error someone has to manually expand.
         try
         {
-            if (destinationTile.piece != null)
+            bool isCapture = destinationTile.piece != null;
+            if (isCapture)
             {
                 destinationTile.piece.Die();
             }
@@ -307,9 +310,12 @@ public class TurnProgresser : MonoBehaviour
             // whole move down with it -- a sound failing to play is not worth losing a move over.
             if (audioSource != null)
             {
-                // Slight random pitch so repeated moves don't sound identical
+                // Slight random pitch so repeated sounds don't sound identical
                 audioSource.pitch = Random.Range(0.92f, 1.08f);
-                audioSource.Play();
+                bool isPromotion = selectedPiece is Pawn pawn && pawn.IsOnPromotionRow;
+                if (isPromotion && promotionClip != null) audioSource.PlayOneShot(promotionClip);
+                else if (isCapture && captureClip != null) audioSource.PlayOneShot(captureClip);
+                else audioSource.Play();
             }
 
             selectedPiece.MoveEnd();

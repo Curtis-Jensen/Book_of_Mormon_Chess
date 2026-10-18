@@ -229,6 +229,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   circlePrefab: {fileID: 7188767877051658447, guid: 69d60df7fe1db4c579bf2d812040eb0e, type: 3}
+  annotateClip: {fileID: 8300000, guid: 5b1c7e0a9d2f4a63b8e41c0d7f3a92e6, type: 3}
+  volume: 0.25
 --- !u!114 &1912034192538467956
 MonoBehaviour:
   m_ObjectHideFlags: 0

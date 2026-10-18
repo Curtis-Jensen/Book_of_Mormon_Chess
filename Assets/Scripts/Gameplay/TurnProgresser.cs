@@ -305,7 +305,12 @@ public class TurnProgresser : MonoBehaviour
 
             // Defensive: a missing/unassigned AudioSource shouldn't be able to take the
             // whole move down with it -- a sound failing to play is not worth losing a move over.
-            audioSource?.Play();
+            if (audioSource != null)
+            {
+                // Slight random pitch so repeated moves don't sound identical
+                audioSource.pitch = Random.Range(0.92f, 1.08f);
+                audioSource.Play();
+            }
 
             selectedPiece.MoveEnd();
 

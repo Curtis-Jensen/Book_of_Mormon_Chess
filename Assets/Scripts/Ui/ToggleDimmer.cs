@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-// Dims and disables a set of rows whenever a toggle is off,
+// Hides (and disables) a set of rows whenever a toggle is off,
 // e.g. the Player 3 / Player 4 settings while Duos is unchecked.
 public class ToggleDimmer : MonoBehaviour
 {
@@ -27,6 +27,7 @@ public class ToggleDimmer : MonoBehaviour
             row.alpha = isOn ? 1f : dimmedAlpha;
             row.interactable = isOn;
             row.blocksRaycasts = isOn;
+            row.gameObject.SetActive(isOn);
         }
     }
 }

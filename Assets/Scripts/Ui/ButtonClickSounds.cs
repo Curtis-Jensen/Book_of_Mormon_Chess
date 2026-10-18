@@ -8,6 +8,9 @@ public class ButtonClickSounds : MonoBehaviour
     [SerializeField] AudioClip clickClip;
     [SerializeField, Range(0f, 1f)] float volume = 0.5f;
 
+    public const string VolumeKey = "SfxVolume";
+    public const float DefaultVolume = 1f;
+
     AudioSource source;
 
     void Awake()
@@ -21,6 +24,6 @@ public class ButtonClickSounds : MonoBehaviour
 
     void PlayClick()
     {
-        if (clickClip != null) source.PlayOneShot(clickClip, volume);
+        if (clickClip != null) source.PlayOneShot(clickClip, volume * PlayerPrefs.GetFloat(VolumeKey, DefaultVolume));
     }
 }

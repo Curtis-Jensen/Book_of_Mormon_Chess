@@ -8,8 +8,23 @@ public class MusicPlayer : MonoBehaviour
     public List<MusicChoice> musicChoices;
     [Tooltip("Seconds of silence between one song ending and the next starting")]
     public float gapBetweenSongs = 3f;
+    public const string VolumeKey = "MusicVolume";
+    public const float DefaultVolume = 0.5f;
+
     AudioSource source;
     int lastIndex = -1;
+
+    void Awake()
+    {
+        source = GetComponent<AudioSource>();
+        source.volume = PlayerPrefs.GetFloat(VolumeKey, DefaultVolume);
+    }
+
+    // Called by MusicVolumeSlider so changes are heard immediately, mid-song.
+    public void SetVolume(float volume)
+    {
+        source.volume = volume;
+    }
 
     /* If in official build of the game, remove the ability for copyrighted music to be played
      * it's just for fun while testing
@@ -21,7 +36,6 @@ public class MusicPlayer : MonoBehaviour
             musicChoices.RemoveAll(song => song.isCopyrighted);
         if (musicChoices.Count == 0) return;
 
-        source = gameObject.GetComponent<AudioSource>();
         StartCoroutine(PlayMusic());
     }
 
